@@ -3,6 +3,8 @@ import Search from "../../../assets/searh.svg";
 
 export const SearchBarWrapper = styled.div`
     position : relative;
+    width: 360px;
+    height: 44px;
 `;
 
 export const SearchBarInput = styled.input.attrs( { type : "text", placeholder: "검색어를 입력해주세요." } )`
