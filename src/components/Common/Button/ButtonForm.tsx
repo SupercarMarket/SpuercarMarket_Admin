@@ -1,9 +1,11 @@
 import React from 'react'
 import { Button } from "./ButtonForm.styled";
 
-const ButtonForm = () => {
+import { ButtonPropsType } from "../../../types/ButtonType";
+
+const ButtonForm = ({ text } : ButtonPropsType ) => {
   return (
-    <Button>보이기</Button>
+    <Button>{text}</Button>
   )
 }
 
