@@ -137,6 +137,9 @@ const SideMenuForm = () => {
   const [ isMainMenuClicked, setIsMainMenuClicked ] = useState< MainMenuItemsTypes >( MainMenuItems );
   const [ isSubMenuClicked, setIsSubMenuClicked ] = useState< SubMenuItemTypes >( SubMenuItems );
   
+  // onClickedMainMenuHandler
+  // MainMenu가 눌리면 SubMenu를 활성화 해주는 함수
+  // key : member, market... 을 받아 isClicked 속성을 비교
   const onClickedMainMenuHandler = ( key : string ) => {
     let dummyMainMenuItems : MainMenuItemsTypes = { ...MainMenuItems }; //MainMenuItems;
 
@@ -149,7 +152,8 @@ const SideMenuForm = () => {
     }
     setIsMainMenuClicked( previousMainMenuState => ({ ...previousMainMenuState, ...dummyMainMenuItems } ) );
   };
-
+  //  onClickedSubMenuHandler
+  //  key : member, market ... 을 받아 name : 회원 정보 리스트... 의 isClicked 속성을 비교
   const onClickedSubMenuHandler = ( key : string, name : string ) => {
     let dummySubMenuItems : SubMenuItemTypes = { ...SubMenuItems };
     
