@@ -45,12 +45,13 @@ const GlobalStyle = createGlobalStyle`
 
   /* input 기본 스타일 초기화 */
   input {
-      -webkit-appearance: none;
+      /* -webkit-appearance: none;
         -moz-appearance: none;
               appearance: none;
+            */
       :focus{
         outline: none;
-      }
+      } 
   }
 
   /* list 스타일 */
@@ -62,6 +63,19 @@ const GlobalStyle = createGlobalStyle`
   /* a 태그 reset*/
   a{
     all: unset;
+  }
+
+  /* table 스타일 */
+  table{
+    width: 100%;    
+    border : 1px solid #EAEAEC;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    text-align:center;
+    vertical-align:middle;
+    border : 1px solid #EAEAEC;
   }
 `;
 
