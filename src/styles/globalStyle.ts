@@ -68,14 +68,18 @@ const GlobalStyle = createGlobalStyle`
   /* table 스타일 */
   table{
     width: 100%;    
-    border : 1px solid #EAEAEC;
+    border : 1px solid ${({theme}) => theme.colors.greyScale_3};
     border-collapse: collapse;
   }
 
   th, td {
     text-align:center;
     vertical-align:middle;
-    border : 1px solid #EAEAEC;
+    border : 1px solid ${({theme}) => theme.colors.greyScale_3};
+  }
+
+  th{
+    background-color: ${({theme}) => theme.colors.greyScale_2};
   }
 `;
 
