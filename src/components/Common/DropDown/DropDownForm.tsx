@@ -1,24 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import { DropDownPropsType, DropDownItemMap } from "../../../types/DropDownType";
 import { Wrapper, Selecter, SelecterArrow, OptionWrapper, OptionItem } from "./DropDownForm.styeld";
 
-import { DropDownPropsType, DropDownSelecterMap, DropDownItemMap } from "../../../types/DropDownType";
-
+import { useDetectOutSideHandler } from "../../../hooks/DropDown/useDropDownHooks";
 
 const DropDownForm = ( { category } : DropDownPropsType ) => {
-  const [ isClicked, setIsClicked ] = useState<boolean>( false );
+  const { isOpen, isTitle, ref, openDropDownFn, changeDropDownTitleFn } = useDetectOutSideHandler( { initState : false, title : category } );
 
   return (
-    <Wrapper>
-      <Selecter onClick={() => setIsClicked( !isClicked ) }>{ DropDownSelecterMap[category].name }</Selecter>
+    <Wrapper ref={ ref }>
+      <Selecter
+        onClick={ () =>  openDropDownFn( isOpen ) }
+      >
+        {isTitle}
+      </Selecter>
       <SelecterArrow />
-      <OptionWrapper isClicked={ isClicked }>
-        { DropDownItemMap[ category ].map( item => {
+      <OptionWrapper isClicked={ isOpen }>
+        {DropDownItemMap[category].map((item) => {
           return (
-            <OptionItem key={item.name} >{item.name}</OptionItem>
-          )})}
+            <OptionItem
+              key={item.name}
+              onClick={() => {
+                changeDropDownTitleFn( item.name );
+              }}
+            >
+              {item.name}
+            </OptionItem>
+          );
+        })}
       </OptionWrapper>
     </Wrapper>
-  )
+  );
 }
 
 export default DropDownForm;
