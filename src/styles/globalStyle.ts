@@ -66,7 +66,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   /* table 스타일 */
-  table{
+  /* table{
     width: 100%;    
     border : 1px solid ${({theme}) => theme.colors.greyScale_3};
     border-collapse: collapse;
@@ -80,7 +80,7 @@ const GlobalStyle = createGlobalStyle`
 
   th{
     background-color: ${({theme}) => theme.colors.greyScale_2};
-  }
+  } */
 `;
 
 
