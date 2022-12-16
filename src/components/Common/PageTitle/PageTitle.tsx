@@ -5,7 +5,7 @@ import { TitlePropsType } from "../../../types/PageTitleType";
 
 const PageTitle = ( { title } : TitlePropsType ) => {
   return (
-    <Title title={title}/>
+    <Title>{title}</Title>
   )
 }
 
