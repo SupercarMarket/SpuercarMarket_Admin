@@ -46,17 +46,6 @@ export const DropDownItemMap: DropDownMapItemsType = {
         { name: "딜러 이름", value: "market_list_dealer_name" },
         { name: "딜러 닉네임", value: "market_list_dealer_nickname" },
     ],
-    market_seller: [
-        { name: "전체", value: "market_list_all" },
-        { name: "차종", value: "market_seller_car_category" },
-        { name: "제목", value: "market_seller_title" },
-        { name: "매물 상태", value: "market_seller_sale_status" },
-        { name: "등록 일자", value: "market_seller_registration_date" },
-        { name: "딜러 회원번호", value: "market_seller_dealer_membership_number" },
-        { name: "딜러 아이디", value: "market_seller_dealer_id" },
-        { name: "딜러 이름", value: "market_seller_dealer_name" },
-        { name: "딜러 닉네임", value: "market_seller_dealer_nickname" },
-    ],
     magazine_list: [
         { name: "전체", value: "magazine_list_all" },
         { name: "등록 일자", value: "magazine_list_registration_date" },
