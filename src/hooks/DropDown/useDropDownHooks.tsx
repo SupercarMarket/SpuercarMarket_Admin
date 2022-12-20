@@ -25,7 +25,6 @@ export const useDetectOutSideHandler = ( { initState, title } : useDetectPropsTy
     // 외부 영역 클릭시, 목록 닫기
     useEffect(()=>{
         const onCheckOutSideHandler = ( event : CustomEvent<MouseEvent> ) => {
-          console.log( outSideRef.current );
           if( isOpen && outSideRef.current && ! outSideRef.current.contains( event.target as Node ) ){
             setIsOpen( false );
           }

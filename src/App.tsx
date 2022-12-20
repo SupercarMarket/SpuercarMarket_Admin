@@ -2,7 +2,8 @@ import React from 'react';
 import LoginForm from './components/Login/LoginForm';
 import HeaderForm from './components/Header/HeaderForm';
 import SideMenuForm from './components/SideMenu/SideMenuForm';
-import MarketForm from './components/Market/MarketForm';
+import VehicleRegistrationInquriyForm from './components/Market/VehicleRegistrationInquiry/VehicleRegistrationInquriyForm';
+import VehicleRegistrationInquiryDetailForm from './components/Market/VehicleRegistrationInquiryDetail/VehicleRegistrationInquiryDetailForm';
 
 const isLogin = true;
 
@@ -12,9 +13,12 @@ function App() {
       {isLogin ? (
         <>
           <HeaderForm />
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", height:"100%" }}>
             <SideMenuForm />
-            <MarketForm />
+            {/* <ForSaleListForm /> */}
+            {/* <ForSaleListDetailForm /> */}
+            <VehicleRegistrationInquriyForm />
+            {/* <VehicleRegistrationInquiryDetailForm /> */}
           </div>
         </>
       ) : (
