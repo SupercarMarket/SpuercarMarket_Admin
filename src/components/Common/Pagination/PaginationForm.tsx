@@ -9,9 +9,9 @@ import { PaginationWrapper, ChangePageButton, ChangePageButtonImage, PageNumberB
 
 import usePaginationHooks from "../../../hooks/Pagination/usePaginationHooks";
 
-const PaginationForm = ( { pagintaionCount, postsPerPage, isPage, totalContentsCount, setIsPage } : PaginationPropsType ) => {
+const PaginationForm = ( { paginationCount, postsPerPage, isPage, totalContentsCount, setIsPage } : PaginationPropsType ) => {
   const totalPages = Math.ceil( totalContentsCount / postsPerPage );
-  const { Page, offset, frontButtonOnClickHanlder, previousButtonOnClickHanlder, lastButtonOnClickHanlder, nextButtonOnClickHanlder } = usePaginationHooks({ pagintaionCount, postsPerPage, isPage, totalContentsCount, setIsPage } );
+  const { Page, offset, frontButtonOnClickHanlder, previousButtonOnClickHanlder, lastButtonOnClickHanlder, nextButtonOnClickHanlder } = usePaginationHooks({ paginationCount, postsPerPage, isPage, totalContentsCount, setIsPage } );
   useEffect(()=>{
     console.log( offset, Page );
   },[Page])
@@ -23,7 +23,7 @@ const PaginationForm = ( { pagintaionCount, postsPerPage, isPage, totalContentsC
       <ChangePageButton onClick={() => previousButtonOnClickHanlder() } disabled={ Page === 1 }>
         <ChangePageButtonImage src={IconPrevious} />
       </ChangePageButton>
-      { Array( totalPages ).fill( 0 ).slice( offset, offset + pagintaionCount ).map( ( _, i ) => {
+      { Array( totalPages ).fill( 0 ).slice( offset, offset + paginationCount ).map( ( _, i ) => {
         return (
           <PageNumberButton key={i} aria-current={ Page === ( i + 1 + offset ) ? "page" : undefined } >{ i + 1 + offset }</PageNumberButton>
         )
