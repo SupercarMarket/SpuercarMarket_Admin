@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { PaginationPropsType } from "../../types/PaginationType";
 
 const usePaginationHooks = ({
-  pagintaionCount,
+  paginationCount,
   postsPerPage,
   isPage,
   totalContentsCount,
@@ -10,7 +10,7 @@ const usePaginationHooks = ({
 }: PaginationPropsType) => {
   const [isPageCount, setIsPageCount] = useState<number>(1);
   const totalPages = Math.ceil(totalContentsCount / postsPerPage);
-  let offset = (isPageCount - 1) * pagintaionCount;
+  let offset = (isPageCount - 1) * paginationCount;
 
   // 가장 앞으로 가기 버튼 눌렸을 때
   const frontButtonOnClickHanlder = () => {
@@ -34,7 +34,7 @@ const usePaginationHooks = ({
   const lastButtonOnClickHanlder = () => {
     // 가장 마지막 페이지 개수
     // 가장 마지막 페이지 번호
-    setIsPageCount(Math.ceil(totalPages / pagintaionCount));
+    setIsPageCount(Math.ceil(totalPages / paginationCount));
     setIsPage(totalPages);
   };
 
