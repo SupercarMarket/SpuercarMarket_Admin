@@ -16,9 +16,9 @@ function App() {
           <HeaderForm />
           <div style={{ display: "flex", height:"100%" }}>
             <SideMenuForm />
-            <ForSaleListForm />
+            {/* <ForSaleListForm /> */}
             {/* <ForSaleListDetailForm /> */}
-            {/* <VehicleRegistrationInquriyForm /> */}
+            <VehicleRegistrationInquriyForm />
             {/* <VehicleRegistrationInquiryDetailForm /> */}
           </div>
         </>

@@ -6,14 +6,16 @@ import {
 import VehicleMainTableHeaderForm from './Header/VehicleMainTableHeaderForm';
 import VehicleMainTableBodyForm from './Body/VehicleMainTableBodyForm';
 
-const VehicleMainTableForm = () => {
+import { VehicleMainTablePropsType } from "../../../../../types/VehicleMainList";
+
+const VehicleMainTableForm = ( { offset, postsPerPage, totalContentsCount } : VehicleMainTablePropsType ) => {
   return (
     <VehicleMainTableWrapper>
       <VehicleSaleInfoTable>
         {/* 헤더 */}
         <VehicleMainTableHeaderForm />
         {/* 바디 */}
-        <VehicleMainTableBodyForm />
+        <VehicleMainTableBodyForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} />
       </VehicleSaleInfoTable>
     </VehicleMainTableWrapper>
   )

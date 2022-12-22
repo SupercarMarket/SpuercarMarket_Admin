@@ -22,7 +22,7 @@ const ForSaleTableBodyForm = ({
       { Array( totalContentsCount ).fill( 0 ).slice( offset, offset + postsPerPage ).map( ( _, i ) => {
         return (
           <>
-            <tr>
+            <tr key={i}>
               <MarketTableBodyRowSpan index={0}>
                 <MarketCheckBoxWrapper>
                   <MarketInputCheckBox id={"body_checkbox" + i} />
