@@ -1,13 +1,10 @@
 import React from 'react';
 import {
   VehicleMainTableWrapper,
-  VehicleSaleInfoTable,
-  VehicleSaleTbody,
-  VehicleSaleTableContent,
-  VehicleSaleButton
+  VehicleSaleInfoTable
 } from "./VehicleMainTableForm.styled";
-import VehicleMainTableHeaderForm from '../PageItems/Table/Header/VehicleMainTableHeaderForm';
-import VehicleMainTableBodyForm from '../PageItems/Table/Body/VehicleMainTableBodyForm';
+import VehicleMainTableHeaderForm from './Header/VehicleMainTableHeaderForm';
+import VehicleMainTableBodyForm from './Body/VehicleMainTableBodyForm';
 
 const VehicleMainTableForm = () => {
   return (

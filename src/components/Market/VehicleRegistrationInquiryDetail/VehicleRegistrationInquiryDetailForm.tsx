@@ -5,7 +5,7 @@ import MainInfoTableForm from '../Detail/MainInfoTable/MainInfoTableForm';
 import SubTitleTableForm from '../Detail/SubTitleTable/SubTitleTableForm';
 import VehicleDetailTableForm from '../Detail/VehicleDetailTable/VehicleDetailTableForm';
 import PhotoRegistrationTableForm from '../Detail/PhotoRegistrationTable/PhotoRegistrationTableForm';
-import AttachFileForm from '../Detail/AttachFile/AttachFileForm';
+import AttachFileForm from '../Detail/DownLoadFile/DownLoadFileForm';
 import SellerInfoTableForm from '../Detail/SellerInfoTable/SellerInfoTableForm';
 
 const VehicleRegistrationInquiryDetailForm = () => {

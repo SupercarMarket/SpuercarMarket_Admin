@@ -29,7 +29,8 @@ export const PhotoRegistrationTitle = styled.div`
 `
 
 export const PhotoRegistrationContentWrapper = styled.div`
-    width: 1480px;
+    /* width: 1480px; */
+    width: 100%;
     height : 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);

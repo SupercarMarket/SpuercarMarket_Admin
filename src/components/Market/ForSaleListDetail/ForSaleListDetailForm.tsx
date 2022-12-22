@@ -27,7 +27,7 @@ import MainInfoTableForm from '../Detail/MainInfoTable/MainInfoTableForm';
 import SubTitleTableForm from '../Detail/SubTitleTable/SubTitleTableForm';
 import VehicleDetailTableForm from '../Detail/VehicleDetailTable/VehicleDetailTableForm';
 import PhotoRegistrationTableForm from '../Detail/PhotoRegistrationTable/PhotoRegistrationTableForm';
-import AttachFileForm from '../Detail/AttachFile/AttachFileForm';
+import DownLoadFileForm from '../Detail/DownLoadFile/DownLoadFileForm';
 import SellerInfoTableForm from '../Detail/SellerInfoTable/SellerInfoTableForm';
 
 const ForSaleListDetailForm = () => {
@@ -43,7 +43,7 @@ const ForSaleListDetailForm = () => {
       {/* 사진 등록 */}
       <PhotoRegistrationTableForm />
       {/* 첨부 파일 */}
-      <AttachFileForm />
+      <DownLoadFileForm />
       {/* 숨기기 버튼 */}
       <HiddenButtonWrapper>
         <HiddenButton>숨기기</HiddenButton>

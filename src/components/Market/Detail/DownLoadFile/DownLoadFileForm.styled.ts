@@ -2,12 +2,13 @@ import styled from "styled-components";
 import { Button } from "../../../Common/Button/ButtonForm.styled";
 import { ContentWrapperAttrs } from "../../ForSaleListDetail/ForSaleListDetailForm.styled";
 
-export const AttachFileWrapper = styled( ContentWrapperAttrs )`
+export const DownLaodFileWrapper = styled( ContentWrapperAttrs )`
+    width: 100%;
     height : 188px;
     display: flex;
 `;
 
-export const AttachFileTitle = styled.div`
+export const DownLaodFileTitle = styled.div`
     width: 120px;
     height: 100%;
 
@@ -26,10 +27,11 @@ export const AttachFileTitle = styled.div`
     border-bottom : 1px solid ${({theme}) => theme.colors.greyScale_3};
 `;
 
-export const AttachFileContentWrapper = styled.div`
+export const DownLaodFileContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 1480px;
+    /* width: 1480px; */
+    width : 100%;
     height: 100%;
     padding : 16px;
     border-bottom : 1px solid ${({theme}) => theme.colors.greyScale_3};
@@ -37,13 +39,13 @@ export const AttachFileContentWrapper = styled.div`
     gap: 12px;
 `;
 
-export const AttachFileInputButtonWrapper = styled.div`
+export const DownLaodFileInputButtonWrapper = styled.div`
     display: flex;
     gap : 8px;
     height : 44px;
 `;
 
-// export const AttachFileInput = styled.input.attrs({ placeholder : "파일명.png" })`
+// export const DownLaodFileInput = styled.input.attrs({ placeholder : "파일명.png" })`
 //     padding : 16px;
 //     width: 1340px;
 
@@ -59,7 +61,7 @@ export const AttachFileInputButtonWrapper = styled.div`
 // `;
 
 
-export const AttachFileInput = styled.div`
+export const DownLaodFileInput = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -85,6 +87,6 @@ export const AttachFileInput = styled.div`
     } */
 `;
 
-export const AttachButton = styled( Button )`
-    font-size: 15.7px;
+export const DownLaodButton = styled( Button )`
+    font-size: 16px;
 `;

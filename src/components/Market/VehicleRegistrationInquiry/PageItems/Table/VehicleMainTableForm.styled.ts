@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Button } from "../../../Common/Button/ButtonForm.styled";
 
 export const VehicleMainTableWrapper = styled.div`
     width : 100%;
@@ -18,16 +17,3 @@ export const VehicleSaleInfoTable = styled.table`
 
     color: ${({ theme }) => theme.colors.greyScale_6 };
 `;
-
-export const VehicleSaleTbody = styled.tbody``;
-
-export const VehicleSaleTableContent = styled.td`
-    height: 40px;
-
-    text-align:center;
-    vertical-align:middle;
-    
-    border : 1px solid ${({theme}) => theme.colors.greyScale_3};
-`;
-
-export const VehicleSaleButton = styled( Button )``;

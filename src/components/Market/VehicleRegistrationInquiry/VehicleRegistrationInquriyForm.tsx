@@ -1,7 +1,7 @@
 import React from 'react';
 import { Wrapper } from "./VehicleRegistrationInquriyForm.styled";
 import TopBannerForm from './PageItems/TopBanner/TopBannerForm';
-import VehicleMainTableForm from './VehicleMainTable/VehicleMainTableForm';
+import VehicleMainTableForm from './PageItems/Table/VehicleMainTableForm';
 
 const VehicleRegistrationInquriyForm = () => {
   return (
