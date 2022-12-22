@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Wrapper } from "./ForSaleListForm.styled";
 
 import ForSaleTopBannerForm from './PageItems/TopBanner/ForSaleTopBannerForm';
@@ -17,11 +17,22 @@ const ForSaleListForm = () => {
   const [ isPage, setIsPage ] = useState< number >( startPage );
   const offset = ( isPage - 1 ) * postsPerPage;
 
+  useEffect(()=>{
+    window.scrollTo( 0, 0 );
+  },[ isPage ]);
+
   return (
     <Wrapper>
-      <div style={{ width : "100%", marginLeft: "auto", marginRight: "auto" }}>
+      <div style={{ width: "100%", marginLeft: "auto", marginRight: "auto" }}>
         <ForSaleTopBannerForm />
-        <ForSaleMainTableForm />
+        <ForSaleMainTableForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} />
+        <PaginationForm
+          paginationCount={paginationCount}
+          postsPerPage={postsPerPage}
+          totalContentsCount={totalContentsCount}
+          isPage={ isPage }
+          setIsPage={ setIsPage }
+        />
       </div>
     </Wrapper>
   );

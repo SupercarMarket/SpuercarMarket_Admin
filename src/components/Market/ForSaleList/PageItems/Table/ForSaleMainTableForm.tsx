@@ -3,15 +3,25 @@ import { TableWrapper, MarketTable } from "./ForSaleMainTableForm.styled";
 import ForSaleTableHeaderForm from './Header/ForSaleTableHeaderForm';
 import ForSaleTableBodyForm from './Body/ForSaleTableBodyForm';
 
-const ForSaleMainTableForm = () => {
+import { ForSaleListPropsType } from "../../../../../types/ForSaleList";
+
+const ForSaleMainTableForm = ({
+  offset,
+  postsPerPage,
+  totalContentsCount,
+}: ForSaleListPropsType) => {
   return (
     <TableWrapper>
       <MarketTable>
         <ForSaleTableHeaderForm />
-        <ForSaleTableBodyForm />
+        <ForSaleTableBodyForm
+          offset={offset}
+          postsPerPage={postsPerPage}
+          totalContentsCount={totalContentsCount}
+        />
       </MarketTable>
     </TableWrapper>
-  )
-}
+  );
+};
 
 export default ForSaleMainTableForm
