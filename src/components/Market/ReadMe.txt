@@ -11,13 +11,12 @@ Comments    : Market 디렉토리 설명
 │  │  └─MemberInfoTable                     : 판매자 정보 -> 회원 정보 테이블
 │  ├─SubTitleTable                          : 부제목 테이블
 │  └─VehicleDetailTable                     : 차량 설명글
-├─ForSaleList
-│  ├─ForSaleMainTable
-│  └─PageItems
+├─ForSaleList                               : 매물 리스트
+│  └─PageItems                              : 매물 리스트에 필요한 아이템들
 │      ├─Table
-│      │  ├─Body
-│      │  └─Header
-│      └─TopBanner
+│      │  ├─Body                            : 매물 리스트 테이블 바디
+│      │  └─Header                          : 매물 리스트 테이블 헤더
+│      └─TopBanner                          : 매물 리스트 상단 dropdown, search bar
 ├─ForSaleListDetail                         : 매물리스트 상세보기
 ├─VehicleRegistrationInquiry                : 판매차량 등록 문의 리스트
 │  └─PageItems                              : 판매차량 등록 문의 리스트 페이지 아이템
