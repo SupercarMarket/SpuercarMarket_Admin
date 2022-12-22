@@ -46,13 +46,20 @@ const usePaginationHooks = ({
       setIsPageCount((pre) => pre + 1);
     }
   };
+
+  // 페이지 버튼 눌렸을 대
+  const pageButtonOnClickHandler = ( index : number ) => {
+    setIsPage( index );
+  };
+
   return {
     Page : isPage,
     offset : offset,
     frontButtonOnClickHanlder : frontButtonOnClickHanlder,
     previousButtonOnClickHanlder : previousButtonOnClickHanlder,
     lastButtonOnClickHanlder : lastButtonOnClickHanlder,
-    nextButtonOnClickHanlder : nextButtonOnClickHanlder
+    nextButtonOnClickHanlder : nextButtonOnClickHanlder,
+    pageButtonOnClickHandler : pageButtonOnClickHandler
   };
 };
 
