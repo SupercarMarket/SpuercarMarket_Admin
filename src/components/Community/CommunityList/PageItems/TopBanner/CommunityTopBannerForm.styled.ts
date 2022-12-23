@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from "../../../Common/Button/ButtonForm.styled";
+import { Button } from "../../../../Common/Button/ButtonForm.styled";
 
 export const TopWrapper = styled.div`
     display: flex;

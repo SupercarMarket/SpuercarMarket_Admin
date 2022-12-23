@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BlackCheckBox from "../../../../../assets/black_checkbox.svg";
+import BlackCheckBox from "../../../../../../assets/black_checkbox.svg";
 
 export const CommunityThead = styled.thead``;
 

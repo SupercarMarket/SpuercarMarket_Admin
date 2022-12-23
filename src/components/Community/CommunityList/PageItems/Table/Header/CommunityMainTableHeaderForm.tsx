@@ -6,6 +6,7 @@ import {
   CommunityInputCheckBox,
   CommunityLabelCheckBox
 } from "./CommnunityMainTableHeaderForm.styled";
+import SmallDropDownForm from '../../../../../Common/SmallDropDown/SmallDropDownForm';
 
 const CommunityMainTableHeaderForm = () => {
   return (
@@ -18,7 +19,12 @@ const CommunityMainTableHeaderForm = () => {
                 </CommunityCheckBoxWrapper>
             </CommunityTableHeader>
             <CommunityTableHeader rowSpan={2}>번호</CommunityTableHeader>
-            <CommunityTableHeader rowSpan={2}>카테고리</CommunityTableHeader>
+            <CommunityTableHeader rowSpan={2}>
+              <div style={{ display:"flex", width:"100%", flexDirection:"column", justifyContent:"center", alignItems:"center" }}>
+                <span style={{ marginBottom:"8px" }}>카테고리</span>
+                <SmallDropDownForm category='community_list_category'/>
+              </div>
+            </CommunityTableHeader>
             <CommunityTableHeader rowSpan={2} style={{width:"560px"}}>제목</CommunityTableHeader>
             <CommunityTableHeader>작성자 회원번호</CommunityTableHeader>
             <CommunityTableHeader>작성자 아이디</CommunityTableHeader>

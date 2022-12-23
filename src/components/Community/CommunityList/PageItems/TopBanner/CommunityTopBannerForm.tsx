@@ -1,8 +1,8 @@
 import React from 'react'
 import { TopWrapper, TopLeftWrapper, TopRightWrapper, TopHideButton, TotalTopButton } from "./CommunityTopBannerForm.styled";
 
-import SearchBarForm from '../../../Common/SearchBar/SearchBarForm';
-import DropDownForm from '../../../Common/DropDown/DropDownForm';
+import SearchBarForm from '../../../../Common/SearchBar/SearchBarForm';
+import DropDownForm from '../../../../Common/DropDown/DropDownForm';
 
 const CommunityTopBannerForm = () => {
     const isCountSeller = "00";

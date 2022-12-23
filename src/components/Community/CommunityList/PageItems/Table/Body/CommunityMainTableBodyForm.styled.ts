@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Button } from "../../../../Common/Button/ButtonForm.styled";
-import BlackCheckBox from "../../../../../assets/black_checkbox.svg";
+import { Button } from "../../../../../Common/Button/ButtonForm.styled";
+import BlackCheckBox from "../../../../../../assets/black_checkbox.svg";
 
 export const CommunityTbody = styled.tbody``;
 
