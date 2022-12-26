@@ -11,6 +11,7 @@ comments : 설치된 package 목록을 나타냅니다.
         dotenv               v 16.0.3
         @reduxjs/toolkit     v 1.9.1
         react-redux          v 8.0.5
+        react-datepicker"    v 4.8.0
 
 
 Date     : 2022-12-14
