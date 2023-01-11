@@ -17,8 +17,7 @@ const Logo = styled.img.attrs({ src : `${HeaderLogo}`})`
     /* width : 361px;
     height : 56px; */
 `
-
-const LogoutButton = styled.button`
+const ControlButton = styled.button`
     font-weight: ${ ( { theme } ) => theme.fontWeight.normal };
     font-size : ${ ( { theme } ) => theme.fontSize.header_16 };
 
@@ -31,4 +30,35 @@ const LogoutButton = styled.button`
     border: none;
 `;
 
-export { Wrapper, Logo, LogoutButton };
+const RightWrapper = styled.div`
+    display: flex;
+    gap : 40px;
+`;
+
+const LoginInfoWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 16px;
+`;
+
+const UserName = styled.span`
+    font-weight: ${ ( { theme } ) => theme.fontWeight.normal };
+    font-size : ${ ( { theme } ) => theme.fontSize.header_16 };
+
+    line-height: 150%;
+
+    color : ${ ( { theme } ) => theme.colors.greyScale_1 };
+    background-color: ${ ( { theme } ) => theme.colors.greyScale_6 };
+
+    outline: none;
+    border: none;
+`;
+
+const UserIcon = styled.img`
+    width: 40px; 
+    height: 40px;
+`;
+
+export { Wrapper, Logo, ControlButton, RightWrapper, LoginInfoWrapper, UserName, UserIcon };
