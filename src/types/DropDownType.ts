@@ -73,11 +73,13 @@ export const DropDownItemMap: DropDownMapItemsType = {
         { name: "주소", value: "" },
     ],
     advertisement_position: [
-        { name: "전체", value: "" },
-        { name: "위치1", value: "" },
-        { name: "위치2", value: "" },
-        { name: "위치3", value: "" },
-        { name: "위치4", value: "" },
+        { name: "홈", value: "" },
+        { name: "매장", value: "" },
+        { name: "매거진", value: "" },
+        { name: "커뮤니티", value: "" },
+        { name: "제휴업체", value: "" },
+        { name: "문의", value: "" },
+        { name: "통합검색", value: "" },
     ],
     advertisement_show: [
         { name: "전체", value: "" },
