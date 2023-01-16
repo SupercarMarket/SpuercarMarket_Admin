@@ -17,6 +17,7 @@ export const TopBannerLeftWrapper = styled.div`
 
     width: 514px;
     height : 100%;
+    gap :20px;
 `;
 
 export const TopBannerButton = styled( Button )``;
