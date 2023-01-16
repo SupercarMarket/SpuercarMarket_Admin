@@ -2,7 +2,7 @@ import React from 'react';
 import LoginForm from './components/Login/LoginForm';
 import HeaderForm from './components/Header/HeaderForm';
 import SideMenuForm from './components/SideMenu/SideMenuForm';
-import CommunityForm from './components/Community/CommunityForm';
+// import ForSaleListDetailForm from './components/Market/ForSaleListDetail/ForSaleListDetailForm';
 
 const isLogin = true;
 
@@ -14,7 +14,7 @@ function App() {
           <HeaderForm />
           <div style={{ display: "flex", height:"100%" }}>
             <SideMenuForm />
-            <CommunityForm />
+            {/* <ForSaleListDetailForm /> */}
           </div>
         </>
       ) : (
