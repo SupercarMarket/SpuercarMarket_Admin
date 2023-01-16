@@ -1,4 +1,4 @@
-import Select from "../../commons/Select";
+import Select from "../../../commons/Select";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "./buttonStyles";

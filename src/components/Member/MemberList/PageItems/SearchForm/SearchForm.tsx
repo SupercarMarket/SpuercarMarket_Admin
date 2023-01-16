@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "./buttonStyles";
-import Select from "../../commons/Select";
-import DateRangePicker from "../../commons/DateRangePicker";
-import RadioBtn from "../../commons/RadioBtn";
-import CheckBoxGroup from "../../commons/CheckBoxGroup";
+import Select from "../../../commons/Select";
+import DateRangePicker from "../../../commons/DateRangePicker";
+import RadioBtn from "../../../commons/RadioBtn";
+import CheckBoxGroup from "../../../commons/CheckBoxGroup";
 
 const SearchBoxWrapper = styled.div`
   display: flex;
