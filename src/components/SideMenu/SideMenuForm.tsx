@@ -98,6 +98,12 @@ const SubMenuItems: SubMenuItemTypes = {
       isClicked: false,
       path: "회원정보 리스트",
     },
+    {
+      key: "advertisement",
+      name: "배너 리스트",
+      isClicked: false,
+      path: "회원정보 리스트",
+    },
   ],
   inquriy: [
     {
