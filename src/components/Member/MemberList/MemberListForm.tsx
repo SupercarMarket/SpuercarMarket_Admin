@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import UserTable from "./PageItems/Table/UserTable";
-import Pagination from "./commons/Pagination";
-import SearchForm from "./PageItems/SearchFrom/SearchForm";
+import Pagination from "../commons/Pagination";
+import SearchForm from "./PageItems/SearchForm/SearchForm";
 import UserHeader from "./PageItems/UserHeader/UserHeader";
 
 import { User } from "types/MemberType";
