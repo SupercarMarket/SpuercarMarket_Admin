@@ -27,4 +27,11 @@ interface Dealer {
   comment: string;
 }
 
-export type { User, Dealer };
+interface Admin {
+  _id: number;
+  adminId: string;
+  adminName: string;
+  adminNickname: string;
+}
+
+export type { User, Dealer, Admin };
