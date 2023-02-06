@@ -29,9 +29,13 @@ interface Dealer {
 
 interface Admin {
   _id: number;
+  ProfileImg: string;
   adminId: string;
   adminName: string;
   adminNickname: string;
+  email: string;
+  phoneNumber: string;
+  magazineNumber: number;
 }
 
 export type { User, Dealer, Admin };
