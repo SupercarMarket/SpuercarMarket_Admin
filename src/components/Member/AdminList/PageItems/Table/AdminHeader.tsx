@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../../../styles/buttonStyles";
+import NewAdminModal from "../NewAdminModal/NewAdminModal";
 
 const HeaderDiv = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const HeaderDiv = styled.div`
 function AdminHeader() {
   return (
     <HeaderDiv>
-      <Button>신규 관리자 등록</Button>
+      <NewAdminModal />
       <Button disabled>등록된 관리자 000명</Button>
     </HeaderDiv>
   );
