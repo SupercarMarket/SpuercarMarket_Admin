@@ -88,9 +88,13 @@ function DealerInfo() {
 
   const approverData: Admin = {
     _id: 1,
+    ProfileImg: "",
     adminId: "abcedfg",
     adminName: "이름",
     adminNickname: "닉네임",
+    email: "ooo@gmail.com",
+    phoneNumber: "010-0000-0000",
+    magazineNumber: 5,
   };
 
   return (
