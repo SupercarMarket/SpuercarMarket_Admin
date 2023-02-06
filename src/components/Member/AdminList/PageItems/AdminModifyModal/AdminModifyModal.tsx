@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "./buttonStyles";
+
+import { Admin } from "types/MemberType";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -66,11 +68,21 @@ const InputRow = styled.div`
   }
 `;
 
-function NewAdminModal() {
+type AdminModifyModalProps = {
+  adminData: Admin;
+};
+
+function AdminModifyModal({ adminData }: AdminModifyModalProps) {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [adminName, setAdminName] = useState("");
   const [adminPhoneNumber, setAdminPhoneNumber] = useState("");
   const [adminEmail, setAdminEmail] = useState("");
+
+  useEffect(() => {
+    setAdminName(adminData.adminName);
+    setAdminPhoneNumber(adminData.phoneNumber);
+    setAdminEmail(adminData.email);
+  }, []);
 
   const nameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAdminName(event.currentTarget.value);
@@ -96,12 +108,12 @@ function NewAdminModal() {
 
   return (
     <>
-      <Button onClick={openModalHandler}>신규 관리자 등록</Button>
+      <Button onClick={openModalHandler}>수정하기</Button>
       {isShowModal && (
         <>
           <ModalBackground onClick={closeModalHandler}></ModalBackground>
           <ModalContainer>
-            <div className="Title">신규 관리자 등록</div>
+            <div className="Title">수정하기</div>
             <InputTable>
               <InputRow>
                 <div>이름</div>
@@ -118,7 +130,7 @@ function NewAdminModal() {
             </InputTable>
             <div className="Button">
               <Button onClick={closeModalHandler}>취소</Button>
-              <Button>등록</Button>
+              <Button>수정 완료</Button>
             </div>
           </ModalContainer>
         </>
@@ -127,4 +139,4 @@ function NewAdminModal() {
   );
 }
 
-export default NewAdminModal;
+export default AdminModifyModal;

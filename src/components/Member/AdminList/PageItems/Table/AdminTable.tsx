@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../../styles/buttonStyles";
 import { Admin } from "types/MemberType";
+import AdminModifyModal from "../AdminModifyModal/AdminModifyModal";
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -62,7 +63,7 @@ function AdminTable({ adminList }: tableProps) {
                 <td>{admin.phoneNumber}</td>
                 <td>{admin.magazineNumber}</td>
                 <td>
-                  <Button>수정하기</Button>
+                  <AdminModifyModal adminData={admin} />
                 </td>
                 <td>
                   <Button>차단하기</Button>
