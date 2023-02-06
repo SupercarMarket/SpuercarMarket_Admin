@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import DealerDetail from "./PageItems/DealerDetail/DealerDetail";
+import DealerDetail from "./PageItems/DealerDetail/DealerInquiryDetail";
 import UserDetail from "./PageItems/UserDetail/UserDetail";
-import { User, Dealer, Admin } from "types/MemberType";
-import ApproverDetail from "./PageItems/ApproverDetail/ApproverDetail";
+import { User, Dealer } from "types/MemberType";
 
 const Container = styled.div`
   display: flex;
@@ -56,7 +55,7 @@ export const Table = styled.table`
   }
 `;
 
-function DealerInfo() {
+function DealerInquiryDetailForm() {
   const userData: User = {
     _id: 1,
     userid: "abcdefg",
@@ -86,24 +85,14 @@ function DealerInfo() {
     comment: "",
   };
 
-  const approverData: Admin = {
-    _id: 1,
-    adminId: "abcedfg",
-    adminName: "이름",
-    adminNickname: "닉네임",
-  };
-
   return (
     <div style={{ padding: "40px" }}>
       <Container>
         <DealerDetail dealerData={dealerData} />
-        <div>
-          <UserDetail userData={userData} />
-          <ApproverDetail approverData={approverData} />
-        </div>
+        <UserDetail userData={userData} />
       </Container>
     </div>
   );
 }
 
-export default DealerInfo;
+export default DealerInquiryDetailForm;

@@ -4,6 +4,8 @@ import HeaderForm from "./components/Header/HeaderForm";
 import SideMenuForm from "./components/SideMenu/SideMenuForm";
 
 import MemberListForm from "components/Member/MemberList/MemberListForm";
+import DealerDetailForm from "components/Member/MemberListDetail/DealerDetailForm";
+import DealerInquiryDetailForm from "components/Member/DealerInquiryDetail/DealerInquiryDetailForm";
 
 const isLogin = true;
 
@@ -15,7 +17,7 @@ function App() {
           <HeaderForm />
           <div style={{ display: "flex", height: "100%" }}>
             <SideMenuForm />
-            <MemberListForm />
+            <DealerInquiryDetailForm />
           </div>
         </>
       ) : (
