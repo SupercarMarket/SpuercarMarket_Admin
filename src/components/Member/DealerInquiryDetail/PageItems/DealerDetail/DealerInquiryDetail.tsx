@@ -13,42 +13,42 @@ function DealerInquiryDetail({ dealerData }: { dealerData: Dealer }) {
         <tbody>
           <tr>
             <td className="title">상사명</td>
-            <td className="content">{dealerData.companyName}</td>
+            <td className="content">{dealerData.comName}</td>
             <td className="title">상사 전화번호</td>
-            <td className="content">{dealerData.companyPhone}</td>
+            <td className="content">{dealerData.comPhone}</td>
           </tr>
           <tr>
             <td className="title">상사 주소</td>
             <td className="content" colSpan={3}>
-              {dealerData.companyAddress}
+              {dealerData.comAddress}
             </td>
           </tr>
           <tr>
             <td className="title">사원증 사진 앞면</td>
             <td className="content">
-              <img src={dealerData.idCardFront} alt="idCardFront" />
+              <img src={dealerData.dlrEmployeeCardFront} alt="idCardFront" />
             </td>
             <td className="title">사원증 사진 뒷면</td>
             <td className="content">
-              <img src={dealerData.idCardBack} alt="idCardBack" />
+              <img src={dealerData.dlrEmployeeCardBack} alt="idCardBack" />
             </td>
           </tr>
           <tr>
             <td className="title">프로필 사진</td>
             <td className="content" colSpan={3}>
-              <img src={dealerData.profileImg} alt="profileImg" />
+              <img src={dealerData.dlrProfileImage} alt="profileImg" />
             </td>
           </tr>
           <tr>
             <td className="title">추가 전달 내용</td>
             <td className="content" colSpan={3}>
-              {dealerData.additional}
+              {dealerData.comment}
             </td>
           </tr>
           <tr>
             <td className="title">Comment</td>
             <td className="content" colSpan={3}>
-              <span>{dealerData.comment}</span>
+              <span>{dealerData.regAdmin}</span>
             </td>
           </tr>
         </tbody>

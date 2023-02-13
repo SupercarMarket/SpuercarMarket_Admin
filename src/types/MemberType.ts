@@ -14,17 +14,17 @@ interface User {
 }
 
 interface Dealer {
-  _id: number;
-  companyName: string;
-  companyPhone: string;
-  companyAddress: string;
-  unionName: string;
-  dealerNumber: string;
-  idCardFront: string;
-  idCardBack: string;
-  profileImg: string;
-  additional: string;
-  comment: string;
+  userSeq: number;
+  comName: string;
+  comPhone: string;
+  comAddress: string;
+  guildName: string;
+  dlrNum: string;
+  dlrEmployeeCardFront: string;
+  dlrEmployeeCardBack: string;
+  dlrProfileImage: string;
+  comment: string | null;
+  regAdmin: string;
 }
 
 interface Admin {

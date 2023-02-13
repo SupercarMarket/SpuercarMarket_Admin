@@ -7,6 +7,7 @@ import MemberListForm from "components/Member/MemberList/MemberListForm";
 import DealerDetailForm from "components/Member/MemberListDetail/DealerDetailForm";
 import DealerInquiryDetailForm from "components/Member/DealerInquiryDetail/DealerInquiryDetailForm";
 import AdminListForm from "components/Member/AdminList/AdminListForm";
+import DealerInquiryListForm from "components/Member/DealerInquiry/DealerInquiryListForm";
 
 const isLogin = true;
 
@@ -18,7 +19,7 @@ function App() {
           <HeaderForm />
           <div style={{ display: "flex", height: "100%" }}>
             <SideMenuForm />
-            <AdminListForm />
+            <DealerInquiryListForm />
           </div>
         </>
       ) : (

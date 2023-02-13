@@ -73,17 +73,17 @@ function DealerInfo() {
   };
 
   const dealerData: Dealer = {
-    _id: 1,
-    companyName: "슈퍼카마켓상사",
-    companyPhone: "02-0000-0000",
-    companyAddress: "경기도 성남시 분당구 판교역로 166 (우)13529",
-    unionName: "슈퍼카마켓조합",
-    dealerNumber: "11-123-12345",
-    idCardFront: "",
-    idCardBack: "",
-    profileImg: "",
-    additional: "기타기타기타",
-    comment: "",
+    userSeq: 1,
+    comName: "슈퍼카마켓상사",
+    comPhone: "02-0000-0000",
+    comAddress: "경기도 성남시 분당구 판교역로 166 (우)13529",
+    guildName: "슈퍼카마켓조합",
+    dlrNum: "11-123-12345",
+    dlrEmployeeCardFront: "",
+    dlrEmployeeCardBack: "",
+    dlrProfileImage: "",
+    comment: "기타기타기타",
+    regAdmin: "",
   };
 
   const approverData: Admin = {

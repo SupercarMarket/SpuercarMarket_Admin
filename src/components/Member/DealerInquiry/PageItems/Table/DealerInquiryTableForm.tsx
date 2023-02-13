@@ -1,36 +1,7 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { Button } from "../../../styles/buttonStyles";
 import { Dealer } from "types/MemberType";
-
-const Table = styled.table`
-  border-collapse: collapse;
-  width: 100%;
-
-  thead {
-    background: #f7f7f8;
-    border-radius: 4px;
-  }
-  tbody {
-    background: #ffffff;
-    border-radius: 4px;
-  }
-  td {
-    height: 40px;
-    border: 1px solid lightgray;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 150%;
-    color: #1e1e20;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  img {
-    width: 100px;
-  }
-`;
+import { DealerTable } from "./DealerInquiryTable.styled";
 
 type tableProps = {
   dealerList: Dealer[];
@@ -39,7 +10,7 @@ type tableProps = {
   setCheckedList: Function;
 };
 
-function UserTable({ dealerList, doRegister, checkedList, setCheckedList }: tableProps) {
+function DealerInquiryTableForm({ dealerList, doRegister, checkedList, setCheckedList }: tableProps) {
   const [isAllChecked, setIsAllChecked] = useState(false);
 
   const userCheckHandler = (_id: number, isChecked: boolean) => {
@@ -65,7 +36,7 @@ function UserTable({ dealerList, doRegister, checkedList, setCheckedList }: tabl
     } else {
       const checked: number[] = [];
       dealerList.forEach((dealer) => {
-        checked.push(dealer._id);
+        checked.push(dealer.userSeq);
       });
       setCheckedList(checked);
     }
@@ -74,7 +45,7 @@ function UserTable({ dealerList, doRegister, checkedList, setCheckedList }: tabl
 
   return (
     <div className="table">
-      <Table>
+      <DealerTable>
         <thead>
           <tr>
             <td rowSpan={2}>
@@ -96,42 +67,42 @@ function UserTable({ dealerList, doRegister, checkedList, setCheckedList }: tabl
         </thead>
         <tbody>
           {dealerList.map((dealer) => (
-            <React.Fragment key={dealer._id}>
+            <React.Fragment key={dealer.userSeq}>
               <tr>
                 <td rowSpan={2}>
-                  <input type="checkbox" value={dealer._id} onChange={checkboxHandler} checked={checkedList.includes(dealer._id) ? true : false} />
+                  <input type="checkbox" value={dealer.userSeq} onChange={checkboxHandler} checked={checkedList.includes(dealer.userSeq) ? true : false} />
                 </td>
-                <td>{dealer.companyName}</td>
-                <td>{dealer.companyPhone}</td>
-                <td>{dealer.unionName}</td>
+                <td>{dealer.comName}</td>
+                <td>{dealer.comPhone}</td>
+                <td>{dealer.guildName}</td>
                 <td rowSpan={2}>
-                  <img src={dealer.idCardFront} alt="idCardFront" />
-                </td>
-                <td rowSpan={2}>
-                  <img src={dealer.idCardBack} alt="idCardBack" />
+                  <img src={dealer.dlrEmployeeCardFront} alt="idCardFront" />
                 </td>
                 <td rowSpan={2}>
-                  <img src={dealer.profileImg} alt="profileImg" />
+                  <img src={dealer.dlrEmployeeCardBack} alt="idCardBack" />
                 </td>
-                <td rowSpan={2}>{dealer.additional}</td>
+                <td rowSpan={2}>
+                  <img src={dealer.dlrProfileImage} alt="profileImg" />
+                </td>
+                <td rowSpan={2}>{dealer.comment}</td>
                 <td rowSpan={2}>
                   <div style={{ margin: "0 auto" }}>
-                    <Button style={{ margin: "auto" }} id={dealer._id.toString()} onClick={doRegisterHandler}>
+                    <Button style={{ margin: "auto" }} id={dealer.userSeq.toString()} onClick={doRegisterHandler}>
                       딜러 등록
                     </Button>
                   </div>
                 </td>
               </tr>
               <tr>
-                <td colSpan={2}>{dealer.companyAddress}</td>
-                <td>{dealer.dealerNumber}</td>
+                <td colSpan={2}>{dealer.comAddress}</td>
+                <td>{dealer.dlrNum}</td>
               </tr>
             </React.Fragment>
           ))}
         </tbody>
-      </Table>
+      </DealerTable>
     </div>
   );
 }
 
-export default UserTable;
+export default DealerInquiryTableForm;
