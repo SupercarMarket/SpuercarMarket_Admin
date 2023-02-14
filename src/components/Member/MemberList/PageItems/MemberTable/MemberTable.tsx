@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "./buttonStyles";
+import { Button } from "../../../styles/buttonStyles";
 
 import { User } from "types/MemberType";
 import ClassChangeModal from "../ClassChangeModal/ClassChangeModal";
