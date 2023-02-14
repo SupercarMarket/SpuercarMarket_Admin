@@ -50,11 +50,11 @@ type tableProps = {
 function UserTable({ userList, doBan, cancelBan, checkedList, setCheckedList, changeClass }: tableProps) {
   const [isAllChecked, setIsAllChecked] = useState(false);
 
-  const userCheckHandler = (_id: number, isChecked: boolean) => {
+  const userCheckHandler = (userSeq: number, isChecked: boolean) => {
     if (isChecked) {
-      setCheckedList([...checkedList, _id]);
+      setCheckedList([...checkedList, userSeq]);
     } else {
-      setCheckedList(checkedList.filter((el) => el !== _id));
+      setCheckedList(checkedList.filter((el) => el !== userSeq));
     }
   };
 
@@ -80,7 +80,7 @@ function UserTable({ userList, doBan, cancelBan, checkedList, setCheckedList, ch
       const checked: number[] = [];
       userList.forEach((user) => {
         if (!user.isBanned) {
-          checked.push(user._id);
+          checked.push(user.userSeq);
         }
       });
       setCheckedList(checked);
@@ -142,26 +142,26 @@ function UserTable({ userList, doBan, cancelBan, checkedList, setCheckedList, ch
         </thead>
         <tbody>
           {userList.map((user) => (
-            <React.Fragment key={user._id}>
+            <React.Fragment key={user.userSeq}>
               <tr>
                 <td rowSpan={2}>
-                  <input type="checkbox" value={user._id} onChange={checkboxHandler} checked={checkedList.includes(user._id) ? true : false} disabled={user.isBanned} />
+                  <input type="checkbox" value={user.userSeq} onChange={checkboxHandler} checked={checkedList.includes(user.userSeq) ? true : false} disabled={user.isBanned} />
                 </td>
-                <td rowSpan={2}>{user._id}</td>
-                <td colSpan={2}>{user.userid}</td>
-                <td>{user.phone}</td>
-                <td rowSpan={2}>{user.signupDate}</td>
+                <td rowSpan={2}>{user.userSeq}</td>
+                <td colSpan={2}>{user.userId}</td>
+                <td>{user.userPhone}</td>
+                <td rowSpan={2}>{user.createdDate}</td>
                 <td rowSpan={2}>
                   <div style={{ display: "flex", margin: "0 auto", gap: "10px", justifyContent: "center" }}>
-                    <div style={{ margin: "auto 0" }}>{classOptions[user.class]}</div>
-                    <ClassChangeModal memberId={user._id} currentClass={user.class} changeClass={changeClass} />
+                    <div style={{ margin: "auto 0" }}>{classOptions[user.userRating]}</div>
+                    <ClassChangeModal memberId={user.userSeq} currentClass={user.userRating} changeClass={changeClass} />
                   </div>
                 </td>
                 <td rowSpan={2}>
                   <div style={{ display: "flex", margin: "0 auto", gap: "10px", justifyContent: "center" }}>
-                    <div style={{ margin: "auto 0" }}>{user.role}</div>
-                    {user.role === "딜러" ? (
-                      <Button id={user._id.toString()} onClick={dealerInfoBtnHandler} style={{ margin: "0px", width: "70px" }}>
+                    <div style={{ margin: "auto 0" }}>{user.isDealer}</div>
+                    {user.isDealer === true ? (
+                      <Button id={user.userSeq.toString()} onClick={dealerInfoBtnHandler} style={{ margin: "0px", width: "70px" }}>
                         정보
                       </Button>
                     ) : (
@@ -173,11 +173,11 @@ function UserTable({ userList, doBan, cancelBan, checkedList, setCheckedList, ch
                 <td rowSpan={2}>
                   <div style={{ margin: "0 auto" }}>
                     {user.isBanned ? (
-                      <Button style={{ margin: "auto" }} id={user._id.toString()} onClick={cancelBanHandler}>
+                      <Button style={{ margin: "auto" }} id={user.userSeq.toString()} onClick={cancelBanHandler}>
                         풀기
                       </Button>
                     ) : (
-                      <Button style={{ margin: "auto" }} id={user._id.toString()} onClick={doBanHandler}>
+                      <Button style={{ margin: "auto" }} id={user.userSeq.toString()} onClick={doBanHandler}>
                         차단
                       </Button>
                     )}
@@ -185,9 +185,9 @@ function UserTable({ userList, doBan, cancelBan, checkedList, setCheckedList, ch
                 </td>
               </tr>
               <tr>
-                <td>{user.username}</td>
-                <td>{user.nickname}</td>
-                <td>{user.email}</td>
+                <td>{user.userName}</td>
+                <td>{user.userNickName}</td>
+                <td>{user.userEmail}</td>
                 <td>{user.replyNumber}</td>
               </tr>
             </React.Fragment>
