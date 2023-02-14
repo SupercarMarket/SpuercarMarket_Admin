@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import UserTable from "./PageItems/Table/UserTable";
+import MemberTable from "./PageItems/MemberTable/MemberTable";
 import Pagination from "../commons/Pagination";
 import MemberSearchForm from "./PageItems/MemberSearchForm/MemberSearchForm";
-import UserHeader from "./PageItems/UserHeader/UserHeader";
+import MemberHeader from "./PageItems/MemberHeader/MemberHeader";
 
 import { User } from "types/MemberType";
 
@@ -14,6 +14,14 @@ function MemberListForm() {
   const [userList, setUserList] = useState<User[]>([]);
   const [checkedList, setCheckedList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [selectFilter, setSelectFilter] = useState("all");
+  const [searchText, setSearchText] = useState("");
+  const [isEntireDate, setIsEntireDate] = useState(true);
+  const [startDate, setStartDate] = useState(new Date(new Date().setMonth(new Date().getMonth() - 1)));
+  const [endDate, setEndDate] = useState(new Date());
+  const [selectClass, setSelectClass] = useState("0");
+  const [selectRating, setSelectRating] = useState<string[]>([]);
 
   // userList axios 만들어서 PaginationTable 로 Props 전달
   useEffect(() => {
@@ -72,9 +80,24 @@ function MemberListForm() {
 
   return (
     <div style={{ padding: "40px", width: "100%" }}>
-      <MemberSearchForm />
-      <UserHeader doCheckedBan={doCheckedBan} userNumber={userNumber} userBanned={userBanned} userOut={userOut} />
-      <UserTable userList={userList} doBan={doBan} cancelBan={cancelBan} checkedList={checkedList} setCheckedList={setCheckedList} changeClass={changeClass} />
+      <MemberSearchForm
+        selectFilter={selectFilter}
+        setSelectFilter={setSelectFilter}
+        searchText={searchText}
+        setSearchText={setSearchText}
+        isEntireDate={isEntireDate}
+        setIsEntireDate={setIsEntireDate}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        selectClass={selectClass}
+        setSelectClass={setSelectClass}
+        selectRating={selectRating}
+        setSelectRating={setSelectRating}
+      />
+      <MemberHeader doCheckedBan={doCheckedBan} userNumber={userNumber} userBanned={userBanned} userOut={userOut} />
+      <MemberTable userList={userList} doBan={doBan} cancelBan={cancelBan} checkedList={checkedList} setCheckedList={setCheckedList} changeClass={changeClass} />
       <Pagination total={userList.length} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );

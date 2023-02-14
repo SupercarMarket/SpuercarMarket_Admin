@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React from "react";
 import { Button } from "../../../styles/buttonStyles";
 import Select from "../../../commons/Select";
-import DateRangePicker from "../../../commons/DateRangePicker";
+import DateRangePicker from "../DateRangePicker/DateRangePicker";
 import RadioBtn from "../../../commons/RadioBtn";
 import CheckBoxGroup from "../../../commons/CheckBoxGroup";
 
@@ -18,13 +17,13 @@ const selectOptions = [
   { value: "userEmail", name: "이메일" },
 ];
 
-const roleOptions = [
+const classOptions = [
   { value: "0", name: "전체" },
   { value: "1", name: "일반" },
   { value: "2", name: "딜러" },
 ];
 
-const classOptions = [
+const ratingOptions = [
   { value: "1", name: "브론즈" },
   { value: "2", name: "실버" },
   { value: "3", name: "골드" },
@@ -32,14 +31,46 @@ const classOptions = [
   { value: "5", name: "다이아" },
 ];
 
-function MemberSearchForm() {
-  const [selectFilter, setSelectFilter] = useState("all");
-  const [searchText, setSearchText] = useState("");
-  const [isEntireDate, setIsEntireDate] = useState(true);
-  const [startDate, setStartDate] = useState(new Date(new Date().setMonth(new Date().getMonth() - 1)));
-  const [endDate, setEndDate] = useState(new Date());
-  const [selectRole, setSelectRole] = useState("0");
-  const [selectClass, setSelectClass] = useState<string[]>([]);
+type MemberSearchProps = {
+  selectFilter: string;
+  setSelectFilter: Function;
+  searchText: string;
+  setSearchText: Function;
+  isEntireDate: boolean;
+  setIsEntireDate: Function;
+  startDate: Date;
+  setStartDate: Function;
+  endDate: Date;
+  setEndDate: Function;
+  selectClass: string;
+  setSelectClass: Function;
+  selectRating: string[];
+  setSelectRating: Function;
+};
+
+function MemberSearchForm({
+  selectFilter,
+  setSelectFilter,
+  searchText,
+  setSearchText,
+  isEntireDate,
+  setIsEntireDate,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  selectClass,
+  setSelectClass,
+  selectRating,
+  setSelectRating,
+}: MemberSearchProps) {
+  // const [selectFilter, setSelectFilter] = useState("all");
+  // const [searchText, setSearchText] = useState("");
+  // const [isEntireDate, setIsEntireDate] = useState(true);
+  // const [startDate, setStartDate] = useState(new Date(new Date().setMonth(new Date().getMonth() - 1)));
+  // const [endDate, setEndDate] = useState(new Date());
+  // const [selectRole, setSelectRole] = useState("0");
+  // const [selectClass, setSelectClass] = useState<string[]>([]);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.currentTarget.value);
@@ -57,11 +88,11 @@ function MemberSearchForm() {
       console.log(`startDate: ${startDate}`);
       console.log(`endDate: ${endDate}`);
     }
-    if (selectRole !== "0") {
-      console.log(`selectRole: ${selectRole}`);
-    }
-    if (selectClass.length !== 0 && selectClass.length !== classOptions.length) {
+    if (selectClass !== "0") {
       console.log(`selectClass: ${selectClass}`);
+    }
+    if (selectRating.length !== 0 && selectRating.length !== ratingOptions.length) {
+      console.log(`selectRating: ${selectRating}`);
     }
     console.log("request!");
   };
@@ -72,8 +103,8 @@ function MemberSearchForm() {
     setIsEntireDate(true);
     setStartDate(new Date(new Date().setMonth(new Date().getMonth() - 1)));
     setEndDate(new Date());
-    setSelectRole("0");
-    setSelectClass([]);
+    setSelectClass("0");
+    setSelectRating([]);
   };
 
   return (
@@ -82,7 +113,9 @@ function MemberSearchForm() {
         <div className="element">
           <div className="title">검색어</div>
           <div className="content">
-            <Select optionData={selectOptions} value={selectFilter} setValue={setSelectFilter} />
+            <div style={{ width: "134px" }}>
+              <Select optionData={selectOptions} value={selectFilter} setValue={setSelectFilter} />
+            </div>
             <input className="textBox" placeholder="검색어를 입력해주세요." value={searchText} onChange={handleTextChange}></input>
           </div>
         </div>
@@ -99,13 +132,13 @@ function MemberSearchForm() {
         <div className="element">
           <div className="title">Role</div>
           <div className="content">
-            <RadioBtn optionData={roleOptions} value={selectRole} setValue={setSelectRole} />
+            <RadioBtn optionData={classOptions} value={selectClass} setValue={setSelectClass} />
           </div>
         </div>
         <div className="element">
           <div className="title">회원등급</div>
           <div className="content">
-            <CheckBoxGroup optionData={classOptions} checkedList={selectClass} setCheckedList={setSelectClass} />
+            <CheckBoxGroup optionData={ratingOptions} checkedList={selectRating} setCheckedList={setSelectRating} />
           </div>
         </div>
         <div className="element" style={{ justifyContent: "center" }}>

@@ -23,8 +23,8 @@ const CalendarWrapper = styled.div`
   .icon {
     border-left: 1px solid #c3c3c7;
     padding: 10px;
-    height: 24px;
-    width: 24px;
+    height: 44px;
+    width: 44px;
     position: absolute;
     right: 0px;
     pointer-events: none;
@@ -33,12 +33,12 @@ const CalendarWrapper = styled.div`
 
 const DatePickerWrapperStyles = createGlobalStyle`
   .datePicker {
-    width: 200px !important;
+    width: 240px !important;
     
     input {
-      width: 158px;
+      width: 240px;
       height: 44px;
-      padding: 0px 20px;
+      padding: 0px 0px 0px 20px;
       background: #ffffff;
       border: 1px solid #c3c3c7;
     }

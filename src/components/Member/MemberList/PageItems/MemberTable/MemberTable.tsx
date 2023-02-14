@@ -47,7 +47,7 @@ type tableProps = {
   changeClass: Function;
 };
 
-function UserTable({ userList, doBan, cancelBan, checkedList, setCheckedList, changeClass }: tableProps) {
+function MemberTable({ userList, doBan, cancelBan, checkedList, setCheckedList, changeClass }: tableProps) {
   const [isAllChecked, setIsAllChecked] = useState(false);
 
   const userCheckHandler = (userSeq: number, isChecked: boolean) => {
@@ -134,7 +134,7 @@ function UserTable({ userList, doBan, cancelBan, checkedList, setCheckedList, ch
             </td>
           </tr>
           <tr>
-            <td>이름</td>
+            <td style={{ width: "11.25%" }}>이름</td>
             <td>닉네임</td>
             <td>이메일</td>
             <td>댓글 수</td>
@@ -161,11 +161,14 @@ function UserTable({ userList, doBan, cancelBan, checkedList, setCheckedList, ch
                   <div style={{ display: "flex", margin: "0 auto", gap: "10px", justifyContent: "center" }}>
                     <div style={{ margin: "auto 0" }}>{user.isDealer}</div>
                     {user.isDealer === true ? (
-                      <Button id={user.userSeq.toString()} onClick={dealerInfoBtnHandler} style={{ margin: "0px", width: "70px" }}>
-                        정보
-                      </Button>
+                      <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "10px" }}>
+                        <span>딜러</span>
+                        <Button id={user.userSeq.toString()} onClick={dealerInfoBtnHandler} style={{ margin: "0px", width: "70px" }}>
+                          정보
+                        </Button>
+                      </div>
                     ) : (
-                      ""
+                      <span>일반</span>
                     )}
                   </div>
                 </td>
@@ -198,4 +201,4 @@ function UserTable({ userList, doBan, cancelBan, checkedList, setCheckedList, ch
   );
 }
 
-export default UserTable;
+export default MemberTable;

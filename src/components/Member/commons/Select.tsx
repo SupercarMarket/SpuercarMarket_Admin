@@ -3,13 +3,14 @@ import styled from "styled-components";
 
 const SelectBox = styled.div`
   position: relative;
-  width: 134px;
+  width: 100%;
   height: 44px;
   border: 1px solid #c3c3c7;
   border-radius: 4px;
   color: #1e1e20;
   background-color: #ffffff;
   cursor: pointer;
+  text-align: left;
 
   &::before {
     content: "⌵";
