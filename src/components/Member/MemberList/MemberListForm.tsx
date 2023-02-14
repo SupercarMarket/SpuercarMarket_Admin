@@ -6,6 +6,7 @@ import MemberSearchForm from "./PageItems/MemberSearchForm/MemberSearchForm";
 import MemberHeader from "./PageItems/MemberHeader/MemberHeader";
 
 import { User } from "types/MemberType";
+import axios from "axios";
 
 function MemberListForm() {
   const [userNumber, setUserNumber] = useState(0);
@@ -23,28 +24,49 @@ function MemberListForm() {
   const [selectClass, setSelectClass] = useState("0");
   const [selectRating, setSelectRating] = useState<string[]>([]);
 
-  // userList axios 만들어서 PaginationTable 로 Props 전달
+  const getMemberListData = (targetPage: number = 1) => {
+    axios
+      .get("/super-admin/v1/member", {
+        headers: {
+          ACCESS_TOKEN: process.env.REACT_APP_TOKEN,
+          REFRESH_TOKEN: process.env.REACT_APP_R_TOKEN,
+        },
+        // params: {
+        //   filter: selectFilter !== "all" ? selectFilter : null,
+        //   keyword: searchText !== "" ? searchText : null,
+        //   page: targetPage,
+        // },
+      })
+      .then((response) => {
+        console.log("success");
+      })
+      .catch((err) => {
+        console.log("fail");
+        setUserNumber(50);
+        setUserBanned(0);
+        const userData: User[] = Array(50)
+          .fill(0)
+          .map((_, i) => ({
+            userSeq: i + 1,
+            userId: "abcdefg",
+            userName: "곽은주",
+            userNickName: "슈퍼카마켓슈퍼카마켓",
+            userPhone: "010-0000-0000",
+            userEmail: "0000000@gmail.com",
+            createdDate: "2022-10-18",
+            userRating: "1",
+            isDealer: true,
+            postNumber: "123",
+            replyNumber: "456",
+            isBanned: false,
+          }));
+        setUserList(userData);
+        setUserOut(0);
+      });
+  };
+
   useEffect(() => {
-    setUserNumber(50);
-    setUserBanned(0);
-    const userData: User[] = Array(50)
-      .fill(0)
-      .map((_, i) => ({
-        userSeq: i + 1,
-        userId: "abcdefg",
-        userName: "곽은주",
-        userNickName: "슈퍼카마켓슈퍼카마켓",
-        userPhone: "010-0000-0000",
-        userEmail: "0000000@gmail.com",
-        createdDate: "2022-10-18",
-        userRating: "1",
-        isDealer: true,
-        postNumber: "123",
-        replyNumber: "456",
-        isBanned: false,
-      }));
-    setUserList(userData);
-    setUserOut(0);
+    getMemberListData();
   }, []);
 
   // 회원번호 리스트를 받아 해당 회원들을 차단하는 함수
