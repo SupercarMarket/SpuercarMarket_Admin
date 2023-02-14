@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "./buttonStyles";
+import { Button } from "../../../styles/buttonStyles";
 
 const HeaderDiv = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ type UserHeaderProps = {
   userOut: number;
 };
 
-function UserHeader({ doCheckedBan, userNumber, userBanned, userOut }: UserHeaderProps) {
+function MemberHeader({ doCheckedBan, userNumber, userBanned, userOut }: UserHeaderProps) {
   return (
     <HeaderDiv>
       <Button onClick={doCheckedBan}>회원 차단하기</Button>
@@ -30,4 +30,4 @@ function UserHeader({ doCheckedBan, userNumber, userBanned, userOut }: UserHeade
   );
 }
 
-export default UserHeader;
+export default MemberHeader;
