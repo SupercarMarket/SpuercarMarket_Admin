@@ -1,13 +1,13 @@
 interface User {
-  _id: number;
-  userid: string;
-  username: string;
-  nickname: string;
-  phone: string;
-  email: string;
-  signupDate: string;
-  class: string;
-  role: string;
+  userSeq: number;
+  userId: string;
+  userName: string;
+  userNickName: string;
+  userPhone: string;
+  userEmail: string;
+  createdDate: string;
+  userRating: string;
+  isDealer: boolean;
   postNumber: string;
   replyNumber: string;
   isBanned: boolean;

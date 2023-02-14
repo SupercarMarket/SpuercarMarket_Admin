@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "./buttonStyles";
+import { Button } from "../../../styles/buttonStyles";
 import Select from "../../../commons/Select";
 import DateRangePicker from "../../../commons/DateRangePicker";
 import RadioBtn from "../../../commons/RadioBtn";
 import CheckBoxGroup from "../../../commons/CheckBoxGroup";
 
-const SearchBoxWrapper = styled.div`
-  display: flex;
-`;
+import { SearchBoxWrapper, Form } from "./MemberSearch.styled";
 
 const selectOptions = [
   { value: "all", name: "전체" },
-  { value: "id", name: "아이디" },
-  { value: "username", name: "이름" },
-  { value: "nickname", name: "닉네임" },
-  { value: "phone", name: "전화번호" },
-  { value: "email", name: "이메일" },
-  { value: "class", name: "회원등급" },
-  { value: "role", name: "Role" },
+  { value: "userSeq", name: "회원번호" },
+  { value: "userId", name: "아이디" },
+  { value: "userName", name: "이름" },
+  { value: "userNickName", name: "닉네임" },
+  { value: "userPhone", name: "전화번호" },
+  { value: "userEmail", name: "이메일" },
 ];
 
 const roleOptions = [
@@ -35,51 +32,7 @@ const classOptions = [
   { value: "5", name: "다이아" },
 ];
 
-const Form = styled.form`
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 24px;
-  background: #ffffff;
-  border: 1px solid #c3c3c7;
-
-  .element {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    gap: 24px;
-    height: 44px;
-
-    .title {
-      width: 128px;
-      display: flex;
-      align-items: center;
-    }
-
-    .content {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      width: 100%;
-      gap: 24px;
-    }
-  }
-
-  input.textBox {
-    padding: 0px 20px;
-
-    width: 360px;
-    height: 44px;
-
-    background: #ffffff;
-    border: 1px solid #c3c3c7;
-    border-radius: 4px;
-  }
-`;
-
-function SearchForm() {
+function MemberSearchForm() {
   const [selectFilter, setSelectFilter] = useState("all");
   const [searchText, setSearchText] = useState("");
   const [isEntireDate, setIsEntireDate] = useState(true);
@@ -168,4 +121,4 @@ function SearchForm() {
   );
 }
 
-export default SearchForm;
+export default MemberSearchForm;

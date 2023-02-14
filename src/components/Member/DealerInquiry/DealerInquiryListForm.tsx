@@ -11,7 +11,6 @@ import { TableHeader } from "./DealerInquiryList.styled";
 function DealerInquiryListForm() {
   const [registerRequestNumber, setRegisterRequestNumber] = useState(0);
   const [dealerList, setDealerList] = useState<Dealer[]>([]);
-  const [checkedList, setCheckedList] = useState([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const [selectFilter, setSelectFilter] = useState<string>("all");
@@ -64,11 +63,6 @@ function DealerInquiryListForm() {
     setRegisterRequestNumber(registerRequestNumber - registerList.length);
   };
 
-  const doCheckedRegister = () => {
-    doRegister(checkedList);
-    setCheckedList([]);
-  };
-
   // userList axios 만들어서 PaginationTable 로 Props 전달
   useEffect(() => {
     getDealerInquiryData();
@@ -78,9 +72,9 @@ function DealerInquiryListForm() {
     <div style={{ padding: "40px", width: "100%" }}>
       <TableHeader>
         <SearchForm selectFilter={selectFilter} setSelectFilter={setSelectFilter} searchText={searchText} setSearchText={setSearchText} getDealerInquiryData={getDealerInquiryData} />
-        <DealerTableHeaderForm registerDealer={doCheckedRegister} registerRequest={registerRequestNumber} />
+        <DealerTableHeaderForm registerRequest={registerRequestNumber} />
       </TableHeader>
-      <DealerInquiryTable dealerList={dealerList} doRegister={doRegister} checkedList={checkedList} setCheckedList={setCheckedList} />
+      <DealerInquiryTable dealerList={dealerList} doRegister={doRegister} />
       <Pagination total={dealerList.length} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );
