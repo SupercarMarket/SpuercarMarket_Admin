@@ -11,7 +11,7 @@ function App() {
       {isLogin ? (
         <>
           <HeaderForm />
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", height:"100%" }}>
             <SideMenuForm />
           </div>
         </>

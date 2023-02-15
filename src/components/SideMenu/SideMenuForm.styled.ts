@@ -5,7 +5,7 @@ export const Wrapper = styled.nav`
     display: flex;
     flex-direction: column;
     width: 240px;
-    height: 100vh;
+    /* height: 100vh; */
 
     border : 1px solid #EAEAEC;
     padding : 20px 0px;
