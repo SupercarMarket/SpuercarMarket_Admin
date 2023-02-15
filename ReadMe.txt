@@ -37,3 +37,9 @@ comments : fonts 적용, globalStyle 적용
 Date     : 2022-12-14
 Author   : 지용
 comments : index.tsx에 BrowserRouter, ThemeProvider, Redux store 적용
+
+Date     : 2023-02-15
+Author   : 지용
+comments : package 추가
+        axios           : v1.3.3,
+        react-cookie    : 4.1.1 ( cookie를 쉽게 사용하기 위해서 사용)
