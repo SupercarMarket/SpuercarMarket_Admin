@@ -43,3 +43,10 @@ Author   : 지용
 comments : package 추가
         axios           : v1.3.3,
         react-cookie    : 4.1.1 ( cookie를 쉽게 사용하기 위해서 사용)
+
+Date     : 2023-02-15
+Author   : 지용
+comments : package 추가
+        @toast-ui/editor, @toast-ui/react-editor  : 유저 쪽과 맞추기 위해 에디터 설치
+        @toast-ui/editor-plugin-color-syntax      : 에디터 폰트 컬러를 위한 패키지 설치
+        @aws-sdk/client-s3                        : 이미지 서버 s3 bucket
