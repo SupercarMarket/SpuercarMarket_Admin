@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { setCookie, getCookie } from "../CustomCookies/CustomCookies";
+import { getCookie } from "../CustomCookies/CustomCookies";
 
 const URL = process.env.REACT_APP_ADMIN_SERVER_URL;
 
@@ -26,7 +26,7 @@ ClientAxios.interceptors.request.use( async ( config ) => {
 
     if( refreshToken ){
         try{
-            const response = await axios.post(`${URL}/user/get-token`, {},
+            await axios.post(`${URL}/user/get-token`, {},
             {
                 headers:{
                     ACCESS_TOKEN: accessToken,
