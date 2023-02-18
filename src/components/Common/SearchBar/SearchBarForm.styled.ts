@@ -22,9 +22,17 @@ export const SearchBarInput = styled.input.attrs( { type : "text", placeholder: 
     border-radius: 4px;
 `;
 
-export const SearchBarIcon = styled.img.attrs( { src : `${Search}`})< { isFocus : boolean }>`
-    display : ${({ isFocus }) => isFocus ? "none" : "block"};
+// export const SearchBarIcon = styled.img.attrs( { src : `${Search}`})< { isFocus : boolean }>`
+//     display : ${({ isFocus }) => isFocus ? "none" : "block"};
+//     position : absolute;
+//     top: 13px;
+//     right: 23.5px;
+// `;
+
+
+export const SearchBarIcon = styled.img.attrs( { src : `${Search}`})`
     position : absolute;
     top: 13px;
     right: 23.5px;
+    cursor: pointer;
 `;
