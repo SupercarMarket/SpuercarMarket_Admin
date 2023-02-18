@@ -11,17 +11,8 @@ export const MarketTableHeader = styled.thead`
     color: ${({ theme }) => theme.colors.greyScale_6 };
 `;
 
-export const MarketTableHeaderRowSpan = styled.th.attrs({ rowSpan : 2 })<{ text : string }>`
-    width : ${ ({text}) => ( ( text === "" ) && '80px' ) || ( ( text === "제목" ) && '400px' || '160px' ) };
-    text-align:center;
-    vertical-align:middle;
-    border : 1px solid ${({theme}) => theme.colors.greyScale_3};
-
-    background-color: ${({theme}) => theme.colors.greyScale_2};
-`;
-
-export const MarketTableHeaderNoSpan = styled.th.attrs({ })`
-    width: 160px;
+export const MarketTableHeaderRowSpan = styled.th`
+    width : 160px;
     text-align:center;
     vertical-align:middle;
     border : 1px solid ${({theme}) => theme.colors.greyScale_3};

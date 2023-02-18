@@ -12,9 +12,9 @@ export const MarketTableBody = styled.tbody`
     color: ${({ theme }) => theme.colors.greyScale_6 };
 `;
 
-export const MarketTableBodyRowSpan = styled.td.attrs({ rowSpan : 2 })< {index : number} >`
-    text-align: ${({ index }) => index === 3 ? "left" : "center" };
-    padding : ${({ index }) => index === 3 && "19px 16px" };
+export const MarketTableBodyRowSpan = styled.td`
+    text-align: center;
+    padding : 19px 16px;
 
     text-align:center;
     vertical-align:middle;
@@ -22,9 +22,9 @@ export const MarketTableBodyRowSpan = styled.td.attrs({ rowSpan : 2 })< {index :
 `;
 
 export const MarketTableBodyClamp = styled.div`
-    overflow: hidden;
+  overflow: hidden;
 	display: -webkit-box;
-	-webkit-line-clamp: 2; /* ellipsis line */
+	-webkit-line-clamp: 3; /* ellipsis line */
 	-webkit-box-orient: vertical;
 `;
 

@@ -23,31 +23,34 @@ const ForSaleTableBodyForm = ({
         return (
           <>
             <tr key={i}>
-              <MarketTableBodyRowSpan index={0}>
+              <MarketTableBodyRowSpan rowSpan={2}>
                 <MarketCheckBoxWrapper>
                   <MarketInputCheckBox id={"body_checkbox" + i} />
                   <MarketLabelCheckBox htmlFor={"body_checkbox" + i} />
                 </MarketCheckBoxWrapper>
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan index={0}>0000000</MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan index={0}>
+              <MarketTableBodyRowSpan rowSpan={2}>0000000</MarketTableBodyRowSpan>
+              <MarketTableBodyRowSpan rowSpan={2}>
                 스포츠카
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan index={3}>
+              <MarketTableBodyRowSpan rowSpan={2} style={{textAlign:"left", padding:"8.5px 16px"}} >
                 <MarketTableBodyClamp>
                   제목제목제목제목제목제목제목제목제목제목제목제목제목제제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목
                 </MarketTableBodyClamp>
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan index={0}>
+              <MarketTableBodyRowSpan rowSpan={2}>
                 판매 완료
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan index={0}>
+              <MarketTableBodyRowSpan rowSpan={2}>
                 2022-10-16
               </MarketTableBodyRowSpan>
               <MarketTableBodyNoSpan>0000000</MarketTableBodyNoSpan>
               <MarketTableBodyNoSpan>abcgd</MarketTableBodyNoSpan>
-              <MarketTableBodyRowSpan index={0}>
+              <MarketTableBodyRowSpan rowSpan={2}>
                 <MarketTableBodyButton>숨기기 취소</MarketTableBodyButton>
+              </MarketTableBodyRowSpan>
+              <MarketTableBodyRowSpan rowSpan={2}>
+                <MarketTableBodyButton>삭제하기</MarketTableBodyButton>
               </MarketTableBodyRowSpan>
             </tr>
             <tr>
