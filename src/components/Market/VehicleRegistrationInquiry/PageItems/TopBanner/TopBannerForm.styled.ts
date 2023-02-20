@@ -15,6 +15,8 @@ export const TopBannerLeftWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
 
+    gap: 20px;
+
     width: 514px;
     height : 100%;
 `;
