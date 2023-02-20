@@ -9,16 +9,22 @@ import theme from "./styles/theme";
 import GlobalStyle from './styles/globalStyle';
 import { ThemeProvider } from "styled-components"
 
+// redux
+import { Provider } from "react-redux";
+import { store } from "./store/rootReducer";
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   // StrictMode를 켜두면 두번씩 실행되는 경우가 있어 주석처리했습니다.
   // <React.StrictMode>
-    <ThemeProvider theme={ theme } >
-      <GlobalStyle/>
+  <ThemeProvider theme={theme}>
+    <GlobalStyle />
+    <Provider store={store}>
       <App />
-    </ThemeProvider>
+    </Provider>
+  </ThemeProvider>
   // </React.StrictMode>
 );
 
