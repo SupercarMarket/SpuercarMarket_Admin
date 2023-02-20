@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { MainMenuItemsTypes, SubMenuItemTypes } from "../../types/SideMenuType";
 import { Wrapper, ExpandArrow, MainMenu, MainMenuWrapper, SubMenu, SubMenuWrapper } from './SideMenuForm.styled';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const MainMenuTitle = [ "member", "market", "magazine", "community", "cooperation", "advertisement", "inquriy" ];
 
@@ -20,7 +22,7 @@ const SubMenuItems: SubMenuItemTypes = {
       key: "member",
       name: "회원 정보 리스트",
       isClicked: true,
-      path: "회원정보 리스트",
+      path: "/member",
     },
     {
       key: "member",
@@ -40,13 +42,13 @@ const SubMenuItems: SubMenuItemTypes = {
       key: "market",
       name: "매물 리스트",
       isClicked: true,
-      path: "회원정보 리스트",
+      path: "/salelist",
     },
     {
       key: "market",
       name: "판매차량 등록 문의",
       isClicked: false,
-      path: "회원정보 리스트",
+      path: "/saleinquriy",
     },
   ],
   magazine: [
@@ -142,7 +144,7 @@ const SubMenuItems: SubMenuItemTypes = {
 const SideMenuForm = () => {
   const [ isMainMenuClicked, setIsMainMenuClicked ] = useState< MainMenuItemsTypes >( MainMenuItems );
   const [ isSubMenuClicked, setIsSubMenuClicked ] = useState< SubMenuItemTypes >( SubMenuItems );
-  
+  const navigate = useNavigate();
   // onClickedMainMenuHandler
   // MainMenu가 눌리면 SubMenu를 활성화 해주는 함수
   // key : member, market... 을 받아 isClicked 속성을 비교
@@ -166,6 +168,7 @@ const SideMenuForm = () => {
     for( const item of dummySubMenuItems[ key ] ){
       if( item.name === name ){
         item.isClicked = true;
+        navigate( item.path );
       }else{
         item.isClicked = false;
       }
@@ -174,10 +177,6 @@ const SideMenuForm = () => {
     setIsSubMenuClicked( previousSubMenuState => ( { ...previousSubMenuState, ...dummySubMenuItems } ) );
   }
 
-  const preventClickHandler = ( e : React.MouseEvent ) => {
-    e.preventDefault();
-  }
-  
   return (
     <Wrapper>
       <ul>
@@ -188,13 +187,11 @@ const SideMenuForm = () => {
                 <span>{ MainMenuItems[item][0].title}</span>
                 <ExpandArrow isClicked={ MainMenuItems[item][0].isClicked } />
               </MainMenuWrapper>
-              <SubMenuWrapper isClicked={ MainMenuItems[item][0].isClicked }>
+              <SubMenuWrapper isClicked={ MainMenuItems[item][0].isClicked } >
               { SubMenuItems[item].map( item => {
                 return( 
                 <SubMenu key={ item.name } isClicked={ item.isClicked } onClick={ () => onClickedSubMenuHandler( item.key, item.name ) }>
-                  {/* href item.path에 router 경로를 넣어준다 */}
-                  {/* <a href={ item.path }>{ item.name }</a> */}
-                  <a href="" onClick={ event => preventClickHandler( event ) }>{ item.name }</a>
+                  <Link to={item.path}>{item.name}</Link>
                 </SubMenu>
                 )})}
               </SubMenuWrapper>

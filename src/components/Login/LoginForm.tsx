@@ -1,14 +1,17 @@
 import { useRef } from 'react'
 import { Wrapper, Container, Title, InputID, InputPW, LoginButtons } from "./LoginForm.styled";
 import { LoginHandler } from "../../utils/api/Login/LoginAPI";
+import { useNavigate } from 'react-router';
 
 const LoginForm = () => {
   const emailRef = useRef<HTMLInputElement>( null );
   const passwordRef = useRef<HTMLInputElement>( null );
-
+  const navigate = useNavigate();
   const LoginClickHandler = async () => {
     if( emailRef.current && passwordRef.current ){
-      LoginHandler( emailRef.current.value, passwordRef.current.value );
+      LoginHandler( emailRef.current.value, passwordRef.current.value ).then( () => {
+        navigate("/salelist");
+      });
     }
   };
 

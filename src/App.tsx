@@ -1,26 +1,21 @@
-import React from 'react';
-import LoginForm from './components/Login/LoginForm';
+import React, { useEffect } from 'react';
 import HeaderForm from './components/Header/HeaderForm';
 import SideMenuForm from './components/SideMenu/SideMenuForm';
-import ForSaleListForm from "./components/Market/ForSaleList/ForSaleListForm";
+import { getCookie } from './utils/api/CustomCookies/CustomCookies';
+import { LoginType } from './types/LoginType';
+
+// react-router-dom
+import { BrowserRouter } from "react-router-dom";
+
+import AdminPages from './pages/AdminPages';
 const isLogin = true;
 
 function App() {
   return (
     <>
-      {isLogin ? (
-        <>
-          <HeaderForm />
-          <div style={{ display: "flex", height:"100%" }}>
-            <SideMenuForm />
-            <ForSaleListForm />
-          </div>
-        </>
-      ) : (
-        <>
-          <LoginForm />
-        </>
-      )}
+      <BrowserRouter>
+        <AdminPages />
+      </BrowserRouter>
     </>
   );
 }

@@ -18,12 +18,12 @@ const root = ReactDOM.createRoot(
 root.render(
   // StrictMode를 켜두면 두번씩 실행되는 경우가 있어 주석처리했습니다.
   // <React.StrictMode>
-  <BrowserRouter>
+  // <BrowserRouter>
     <ThemeProvider theme={ theme } >
       <GlobalStyle/>
       <App />
     </ThemeProvider>
-  </BrowserRouter>
+  // </BrowserRouter>
   // </React.StrictMode>
 );
 
