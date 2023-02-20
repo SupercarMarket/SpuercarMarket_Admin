@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import {
   MarketTableBody,
   MarketTableBodyRowSpan,
@@ -17,23 +17,45 @@ const ForSaleTableBodyForm = ({
   postsPerPage,
   totalContentsCount,
 }: ForSaleListPropsType) => {
+  const inputCheckTypeRef = useRef<HTMLInputElement>(null);
+  
+  const inputCheckOnClickHandler = () => {
+    console.log( inputCheckTypeRef.current?.checked );
+  };
+
+  const inputCheckOnChangeHandler = ( event : React.ChangeEvent<HTMLInputElement> ) => {
+    console.log( event.target.id, event.target.checked );
+  };
+
+
+
   return (
     <MarketTableBody key={`uuid`}>
       { Array( totalContentsCount ).fill( 0 ).slice( offset, offset + postsPerPage ).map( ( _, i ) => {
         return (
-          <>
-            <tr key={i}>
+          <React.Fragment key={i}>
+            <tr>
               <MarketTableBodyRowSpan rowSpan={2}>
                 <MarketCheckBoxWrapper>
-                  <MarketInputCheckBox id={"body_checkbox" + i} />
+                  <MarketInputCheckBox
+                    id={"body_checkbox" + i}
+                    ref={inputCheckTypeRef}
+                    onClick={inputCheckOnClickHandler}
+                    onChange={(event) => { inputCheckOnChangeHandler( event )}}
+                  />
                   <MarketLabelCheckBox htmlFor={"body_checkbox" + i} />
                 </MarketCheckBoxWrapper>
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan rowSpan={2}>0000000</MarketTableBodyRowSpan>
+              <MarketTableBodyRowSpan rowSpan={2}>
+                0000000
+              </MarketTableBodyRowSpan>
               <MarketTableBodyRowSpan rowSpan={2}>
                 스포츠카
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan rowSpan={2} style={{textAlign:"left", padding:"8.5px 16px"}} >
+              <MarketTableBodyRowSpan
+                rowSpan={2}
+                style={{ textAlign: "left", padding: "8.5px 16px" }}
+              >
                 <MarketTableBodyClamp>
                   제목제목제목제목제목제목제목제목제목제목제목제목제목제제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목
                 </MarketTableBodyClamp>
@@ -59,7 +81,7 @@ const ForSaleTableBodyForm = ({
                 슈퍼카마켓슈퍼카마켓
               </MarketTableBodyNoSpan>
             </tr>
-          </>
+          </React.Fragment>
         );
       })}
     </MarketTableBody>

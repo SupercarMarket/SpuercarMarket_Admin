@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { getCookie } from "../CustomCookies/CustomCookies";
+import { LoginType } from "../../../types/LoginType";
 
 const URL = process.env.REACT_APP_ADMIN_SERVER_URL;
 
@@ -16,8 +17,8 @@ const ClientAxios = axios.create({
 
 //interceptor request
 ClientAxios.interceptors.request.use( async ( config ) => {
-    const refreshToken = getCookie("refresh_token");
-    const accessToken = localStorage.getItem("access_token");
+    const refreshToken = getCookie(LoginType.refresh as string);
+    const accessToken = getCookie(LoginType.access as string);
     // refresh token, access token save
     if( refreshToken && accessToken ){
         config.headers.ACCESS_TOKEN = accessToken;
@@ -26,7 +27,7 @@ ClientAxios.interceptors.request.use( async ( config ) => {
 
     if( refreshToken ){
         try{
-            await axios.post(`${URL}/user/get-token`, {},
+            await axios.post(`${URL}user/get-token`, {},
             {
                 headers:{
                     ACCESS_TOKEN: accessToken,

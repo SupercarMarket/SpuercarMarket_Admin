@@ -11,7 +11,7 @@ const ForSaleListForm = () => {
   // 페이지당 몇개 그려줄지
   const postsPerPage = 20;
   // 총 길이
-  let totalContentsCount = 44;
+  let totalContentsCount = 16;
   // 첫 페이지
   const startPage = 1;
   const [ isPage, setIsPage ] = useState< number >( startPage );
