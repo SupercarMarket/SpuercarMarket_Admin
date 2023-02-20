@@ -26,8 +26,8 @@ const GlobalStyle = createGlobalStyle`
   /* width 100%, box-sizing */
   
   html, body  {
-    /* width: 100%; */
-    width : 1920px;
+    width: 100%;
+    min-width : 1800px;
     * {
       box-sizing : border-box;
       font-family: 'Pretendard';
