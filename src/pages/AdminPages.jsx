@@ -1,6 +1,6 @@
 import PrivateRoutes from "./PrivateRoutes";
 import { Routes, Route } from "react-router-dom";
-// pages
+
 import LoginForm from "../components/Login/LoginForm";
 import ForSaleListForm from "../components/Market/ForSaleList/ForSaleListForm";
 import ForSaleListDetailForm from "../components/Market/ForSaleListDetail/ForSaleListDetailForm";
@@ -11,12 +11,14 @@ const AdminPages = () => {
   return (
     <Routes>
         <Route element={<PrivateRoutes />}>
+
             <Route path="/salelist" element={<ForSaleListForm />}>
                 <Route path=":saleId" element={<ForSaleListDetailForm/>} />
             </Route>
             <Route path='/saleinquriy' element={<VehicleRegistrationInquriyForm/>} >
                 <Route path=":inquriyId" element={<VehicleRegistrationInquiryDetailForm/>} />
             </Route>
+            <Route path="/market" />
         </Route>
 
         {/* Login 아니면 */}
