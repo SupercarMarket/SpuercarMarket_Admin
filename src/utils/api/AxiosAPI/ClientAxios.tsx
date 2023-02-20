@@ -17,7 +17,7 @@ const ClientAxios = axios.create({
 
 //interceptor request
 ClientAxios.interceptors.request.use( async ( config ) => {
-    const refreshToken = getCookie("refresh_token");
+    const refreshToken = getCookie(LoginType.refresh as string);
     const accessToken = getCookie(LoginType.access as string);
     // refresh token, access token save
     if( refreshToken && accessToken ){
