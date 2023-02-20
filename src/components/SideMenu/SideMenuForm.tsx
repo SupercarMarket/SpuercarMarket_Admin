@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { MainMenuItemsTypes, SubMenuItemTypes } from "../../types/SideMenuType";
 import { Wrapper, ExpandArrow, MainMenu, MainMenuWrapper, SubMenu, SubMenuWrapper } from './SideMenuForm.styled';
 import { useNavigate } from 'react-router';
@@ -145,6 +145,7 @@ const SideMenuForm = () => {
   const [ isMainMenuClicked, setIsMainMenuClicked ] = useState< MainMenuItemsTypes >( MainMenuItems );
   const [ isSubMenuClicked, setIsSubMenuClicked ] = useState< SubMenuItemTypes >( SubMenuItems );
   const navigate = useNavigate();
+  const pathRef = useRef<string>('');
   // onClickedMainMenuHandler
   // MainMenu가 눌리면 SubMenu를 활성화 해주는 함수
   // key : member, market... 을 받아 isClicked 속성을 비교
@@ -154,6 +155,10 @@ const SideMenuForm = () => {
     for( const item in dummyMainMenuItems ){
       if( item === key ){
         dummyMainMenuItems[ item ][0].isClicked = !dummyMainMenuItems[ item ][0].isClicked;
+        // if( pathRef.current !== '' ){
+        //   // 상단 메뉴가 눌리더라도 기억하고 있는 위치로 가도록하기
+        //   navigate( pathRef.current );
+        // }
       }else{
         dummyMainMenuItems[ item ][0].isClicked = false;
       }
@@ -168,6 +173,7 @@ const SideMenuForm = () => {
     for( const item of dummySubMenuItems[ key ] ){
       if( item.name === name ){
         item.isClicked = true;
+        pathRef.current = item.path;
         navigate( item.path );
       }else{
         item.isClicked = false;
