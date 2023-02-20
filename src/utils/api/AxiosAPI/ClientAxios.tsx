@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { getCookie } from "../CustomCookies/CustomCookies";
+import { getCookie, setCookie } from "../CustomCookies/CustomCookies";
+import { LoginType } from "../../../types/LoginType";
 
 const URL = process.env.REACT_APP_ADMIN_SERVER_URL;
 
@@ -17,7 +18,7 @@ const ClientAxios = axios.create({
 //interceptor request
 ClientAxios.interceptors.request.use( async ( config ) => {
     const refreshToken = getCookie("refresh_token");
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken = getCookie(LoginType.access as string);
     // refresh token, access token save
     if( refreshToken && accessToken ){
         config.headers.ACCESS_TOKEN = accessToken;
@@ -26,7 +27,7 @@ ClientAxios.interceptors.request.use( async ( config ) => {
 
     if( refreshToken ){
         try{
-            await axios.post(`${URL}/user/get-token`, {},
+            await axios.post(`${URL}user/get-token`, {},
             {
                 headers:{
                     ACCESS_TOKEN: accessToken,
@@ -41,10 +42,7 @@ ClientAxios.interceptors.request.use( async ( config ) => {
                 response.status = 501, access token refresh
             */
             if (response.status === 501) {
-              localStorage.setItem(
-                "access_token",
-                response.headers.access_token
-              );
+              setCookie( LoginType.access as string, response.headers.access_token, { path:"/", secure: true});
               config.headers.ACCESS_TOKEN = response.headers.access_token;
             } else if (response.status === 405) {
               console.log((response.data as unknown as Error405Type).error);
