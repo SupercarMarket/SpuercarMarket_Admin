@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef } from 'react'
 import {
   MarketTableBody,
   MarketTableBodyRowSpan,
@@ -10,7 +10,10 @@ import {
   MarketTableBodyButton
 } from "./ForSaleTableBodyForm.styled";
 
-import { ForSaleListPropsType } from "../../../../../../types/ForSaleList";
+import { ForSaleListPropsType, CategoryMap } from "../../../../../../types/ForSaleList";
+import { MarketAction } from '../../../../../../redux/modules/MarketSlice';
+import { useAppDispatch, useAppSelector } from '../../../../../../store/rootReducer'; 
+import { useNavigate } from 'react-router';
 
 const ForSaleTableBodyForm = ({
   offset,
@@ -18,72 +21,91 @@ const ForSaleTableBodyForm = ({
   totalContentsCount,
 }: ForSaleListPropsType) => {
   const inputCheckTypeRef = useRef<HTMLInputElement>(null);
-  
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { list, checkList } = useAppSelector( state => state.MarketSlice );
+
   const inputCheckOnClickHandler = () => {
     console.log( inputCheckTypeRef.current?.checked );
   };
 
-  const inputCheckOnChangeHandler = ( event : React.ChangeEvent<HTMLInputElement> ) => {
-    console.log( event.target.id, event.target.checked );
+  // 항목 체크 박스 셋업
+  const userCheckBoxClickHandler = ( brdSeq : number, isChecked : boolean ) => {
+    dispatch( MarketAction.setMarketListEachChecked( { brdSeq, isChecked } ));
   };
 
+  const inputCheckOnChangeHandler = ( event : React.ChangeEvent<HTMLInputElement> ) => {
+    userCheckBoxClickHandler( parseInt(  event.target.id ), event.target.checked );
+  };
 
+  // 숨기기 버튼 동작
+  const userHiddenButtonClickHandler = () => {
+
+  };
+
+  // 매물 디테일로 넘어가기
+  const MarketDetailOnClickHandler = ( brdSeq : number ) => {
+    navigate(`/salelist/${brdSeq}`);
+  };
 
   return (
     <MarketTableBody key={`uuid`}>
-      { Array( totalContentsCount ).fill( 0 ).slice( offset, offset + postsPerPage ).map( ( _, i ) => {
-        return (
-          <React.Fragment key={i}>
+      {
+        list.slice( offset, offset + postsPerPage ).map( ( item, index ) => {
+          return (
+            <React.Fragment key={item.brdSeq}>
             <tr>
               <MarketTableBodyRowSpan rowSpan={2}>
                 <MarketCheckBoxWrapper>
                   <MarketInputCheckBox
-                    id={"body_checkbox" + i}
+                    id={item.brdSeq.toString()}
                     ref={inputCheckTypeRef}
                     onClick={inputCheckOnClickHandler}
                     onChange={(event) => { inputCheckOnChangeHandler( event )}}
+                    checked={ checkList.includes(item.brdSeq) ? true : false}
                   />
-                  <MarketLabelCheckBox htmlFor={"body_checkbox" + i} />
+                  <MarketLabelCheckBox htmlFor={item.brdSeq.toString()} />
                 </MarketCheckBoxWrapper>
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan rowSpan={2}>
-                0000000
+              <MarketTableBodyRowSpan rowSpan={2} style={{cursor:"pointer"}} onClick={()=>MarketDetailOnClickHandler( item.brdSeq )}>
+                { String( item.brdSeq.toString() ).padStart( 7, '0')}
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan rowSpan={2}>
-                스포츠카
+              <MarketTableBodyRowSpan rowSpan={2} style={{cursor:"pointer"}}>
+                {CategoryMap[item.category]}
               </MarketTableBodyRowSpan>
               <MarketTableBodyRowSpan
                 rowSpan={2}
-                style={{ textAlign: "left", padding: "8.5px 16px" }}
+                style={{ textAlign: "left", padding: "8.5px 16px", cursor:"pointer" }}
               >
                 <MarketTableBodyClamp>
-                  제목제목제목제목제목제목제목제목제목제목제목제목제목제제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목
+                  {item.title}
                 </MarketTableBodyClamp>
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan rowSpan={2}>
-                판매 완료
+              <MarketTableBodyRowSpan rowSpan={2} style={{cursor:"pointer"}}>
+                {item.pdtStatus}
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan rowSpan={2}>
-                2022-10-16
+              <MarketTableBodyRowSpan rowSpan={2} style={{cursor:"pointer"}}>
+                {item.createdDate.split("T")[0]}
               </MarketTableBodyRowSpan>
-              <MarketTableBodyNoSpan>0000000</MarketTableBodyNoSpan>
-              <MarketTableBodyNoSpan>abcgd</MarketTableBodyNoSpan>
-              <MarketTableBodyRowSpan rowSpan={2}>
-                <MarketTableBodyButton>숨기기 취소</MarketTableBodyButton>
+              <MarketTableBodyNoSpan style={{cursor:"pointer"}}>{ String( item.dlrSeq.toString() ).padStart( 7, '0')}</MarketTableBodyNoSpan>
+              <MarketTableBodyNoSpan style={{cursor:"pointer"}}>{item.userId}</MarketTableBodyNoSpan>
+              <MarketTableBodyRowSpan rowSpan={2} >
+                <MarketTableBodyButton>{ item.pdtApper ? '숨기기 취소' : '숨기기'}</MarketTableBodyButton>
               </MarketTableBodyRowSpan>
               <MarketTableBodyRowSpan rowSpan={2}>
                 <MarketTableBodyButton>삭제하기</MarketTableBodyButton>
               </MarketTableBodyRowSpan>
             </tr>
             <tr>
-              <MarketTableBodyNoSpan>테스트</MarketTableBodyNoSpan>
-              <MarketTableBodyNoSpan>
-                슈퍼카마켓슈퍼카마켓
+              <MarketTableBodyNoSpan style={{cursor:"pointer"}}>{item.name}</MarketTableBodyNoSpan>
+              <MarketTableBodyNoSpan style={{cursor:"pointer"}}>
+                {item.userNickName}
               </MarketTableBodyNoSpan>
             </tr>
           </React.Fragment>
-        );
-      })}
+          )
+        })
+      }
     </MarketTableBody>
   );
 };

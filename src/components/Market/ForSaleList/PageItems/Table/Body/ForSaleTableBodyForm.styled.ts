@@ -35,12 +35,12 @@ export const MarketTableBodyNoSpan = styled.td.attrs({ })`
 `;
 
 export const MarketTableBodyButton = styled( Button )`
-    background-color: ${({theme}) => theme.colors.greyScale_3 };
-    color : ${({theme}) => theme.colors.greyScale_5 };
+    background-color: ${({theme}) => theme.colors.greyScale_1 };
+    color : ${({theme}) => theme.colors.greyScale_6 };
 
     text-align:center;
     vertical-align:middle;
-    border : 1px solid ${({theme}) => theme.colors.greyScale_3};
+    border : 1px solid ${({theme}) => theme.colors.greyScale_4};
 `;
 
 export const MarketCheckBoxWrapper = styled.div`

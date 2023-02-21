@@ -4,15 +4,15 @@ import { Wrapper, Selecter, SelecterArrow, OptionWrapper, OptionItem } from "./D
 
 import { useDetectOutSideHandler } from "../../../hooks/DropDown/useDropDownHooks";
 
-const DropDownForm = ( { category, LiOnClick } : DropDownPropsType ) => {
+const DropDownForm = ( { category, titleRef, LiOnClick } : DropDownPropsType ) => {
   const { isOpen, isTitle, ref, openDropDownFn, changeDropDownTitleFn } = useDetectOutSideHandler( { initState : false, title : category } );
-
+  
   return (
     <Wrapper ref={ ref }>
       <Selecter
         onClick={ () =>  openDropDownFn( isOpen ) }
       >
-        {isTitle}
+        <span ref={titleRef}>{isTitle}</span>
       </Selecter>
       <SelecterArrow />
       <OptionWrapper isClicked={ isOpen }>

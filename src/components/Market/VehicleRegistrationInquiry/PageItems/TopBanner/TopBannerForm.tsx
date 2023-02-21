@@ -14,11 +14,13 @@ const TopBannerForm = () => {
     console.log( event.key );
   }
 
+  const DropDownTitleRef = useRef<HTMLSpanElement>( null );
+
   return (
     <>
       <TopBannerWrapper>
         <TopBannerLeftWrapper>
-          <DropDownForm category={"market_list"} LiOnClick={() => {}} />
+          <DropDownForm category={"market_list"} LiOnClick={() => {}} titleRef={DropDownTitleRef}/>
           <SearchBarForm
             SearchBarInputRef={SearchBarInputRef}
             SearchBarOnClick={() => SearchBarInputOnClickHandler()}

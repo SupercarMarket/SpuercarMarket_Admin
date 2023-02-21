@@ -37,6 +37,13 @@ export const TableContent = styled( TableTdAttrs )`
     width: 280px;
 `;
 
+export const TableContentClamp = styled.div`
+    overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* ellipsis line */
+	-webkit-box-orient: vertical;
+`;
+
 export const HiddenButtonWrapper = styled.div`
     display: flex;
     justify-content: center;

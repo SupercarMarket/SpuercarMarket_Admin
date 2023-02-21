@@ -15,6 +15,8 @@ export const DealerPhotoContent = styled( SellerInfoContent )`
 export const DealerPhoto = styled.img`
     width: 238px;
     height: 120px;
+
+    object-fit: fill;
 `;
 
 // 딜러 정보

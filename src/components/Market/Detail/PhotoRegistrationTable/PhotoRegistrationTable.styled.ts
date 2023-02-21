@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const PhotoRegistrationWrapper = styled.div`
     width: 100%;
-    height : 924px; 
+    min-height: 240px;
+    max-height : 924px;
+    /* height : 924px;  */
     margin-top: 20px;
 
     display: flex;
@@ -29,8 +31,8 @@ export const PhotoRegistrationTitle = styled.div`
 `
 
 export const PhotoRegistrationContentWrapper = styled.div`
-    /* width: 1480px; */
-    width: 100%;
+    width: 1480px;
+    /* width: 100%; */
     height : 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);

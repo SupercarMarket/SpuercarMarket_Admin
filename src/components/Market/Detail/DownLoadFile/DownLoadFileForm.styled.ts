@@ -4,7 +4,8 @@ import { ContentWrapperAttrs } from "../../ForSaleListDetail/ForSaleListDetailFo
 
 export const DownLaodFileWrapper = styled( ContentWrapperAttrs )`
     width: 100%;
-    height : 188px;
+    min-height: 80px;
+    /* max-height : 188px; */
     display: flex;
 `;
 
@@ -30,9 +31,10 @@ export const DownLaodFileTitle = styled.div`
 export const DownLaodFileContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    /* width: 1480px; */
-    width : 100%;
+    width: 1480px;
+    /* width : 100%; */
     height: 100%;
+
     padding : 16px;
     border-bottom : 1px solid ${({theme}) => theme.colors.greyScale_3};
 

@@ -8,7 +8,10 @@ import {
   SubTitleTable,
 } from "./SubTitleTableForm.styeld";
 
+import { useAppSelector } from "../../../../store/rootReducer";
+
 const SubTitleTableForm = () => {
+  const { detailItem } = useAppSelector( state => state.MarketSlice );
   return (
     <>
       <SubTitleForSaleIntoTableWrapper>
@@ -17,7 +20,7 @@ const SubTitleTableForm = () => {
             <tr>
               <TableHeader>부제목</TableHeader>
               <TableContent style={{ width: "1480px" }}>
-                상세 내용 상세 내용 상세 내용 상세 내용
+                {detailItem?.description}
               </TableContent>
             </tr>
           </tbody>
