@@ -1,16 +1,9 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import MarketSlice from "../redux/modules/MarketSlice";
-import ForSaleListSlice from "../redux/modules/ForSaleInquirySlice";
 
 export const store = configureStore({
     reducer:{
-        MarketSlice : MarketSlice,
-        ForSaleListSlice : ForSaleListSlice
-    },
-    middleware: getDefaultMiddleware({
-        serializableCheck : false,
-    })
+    }
 });
 
 export type RootState = ReturnType< typeof store.getState>;
