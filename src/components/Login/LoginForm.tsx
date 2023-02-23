@@ -9,9 +9,22 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const LoginClickHandler = async () => {
     if( emailRef.current && passwordRef.current ){
-      LoginHandler( emailRef.current.value, passwordRef.current.value ).then( () => {
-        navigate("/salelist");
-      });
+      if( !!emailRef.current.value === false ){
+        alert('아이디를 입력하세요.');
+      }
+      if( !!passwordRef.current.value === false ){
+        alert('비밀번호를 입력하세요.');
+      }
+      if( !!emailRef.current.value && !!passwordRef.current.value ){
+        LoginHandler( emailRef.current.value, passwordRef.current.value, navigate );
+      }
+    }
+  };
+
+  // 엔터키 입력 확인
+  const inputEnterKeyCheckHanlder = ( event : React.KeyboardEvent<HTMLInputElement> ) => {
+    if( event.key === 'Enter'){
+      LoginClickHandler();
     }
   };
 
@@ -19,8 +32,8 @@ const LoginForm = () => {
     <Wrapper>
       <Container>
         <Title>로그인</Title>
-        <InputID ref={emailRef} required />
-        <InputPW ref={passwordRef} />
+        <InputID ref={emailRef} onKeyDown={ event => inputEnterKeyCheckHanlder( event ) } />
+        <InputPW ref={passwordRef} onKeyDown={ event => inputEnterKeyCheckHanlder( event ) }/>
         <LoginButtons onClick={LoginClickHandler}>로그인</LoginButtons>
       </Container>
     </Wrapper>

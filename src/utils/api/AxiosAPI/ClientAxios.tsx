@@ -1,7 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { getCookie, setCookie } from "../CustomCookies/CustomCookies";
+import { getCookie, removeCookie, setCookie } from "../CustomCookies/CustomCookies";
 import { LoginType } from "../../../types/LoginType";
-import { useNavigate } from "react-router";
 
 const URL = process.env.REACT_APP_ADMIN_SERVER_URL;
 
@@ -18,7 +17,6 @@ const ClientAxios = axios.create({
 
 //interceptor request
 ClientAxios.interceptors.request.use( async ( config ) => {
-    const navigate = useNavigate();
     const refreshToken = getCookie(LoginType.refresh as string);
     const accessToken = getCookie(LoginType.access as string);
     // refresh token, access token save
@@ -50,6 +48,8 @@ ClientAxios.interceptors.request.use( async ( config ) => {
               console.log((response.data as unknown as Error405Type).error);
               if( response.status === 422 ){
                 alert('로그인 사용 정보가 만료되었습니다. 재 로그인해주세요.');
+                removeCookie( LoginType.refresh as string, { path : "/" } );
+                removeCookie( LoginType.access as string, { path : "/" } );
               }
             }
           }
