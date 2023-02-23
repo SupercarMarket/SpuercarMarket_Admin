@@ -4,7 +4,7 @@ import Arrow from "../../assets/expand_arrow.svg";
 export const Wrapper = styled.nav`
     display: flex;
     flex-direction: column;
-    width: 240px;
+    min-width: 240px;
     /* height: 100vh; */
 
     border : 1px solid #EAEAEC;
