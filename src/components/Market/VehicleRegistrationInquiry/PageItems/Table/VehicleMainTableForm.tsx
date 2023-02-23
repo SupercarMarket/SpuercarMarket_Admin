@@ -15,10 +15,14 @@ const VehicleMainTableForm = ( { offset, postsPerPage, totalContentsCount } : Ve
         {/* 헤더 */}
         <VehicleMainTableHeaderForm />
         {/* 바디 */}
-        <VehicleMainTableBodyForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} />
+        <VehicleMainTableBodyForm
+          offset={offset}
+          postsPerPage={postsPerPage}
+          totalContentsCount={totalContentsCount}
+        />
       </VehicleSaleInfoTable>
     </VehicleMainTableWrapper>
-  )
+  );
 }
 
 export default VehicleMainTableForm;

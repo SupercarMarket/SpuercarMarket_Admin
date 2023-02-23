@@ -1,9 +1,10 @@
 import React from "react";
 
 export interface DropDownPropsType {
-    category: string;
+    category: string,
     // onclick event propps
-    LiOnClick : React.MouseEventHandler<HTMLLIElement>
+    LiOnClick : React.MouseEventHandler<HTMLLIElement>,
+    titleRef : React.RefObject<HTMLSpanElement>
 }
 
 export interface DropDownMapItemsType {
@@ -97,13 +98,25 @@ export const DropDownItemMap: DropDownMapItemsType = {
 };
 
 export const MarketListDropDownMap : DropDownMapType = {
-    '전체' : 'all',
+    '전체' : '',
     '차종' : 'category',
     '제목' : 'title',
     '매물 상태' : 'status',
-    '등록 일자' : 'createDate',
+    '등록 일자' : 'createdDate',
     '딜러 회원번호' : 'dealerSeq',
     '딜러 아이디' : 'id',
     '딜러 닉네임' : 'nickname',
     '딜러 이름' : 'name'
+}
+
+export const MarketListSwitchDropDownMap : DropDownMapType = {
+    '': '전체',
+    'category': '차종',
+    'title' : '제목',
+    'status' : '매물 상태',
+    'createdDate' : '등록 일자',
+    'dealerSeq' : '딜러 회원번호',
+    'id' : '딜러 아이디',
+    'nickname' : '딜러 닉네임',
+    'name' : '딜러 이름'
 }

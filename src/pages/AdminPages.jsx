@@ -11,12 +11,11 @@ const AdminPages = () => {
   return (
     <Routes>
         <Route element={<PrivateRoutes />}>
-            <Route path="/salelist" element={<ForSaleListForm />}>
-                <Route path=":saleId" element={<ForSaleListDetailForm/>} />
-            </Route>
-            <Route path='/saleinquriy' element={<VehicleRegistrationInquriyForm/>} >
-                <Route path=":inquriyId" element={<VehicleRegistrationInquiryDetailForm/>} />
-            </Route>
+            <Route path="/salelist" element={<ForSaleListForm />} />
+            <Route path="/salelist/:saleId" element={<ForSaleListDetailForm/>} />
+            
+            <Route path='/saleinquriy' element={<VehicleRegistrationInquriyForm/>} />
+            <Route path="/saleinquriy/:inquiryId" element={<VehicleRegistrationInquiryDetailForm/>} />
         </Route>
 
         {/* Login 아니면 */}

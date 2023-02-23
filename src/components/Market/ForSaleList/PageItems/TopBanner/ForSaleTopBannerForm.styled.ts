@@ -20,8 +20,8 @@ export const TopRightWrapper = styled.div`
 
 export const TopHideButton = styled( Button )<{}>``
 
-export const TotalTopButton = styled( Button )<{}>`
+export const TotalTopButton = styled( Button )<{ totalCount : number }>`
     cursor : default;
-    background-color: ${({theme}) => theme.colors.greyScale_3 };
-    color : ${({theme}) => theme.colors.greyScale_5 };
+    color : ${({ totalCount }) => totalCount > 0 ? ({theme}) => theme.colors.greyScale_6 : ({theme}) => theme.colors.greyScale_5};
+    background-color : ${({ totalCount }) => totalCount > 0 ? ({theme}) => theme.colors.greyScale_1 : ({theme}) => theme.colors.greyScale_3};
 `;
