@@ -8,7 +8,7 @@ import {
   DownLaodButton,
 } from "./DownLoadFileForm.styled";
 
-import { useAppSelector } from '../../../../store/rootReducer';
+import { useAppSelector } from '../../../../../store/rootReducer';
 
 const DownLaodFileForm = () => {
   const { detailItem } = useAppSelector( state => state.MarketSlice );

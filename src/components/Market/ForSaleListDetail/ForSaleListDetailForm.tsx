@@ -7,12 +7,12 @@ import {
   HiddenButton,
 } from "./ForSaleListDetailForm.styled";
 import PageTitle from "../../Common/PageTitle/PageTitle";
-import MainInfoTableForm from "../Detail/MainInfoTable/MainInfoTableForm";
-import SubTitleTableForm from "../Detail/SubTitleTable/SubTitleTableForm";
-import VehicleDetailTableForm from "../Detail/VehicleDetailTable/VehicleDetailTableForm";
-import PhotoRegistrationTableForm from "../Detail/PhotoRegistrationTable/PhotoRegistrationTableForm";
-import DownLoadFileForm from "../Detail/DownLoadFile/DownLoadFileForm";
-import SellerInfoTableForm from "../Detail/SellerInfoTable/SellerInfoTableForm";
+import MainInfoTableForm from "./Detail/MainInfoTable/MainInfoTableForm";
+import SubTitleTableForm from "./Detail/SubTitleTable/SubTitleTableForm";
+import VehicleDetailTableForm from "./Detail/VehicleDetailTable/VehicleDetailTableForm";
+import PhotoRegistrationTableForm from "./Detail/PhotoRegistrationTable/PhotoRegistrationTableForm";
+import DownLoadFileForm from "./Detail/DownLoadFile/DownLoadFileForm";
+import SellerInfoTableForm from "./Detail/SellerInfoTable/SellerInfoTableForm";
 
 import { getMarketListDetail } from "../../../redux/modules/MarketSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/rootReducer";
@@ -23,7 +23,7 @@ const ForSaleListDetailForm = () => {
   const { isLoading } = useAppSelector((state) => state.MarketSlice);
 
   useEffect(() => {
-    dispatch( getMarketListDetail({ category : 'product', brdSeq : saleId as string } ) );
+    dispatch( getMarketListDetail({ brdSeq : saleId as string } ) );
   }, [saleId, dispatch ]);
 
   return (

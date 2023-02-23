@@ -12,6 +12,7 @@ const initState = {
   allChecked : false,
   checkList : [],
   isChecked : false,
+  currentPage : 1,
 
   detailItem : {
     carNumber : '',
@@ -80,17 +81,17 @@ export const getMarketList = createAsyncThunk(
     }
   }
 );
-// 매물 상세 조회하기
-interface getDetailParamsType {
-  category : string,
+
+interface getMarketListDetailType {
   brdSeq : string
 }
 
 export const getMarketListDetail = createAsyncThunk(
     "GET/getMarketListDetail",
-    async ( params : getDetailParamsType, thunkApi ) => {
+    async ( params : getMarketListDetailType, thunkApi ) => {
       try{
-        const response = await getDetailMarketItemHandler( params.category, params.brdSeq );
+        const response = await getDetailMarketItemHandler( params.brdSeq );
+        console.log( response );
         return response;
       }catch( error ){
         return thunkApi.rejectWithValue( error );
@@ -102,6 +103,10 @@ const MarketSlice = createSlice({
   name: "MarketSlice",
   initialState: initState,
   reducers: {
+    // 페이지 저장
+    setMarketListCurrentPage :  ( state, action ) => {
+      state.currentPage = action.payload.isPage;
+    },
     // 필터 reducer
     setMarketListFilter : ( state, action ) => {
         state.filter = action.payload.filter;

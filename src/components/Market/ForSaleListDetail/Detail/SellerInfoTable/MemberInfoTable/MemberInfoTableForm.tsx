@@ -1,8 +1,8 @@
 import React from 'react'
-import PageTitle from '../../../../Common/PageTitle/PageTitle'
+import PageTitle from '../../../../../Common/PageTitle/PageTitle'
 import { MemberInfoWrapper, MemeberTable, MemberHeader, MemberContent } from "./MemberInfoTableForm.styled";
 
-import { useAppSelector } from '../../../../../store/rootReducer';
+import { useAppSelector } from '../../../../../../store/rootReducer';
 
 interface userRatingType {
   [ key : string ] : string

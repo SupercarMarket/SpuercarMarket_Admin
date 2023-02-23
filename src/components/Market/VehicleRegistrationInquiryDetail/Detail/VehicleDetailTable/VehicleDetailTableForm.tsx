@@ -1,11 +1,11 @@
 import React from 'react'
-import { TableHeader, TableContent, TableContentClamp } from "../../ForSaleListDetail/ForSaleListDetailForm.styled";
+import { TableHeader, TableContent, TableContentClamp } from "../../../ForSaleListDetail/ForSaleListDetailForm.styled";
 import { VehicleDetailForSaleInfoTableWrapper, VehicleDetailForSaleInfoTable } from "./VehicleDetailTableForm.styled";
 
-import { useAppSelector } from "../../../../store/rootReducer";
+import { useAppSelector } from "../../../../../store/rootReducer";
 
 const VehicleDetailTableForm = () => {
-  const { detailItem } = useAppSelector( state => state.MarketSlice );
+  const { detailItem } = useAppSelector( state => state.ForSaleListSlice );
   return (
     <>
       <VehicleDetailForSaleInfoTableWrapper>

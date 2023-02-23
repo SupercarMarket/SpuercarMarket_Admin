@@ -6,10 +6,10 @@ import {
 import {
   TableHeader,
   TableContent,
-} from "../../ForSaleListDetail/ForSaleListDetailForm.styled";
+} from "../../../ForSaleListDetail/ForSaleListDetailForm.styled";
 
-import { CategoryMap } from "../../../../types/ForSaleList";
-import { useAppSelector } from "../../../../store/rootReducer";
+import { CategoryMap } from "../../../../../types/ForSaleList";
+import { useAppSelector } from "../../../../../store/rootReducer";
 
 const MainInfoTableForm = () => {
   const { detailItem } = useAppSelector( state => state.MarketSlice );
@@ -89,7 +89,7 @@ const MainInfoTableForm = () => {
               {/* 사고 여부 */}
               <TableHeader>사고여부</TableHeader>
               <TableContent>
-              { detailItem?.accident ? "사고 경력 있음" : "사고 경력 없음"}
+              { detailItem?.accident ? "사고 경력 있음" : "무사고"}
               </TableContent>
               {/* 판매형태 */}
               <TableHeader>판매형태</TableHeader>

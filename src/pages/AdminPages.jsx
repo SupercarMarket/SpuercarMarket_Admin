@@ -15,7 +15,7 @@ const AdminPages = () => {
             <Route path="/salelist/:saleId" element={<ForSaleListDetailForm/>} />
             
             <Route path='/saleinquriy' element={<VehicleRegistrationInquriyForm/>} />
-            <Route path="/saleinquriy/:inquriyId" element={<VehicleRegistrationInquiryDetailForm/>} />
+            <Route path="/saleinquriy/:inquiryId" element={<VehicleRegistrationInquiryDetailForm/>} />
         </Route>
         
         {/* Login 아니면 */}

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Button } from "../../../Common/Button/ButtonForm.styled";
-import { ContentWrapperAttrs } from "../../ForSaleListDetail/ForSaleListDetailForm.styled";
+import { Button } from "../../../../Common/Button/ButtonForm.styled";
+import { ContentWrapperAttrs } from "../../../ForSaleListDetail/ForSaleListDetailForm.styled";
 
 export const DownLaodFileWrapper = styled( ContentWrapperAttrs )`
     width: 100%;

@@ -17,16 +17,10 @@ export const getMarketListHandler = async ( filter : string, keyword : string, p
     }
 };
 
-// 매물 or 판매차량 리스트 상세 조회
-// category : dealer( 판매 차량 ) product ( 매물 )
-export const getDetailMarketItemHandler = async ( category : string, brdSeq : string ) => {
+// 매물 리스트 상세 조회
+export const getDetailMarketItemHandler = async ( brdSeq : string ) => {
     try{
-        return await ClientAxios.get(`inquiry`, {
-            params:{
-                category,
-                brdSeq
-            }
-        })
+        return await ClientAxios.get(`product/${brdSeq}`);
     }catch( error ){
         const { response } = error as unknown as AxiosError;
         return response;

@@ -41,7 +41,7 @@ const ForSaleTopBannerForm = () => {
       }
       dispatch( getMarketList({ filter : filter as string, keyword : Likeyword as string, page : 1 }) );
     }
-    
+    // 엔터키 입력시
     const SearchBarInputOnKeyDownHandler = ( event : React.KeyboardEvent<HTMLInputElement> ) => {
       if( event.key === 'Enter' ){
         SearchBarInputClickHandler();

@@ -2,16 +2,16 @@ import React from "react";
 import {
   TableHeader,
   TableContent,
-} from "../../ForSaleListDetail/ForSaleListDetailForm.styled";
+} from "../../../ForSaleListDetail/ForSaleListDetailForm.styled";
 import {
   SubTitleForSaleIntoTableWrapper,
   SubTitleTable,
 } from "./SubTitleTableForm.styeld";
 
-import { useAppSelector } from "../../../../store/rootReducer";
+import { useAppSelector } from "../../../../../store/rootReducer";
 
 const SubTitleTableForm = () => {
-  const { detailItem } = useAppSelector( state => state.MarketSlice );
+  const { detailItem } = useAppSelector( state => state.ForSaleListSlice );
   return (
     <>
       <SubTitleForSaleIntoTableWrapper>

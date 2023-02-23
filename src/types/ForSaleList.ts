@@ -52,6 +52,7 @@ interface MarketItemDetailType {
     // 두개 바뀐듯
     price : string,
     sellType : number,
+    //
     trasmissionType: string,
     description : string,
     introduction : string
@@ -101,7 +102,39 @@ export interface InitMarketStateType {
     list : MarketListType[]
     checkList : number[],
     isChecked : boolean,
+    currentPage : number,
     // 상세 조회
+    detailItem? : MarketItemDetailType
+};
+
+/* 판매차량 리스트 */
+export interface ForSaleInitType {
+    isLoading : boolean,
+    totalPages : number,
+    totalCount : number,
+    currentPage : number,
+    filter : string,
+    keyword : string,
+    list : ForSaleListType[],
 
     detailItem? : MarketItemDetailType
+};
+
+interface ForSaleListType {
+    brdSeq: number,
+    pinfCarNumber: string,
+    category : string,
+    title : string,
+    model : string,
+    brand : string,
+    pinfYear : string,
+    pinfRegDate : string,
+    pinfFuel: string,
+    pinfCc: string,
+    pinfMileage : number,
+    pinfColor : string,
+    pinfAccidentHistory : boolean,
+    pdtSellType : string,
+    pdtPrice : number,
+    isAccepted : boolean
 };

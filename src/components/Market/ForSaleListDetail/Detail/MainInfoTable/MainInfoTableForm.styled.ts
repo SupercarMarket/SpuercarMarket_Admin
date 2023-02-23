@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ContentWrapperAttrs, TableAttrs } from "../../ForSaleListDetail/ForSaleListDetailForm.styled";
+import { ContentWrapperAttrs, TableAttrs } from "../../../ForSaleListDetail/ForSaleListDetailForm.styled";
 
 export const TableTdAttrs = styled.td`
     height: 53px;

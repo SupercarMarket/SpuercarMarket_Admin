@@ -5,31 +5,30 @@ import ForSaleTopBannerForm from './PageItems/TopBanner/ForSaleTopBannerForm';
 import ForSaleMainTableForm from './PageItems/Table/ForSaleMainTableForm';
 
 import PaginationForm from '../../Common/Pagination/PaginationForm';
-import { getMarketList } from "../../../redux/modules/MarketSlice";
+import { getMarketList, MarketAction } from "../../../redux/modules/MarketSlice";
 import { useAppDispatch, useAppSelector } from '../../../store/rootReducer'; 
 
 const ForSaleListForm = () => {
   const paginationCount = 10;
   // 페이지당 몇개 그려줄지
   const postsPerPage = 20;
-  // 총 길이
-  let totalContentsCount = 1;
   // 첫 페이지
   const startPage = 1;
   const [ isPage, setIsPage ] = useState< number >( startPage );
   const offset = ( isPage - 1 ) * postsPerPage;
 
-  const { isLoading, filter, keyword, totalCount } = useAppSelector( state => state.MarketSlice );
+  const { isLoading, filter, keyword, currentPage, totalCount } = useAppSelector( state => state.MarketSlice );
   const dispatch = useAppDispatch();
 
   useEffect(()=>{
     window.scrollTo( 0, 0 );
-  },[ isPage ]);
-
-  useEffect(()=>{
+    dispatch( MarketAction.setMarketListCurrentPage( {isPage}) );
+    if( isPage === currentPage ){
       dispatch( getMarketList({ filter : filter as string, keyword : (keyword as string), page : isPage }) );
-  }, [  ]);
-
+    }
+    setIsPage( () => currentPage );
+  },[ isPage, currentPage, dispatch ]);
+  
   return (
     <Wrapper>
       <div style={{ width: "100%", marginLeft: "auto", marginRight: "auto" }}>

@@ -8,7 +8,7 @@ import {
   PhotoName,
 } from "./PhotoRegistrationTable.styled";
 
-import { useAppSelector } from '../../../../store/rootReducer';
+import { useAppSelector } from '../../../../../store/rootReducer';
 
 const PhotoRegistrationTableForm = () => {
   const { detailItem } = useAppSelector( state => state.MarketSlice );

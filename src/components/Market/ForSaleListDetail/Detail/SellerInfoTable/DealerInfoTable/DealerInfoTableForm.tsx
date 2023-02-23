@@ -1,5 +1,5 @@
 import React from "react";
-import PageTitle from "../../../../Common/PageTitle/PageTitle";
+import PageTitle from "../../../../../Common/PageTitle/PageTitle";
 import {
   DealerInfoWrapper,
   DealerTable,
@@ -10,7 +10,7 @@ import {
   DealerPhoto,
 } from "./DealerInfoTableForm.styled";
 
-import { useAppSelector } from "../../../../../store/rootReducer";
+import { useAppSelector } from "../../../../../../store/rootReducer";
 
 const DealerInfoTableForm = () => {
   const { detailItem } = useAppSelector( state => state.MarketSlice );
