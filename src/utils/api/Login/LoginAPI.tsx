@@ -24,6 +24,6 @@ export const LoginHandler = async ( email : string, password : string, navigate 
     }else if( response?.status === 415 ){
         alert( response.data.message );
     }else if( response?.status === 500 ){
-        alert( response?.data.message );
+        alert( '비밀번호가 틀렸습니다.' );
     }
 }
