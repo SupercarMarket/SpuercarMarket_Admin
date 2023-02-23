@@ -23,7 +23,7 @@ export const LoginHandler = async ( email : string, password : string, navigate 
         navigate("/salelist");
     }else if( response?.status === 415 ){
         alert( response.data.message );
-    }else if( response?.status === 500 ){
+    }else if( response?.status === 414 ){
         alert( '비밀번호가 틀렸습니다.' );
     }
 }
