@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   MarketTableHeader,
   MarketTableHeaderRowSpan,
@@ -6,14 +6,22 @@ import {
   MarketInputCheckBox,
   MarketLabelCheckBox,
 } from "./ForSaleTableHeaderForm.styled";
+import { MarketAction } from "../../../../../../redux/modules/MarketSlice";
+import { useAppSelector, useAppDispatch } from "../../../../../../store/rootReducer";
 
 const ForSaleTableHeaderForm = () => {
+  const { allChecked } = useAppSelector( state => state.MarketSlice );
+  const dispatch = useAppDispatch();
+  const allCheckBoxClickHandler = ( event : React.ChangeEvent<HTMLInputElement> ) => {
+    dispatch( MarketAction.setMarketListAllChecked( { allChecked : event.target.checked } ) );
+  };
+
   return (
     <MarketTableHeader>
       <tr>
         <MarketTableHeaderRowSpan rowSpan={2} style={{width:"80px"}}>
           <MarketCheckBoxWrapper>
-            <MarketInputCheckBox id="header_check" />
+            <MarketInputCheckBox id="header_check" onChange={ event => allCheckBoxClickHandler( event )} checked={ allChecked }/>
             <MarketLabelCheckBox htmlFor="header_check" />
           </MarketCheckBoxWrapper>
         </MarketTableHeaderRowSpan>
