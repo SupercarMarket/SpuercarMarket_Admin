@@ -75,6 +75,7 @@ export const getMarketList = createAsyncThunk(
         params.keyword,
         params.page
       );
+      console.log( response );
       return response;
     } catch (error) {
         return thunkApi.rejectWithValue( error );
