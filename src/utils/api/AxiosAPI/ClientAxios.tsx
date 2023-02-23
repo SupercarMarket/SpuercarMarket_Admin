@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { getCookie, setCookie } from "../CustomCookies/CustomCookies";
 import { LoginType } from "../../../types/LoginType";
+import { useNavigate } from "react-router";
 
 const URL = process.env.REACT_APP_ADMIN_SERVER_URL;
 
@@ -17,6 +18,7 @@ const ClientAxios = axios.create({
 
 //interceptor request
 ClientAxios.interceptors.request.use( async ( config ) => {
+    const navigate = useNavigate();
     const refreshToken = getCookie(LoginType.refresh as string);
     const accessToken = getCookie(LoginType.access as string);
     // refresh token, access token save
@@ -41,11 +43,14 @@ ClientAxios.interceptors.request.use( async ( config ) => {
                 response.status = 405, Method Not Allow
                 response.status = 501, access token refresh
             */
-            if (response.status === 501) {
+            if (response.status === 425 ) {
               setCookie( LoginType.access as string, response.headers.access_token, { path:"/", secure: true});
               config.headers.ACCESS_TOKEN = response.headers.access_token;
-            } else if (response.status === 405) {
+            } else {
               console.log((response.data as unknown as Error405Type).error);
+              if( response.status === 422 ){
+                alert('로그인 사용 정보가 만료되었습니다. 재 로그인해주세요.');
+              }
             }
           }
         }
