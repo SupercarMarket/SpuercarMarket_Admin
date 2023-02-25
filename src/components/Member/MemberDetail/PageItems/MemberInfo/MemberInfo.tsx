@@ -1,8 +1,8 @@
 import React from "react";
-import { Member } from "types/MemberType";
+import { UserDetail } from "../../MemberDetailForm";
 import { TitleDiv, Table } from "../../MemberDetail.styled";
 
-function MemberInfo({ userData }: { userData: Member }) {
+function MemberInfo({ userData }: { userData: UserDetail }) {
   return (
     <div>
       <TitleDiv>회원 정보</TitleDiv>
@@ -34,13 +34,13 @@ function MemberInfo({ userData }: { userData: Member }) {
           </tr>
           <tr>
             <td className="title">Role</td>
-            <td className="content">{userData.isDealer}</td>
+            <td className="content">딜러</td>
             <td className="title">게시글 수</td>
             <td className="content">{userData.postNumber}</td>
           </tr>
           <tr>
             <td className="title">댓글 수</td>
-            <td className="content">{userData.replyNumber}</td>
+            <td className="content">{userData.commentNumber}</td>
           </tr>
         </tbody>
       </Table>

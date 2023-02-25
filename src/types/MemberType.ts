@@ -6,11 +6,12 @@ interface Member {
   userPhone: string;
   userEmail: string;
   createdDate: string;
-  userRating: string;
+  userRating: number;
+  postNumber: number;
+  commentNumber: number;
   isDealer: boolean;
-  postNumber: string;
-  replyNumber: string;
   isBanned: boolean;
+  isDelete: boolean;
 }
 
 interface Dealer {
@@ -33,8 +34,8 @@ interface Admin {
   adminId: string;
   adminName: string;
   adminNickname: string;
-  email: string;
-  phoneNumber: string;
+  adminEmail: string;
+  adminPhone: string;
   magazineNumber: number;
 }
 

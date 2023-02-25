@@ -46,7 +46,7 @@ function ClassChangeModal({ memberId, currentClass, changeClass }: modalProps) {
           <ModalBackground onClick={closeModalHandler}></ModalBackground>
           <ModalContainer>
             <div className="Title">회원등급 수정</div>
-            <Select optionData={ratingOptions} value={currentMemberClass} setValue={setCurrentMemberClass} />
+            <Select optionData={ratingOptions} value={currentMemberClass.toString()} setValue={setCurrentMemberClass} />
             <div className="Button" style={{ margin: "auto" }}>
               <Button onClick={closeModalHandler}>취소</Button>
               <Button onClick={changeClassBtnHandler}>완료</Button>

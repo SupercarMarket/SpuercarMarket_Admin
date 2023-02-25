@@ -22,8 +22,8 @@ function AdminListForm() {
         adminId: "아이디",
         adminName: "이름",
         adminNickname: "슈퍼카마켓슈퍼카마켓",
-        email: "ooo@gmail.com",
-        phoneNumber: "010-0000-0000",
+        adminEmail: "ooo@gmail.com",
+        adminPhone: "010-0000-0000",
         magazineNumber: 5,
       }));
 

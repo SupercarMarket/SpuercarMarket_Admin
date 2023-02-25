@@ -59,8 +59,8 @@ function AdminTable({ adminList }: tableProps) {
               <tr>
                 <td>{admin.ProfileImg}</td>
                 <td>{admin.adminNickname}</td>
-                <td>{admin.email}</td>
-                <td>{admin.phoneNumber}</td>
+                <td>{admin.adminEmail}</td>
+                <td>{admin.adminPhone}</td>
                 <td>{admin.magazineNumber}</td>
                 <td>
                   <AdminModifyModal adminData={admin} />
