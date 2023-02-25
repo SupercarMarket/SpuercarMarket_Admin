@@ -27,15 +27,36 @@ export const getDetailMarketItemHandler = async ( brdSeq : string ) => {
     }
 };
 
-// 매물 리스트 숨기기, 해제
-export const hiddenButtonMarketItemsHandler = async ( brdSeq : number ) => {
+// 매물 리스트 숨기기
+export const hiddenButtonMarketItemsHandler = async ( brdSeq : number[] ) => {
     try{
-        return await ClientAxios.post(`product/${brdSeq}`)
+        return await ClientAxios.post(`product/${brdSeq}`, {
+            data: brdSeq
+        })
     }catch( error ){
         const { response } = error as unknown as AxiosError;
         return response;
     }
 }
 
+// 매물 리스트 숨기기 해제
+export const unHiddenButtonMarketItemsHandler =async ( brdSeq: number[] ) => {
+    try{
+        return await ClientAxios.patch('product/un-hide', {
+            data : brdSeq
+        })
+    }catch( error ){
+
+    }
+}
 
 // 매물 리스트 삭제하기
+export const deleteButtonMarketItemsHandler = async ( brdSeq : number[] ) => {
+    try{
+        return await ClientAxios.delete('product', {
+            data : brdSeq
+        })
+    }catch( error ){
+
+    }
+}
