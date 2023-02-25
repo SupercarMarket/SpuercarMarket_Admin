@@ -61,12 +61,12 @@ function DealerInfo({ dealerData }: { dealerData: DealerDetail }) {
               {dealerData.comment}
             </td>
           </tr>
-          <tr>
+          {/* <tr>
             <td className="title">Comment</td>
             <td className="content" colSpan={3}>
-              {/* {isModifying ? <input value={modifiedText} onChange={modifiedTextChangeHandler} /> : <span>{dealerData.comment}</span>} */}
+              {isModifying ? <input value={modifiedText} onChange={modifiedTextChangeHandler} /> : <span>{dealerData.comment}</span>}
             </td>
-          </tr>
+          </tr> */}
         </tbody>
       </Table>
       {/* <div style={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "auto" }}>

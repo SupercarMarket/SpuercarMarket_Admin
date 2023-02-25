@@ -19,7 +19,7 @@ function App() {
           <HeaderForm />
           <div style={{ display: "flex", height: "100%" }}>
             <SideMenuForm />
-            <MemberDetail />
+            <DealerInquiryDetailForm />
           </div>
         </>
       ) : (

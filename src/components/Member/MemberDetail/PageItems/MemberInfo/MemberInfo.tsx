@@ -2,6 +2,8 @@ import React from "react";
 import { UserDetail } from "../../MemberDetailForm";
 import { TitleDiv, Table } from "../../MemberDetail.styled";
 
+const ratingTable = ["", "브론즈", "실버", "골드", "플레티넘", "다이아"];
+
 function MemberInfo({ userData }: { userData: UserDetail }) {
   return (
     <div>
@@ -30,7 +32,7 @@ function MemberInfo({ userData }: { userData: UserDetail }) {
             <td className="title">가입일자</td>
             <td className="content">{userData.createdDate}</td>
             <td className="title">회원등급</td>
-            <td className="content">{userData.userRating}</td>
+            <td className="content">{ratingTable[userData.userRating]}</td>
           </tr>
           <tr>
             <td className="title">Role</td>
