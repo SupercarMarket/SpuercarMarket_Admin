@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { TitleDiv, Table } from "../../MemberDetail.styled";
-import { Button } from "../../../styles/buttonStyles";
+// import { Button } from "../../../styles/buttonStyles";
 
-import { Dealer } from "types/MemberType";
+import { DealerDetail } from "../../MemberDetailForm";
 
-function DealerInfo({ dealerData }: { dealerData: Dealer }) {
-  const [modifiedText, setModifiedText] = useState(dealerData.comment);
-  const [isModifying, setIsModifying] = useState(false);
+function DealerInfo({ dealerData }: { dealerData: DealerDetail }) {
+  // const [modifiedText, setModifiedText] = useState(dealerData.comment);
+  // const [isModifying, setIsModifying] = useState(false);
 
-  const modifiedTextChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setModifiedText(event.target.value);
-  };
+  // const modifiedTextChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   event.preventDefault();
+  //   setModifiedText(event.target.value);
+  // };
 
-  const handleModifyBtn = () => {
-    setIsModifying(true);
-  };
+  // const handleModifyBtn = () => {
+  //   setIsModifying(true);
+  // };
 
-  const handleModifyFinishBtn = () => {
-    dealerData.comment = modifiedText;
-    setIsModifying(false);
-  };
+  // const handleModifyFinishBtn = () => {
+  //   dealerData.comment = modifiedText;
+  //   setIsModifying(false);
+  // };
 
   return (
     <div>
@@ -69,9 +69,9 @@ function DealerInfo({ dealerData }: { dealerData: Dealer }) {
           </tr>
         </tbody>
       </Table>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "auto" }}>
+      {/* <div style={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "auto" }}>
         {isModifying ? <Button onClick={handleModifyFinishBtn}>수정 완료</Button> : <Button onClick={handleModifyBtn}>수정하기</Button>}
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -80,8 +80,8 @@ function AdminModifyModal({ adminData }: AdminModifyModalProps) {
 
   useEffect(() => {
     setAdminName(adminData.adminName);
-    setAdminPhoneNumber(adminData.phoneNumber);
-    setAdminEmail(adminData.email);
+    setAdminPhoneNumber(adminData.adminPhone);
+    setAdminEmail(adminData.adminEmail);
   }, []);
 
   const nameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

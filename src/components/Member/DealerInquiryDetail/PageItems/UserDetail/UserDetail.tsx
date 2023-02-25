@@ -40,7 +40,7 @@ function UserDetail({ userData }: { userData: Member }) {
           </tr>
           <tr>
             <td className="title">댓글 수</td>
-            <td className="content">{userData.replyNumber}</td>
+            <td className="content">{userData.commentNumber}</td>
           </tr>
         </tbody>
       </Table>

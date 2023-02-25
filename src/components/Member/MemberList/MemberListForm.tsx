@@ -5,31 +5,14 @@ import Pagination from "../commons/Pagination";
 import MemberSearchForm from "./PageItems/MemberSearchForm/MemberSearchForm";
 import MemberHeader from "./PageItems/MemberHeader/MemberHeader";
 
-// import { Member } from "types/MemberType";
+import { Member } from "types/MemberType";
 import axios from "axios";
-
-export type MemberInList = {
-  userSeq: number;
-  userId: string;
-  userName: string;
-  userRating: string;
-  grade: number;
-  nickname: string;
-  email: string;
-  phone: string;
-  signUpdate: string;
-  postNumber: number;
-  commentNumber: number;
-  isDealer: boolean;
-  isBanned: boolean;
-  isDeleted: boolean;
-};
 
 function MemberListForm() {
   const [userNumber, setUserNumber] = useState(0);
   const [userBanned, setUserBanned] = useState(0);
   const [userOut, setUserOut] = useState(0);
-  const [userList, setUserList] = useState<MemberInList[]>([]);
+  const [userList, setUserList] = useState<Member[]>([]);
   const [checkedList, setCheckedList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -56,7 +39,8 @@ function MemberListForm() {
       })
       .then((response) => {
         console.log("success");
-        setUserList(response.data.list);
+        // setUserList(response.data.list);
+
         setUserNumber(50);
         setUserBanned(10);
         setUserOut(15);
@@ -111,7 +95,7 @@ function MemberListForm() {
   };
 
   // 회원번호와 변경할 회원등급을 받아 회원 등급을 변경하는 함수
-  const changeClass = (userId: number, changedClass: string) => {
+  const changeClass = (userId: number, changedClass: number) => {
     userList.forEach((user) => {
       if (user.userSeq === userId && user.userRating !== changedClass) {
         console.log(`user ${userId}'s class changed from ${user.userRating} to ${changedClass}`);

@@ -64,11 +64,12 @@ function DealerInquiryDetailForm() {
     userPhone: "010-0000-0000",
     userEmail: "0000000@gmail.com",
     createdDate: "2022-10-18",
-    userRating: "1",
+    userRating: 1,
     isDealer: true,
-    postNumber: "123",
-    replyNumber: "456",
+    postNumber: 123,
+    commentNumber: 456,
     isBanned: false,
+    isDelete: false,
   };
 
   const dealerData: Dealer = {
