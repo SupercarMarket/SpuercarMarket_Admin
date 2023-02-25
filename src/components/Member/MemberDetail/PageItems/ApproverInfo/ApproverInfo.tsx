@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { TitleDiv, Table } from "../../DealerDetailForm";
-import { Button } from "../../../styles/buttonStyles";
+import { TitleDiv, Table } from "../../MemberDetail.styled";
 
 import { Admin } from "types/MemberType";
 

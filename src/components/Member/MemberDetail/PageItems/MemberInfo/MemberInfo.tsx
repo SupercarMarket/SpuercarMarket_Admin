@@ -1,8 +1,8 @@
 import React from "react";
-import { User } from "types/MemberType";
-import { TitleDiv, Table } from "../../DealerDetailForm";
+import { Member } from "types/MemberType";
+import { TitleDiv, Table } from "../../MemberDetail.styled";
 
-function UserDetail({ userData }: { userData: User }) {
+function MemberInfo({ userData }: { userData: Member }) {
   return (
     <div>
       <TitleDiv>회원 정보</TitleDiv>
@@ -48,4 +48,4 @@ function UserDetail({ userData }: { userData: User }) {
   );
 }
 
-export default UserDetail;
+export default MemberInfo;

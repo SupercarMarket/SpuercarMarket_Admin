@@ -1,8 +1,8 @@
 import React from "react";
-import { User } from "types/MemberType";
+import { Member } from "types/MemberType";
 import { TitleDiv, Table } from "../../DealerInquiryDetailForm";
 
-function UserDetail({ userData }: { userData: User }) {
+function UserDetail({ userData }: { userData: Member }) {
   return (
     <div>
       <TitleDiv>회원 정보</TitleDiv>
