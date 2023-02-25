@@ -1,4 +1,4 @@
-interface User {
+interface Member {
   userSeq: number;
   userId: string;
   userName: string;
@@ -38,4 +38,4 @@ interface Admin {
   magazineNumber: number;
 }
 
-export type { User, Dealer, Admin };
+export type { Member, Dealer, Admin };

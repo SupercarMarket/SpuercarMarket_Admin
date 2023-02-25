@@ -4,10 +4,10 @@ import HeaderForm from "./components/Header/HeaderForm";
 import SideMenuForm from "./components/SideMenu/SideMenuForm";
 
 import MemberListForm from "components/Member/MemberList/MemberListForm";
-import DealerDetailForm from "components/Member/MemberListDetail/DealerDetailForm";
+import MemberDetail from "components/Member/MemberDetail/MemberDetailForm";
 import DealerInquiryDetailForm from "components/Member/DealerInquiryDetail/DealerInquiryDetailForm";
 import AdminListForm from "components/Member/AdminList/AdminListForm";
-import DealerInquiryListForm from "components/Member/DealerInquiry/DealerInquiryListForm";
+import DealerInquiryListForm from "components/Member/DealerInquiryList/DealerInquiryListForm";
 
 const isLogin = true;
 

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../../../styles/buttonStyles";
 
-import { User } from "types/MemberType";
+// import { Member } from "types/MemberType";
+import { MemberInList } from "../../MemberListForm";
 import ClassChangeModal from "../ClassChangeModal/ClassChangeModal";
 
 const Table = styled.table`
@@ -39,7 +40,7 @@ const classOptions: { [key: string]: string } = {
 };
 
 type tableProps = {
-  userList: User[];
+  userList: MemberInList[];
   doBan: Function;
   cancelBan: Function;
   checkedList: number[];
@@ -149,8 +150,8 @@ function MemberTable({ userList, doBan, cancelBan, checkedList, setCheckedList, 
                 </td>
                 <td rowSpan={2}>{user.userSeq}</td>
                 <td colSpan={2}>{user.userId}</td>
-                <td>{user.userPhone}</td>
-                <td rowSpan={2}>{user.createdDate}</td>
+                <td>{user.phone}</td>
+                <td rowSpan={2}>{user.signUpdate}</td>
                 <td rowSpan={2}>
                   <div style={{ display: "flex", margin: "0 auto", gap: "10px", justifyContent: "center" }}>
                     <div style={{ margin: "auto 0" }}>{classOptions[user.userRating]}</div>
@@ -189,9 +190,9 @@ function MemberTable({ userList, doBan, cancelBan, checkedList, setCheckedList, 
               </tr>
               <tr>
                 <td>{user.userName}</td>
-                <td>{user.userNickName}</td>
-                <td>{user.userEmail}</td>
-                <td>{user.replyNumber}</td>
+                <td>{user.nickname}</td>
+                <td>{user.email}</td>
+                <td>{user.commentNumber}</td>
               </tr>
             </React.Fragment>
           ))}

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { TitleDiv, Table } from "../../DealerDetailForm";
+import { TitleDiv, Table } from "../../MemberDetail.styled";
 import { Button } from "../../../styles/buttonStyles";
 
 import { Dealer } from "types/MemberType";
 
-function DealerDetail({ dealerData }: { dealerData: Dealer }) {
+function DealerInfo({ dealerData }: { dealerData: Dealer }) {
   const [modifiedText, setModifiedText] = useState(dealerData.comment);
   const [isModifying, setIsModifying] = useState(false);
 
@@ -76,4 +76,4 @@ function DealerDetail({ dealerData }: { dealerData: Dealer }) {
   );
 }
 
-export default DealerDetail;
+export default DealerInfo;

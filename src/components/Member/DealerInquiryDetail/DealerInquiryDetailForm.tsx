@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import DealerDetail from "./PageItems/DealerDetail/DealerInquiryDetail";
 import UserDetail from "./PageItems/UserDetail/UserDetail";
-import { User, Dealer } from "types/MemberType";
+import { Member, Dealer } from "types/MemberType";
 
 const Container = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ export const Table = styled.table`
 `;
 
 function DealerInquiryDetailForm() {
-  const userData: User = {
+  const userData: Member = {
     userSeq: 1,
     userId: "abcdefg",
     userName: "곽은주",

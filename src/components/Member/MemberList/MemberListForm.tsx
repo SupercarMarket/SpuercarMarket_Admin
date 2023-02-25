@@ -5,14 +5,31 @@ import Pagination from "../commons/Pagination";
 import MemberSearchForm from "./PageItems/MemberSearchForm/MemberSearchForm";
 import MemberHeader from "./PageItems/MemberHeader/MemberHeader";
 
-import { User } from "types/MemberType";
+// import { Member } from "types/MemberType";
 import axios from "axios";
+
+export type MemberInList = {
+  userSeq: number;
+  userId: string;
+  userName: string;
+  userRating: string;
+  grade: number;
+  nickname: string;
+  email: string;
+  phone: string;
+  signUpdate: string;
+  postNumber: number;
+  commentNumber: number;
+  isDealer: boolean;
+  isBanned: boolean;
+  isDeleted: boolean;
+};
 
 function MemberListForm() {
   const [userNumber, setUserNumber] = useState(0);
   const [userBanned, setUserBanned] = useState(0);
   const [userOut, setUserOut] = useState(0);
-  const [userList, setUserList] = useState<User[]>([]);
+  const [userList, setUserList] = useState<MemberInList[]>([]);
   const [checkedList, setCheckedList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -39,29 +56,33 @@ function MemberListForm() {
       })
       .then((response) => {
         console.log("success");
+        setUserList(response.data.list);
+        setUserNumber(50);
+        setUserBanned(10);
+        setUserOut(15);
       })
       .catch((err) => {
         console.log("fail");
-        setUserNumber(50);
-        setUserBanned(0);
-        const userData: User[] = Array(50)
-          .fill(0)
-          .map((_, i) => ({
-            userSeq: i + 1,
-            userId: "abcdefg",
-            userName: "곽은주",
-            userNickName: "슈퍼카마켓슈퍼카마켓",
-            userPhone: "010-0000-0000",
-            userEmail: "0000000@gmail.com",
-            createdDate: "2022-10-18",
-            userRating: "1",
-            isDealer: true,
-            postNumber: "123",
-            replyNumber: "456",
-            isBanned: false,
-          }));
-        setUserList(userData);
-        setUserOut(0);
+        // setUserNumber(50);
+        // setUserBanned(0);
+        // const userData: Member[] = Array(50)
+        //   .fill(0)
+        //   .map((_, i) => ({
+        //     userSeq: i + 1,
+        //     userId: "abcdefg",
+        //     userName: "곽은주",
+        //     userNickName: "슈퍼카마켓슈퍼카마켓",
+        //     userPhone: "010-0000-0000",
+        //     userEmail: "0000000@gmail.com",
+        //     createdDate: "2022-10-18",
+        //     userRating: "1",
+        //     isDealer: true,
+        //     postNumber: "123",
+        //     replyNumber: "456",
+        //     isBanned: false,
+        //   }));
+        // setUserList(userData);
+        // setUserOut(0);
       });
   };
 
