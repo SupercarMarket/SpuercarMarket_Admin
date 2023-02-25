@@ -9,7 +9,7 @@ const Container = styled.div`
   gap: 40px;
 
   div {
-    width: 50%;
+    width: 100%;
   }
 `;
 

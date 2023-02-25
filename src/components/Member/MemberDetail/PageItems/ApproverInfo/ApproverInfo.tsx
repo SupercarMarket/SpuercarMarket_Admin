@@ -14,7 +14,7 @@ function ApproverDetail({ approverData }: { approverData: AdminDetail }) {
             <td className="content">{approverData.regAdminNickName}</td>
           </tr>
           <tr>
-            <td className="title">닉네임</td>
+            <td className="title">이메일</td>
             <td className="content">{approverData.regAdminEmail}</td>
           </tr>
         </tbody>
