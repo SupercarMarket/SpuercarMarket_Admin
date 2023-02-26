@@ -43,25 +43,25 @@ function AdminTable({ adminList }: tableProps) {
       <Table>
         <thead>
           <tr>
-            <td>프로필 사진</td>
-            <td>닉네임</td>
-            <td>이메일</td>
-            <td>전화번호</td>
-            <td>작성한 매거진</td>
-            <td>수정하기</td>
-            <td>차단하기</td>
-            <td>비밀번호 초기화</td>
+            <td style={{ width: "12.5%" }}>프로필 사진</td>
+            <td style={{ width: "12.5%" }}>닉네임</td>
+            <td style={{ width: "12.5%" }}>이메일</td>
+            <td style={{ width: "12.5%" }}>전화번호</td>
+            <td style={{ width: "12.5%" }}>작성한 매거진</td>
+            <td style={{ width: "12.5%" }}>수정하기</td>
+            <td style={{ width: "12.5%" }}>차단하기</td>
+            <td style={{ width: "12.5%" }}>비밀번호 초기화</td>
           </tr>
         </thead>
         <tbody>
           {adminList.map((admin) => (
-            <React.Fragment key={admin._id}>
+            <React.Fragment key={admin.admSeq}>
               <tr>
-                <td>{admin.ProfileImg}</td>
-                <td>{admin.adminNickname}</td>
-                <td>{admin.adminEmail}</td>
-                <td>{admin.adminPhone}</td>
-                <td>{admin.magazineNumber}</td>
+                <td>{admin.admProfileImageUrl}</td>
+                <td>{admin.admName}</td>
+                <td>{admin.admEmail}</td>
+                <td>{admin.admPhone}</td>
+                <td>{admin.regMagazineCount}</td>
                 <td>
                   <AdminModifyModal adminData={admin} />
                 </td>

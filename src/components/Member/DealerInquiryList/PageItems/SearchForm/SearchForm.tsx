@@ -49,7 +49,9 @@ function SearchForm({ selectFilter, setSelectFilter, searchText, setSearchText, 
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        <Select optionData={selectOptions} value={selectFilter} setValue={setSelectFilter} />
+        <div style={{ width: "134px" }}>
+          <Select optionData={selectOptions} value={selectFilter} setValue={setSelectFilter} />
+        </div>
         <input className="textBox" placeholder="검색어를 입력해주세요." value={searchText} onChange={handleTextChange}></input>
         <SearchIconButton type="submit">
           <SearchIcon />
