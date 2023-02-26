@@ -84,7 +84,7 @@ function DealerInquiryDetailForm() {
   // };
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div style={{ padding: "40px", width: "100%" }}>
       {dealerDetailData && (
         <Container>
           <div>

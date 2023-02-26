@@ -29,14 +29,13 @@ interface Dealer {
 }
 
 interface Admin {
-  _id: number;
-  ProfileImg: string;
-  adminId: string;
-  adminName: string;
-  adminNickname: string;
-  adminEmail: string;
-  adminPhone: string;
-  magazineNumber: number;
+  admSeq: number;
+  admProfileImageUrl: string;
+  admId: string;
+  admName: string;
+  admEmail: string;
+  admPhone: string;
+  regMagazineCount: number;
 }
 
 export type { Member, Dealer, Admin };
