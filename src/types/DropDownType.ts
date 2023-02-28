@@ -95,6 +95,14 @@ export const DropDownItemMap: DropDownMapItemsType = {
         { name: "진행 중" },
         { name: "종료" },
     ],
+    etcInquiry_list: [
+        { name : "전체" },
+        { name: "아이디" },
+        { name: "이름" },
+        { name: "닉네임" },
+        { name: "제목" },
+        { name: "내용" },
+    ]
 };
 
 export const MarketListDropDownMap : DropDownMapType = {
@@ -119,4 +127,21 @@ export const MarketListSwitchDropDownMap : DropDownMapType = {
     'id' : '딜러 아이디',
     'nickname' : '딜러 닉네임',
     'name' : '딜러 이름'
+}
+
+export const EtcInquiryListDropDownMap : DropDownMapType = {
+    '전체' : '',
+    '아이디' : 'userId',
+    '이름' : 'userName',
+    '닉네임' : 'userNickname',
+    '제목' : 'title',
+    '내용' : 'contents'
+}
+export const EtcInquiryListSwitchDropDownMap : DropDownMapType = {
+    '': '전체',
+    'userId': '아이디',
+    'userName': '이름',
+    'userNickname': '닉네임',
+    'title' : '제목',
+    'contents' : '내용'
 }
