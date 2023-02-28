@@ -20,10 +20,7 @@ export const getEtcInquiryListHandler = async ( filter : string, keyword : strin
 //기타 문의 상세 조회
 export const getDetailEctInquiryItemHandler = async ( brdSeq : string ) => {
     try{
-        return await ClientAxios.get(`inquiry/etc`, {
-            params:{
-                brdSeq
-            },
+        return await ClientAxios.get(`inquiry/etc/`+brdSeq, {
         })
     }catch( error ){
         const { response } = error as unknown as AxiosError;

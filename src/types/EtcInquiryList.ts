@@ -53,6 +53,7 @@ interface EtcInquiryItemDetailType {
     userNickName: string,
     userEmail: string,
     userPhone: string,
+    userRating: string,
     createdDate : string,
     postCount : number,
     commentCount: number

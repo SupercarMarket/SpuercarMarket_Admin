@@ -29,6 +29,7 @@ const initState = {
         userNickName: '',
         userEmail: '',
         userPhone: '',
+        userRating: '',
         createdDate : '',
         postCount : 0,
         commentCount: 0
@@ -170,10 +171,9 @@ const EtcInquirySlice = createSlice({
         .addCase(getEctInquiryDetailItem.fulfilled, ( state, action ) => {
             if( action.payload?.status === 200 ) {
                 state.isLoading = false;
-                state.detailItem = {
-                    ...state.detailItem,
-                    ...action.payload.data,
-                }
+                console.log(action.payload.data);
+                state.detailItem = action.payload.data.data;
+                console.log(state.detailItem);
             }
         })
         //기타 문의 상세 조회

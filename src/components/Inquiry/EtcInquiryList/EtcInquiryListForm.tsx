@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Wrapper, TestButton } from './EtcInquiryListForm.styled';
+import { Wrapper } from './EtcInquiryListForm.styled';
 import EtcInquiryTopBannerForm from "./PageItems/TopBanner/EtcInquiryTopBannerForm";
 import PaginationForm from '../../Common/Pagination/PaginationForm';
 import { useAppDispatch, useAppSelector } from '../../../store/rootReducer';
@@ -25,15 +25,12 @@ const EtcInquiryListForm = () => {
         setIsPage(() => currentPage);
     },[ updated, isPage, currentPage, dispatch ]);
 
-    const TestButtonClick = () => {
-        console.log(offset,postsPerPage, totalCount, isPage, list)
-    };
+
 
     return (
         <Wrapper>
             <div style={{width: "100%", marginLeft: "auto", marginRight: "auto"}}>
                 <EtcInquiryTopBannerForm/>
-                <TestButton onClick={TestButtonClick}>ttt</TestButton>
                 {!isLoading ? (
                     <>
                         <EtcInquiryTableForm

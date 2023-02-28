@@ -7,5 +7,3 @@ export const Wrapper = styled.div`
     min-height: calc(100vh - 96px);
     padding : 40px 40px;
 `;
-
-export const TestButton = styled.button`width:50px;`;
