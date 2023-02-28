@@ -26,7 +26,6 @@ const EtcInquiryListForm = () => {
     },[ updated, isPage, currentPage, dispatch ]);
 
 
-
     return (
         <Wrapper>
             <div style={{width: "100%", marginLeft: "auto", marginRight: "auto"}}>
