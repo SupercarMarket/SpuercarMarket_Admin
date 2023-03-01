@@ -10,7 +10,6 @@ export const store = configureStore({
         MarketSlice : MarketSlice,
         ForSaleListSlice : ForSaleListSlice,
         EtcInquirySlice : EtcInquirySlice,
-        ForSaleListSlice : ForSaleListSlice
     },
     middleware: getDefaultMiddleware({
         serializableCheck : false,

@@ -44,6 +44,9 @@ const EtcDetailForm = () => {
         if(ReplyTextAreaRef.current?.value == '') return;
         dispatch( setEtcInquiryReply({brdSeq: detailItem?.brdSeq as number, reply: ReplyTextAreaRef.current?.value as string}) );
     };
+    const replyCancelOnClickHandler = () => {
+        dispatch( EtcInquiryAction.setEtcInquiryShowAnswer({showAnswer:false}));
+    }
     return (
         <>
         <Wrapper>
@@ -79,7 +82,7 @@ const EtcDetailForm = () => {
                     />
                     <BottomArea>
 
-                        <ModalButton>취소</ModalButton>
+                        <ModalButton onClick = {replyCancelOnClickHandler}>취소</ModalButton>
                         <ModalCompleteButton onClick = {replyOnClickHandler}>완료</ModalCompleteButton>
                     </BottomArea>
                 </ModalBody>
