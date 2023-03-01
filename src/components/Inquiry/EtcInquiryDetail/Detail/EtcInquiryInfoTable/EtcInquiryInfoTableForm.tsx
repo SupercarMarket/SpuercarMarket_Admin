@@ -19,6 +19,12 @@ const EtcInquiryInfoTableForm = () => {
                         <TableHeader style={{ width:"120px", height:"410px"}}>문의 내용</TableHeader>
                         <TableContent style={{ width:"660px", height:"410px" }}>{detailItem?.contents}</TableContent>
                     </tr>
+                    {detailItem?.reply?(
+                        <tr>
+                            <TableHeader>답변 내용</TableHeader>
+                            <TableContent>{detailItem?.reply}</TableContent>
+                        </tr>
+                    ):(<></>)}
                     </tbody>
                 </EtcTable>
             </EtcInfoWrapper>

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { EtcInquiryInitType } from "../../types/EtcInquiryList";
 import {
     getDetailEctInquiryItemHandler,
-    getEtcInquiryListHandler, setEtcInquiryProgressHandler
+    getEtcInquiryListHandler, setEtcInquiryProgressHandler, setEtcInquiryReplyHandler
 } from "../../utils/api/Inquiry/EtcInquiryAPI";
 import {getDetailForSaleInquiryItemHandler} from "../../utils/api/Market/ForSaleInquiryAPI";
 const initState = {
@@ -18,10 +18,12 @@ const initState = {
     allChecked : false,
     checkList : [],
     isChecked : false,
+    showAnswer : false,
     detailItem : {
         brdSeq : 0,
         title : '',
         contents : '',
+        reply : '',
         progress : 0,
         userSeq : 0,
         userId : '',
@@ -45,7 +47,7 @@ interface getDetailParamsType {
     brdSeq : string
 }interface setReplyParamsType {
     reply : string,
-    brdSeq : string
+    brdSeq : number
 }
 interface setEtcInquiryProgressParamsType {
     checkList : number[]
@@ -84,6 +86,16 @@ export const setEtcInquiryProgress = createAsyncThunk('POST/setEtcInquiryProgres
         return thunkApi.rejectWithValue( error );
     }
 });
+// 기타 문의 답변
+export const setEtcInquiryReply = createAsyncThunk('POST/setEtcInquiryReply', async( data : setReplyParamsType, thunkApi ) => {
+    try{
+        const response = await setEtcInquiryReplyHandler( data.reply, data.brdSeq );
+        // console.log(response);
+        return response;
+    }catch( error ){
+        return thunkApi.rejectWithValue( error );
+    }
+});
 
 
 const EtcInquirySlice = createSlice({
@@ -101,7 +113,12 @@ const EtcInquirySlice = createSlice({
         // keyword 값 쓰기 위해서
         setEtcInquiryListKeyword : ( state, action ) => {
             state.keyword = action.payload.keyword;
+        },
+        // showAnswer 값 변경
+        setEtcInquiryShowAnswer : ( state, action ) => {
+            state.showAnswer = action.payload.showAnswer;
         },// 전체 체크
+        // 전체 체크
         setEtcInquiryListAllChecked : ( state, action ) => {
             if( action.payload.allChecked ){
 
@@ -171,6 +188,7 @@ const EtcInquirySlice = createSlice({
         .addCase(getEctInquiryDetailItem.fulfilled, ( state, action ) => {
             if( action.payload?.status === 200 ) {
                 state.isLoading = false;
+                state.showAnswer = false;
                 console.log(action.payload.data);
                 state.detailItem = action.payload.data.data;
                 console.log(state.detailItem);
@@ -178,6 +196,22 @@ const EtcInquirySlice = createSlice({
         })
         //기타 문의 상세 조회
         .addCase(getEctInquiryDetailItem.rejected, ( state, action ) => {
+            state.isLoading = true;
+        })
+        //기타 문의 답변
+        .addCase(setEtcInquiryReply.pending, ( state, action ) => {
+            state.isLoading = true;
+        })
+            //기타 문의 답변
+        .addCase(setEtcInquiryReply.fulfilled, ( state, action ) => {
+            if( action.payload?.status === 200 ) {
+                state.updated = !state.updated;
+                state.showAnswer = false;
+                return state;
+            }
+        })
+        //기타 문의 답변
+        .addCase(setEtcInquiryReply.rejected, ( state, action ) => {
             state.isLoading = true;
         })
 

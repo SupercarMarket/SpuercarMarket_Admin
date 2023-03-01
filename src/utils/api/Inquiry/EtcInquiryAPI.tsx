@@ -39,3 +39,14 @@ export const setEtcInquiryProgressHandler = async ( checkList : number[]) => {
         return response;
     }
 };
+// 기타 문의 답변
+export const setEtcInquiryReplyHandler = async (reply : string, brdSeq : number) => {
+    try{
+        return await ClientAxios.post(`inquiry/etc/reply/`+brdSeq, {
+            reply : reply
+        })
+    }catch( error ){
+        const { response } = error as unknown as AxiosError;
+        return response;
+    }
+};

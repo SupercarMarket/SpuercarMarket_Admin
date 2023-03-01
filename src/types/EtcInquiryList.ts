@@ -23,6 +23,7 @@ export interface EtcInquiryInitType {
     updated : boolean,
     allChecked : boolean,
     checkList : number[],
+    showAnswer : boolean,
     list : EtcInquiryListType[],
 
     detailItem? : EtcInquiryItemDetailType
@@ -32,6 +33,7 @@ interface EtcInquiryListType {
     brdSeq : number,
     title : string,
     contents : string,
+    reply : string,
     progress : number,
     userSeq : number,
     userId : string,
@@ -46,6 +48,7 @@ interface EtcInquiryItemDetailType {
     brdSeq : number,
     title : string,
     contents : string,
+    reply : string,
     progress : number,
     userSeq : number,
     userId : string,
