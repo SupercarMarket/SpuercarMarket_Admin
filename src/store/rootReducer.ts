@@ -9,7 +9,8 @@ export const store = configureStore({
     reducer:{
         MarketSlice : MarketSlice,
         ForSaleListSlice : ForSaleListSlice,
-        EtcInquirySlice : EtcInquirySlice
+        EtcInquirySlice : EtcInquirySlice,
+        ForSaleListSlice : ForSaleListSlice
     },
     middleware: getDefaultMiddleware({
         serializableCheck : false,
