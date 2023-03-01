@@ -31,15 +31,13 @@ function MemberListForm() {
           ACCESS_TOKEN: process.env.REACT_APP_TOKEN,
           REFRESH_TOKEN: process.env.REACT_APP_R_TOKEN,
         },
-        // params: {
-        //   filter: selectFilter !== "all" ? selectFilter : null,
-        //   keyword: searchText !== "" ? searchText : null,
-        //   page: targetPage,
-        // },
+        params: {
+          isDelaer: false,
+        },
       })
       .then((response) => {
         console.log("success");
-        // setUserList(response.data.list);
+        setUserList(response.data.list);
 
         setUserNumber(50);
         setUserBanned(10);
@@ -47,26 +45,6 @@ function MemberListForm() {
       })
       .catch((err) => {
         console.log("fail");
-        // setUserNumber(50);
-        // setUserBanned(0);
-        // const userData: Member[] = Array(50)
-        //   .fill(0)
-        //   .map((_, i) => ({
-        //     userSeq: i + 1,
-        //     userId: "abcdefg",
-        //     userName: "곽은주",
-        //     userNickName: "슈퍼카마켓슈퍼카마켓",
-        //     userPhone: "010-0000-0000",
-        //     userEmail: "0000000@gmail.com",
-        //     createdDate: "2022-10-18",
-        //     userRating: "1",
-        //     isDealer: true,
-        //     postNumber: "123",
-        //     replyNumber: "456",
-        //     isBanned: false,
-        //   }));
-        // setUserList(userData);
-        // setUserOut(0);
       });
   };
 

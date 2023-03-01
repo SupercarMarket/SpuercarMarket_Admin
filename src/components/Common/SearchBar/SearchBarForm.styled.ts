@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Search from "../../../assets/searh.svg";
+import Search from "../../../assets/search.svg";
 
 export const SearchBarWrapper = styled.div`
     position : relative;
