@@ -1,81 +1,20 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Button } from "./buttonStyles";
+import { Button } from "../../../styles/buttonStyles";
+import { ModalBackground, ModalContainer, Input, InputRow, InputTable } from "./AdminModifyModal.styled";
 
 import { Admin } from "types/MemberType";
 
-const ModalBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0;
-  margin: 0;
-  pointer-events: visible;
-`;
-
-const ModalContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(368px - 24px * 2);
-  height: calc(197px - 24px * 2);
-  background: #ffffff;
-  border-radius: 4px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px;
-  gap: 16px;
-
-  .Title {
-    font-family: "Pretendard";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 120%;
-    color: #1e1e20;
-    height: 29px;
-  }
-
-  .Button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-  }
-`;
-
-const Input = styled.input`
-  width: 360px;
-  height: 44px;
-`;
-
-const InputTable = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  div {
-    width: 30%;
-  }
-`;
+import axios from "axios";
 
 type AdminModifyModalProps = {
   adminData: Admin;
 };
 
-function AdminModifyModal({ adminData }: AdminModifyModalProps) {
+function AdminModifyModalForm({ adminData }: AdminModifyModalProps) {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [adminName, setAdminName] = useState("");
   const [adminPhoneNumber, setAdminPhoneNumber] = useState("");
+  const [adminNickName, setAdminNickName] = useState("");
   const [adminEmail, setAdminEmail] = useState("");
 
   useEffect(() => {
@@ -92,6 +31,10 @@ function AdminModifyModal({ adminData }: AdminModifyModalProps) {
     setAdminPhoneNumber(event.currentTarget.value);
   };
 
+  const nickNameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAdminNickName(event.currentTarget.value);
+  };
+
   const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAdminEmail(event.currentTarget.value);
   };
@@ -104,6 +47,33 @@ function AdminModifyModal({ adminData }: AdminModifyModalProps) {
   const closeModalHandler = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     setIsShowModal(false);
+  };
+
+  const modifyAdmin = () => {
+    axios
+      .patch(
+        "/super-admin/v1/admin/info",
+        {
+          adminSeq: 10,
+          name: adminName,
+          phone: adminPhoneNumber,
+          nickname: adminNickName,
+          email: adminEmail,
+        },
+        {
+          headers: {
+            ACCESS_TOKEN: process.env.REACT_APP_TOKEN,
+            REFRESH_TOKEN: process.env.REACT_APP_R_TOKEN,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        setIsShowModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -124,13 +94,21 @@ function AdminModifyModal({ adminData }: AdminModifyModalProps) {
                 <Input placeholder="전화번호를 입력해주세요." value={adminPhoneNumber} onChange={phoneNumberChangeHandler} />
               </InputRow>
               <InputRow>
+                <div>닉네임</div>
+                <Input placeholder="닉네임을 입력해주세요." value={adminNickName} onChange={nickNameChangeHandler} />
+              </InputRow>
+              <InputRow>
                 <div>이메일</div>
                 <Input placeholder="이메일을 입력해주세요." value={adminEmail} onChange={emailChangeHandler} />
               </InputRow>
             </InputTable>
             <div className="Button">
-              <Button onClick={closeModalHandler}>취소</Button>
-              <Button>수정 완료</Button>
+              <Button style={{ width: "120px", height: "44px" }} onClick={closeModalHandler}>
+                취소
+              </Button>
+              <Button style={{ width: "120px", height: "44px" }} className="brown" onClick={modifyAdmin}>
+                수정 완료
+              </Button>
             </div>
           </ModalContainer>
         </>
@@ -139,4 +117,4 @@ function AdminModifyModal({ adminData }: AdminModifyModalProps) {
   );
 }
 
-export default AdminModifyModal;
+export default AdminModifyModalForm;

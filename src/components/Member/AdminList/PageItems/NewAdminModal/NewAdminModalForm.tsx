@@ -1,72 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { Button } from "./buttonStyles";
+import axios from "axios";
 
-const ModalBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0;
-  margin: 0;
-  pointer-events: visible;
-`;
+import { Button } from "../../../styles/buttonStyles";
+import { ModalBackground, ModalContainer, Input, InputTable, InputRow } from "./NewAdminModal.styled";
 
-const ModalContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(368px - 24px * 2);
-  height: calc(197px - 24px * 2);
-  background: #ffffff;
-  border-radius: 4px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px;
-  gap: 16px;
-
-  .Title {
-    font-family: "Pretendard";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 120%;
-    color: #1e1e20;
-    height: 29px;
-  }
-
-  .Button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-  }
-`;
-
-const Input = styled.input`
-  width: 360px;
-  height: 44px;
-`;
-
-const InputTable = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  div {
-    width: 30%;
-  }
-`;
-
-function NewAdminModal() {
+function NewAdminModalForm() {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [adminName, setAdminName] = useState("");
   const [adminPhoneNumber, setAdminPhoneNumber] = useState("");
@@ -94,6 +32,34 @@ function NewAdminModal() {
     setIsShowModal(false);
   };
 
+  const registerAdmin = () => {
+    axios
+      .post(
+        "/super-admin/v1/admin/add",
+        {
+          name: adminName,
+          phone: adminPhoneNumber,
+          email: adminEmail,
+        },
+        {
+          headers: {
+            ACCESS_TOKEN: process.env.REACT_APP_TOKEN,
+            REFRESH_TOKEN: process.env.REACT_APP_R_TOKEN,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        setAdminName("");
+        setAdminPhoneNumber("");
+        setAdminEmail("");
+        setIsShowModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <Button onClick={openModalHandler}>신규 관리자 등록</Button>
@@ -117,8 +83,12 @@ function NewAdminModal() {
               </InputRow>
             </InputTable>
             <div className="Button">
-              <Button onClick={closeModalHandler}>취소</Button>
-              <Button>등록</Button>
+              <Button style={{ width: "120px", height: "44px" }} onClick={closeModalHandler}>
+                취소
+              </Button>
+              <Button style={{ width: "120px", height: "44px" }} className="brown" onClick={registerAdmin}>
+                등록
+              </Button>
             </div>
           </ModalContainer>
         </>
@@ -127,4 +97,4 @@ function NewAdminModal() {
   );
 }
 
-export default NewAdminModal;
+export default NewAdminModalForm;

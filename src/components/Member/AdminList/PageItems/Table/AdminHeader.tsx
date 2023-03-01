@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../../../styles/buttonStyles";
-import NewAdminModal from "../NewAdminModal/NewAdminModal";
+import NewAdminModalForm from "../NewAdminModal/NewAdminModalForm";
 
 const HeaderDiv = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ const HeaderDiv = styled.div`
 function AdminHeader({ adminCount }: { adminCount: number }) {
   return (
     <HeaderDiv>
-      <NewAdminModal />
+      <NewAdminModalForm />
       <Button disabled>등록된 관리자 {adminCount}명</Button>
     </HeaderDiv>
   );
