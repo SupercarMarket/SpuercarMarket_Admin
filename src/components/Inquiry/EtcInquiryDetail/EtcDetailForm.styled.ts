@@ -10,21 +10,18 @@ export const Wrapper = styled.div`
 `;
 
 export const Modal = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
+    bottom : 0;
+    right : 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
+    align-items : center;
+    justify-content:center;
+    display: flex;
     background-color: rgba(0, 0, 0, 0.5);
 `
 export const ModalBody = styled.div` 
-    position: absolute;
-    top: 50%;
-    left: 50%;
     display: block;
-    flex-direction: column;
-    align-items: flex-start;
     padding: 24px;
     gap: 16px;
     width: 648px;
