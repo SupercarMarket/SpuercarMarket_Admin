@@ -14,16 +14,16 @@ const HeaderDiv = styled.div`
 
 type UserHeaderProps = {
   doCheckedBan: React.MouseEventHandler<HTMLButtonElement>;
-  userNumber: number;
+  userTotal: number;
   userBanned: number;
   userOut: number;
 };
 
-function MemberHeader({ doCheckedBan, userNumber, userBanned, userOut }: UserHeaderProps) {
+function MemberHeader({ doCheckedBan, userTotal, userBanned, userOut }: UserHeaderProps) {
   return (
     <HeaderDiv>
       <Button onClick={doCheckedBan}>회원 차단하기</Button>
-      <Button disabled>총 회원 수 {userNumber}명</Button>
+      <Button disabled>총 회원 수 {userTotal}명</Button>
       <Button disabled>차단 {userBanned}명</Button>
       <Button disabled>탈퇴 {userOut}명</Button>
     </HeaderDiv>

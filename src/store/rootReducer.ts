@@ -4,12 +4,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import MarketSlice from "../redux/modules/MarketSlice";
 import ForSaleListSlice from "../redux/modules/ForSaleInquirySlice";
 import EtcInquirySlice from "../redux/modules/EtcInquirySlice";
+import MemberSlice from "redux/modules/MemberSlice";
 
 export const store = configureStore({
     reducer:{
         MarketSlice : MarketSlice,
         ForSaleListSlice : ForSaleListSlice,
         EtcInquirySlice : EtcInquirySlice,
+        MemberSlice: MemberSlice,
     },
     middleware: getDefaultMiddleware({
         serializableCheck : false,

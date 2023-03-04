@@ -6,10 +6,11 @@ import MemberSearchForm from "./PageItems/MemberSearchForm/MemberSearchForm";
 import MemberHeader from "./PageItems/MemberHeader/MemberHeader";
 
 import { Member } from "types/MemberType";
-import axios from "axios";
+
+import { getMemberCountInfoHandler } from "utils/api/Member/MemberAPI";
 
 function MemberListForm() {
-  const [userNumber, setUserNumber] = useState(0);
+  const [userTotal, setUserTotal] = useState(0);
   const [userBanned, setUserBanned] = useState(0);
   const [userOut, setUserOut] = useState(0);
   const [userList, setUserList] = useState<Member[]>([]);
@@ -23,33 +24,36 @@ function MemberListForm() {
   const [endDate, setEndDate] = useState(new Date());
   const [selectClass, setSelectClass] = useState("0");
   const [selectRating, setSelectRating] = useState<string[]>([]);
+  // const paginationCount = 10;
+  // // 페이지당 몇개 그려줄지
+  // const postsPerPage = 20;
+  // // 첫 페이지
+  // const startPage = 1;
+  // const [ isPage, setIsPage ] = useState< number >( startPage );
+  // const offset = ( isPage - 1 ) * postsPerPage;
 
-  const getMemberListData = (targetPage: number = 1) => {
-    axios
-      .get("/super-admin/v1/member", {
-        headers: {
-          ACCESS_TOKEN: process.env.REACT_APP_TOKEN,
-          REFRESH_TOKEN: process.env.REACT_APP_R_TOKEN,
-        },
-        params: {
-          isDelaer: false,
-        },
-      })
-      .then((response) => {
-        console.log("success");
-        setUserList(response.data.list);
+  // const { isLoading, filter, keyword, currentPage, totalCount } = useAppSelector( state => state.MarketSlice );
+  // const dispatch = useAppDispatch();
 
-        setUserNumber(50);
-        setUserBanned(10);
-        setUserOut(15);
-      })
-      .catch((err) => {
-        console.log("fail");
-      });
-  };
+  // useEffect(()=>{
+  //   window.scrollTo( 0, 0 );
+  //   dispatch( MarketAction.setMarketListCurrentPage( {isPage}) );
+  //   if( isPage === currentPage ){
+  //     dispatch( getMarketList({ filter : filter as string, keyword : (keyword as string), page : isPage }) );
+  //   }
+  //   setIsPage( () => currentPage );
+  // },[ isPage, currentPage, dispatch ]);
 
   useEffect(() => {
-    getMemberListData();
+    getMemberCountInfoHandler()
+      .then((response) => {
+        setUserTotal(response!.data.userTotal);
+        setUserBanned(response!.data.userBanned);
+        setUserOut(response!.data.userOut);
+      })
+      .catch((error) => {
+        console.log("fail");
+      });
   }, []);
 
   // 회원번호 리스트를 받아 해당 회원들을 차단하는 함수
@@ -101,7 +105,7 @@ function MemberListForm() {
         selectRating={selectRating}
         setSelectRating={setSelectRating}
       />
-      <MemberHeader doCheckedBan={doCheckedBan} userNumber={userNumber} userBanned={userBanned} userOut={userOut} />
+      <MemberHeader doCheckedBan={doCheckedBan} userTotal={userTotal} userBanned={userBanned} userOut={userOut} />
       <MemberTable userList={userList} doBan={doBan} cancelBan={cancelBan} checkedList={checkedList} setCheckedList={setCheckedList} changeClass={changeClass} />
       <Pagination total={userList.length} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
