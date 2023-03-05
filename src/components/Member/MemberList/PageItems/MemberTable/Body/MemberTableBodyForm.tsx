@@ -34,12 +34,9 @@ const MemberTableBodyForm = ({ offset, postsPerPage, totalContentsCount, banMemb
         userCheckBoxClickHandler(parseInt(event.target.id), event.target.checked);
     };
 
-    // 숨기기 버튼 동작
-    const userHiddenButtonClickHandler = () => {};
-
     // 매물 디테일로 넘어가기
-    const memberDetailOnClickHandler = (brdSeq: number) => {
-        // navigate(`/salelist/${brdSeq}`);
+    const memberDetailOnClickHandler = (userSeq: number) => {
+        navigate(`/memberlist/${userSeq.toString()}`);
     };
 
     return (
@@ -74,7 +71,9 @@ const MemberTableBodyForm = ({ offset, postsPerPage, totalContentsCount, banMemb
                                         {user.isDealer === true ? (
                                             <>
                                                 딜러
-                                                <MemberTableBodyButton id={user.userSeq.toString()}>정보</MemberTableBodyButton>
+                                                <MemberTableBodyButton id={user.userSeq.toString()} onClick={() => memberDetailOnClickHandler(user.userSeq)}>
+                                                    정보
+                                                </MemberTableBodyButton>
                                             </>
                                         ) : (
                                             <>일반</>

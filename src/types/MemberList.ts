@@ -25,8 +25,9 @@ interface DealerDetailType {
     dlrNum: string;
     dlrEmployeeCardFront: string;
     dlrEmployeeCardBack: string;
-    dlrPorileImage: string;
+    dlrProileImage: string;
     userId: string;
+    userName: string;
     userNickName: string;
     userEmail: string;
     userPhone: string;
@@ -34,9 +35,10 @@ interface DealerDetailType {
     createdDate: string;
     postCount: number;
     commentCount: number;
+    comment: string;
     regAdmin: string;
     regAdminEmail: string;
-    regAdminNickname: string | null;
+    regAdminNickname: string;
 }
 
 // reducer initial type
@@ -61,5 +63,5 @@ export interface InitMemberStateType {
     isChecked: boolean;
     currentPage: number;
     // 상세 조회
-    detailItem?: DealerDetailType;
+    detailItem: DealerDetailType;
 }

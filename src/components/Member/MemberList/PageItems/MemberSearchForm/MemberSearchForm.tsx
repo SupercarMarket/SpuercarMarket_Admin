@@ -92,12 +92,12 @@ function MemberSearchForm() {
     };
 
     // Role 선택
-    const roleRadioBtnClickHandler = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    const roleRadioBtnClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchData({ ...searchData, role: event.currentTarget.value });
     };
 
     // Level 선택
-    const levelAllCheckedClickHandler = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    const levelAllCheckedClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         let checked = event.currentTarget.checked;
         if (checked) {
             setSearchData({ ...searchData, levelAllChecked: checked, level: ["1", "2", "3", "4", "5"] });
@@ -106,7 +106,7 @@ function MemberSearchForm() {
         }
     };
 
-    const levelCheckBoxClickHandler = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    const levelCheckBoxClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         let currentTarget = event.currentTarget.value;
         let newLevel: string[] = [...searchData.level];
         if (newLevel.indexOf(currentTarget) === -1) {
@@ -164,6 +164,12 @@ function MemberSearchForm() {
     // 검색 초기화
     const resetOnClickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         setSearchData(searchDataInitState);
+        if (SearchBarInputRef.current) {
+            SearchBarInputRef.current.value = "";
+        }
+        if (DropDownTitleRef.current) {
+            DropDownTitleRef.current.textContent = "전체"
+        }
     };
 
     return (
@@ -192,7 +198,7 @@ function MemberSearchForm() {
                         <RadioBtnWrapper>
                             {roleOptions.map((option) => (
                                 <RadioBtnLabel key={option.value}>
-                                    <input type="radio" value={option.value} checked={option.value === searchData.role} onClick={roleRadioBtnClickHandler} />
+                                    <input type="radio" value={option.value} checked={option.value === searchData.role} onChange={roleRadioBtnClickHandler} />
                                     <span>{option.name}</span>
                                 </RadioBtnLabel>
                             ))}
@@ -204,12 +210,12 @@ function MemberSearchForm() {
                     <div className="content">
                         <CheckBoxWrapper>
                             <CheckBoxLabel>
-                                <input type="checkbox" checked={searchData.levelAllChecked} onClick={levelAllCheckedClickHandler} />
+                                <input type="checkbox" checked={searchData.levelAllChecked} onChange={levelAllCheckedClickHandler} />
                                 <span>전체</span>
                             </CheckBoxLabel>
                             {levelOptions.map((option) => (
                                 <CheckBoxLabel key={option.value}>
-                                    <input type="checkbox" value={option.value} checked={searchData.level.includes(option.value) === true} onClick={levelCheckBoxClickHandler} />
+                                    <input type="checkbox" value={option.value} checked={searchData.level.includes(option.value) === true} onChange={levelCheckBoxClickHandler} />
                                     <span>{option.name}</span>
                                 </CheckBoxLabel>
                             ))}

@@ -1,53 +1,67 @@
 import React from "react";
-import { UserDetail } from "../../MemberDetailForm";
-import { TitleDiv, Table } from "../../MemberDetail.styled";
+import { TitleDiv, Table } from "../../MemberDetailForm.styled";
+import { useAppSelector } from "store/rootReducer";
 
-const ratingTable = ["", "브론즈", "실버", "골드", "플레티넘", "다이아"];
+const ratingTable: { [key: string]: string } = {
+    "1": "브론즈",
+    "2": "실버",
+    "3": "골드",
+    "4": "플레티넘",
+    "5": "다이아",
+};
 
-function MemberInfo({ userData }: { userData: UserDetail }) {
-  return (
-    <div>
-      <TitleDiv>회원 정보</TitleDiv>
-      <Table>
-        <tbody>
-          <tr>
-            <td className="title">회원 정보</td>
-            <td className="content">{userData.userSeq}</td>
-            <td className="title">아이디</td>
-            <td className="content">{userData.userId}</td>
-          </tr>
-          <tr>
-            <td className="title">이름</td>
-            <td className="content">{userData.userName}</td>
-            <td className="title">닉네임</td>
-            <td className="content">{userData.userNickName}</td>
-          </tr>
-          <tr>
-            <td className="title">전화번호</td>
-            <td className="content">{userData.userPhone}</td>
-            <td className="title">이메일</td>
-            <td className="content">{userData.userEmail}</td>
-          </tr>
-          <tr>
-            <td className="title">가입일자</td>
-            <td className="content">{userData.createdDate}</td>
-            <td className="title">회원등급</td>
-            <td className="content">{ratingTable[userData.userRating]}</td>
-          </tr>
-          <tr>
-            <td className="title">Role</td>
-            <td className="content">딜러</td>
-            <td className="title">게시글 수</td>
-            <td className="content">{userData.postNumber}</td>
-          </tr>
-          <tr>
-            <td className="title">댓글 수</td>
-            <td className="content">{userData.commentNumber}</td>
-          </tr>
-        </tbody>
-      </Table>
-    </div>
-  );
+function MemberInfo() {
+    const { detailItem } = useAppSelector((state) => state.MemberSlice);
+
+    return (
+        <div>
+            <TitleDiv>회원 정보</TitleDiv>
+            <Table>
+                <tbody>
+                    <tr style={{ height: "53px" }}>
+                        <td className="title" style={{ width: "15%" }}>
+                            회원 정보
+                        </td>
+                        <td className="content" style={{ width: "35%" }}>
+                            {detailItem?.dlrSeq.toString().padStart(7, "0")}
+                        </td>
+                        <td className="title" style={{ width: "15%" }}>
+                            아이디
+                        </td>
+                        <td className="content">{detailItem?.userId}</td>
+                    </tr>
+                    <tr style={{ height: "53px" }}>
+                        <td className="title">이름</td>
+                        <td className="content">{detailItem?.userName}</td>
+                        <td className="title">닉네임</td>
+                        <td className="content">{detailItem?.userNickName}</td>
+                    </tr>
+                    <tr style={{ height: "53px" }}>
+                        <td className="title">전화번호</td>
+                        <td className="content">{detailItem?.userPhone}</td>
+                        <td className="title">이메일</td>
+                        <td className="content">{detailItem?.userEmail}</td>
+                    </tr>
+                    <tr style={{ height: "53px" }}>
+                        <td className="title">가입일자</td>
+                        <td className="content">{detailItem?.createdDate.toString().split("T")[0]}</td>
+                        <td className="title">회원등급</td>
+                        <td className="content">{ratingTable[detailItem?.userRating]}</td>
+                    </tr>
+                    <tr style={{ height: "53px" }}>
+                        <td className="title">Role</td>
+                        <td className="content">딜러</td>
+                        <td className="title">게시글 수</td>
+                        <td className="content">{detailItem?.postCount}</td>
+                    </tr>
+                    <tr style={{ height: "53px" }}>
+                        <td className="title">댓글 수</td>
+                        <td className="content">{detailItem?.commentCount}</td>
+                    </tr>
+                </tbody>
+            </Table>
+        </div>
+    );
 }
 
 export default MemberInfo;

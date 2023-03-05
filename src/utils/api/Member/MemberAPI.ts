@@ -46,22 +46,9 @@ export const getMemberCountInfoHandler = async () => {
 };
 
 // 멤버 정보 상세 조회
-export const getDetailMemberHandler = async (userSeq: string) => {
+export const getDetailMemberHandler = async (dlrSeq: string) => {
     try {
-        return await ClientAxios.get(`inquiry/${userSeq}`, {});
-    } catch (error) {
-        const { response } = error as unknown as AxiosError;
-        return response;
-    }
-};
-
-// 회원 등급 변경
-export const changeMemberRatingHandler = async (userSeq: string, rating: string) => {
-    try {
-        return await ClientAxios.patch(`member`, {
-            userSeq: userSeq,
-            grade: rating,
-        });
+        return await ClientAxios.get(`member/${dlrSeq}`, {});
     } catch (error) {
         const { response } = error as unknown as AxiosError;
         return response;
@@ -83,7 +70,7 @@ export const banMemberHandler = async (banSeqList: number[]) => {
 // 회원 차단 해제하기
 export const unbanMemberHandler = async (userSeq: number) => {
     try {
-        return await ClientAxios.post(`member/ban`, {
+        return await ClientAxios.post(`member/un-ban`, {
             userSeq: userSeq,
         });
     } catch (error) {

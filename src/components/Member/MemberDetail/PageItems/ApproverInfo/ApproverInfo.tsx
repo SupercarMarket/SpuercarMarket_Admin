@@ -1,26 +1,33 @@
 import React from "react";
-import { TitleDiv, Table } from "../../MemberDetail.styled";
+import { TitleDiv, Table } from "../../MemberDetailForm.styled";
+import { useAppSelector } from "store/rootReducer";
 
-import { AdminDetail } from "../../MemberDetailForm";
+function ApproverDetail() {
+    const { detailItem } = useAppSelector((state) => state.MemberSlice);
 
-function ApproverDetail({ approverData }: { approverData: AdminDetail }) {
-  return (
-    <div>
-      <TitleDiv>딜러 정보</TitleDiv>
-      <Table>
-        <tbody>
-          <tr>
-            <td className="title">닉네임</td>
-            <td className="content">{approverData.regAdminNickName}</td>
-          </tr>
-          <tr>
-            <td className="title">이메일</td>
-            <td className="content">{approverData.regAdminEmail}</td>
-          </tr>
-        </tbody>
-      </Table>
-    </div>
-  );
+    return (
+        <div>
+            <TitleDiv>딜러 정보</TitleDiv>
+            <Table>
+                <tbody>
+                    <tr style={{ height: "53px" }}>
+                        <td className="title" style={{ width: "15%" }}>
+                            닉네임
+                        </td>
+                        <td className="content">{detailItem?.regAdmin}</td>
+                    </tr>
+                    <tr style={{ height: "53px" }}>
+                        <td className="title">이메일</td>
+                        <td className="content">{detailItem?.regAdminEmail}</td>
+                    </tr>
+                    <tr style={{ height: "53px" }}>
+                        <td className="title">닉네임</td>
+                        <td className="content">{detailItem?.regAdminNickname}</td>
+                    </tr>
+                </tbody>
+            </Table>
+        </div>
+    );
 }
 
 export default ApproverDetail;

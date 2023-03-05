@@ -32,15 +32,17 @@ const initState = {
         dlrNum: "",
         dlrEmployeeCardFront: "",
         dlrEmployeeCardBack: "",
-        dlrPorileImage: "",
+        dlrProileImage: "",
         userId: "",
+        userName: "",
         userNickName: "",
         userEmail: "",
         userPhone: "",
-        userRating: "",
+        userRating: "1",
         createdDate: "",
         postCount: 0,
         commentCount: 0,
+        comment: "",
         regAdmin: "",
         regAdminEmail: "",
         regAdminNickname: "",
@@ -189,7 +191,7 @@ const MemberSlice = createSlice({
             .addCase(getMemberListDetail.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
                     state.isLoading = false;
-                    state.detailItem = { ...state.detailItem, ...action.payload.data };
+                    state.detailItem = action.payload.data.data;
                 }
             })
             .addCase(getMemberListDetail.rejected, (state, action) => {
