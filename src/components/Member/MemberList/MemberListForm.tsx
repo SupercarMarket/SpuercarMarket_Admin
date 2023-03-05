@@ -7,18 +7,9 @@ import PaginationForm from "components/Common/Pagination/PaginationForm";
 
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
 import { MemberAction, getMemberList } from "redux/modules/MemberSlice";
-
-import { Member } from "types/MemberType";
-
-import { getMemberCountInfoHandler } from "utils/api/Member/MemberAPI";
+import { MemberListType } from "types/MemberList";
 
 function MemberListForm() {
-    const [userTotal, setUserTotal] = useState(0);
-    const [userBanned, setUserBanned] = useState(0);
-    const [userOut, setUserOut] = useState(0);
-    const [userList, setUserList] = useState<Member[]>([]);
-    const [checkedList, setCheckedList] = useState([]);
-
     const paginationCount = 10;
     // 페이지당 몇개 그려줄지
     const postsPerPage = 20;
@@ -27,20 +18,11 @@ function MemberListForm() {
     const [isPage, setIsPage] = useState<number>(startPage);
     const offset = (isPage - 1) * postsPerPage;
 
-    const { isLoading, filter, keyword, allDate, startDate, endDate, role, level, currentPage, totalCount } = useAppSelector((state) => state.MemberSlice);
+    const { isLoading, filter, keyword, allDate, startDate, endDate, role, level, currentPage, totalCount, userBanned, list, checkList } = useAppSelector((state) => state.MemberSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        getMemberCountInfoHandler()
-            .then((response) => {
-                setUserTotal(response!.data.userTotal);
-                setUserBanned(response!.data.userBanned);
-                setUserOut(response!.data.userOut);
-            })
-            .catch((error) => {
-                console.log("fail");
-            });
         dispatch(MemberAction.setMemberListCurrentPage({ isPage }));
         if (isPage === currentPage) {
             dispatch(
@@ -59,35 +41,42 @@ function MemberListForm() {
         setIsPage(() => currentPage);
     }, [isPage, currentPage, dispatch]);
 
-    // 회원번호 리스트를 받아 해당 회원들을 차단하는 함수
-    const doBan = (banList: number[]) => {
-        userList.forEach((user) => (banList.includes(user.userSeq) ? (user.isBanned = true) : user.isBanned));
-        setUserList([...userList]);
-        setUserBanned(userBanned + banList.length);
+    // 체크 리스트를 받아 해당 회원들을 차단하는 함수
+    const banCheckedMembersHandler = (banMemberList: number[]) => {
+        // 차단된 회원 정보를 수정
+        let newList: MemberListType[] = [];
+        list.forEach((user) => {
+            let thisUser = { ...user };
+            if (banMemberList.includes(thisUser.userSeq)) {
+                thisUser.isBanned = true;
+            }
+            newList.push(thisUser);
+        });
+        dispatch(MemberAction.setMemberList({ list: newList }));
+        dispatch(MemberAction.setMemberCountBanned({ userBanned: userBanned + banMemberList.length }));
+        // 차단된 회원 체크 해제
+        let newCheckList: number[] = [...checkList];
+        newCheckList = newCheckList.filter((el) => !banMemberList.includes(el));
+        dispatch(MemberAction.setMemberListCheckedList({ checkList: newCheckList }));
     };
 
     // 회원번호 하나를 받아 해당 회원의 차단을 해제하는 함수
-    const cancelBan = (cancelBanUser: number) => {
-        userList.forEach((user) => (user.userSeq === cancelBanUser ? (user.isBanned = false) : user.isBanned));
-        setUserList([...userList]);
-        setUserBanned(userBanned - 1);
-    };
-
-    // 체크된 회원들을 차단하는 함수
-    const doCheckedBan = () => {
-        doBan(checkedList);
-        setCheckedList([]);
-    };
-
-    // 회원번호와 변경할 회원등급을 받아 회원 등급을 변경하는 함수
-    const changeClass = (userId: number, changedClass: number) => {
-        userList.forEach((user) => {
-            if (user.userSeq === userId && user.userRating !== changedClass) {
-                console.log(`user ${userId}'s class changed from ${user.userRating} to ${changedClass}`);
-                user.userRating = changedClass;
-                setUserList([...userList]);
+    const unbanMemberHandler = (userSeq: number) => {
+        let newList: MemberListType[] = [];
+        list.forEach((user) => {
+            let thisUser = { ...user };
+            if (userSeq === thisUser.userSeq) {
+                thisUser.isBanned = false;
             }
+            newList.push(thisUser);
         });
+        dispatch(MemberAction.setMemberList({ list: newList }));
+        dispatch(MemberAction.setMemberCountBanned({ userBanned: userBanned - 1 }));
+    };
+
+    // 단일 회원을 차단하는 함수
+    const banMemberHandler = (userSeq: number) => {
+        banCheckedMembersHandler([userSeq]);
     };
 
     return (
@@ -95,8 +84,8 @@ function MemberListForm() {
             <MemberSearchForm />
             {!isLoading ? (
                 <>
-                    <MemberHeader doCheckedBanHandler={doCheckedBan} userTotal={userTotal} userBanned={userBanned} userOut={userOut} />
-                    <MemberTable offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalCount} />
+                    <MemberHeader doCheckedBanHandler={banCheckedMembersHandler} />
+                    <MemberTable offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalCount} banMemberHandler={banMemberHandler} unbanMemberHandler={unbanMemberHandler} />
                 </>
             ) : (
                 <div>조회중입니다.</div>

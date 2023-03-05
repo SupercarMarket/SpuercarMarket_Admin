@@ -3,9 +3,15 @@ import React from "react";
 import MemberTableHeaderForm from "./Header/MemberTableHeaderForm";
 import MemberTableBodyForm from "./Body/MemberTableBodyForm";
 
-import { MemberListPropsType } from "types/MemberList";
+export type MemberTableProps = {
+    offset: number;
+    postsPerPage: number;
+    totalContentsCount: number;
+    banMemberHandler: Function;
+    unbanMemberHandler: Function;
+};
 
-function MemberTable({ offset, postsPerPage, totalContentsCount }: MemberListPropsType) {
+function MemberTable({ offset, postsPerPage, totalContentsCount, banMemberHandler, unbanMemberHandler }: MemberTableProps) {
     // const [isAllChecked, setIsAllChecked] = useState(false);
 
     // const userCheckHandler = (userSeq: number, isChecked: boolean) => {
@@ -54,7 +60,7 @@ function MemberTable({ offset, postsPerPage, totalContentsCount }: MemberListPro
     return (
         <div className="table">
             <MemberTableHeaderForm />
-            <MemberTableBodyForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} />
+            <MemberTableBodyForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} banMemberHandler={banMemberHandler} unbanMemberHandler={unbanMemberHandler} />
             {/* <tbody>
                     {userList.map((user) => (
                         <React.Fragment key={user.userSeq}>

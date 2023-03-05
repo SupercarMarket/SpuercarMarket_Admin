@@ -1,12 +1,3 @@
-export interface MemberListPropsType {
-    // offset
-    offset: number;
-    // 페이지 수
-    postsPerPage: number;
-    // 전체 데이터 개수
-    totalContentsCount: number;
-}
-
 // 멤버 리스트 initial type
 export interface MemberListType {
     userSeq: number;

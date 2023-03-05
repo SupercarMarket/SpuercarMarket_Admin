@@ -4,10 +4,11 @@ import { MemberAction } from "redux/modules/MemberSlice";
 import { useAppSelector, useAppDispatch } from "store/rootReducer";
 
 const MemberTableHeaderForm = () => {
-    const { allChecked } = useAppSelector((state) => state.MarketSlice);
+    const { allChecked } = useAppSelector((state) => state.MemberSlice);
     const dispatch = useAppDispatch();
     const allCheckBoxClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(MemberAction.setMemberListAllChecked({ allChecked: event.target.checked }));
+        console.log(event.currentTarget.checked);
+        dispatch(MemberAction.setMemberListAllChecked({ allChecked: event.currentTarget.checked }));
     };
 
     return (

@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
 import { MemberTableBody, MemberTableBodyRowSpan, MemberCheckBoxWrapper, MemberInputCheckBox, MemberLabelCheckBox, MemberTableBodyButton } from "./MemberTableBodyForm.styled";
 
-import { MemberListPropsType } from "types/MemberList";
 import { MemberAction } from "redux/modules/MemberSlice";
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
 import { useNavigate } from "react-router";
+
+import { MemberTableProps } from "../MemberTable";
 
 const classOptions: { [key: string]: string } = {
     "1": "브론즈",
@@ -14,7 +15,7 @@ const classOptions: { [key: string]: string } = {
     "5": "다이아",
 };
 
-const MemberTableBodyForm = ({ offset, postsPerPage, totalContentsCount }: MemberListPropsType) => {
+const MemberTableBodyForm = ({ offset, postsPerPage, totalContentsCount, banMemberHandler, unbanMemberHandler }: MemberTableProps) => {
     const inputCheckTypeRef = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -57,6 +58,7 @@ const MemberTableBodyForm = ({ offset, postsPerPage, totalContentsCount }: Membe
                                             inputCheckOnChangeHandler(event);
                                         }}
                                         checked={checkList.includes(user.userSeq) ? true : false}
+                                        disabled={user.isBanned}
                                     />
                                     <MemberLabelCheckBox htmlFor={user.userSeq.toString()} />
                                 </MemberCheckBoxWrapper>
@@ -65,7 +67,7 @@ const MemberTableBodyForm = ({ offset, postsPerPage, totalContentsCount }: Membe
                             <MemberTableBodyRowSpan colSpan={2}>{user.userId}</MemberTableBodyRowSpan>
                             <MemberTableBodyRowSpan>{user.phone}</MemberTableBodyRowSpan>
                             <MemberTableBodyRowSpan rowSpan={2}>{user.signUpdate.split("T")[0]}</MemberTableBodyRowSpan>
-                            <MemberTableBodyRowSpan rowSpan={2}>{user.userRating}</MemberTableBodyRowSpan>
+                            <MemberTableBodyRowSpan rowSpan={2}>{classOptions[user.userRating]}</MemberTableBodyRowSpan>
                             <MemberTableBodyRowSpan rowSpan={2}>
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "10px" }}>
@@ -82,7 +84,11 @@ const MemberTableBodyForm = ({ offset, postsPerPage, totalContentsCount }: Membe
                             </MemberTableBodyRowSpan>
                             <MemberTableBodyRowSpan>{user.postNumber}</MemberTableBodyRowSpan>
                             <MemberTableBodyRowSpan rowSpan={2}>
-                                {user.isBanned ? <MemberTableBodyButton>차단 풀기</MemberTableBodyButton> : <MemberTableBodyButton>회원 차단</MemberTableBodyButton>}
+                                {user.isBanned ? (
+                                    <MemberTableBodyButton onClick={() => unbanMemberHandler(user.userSeq)}>차단 풀기</MemberTableBodyButton>
+                                ) : (
+                                    <MemberTableBodyButton onClick={() => banMemberHandler(user.userSeq)}>회원 차단</MemberTableBodyButton>
+                                )}
                             </MemberTableBodyRowSpan>
                         </tr>
                         <tr>

@@ -74,6 +74,10 @@ export const MemberInputCheckBox = styled.input.attrs({ type: "checkbox" })`
         background-repeat: no-repeat;
         background-position: center;
     }
+
+    &:disabled + label {
+        border: 2px solid #c3c3c7;
+    }
 `;
 
 export const MemberLabelCheckBox = styled.label``;

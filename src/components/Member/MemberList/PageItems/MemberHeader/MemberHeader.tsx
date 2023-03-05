@@ -16,14 +16,11 @@ const HeaderDiv = styled.div`
 `;
 
 type UserHeaderProps = {
-    doCheckedBanHandler: React.MouseEventHandler<HTMLButtonElement>;
-    userTotal: number;
-    userBanned: number;
-    userOut: number;
+    doCheckedBanHandler: Function;
 };
 
 function MemberHeader({ doCheckedBanHandler }: UserHeaderProps) {
-    const { userTotal, userBanned, userOut } = useAppSelector((state) => state.MemberSlice);
+    const { userTotal, userBanned, userOut, checkList } = useAppSelector((state) => state.MemberSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -39,7 +36,7 @@ function MemberHeader({ doCheckedBanHandler }: UserHeaderProps) {
 
     return (
         <HeaderDiv>
-            <Button onClick={doCheckedBanHandler}>회원 차단하기</Button>
+            <Button onClick={() => doCheckedBanHandler(checkList)}>회원 차단하기</Button>
             <Button disabled>총 회원 수 {userTotal}명</Button>
             <Button disabled>차단 {userBanned}명</Button>
             <Button disabled>탈퇴 {userOut}명</Button>

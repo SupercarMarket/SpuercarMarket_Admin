@@ -117,6 +117,7 @@ const MemberSlice = createSlice({
         },
         // 전체 체크
         setMemberListAllChecked: (state, action) => {
+            state.allChecked = action.payload.allChecked;
             if (action.payload.allChecked) {
                 const checked: number[] = [];
                 state.list.forEach((list) => {
@@ -125,12 +126,9 @@ const MemberSlice = createSlice({
                     }
                 });
                 state.checkList = checked;
-                console.log(state.checkList);
             } else {
                 state.checkList = [];
             }
-            state.allChecked = !state.allChecked;
-            console.log(state.allChecked);
         },
         // 각각 체크
         setMemberListEachChecked: (state, action) => {
@@ -144,6 +142,18 @@ const MemberSlice = createSlice({
                 state.checkList = state.checkList.filter((item) => item !== action.payload.userSeq);
                 state.allChecked = false;
             }
+        },
+        // 차단 유저수 업데이트
+        setMemberCountBanned: (state, action) => {
+            state.userBanned = action.payload.userBanned;
+        },
+        // 유저 리스트 업데이트
+        setMemberList: (state, action) => {
+            state.list = action.payload.list;
+        },
+        // 체크리스트 수정
+        setMemberListCheckedList: (state, action) => {
+            state.checkList = action.payload.checkList;
         },
     },
     extraReducers: (builder) => {
