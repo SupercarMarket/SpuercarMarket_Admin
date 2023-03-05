@@ -9,7 +9,7 @@ const initState = {
     userOut: 0,
     totalCount: 0,
     totalPages: 0,
-    filter: "",
+    filter: "all",
     keyword: "",
     allDate: true,
     startDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
@@ -58,11 +58,11 @@ interface MemberListDataType {
     page: number;
 }
 
-// 매물 리스트 조회하기
+// 멤버 리스트 조회하기
 export const getMemberList = createAsyncThunk("GET/getMemberList", async (params: MemberListDataType, thunkApi) => {
     try {
         const response = await getMemberListHandler(params.filter, params.keyword, params.allDate, params.startDate, params.endDate, params.role, params.level, params.page);
-        console.log(response);
+        // console.log(response);
         return response;
     } catch (error) {
         return thunkApi.rejectWithValue(error);
@@ -73,7 +73,7 @@ export const getMemberList = createAsyncThunk("GET/getMemberList", async (params
 export const getMemberCountInfo = createAsyncThunk("GET/getMemberCountInfo", async (params, thunkApi) => {
     try {
         const response = await getMemberCountInfoHandler();
-        console.log(response);
+        // console.log(response);
         return response;
     } catch (error) {
         return thunkApi.rejectWithValue(error);

@@ -8,7 +8,7 @@ import { MemberListDropDownMap, MemberListSwitchDropDownMap } from "types/DropDo
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
 import { MemberAction, getMemberList } from "redux/modules/MemberSlice";
 
-import { SearchBoxWrapper, Form, RadioBtnWrapper, RadioBtnLabel, CheckBoxWrapper, CheckBoxLabel } from "./MemberSearch.styled";
+import { SearchBoxWrapper, SearchBox, RadioBtnWrapper, RadioBtnLabel, CheckBoxWrapper, CheckBoxLabel } from "./MemberSearch.styled";
 import { Button } from "components/Member/styles/buttonStyles";
 
 const roleOptions = [
@@ -132,7 +132,7 @@ function MemberSearchForm() {
         dispatch(
             MemberAction.setMemberListSearchData({
                 filter: searchData.filter as string,
-                keyword: searchData.keyword as string,
+                keyword: inputKeyword as string,
                 allDate: searchData.allDate as boolean,
                 startDate: searchData.startDate as Date,
                 endDate: searchData.endDate as Date,
@@ -141,7 +141,18 @@ function MemberSearchForm() {
                 page: 1,
             })
         );
-        dispatch(getMemberList({ ...searchData, page: 1 }));
+        dispatch(
+            getMemberList({
+                filter: searchData.filter as string,
+                keyword: inputKeyword as string,
+                allDate: searchData.allDate as boolean,
+                startDate: searchData.startDate as Date,
+                endDate: searchData.endDate as Date,
+                role: searchData.role as string,
+                level: searchData.level as string[],
+                page: 1,
+            })
+        );
     };
     // 엔터키 입력시
     const SearchBarInputOnKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -157,7 +168,7 @@ function MemberSearchForm() {
 
     return (
         <SearchBoxWrapper>
-            <Form onSubmit={SearchBarInputClickHandler}>
+            <SearchBox>
                 <div className="element">
                     <div className="title">검색어</div>
                     <div className="content">
@@ -213,7 +224,7 @@ function MemberSearchForm() {
                         초기화
                     </Button>
                 </div>
-            </Form>
+            </SearchBox>
         </SearchBoxWrapper>
     );
 }

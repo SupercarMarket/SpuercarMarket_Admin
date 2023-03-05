@@ -106,7 +106,7 @@ export const DropDownItemMap: DropDownMapItemsType = {
 };
 
 export const MemberListDropDownMap: DropDownMapType = {
-    '전체': '',
+    '전체': 'all',
     '회원번호': 'userSeq',
     '아이디': 'userId',
     '닉네임': 'userNickName',
@@ -115,7 +115,7 @@ export const MemberListDropDownMap: DropDownMapType = {
 }
 
 export const MemberListSwitchDropDownMap: DropDownMapType = {
-    '': '전체',
+    'all': '전체',
     'userSeq': '회원번호',
     'userId': '아이디',
     'userNickName': '닉네임',

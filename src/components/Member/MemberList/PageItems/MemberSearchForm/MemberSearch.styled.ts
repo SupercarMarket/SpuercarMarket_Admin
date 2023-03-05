@@ -4,7 +4,7 @@ const SearchBoxWrapper = styled.div`
     display: flex;
 `;
 
-const Form = styled.form`
+const SearchBox = styled.div`
     width: 100%;
     box-sizing: border-box;
     display: flex;
@@ -78,4 +78,4 @@ const CheckBoxLabel = styled.label`
     height: 44px;
 `;
 
-export { SearchBoxWrapper, Form, RadioBtnWrapper, RadioBtnLabel, CheckBoxWrapper, CheckBoxLabel };
+export { SearchBoxWrapper, SearchBox, RadioBtnWrapper, RadioBtnLabel, CheckBoxWrapper, CheckBoxLabel };

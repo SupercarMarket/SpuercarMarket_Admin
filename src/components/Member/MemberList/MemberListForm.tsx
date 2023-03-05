@@ -82,9 +82,9 @@ function MemberListForm() {
     return (
         <div style={{ padding: "40px", width: "100%" }}>
             <MemberSearchForm />
+            <MemberHeader doCheckedBanHandler={banCheckedMembersHandler} />
             {!isLoading ? (
                 <>
-                    <MemberHeader doCheckedBanHandler={banCheckedMembersHandler} />
                     <MemberTable offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalCount} banMemberHandler={banMemberHandler} unbanMemberHandler={unbanMemberHandler} />
                 </>
             ) : (

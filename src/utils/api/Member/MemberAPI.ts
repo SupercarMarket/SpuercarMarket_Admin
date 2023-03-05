@@ -1,28 +1,31 @@
 import ClientAxios from "../AxiosAPI/ClientAxios";
 import { AxiosError } from "axios";
 
+type paramsInterface = { [key: string]: string | number | boolean };
+
 // 멤버 리스트 조회
 export const getMemberListHandler = async (filter: string, keyword: string, allDate: boolean, startDate: Date, endDate: Date, role: string, level: string[], page: number) => {
     try {
-        const params = {};
-
-        // const params = allDate
-        //     ? {
-        //           filter: filter,
-        //           keyword: keyword,
-        //           role: role,
-        //           level: level.join(),
-        //           page: page,
-        //       }
-        //     : {
-        //           filter: filter,
-        //           keyword: keyword,
-        //           startDate: startDate,
-        //           endDate: endDate,
-        //           role: role,
-        //           level: level.join(),
-        //           page: page,
-        //       };
+        const params: paramsInterface = {
+            page: 1,
+        };
+        if (keyword !== "") {
+            params.filter = filter;
+            params.keyword = keyword;
+        }
+        if (!allDate) {
+            params.startDate = startDate.toString().split("T")[0];
+            params.endDate = endDate.toString().split("T")[0];
+        }
+        if (role === "1") {
+            params.isDealer = false;
+        } else if (role === "2") {
+            params.isDealer = true;
+        }
+        if (level.length !== 0 && level.length !== 5) {
+            params.level = level.join();
+        }
+        // console.log(params);
         return await ClientAxios.get(`member`, {
             params: params,
         });
