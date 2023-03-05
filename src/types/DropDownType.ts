@@ -105,6 +105,24 @@ export const DropDownItemMap: DropDownMapItemsType = {
     ]
 };
 
+export const MemberListDropDownMap: DropDownMapType = {
+    '전체': '',
+    '회원번호': 'userSeq',
+    '아이디': 'userId',
+    '닉네임': 'userNickName',
+    '전화번호': 'userPhone',
+    '이메일': 'userEmail',
+}
+
+export const MemberListSwitchDropDownMap: DropDownMapType = {
+    '': '전체',
+    'userSeq': '회원번호',
+    'userId': '아이디',
+    'userNickName': '닉네임',
+    'userPhone': '전화번호',
+    'userEmail': '이메일',
+}
+
 export const MarketListDropDownMap : DropDownMapType = {
     '전체' : '',
     '차종' : 'category',

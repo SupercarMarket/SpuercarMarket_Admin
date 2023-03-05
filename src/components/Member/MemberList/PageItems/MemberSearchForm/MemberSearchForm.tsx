@@ -1,157 +1,221 @@
-import React from "react";
-import { Button } from "../../../styles/buttonStyles";
-import Select from "../../../commons/Select";
-import DateRangePicker from "../DateRangePicker/DateRangePicker";
-import RadioBtn from "../../../commons/RadioBtn";
-import CheckBoxGroup from "../../../commons/CheckBoxGroup";
+import React, { useRef, useEffect, useState } from "react";
+import DateRangePickerForm from "../DateRangePicker/DateRangePickerForm";
+import SearchBarForm from "components/Common/SearchBar/SearchBarForm";
+import DropDownForm from "components/Common/DropDown/DropDownForm";
 
-import { SearchBoxWrapper, Form } from "./MemberSearch.styled";
+import { MemberListDropDownMap, MemberListSwitchDropDownMap } from "types/DropDownType";
 
-const selectOptions = [
-  { value: "all", name: "전체" },
-  { value: "userSeq", name: "회원번호" },
-  { value: "userId", name: "아이디" },
-  { value: "userName", name: "이름" },
-  { value: "userNickName", name: "닉네임" },
-  { value: "userPhone", name: "전화번호" },
-  { value: "userEmail", name: "이메일" },
+import { useAppDispatch, useAppSelector } from "store/rootReducer";
+import { MemberAction, getMemberList } from "redux/modules/MemberSlice";
+
+import { SearchBoxWrapper, Form, RadioBtnWrapper, RadioBtnLabel, CheckBoxWrapper, CheckBoxLabel } from "./MemberSearch.styled";
+import { Button } from "components/Member/styles/buttonStyles";
+
+const roleOptions = [
+    { value: "", name: "전체" },
+    { value: "1", name: "일반" },
+    { value: "2", name: "딜러" },
 ];
 
-const classOptions = [
-  { value: "0", name: "전체" },
-  { value: "1", name: "일반" },
-  { value: "2", name: "딜러" },
+const levelOptions = [
+    { value: "1", name: "브론즈" },
+    { value: "2", name: "실버" },
+    { value: "3", name: "골드" },
+    { value: "4", name: "플레티넘" },
+    { value: "5", name: "다이아" },
 ];
 
-const ratingOptions = [
-  { value: "1", name: "브론즈" },
-  { value: "2", name: "실버" },
-  { value: "3", name: "골드" },
-  { value: "4", name: "플레티넘" },
-  { value: "5", name: "다이아" },
-];
-
-type MemberSearchProps = {
-  selectFilter: string;
-  setSelectFilter: Function;
-  searchText: string;
-  setSearchText: Function;
-  isEntireDate: boolean;
-  setIsEntireDate: Function;
-  startDate: Date;
-  setStartDate: Function;
-  endDate: Date;
-  setEndDate: Function;
-  selectClass: string;
-  setSelectClass: Function;
-  selectRating: string[];
-  setSelectRating: Function;
+type searchDataInterface = {
+    filter: string;
+    keyword: string;
+    allDate: boolean;
+    startDate: Date;
+    endDate: Date;
+    role: string;
+    level: string[];
+    levelAllChecked: boolean;
 };
 
-function MemberSearchForm({
-  selectFilter,
-  setSelectFilter,
-  searchText,
-  setSearchText,
-  isEntireDate,
-  setIsEntireDate,
-  startDate,
-  setStartDate,
-  endDate,
-  setEndDate,
-  selectClass,
-  setSelectClass,
-  selectRating,
-  setSelectRating,
-}: MemberSearchProps) {
-  // const [selectFilter, setSelectFilter] = useState("all");
-  // const [searchText, setSearchText] = useState("");
-  // const [isEntireDate, setIsEntireDate] = useState(true);
-  // const [startDate, setStartDate] = useState(new Date(new Date().setMonth(new Date().getMonth() - 1)));
-  // const [endDate, setEndDate] = useState(new Date());
-  // const [selectRole, setSelectRole] = useState("0");
-  // const [selectClass, setSelectClass] = useState<string[]>([]);
+const searchDataInitState: searchDataInterface = {
+    filter: "",
+    keyword: "",
+    allDate: true,
+    startDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+    endDate: new Date(),
+    role: "0",
+    level: ["1", "2", "3", "4", "5"],
+    levelAllChecked: true,
+};
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.currentTarget.value);
-  };
+function MemberSearchForm() {
+    const dispatch = useAppDispatch();
+    const { filter, keyword, allDate, startDate, endDate, role, level, levelAllChecked } = useAppSelector((state) => state.MemberSlice);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (selectFilter !== "all") {
-      console.log(`Filter: ${selectFilter}`);
-    }
-    if (searchText !== "") {
-      console.log(`Text: ${searchText}`);
-    }
-    if (!isEntireDate) {
-      console.log(`startDate: ${startDate}`);
-      console.log(`endDate: ${endDate}`);
-    }
-    if (selectClass !== "0") {
-      console.log(`selectClass: ${selectClass}`);
-    }
-    if (selectRating.length !== 0 && selectRating.length !== ratingOptions.length) {
-      console.log(`selectRating: ${selectRating}`);
-    }
-    console.log("request!");
-  };
+    const [searchData, setSearchData] = useState<searchDataInterface>({
+        filter: filter as string,
+        keyword: keyword as string,
+        allDate: allDate as boolean,
+        startDate: startDate as Date,
+        endDate: endDate as Date,
+        role: role as string,
+        level: level as string[],
+        levelAllChecked: levelAllChecked as boolean,
+    });
 
-  const handleInit = () => {
-    setSelectFilter("all");
-    setSearchText("");
-    setIsEntireDate(true);
-    setStartDate(new Date(new Date().setMonth(new Date().getMonth() - 1)));
-    setEndDate(new Date());
-    setSelectClass("0");
-    setSelectRating([]);
-  };
+    useEffect(() => {
+        if (searchData.keyword && SearchBarInputRef.current) {
+            SearchBarInputRef.current.value = searchData.keyword as string;
+        }
+        if (searchData.filter && DropDownTitleRef.current) {
+            DropDownTitleRef.current.textContent = MemberListSwitchDropDownMap[searchData.filter as string];
+        }
+    }, []);
 
-  return (
-    <SearchBoxWrapper>
-      <Form onSubmit={handleSubmit}>
-        <div className="element">
-          <div className="title">검색어</div>
-          <div className="content">
-            <div style={{ width: "134px" }}>
-              <Select optionData={selectOptions} value={selectFilter} setValue={setSelectFilter} />
-            </div>
-            <input className="textBox" placeholder="검색어를 입력해주세요." value={searchText} onChange={handleTextChange}></input>
-          </div>
-        </div>
-        <div className="element">
-          <div className="title">가입일자</div>
-          <div className="content">
-            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "5px" }}>
-              <input type="checkbox" onChange={() => setIsEntireDate(!isEntireDate)} checked={isEntireDate} />
-              <span>전체</span>
-            </div>
-            <DateRangePicker startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} disabled={isEntireDate} />
-          </div>
-        </div>
-        <div className="element">
-          <div className="title">Role</div>
-          <div className="content">
-            <RadioBtn optionData={classOptions} value={selectClass} setValue={setSelectClass} />
-          </div>
-        </div>
-        <div className="element">
-          <div className="title">회원등급</div>
-          <div className="content">
-            <CheckBoxGroup optionData={ratingOptions} checkedList={selectRating} setCheckedList={setSelectRating} />
-          </div>
-        </div>
-        <div className="element" style={{ justifyContent: "center" }}>
-          <Button className="brown" type="submit" style={{ width: "120px", height: "44px" }}>
-            검색
-          </Button>
-          <Button type="reset" onClick={handleInit} style={{ width: "120px", height: "44px" }}>
-            초기화
-          </Button>
-        </div>
-      </Form>
-    </SearchBoxWrapper>
-  );
+    // DropDown이 눌릴 때 textContent 값 가져오기
+    const DropDownTitleRef = useRef<HTMLSpanElement>(null);
+    const DropDownOnClickHandler = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+        let selectedFilter = MemberListDropDownMap[event.currentTarget.textContent as string];
+        setSearchData({ ...searchData, filter: selectedFilter });
+    };
+
+    // 가입일자 전체 여부 선택
+    const allDateOnClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchData({ ...searchData, allDate: event.currentTarget.checked });
+    };
+
+    // 가입일자 지정 함수
+    const setStartDate = (date: Date) => {
+        setSearchData({ ...searchData, startDate: date });
+    };
+    const setEndDate = (date: Date) => {
+        setSearchData({ ...searchData, endDate: date });
+    };
+
+    // Role 선택
+    const roleRadioBtnClickHandler = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+        setSearchData({ ...searchData, role: event.currentTarget.value });
+    };
+
+    // Level 선택
+    const levelAllCheckedClickHandler = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+        let checked = event.currentTarget.checked;
+        if (checked) {
+            setSearchData({ ...searchData, levelAllChecked: checked, level: ["1", "2", "3", "4", "5"] });
+        } else {
+            setSearchData({ ...searchData, levelAllChecked: checked, level: [] });
+        }
+    };
+
+    const levelCheckBoxClickHandler = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+        let currentTarget = event.currentTarget.value;
+        let newLevel: string[] = [...searchData.level];
+        if (newLevel.indexOf(currentTarget) === -1) {
+            newLevel.push(currentTarget);
+            newLevel.sort();
+        } else {
+            newLevel = newLevel.filter((el) => el !== currentTarget);
+        }
+        if (newLevel.length === levelOptions.length) {
+            setSearchData({ ...searchData, levelAllChecked: true, level: newLevel });
+        } else if (newLevel.length === 0) {
+            setSearchData({ ...searchData, levelAllChecked: false, level: newLevel });
+        } else {
+            setSearchData({ ...searchData, level: newLevel });
+        }
+    };
+
+    // ref로 접근하여 버튼 눌렸을 때 ref 값 가져오기
+    const SearchBarInputRef = useRef<HTMLInputElement>(null);
+    const SearchBarInputClickHandler = () => {
+        let inputKeyword = SearchBarInputRef.current?.value as string;
+        setSearchData({ ...searchData, keyword: inputKeyword });
+        dispatch(
+            MemberAction.setMemberListSearchData({
+                filter: searchData.filter as string,
+                keyword: searchData.keyword as string,
+                allDate: searchData.allDate as boolean,
+                startDate: searchData.startDate as Date,
+                endDate: searchData.endDate as Date,
+                role: searchData.role as string,
+                level: searchData.level as string[],
+                page: 1,
+            })
+        );
+        dispatch(getMemberList({ ...searchData, page: 1 }));
+    };
+    // 엔터키 입력시
+    const SearchBarInputOnKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            SearchBarInputClickHandler();
+        }
+    };
+
+    // 검색 초기화
+    const resetOnClickHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        setSearchData(searchDataInitState);
+    };
+
+    return (
+        <SearchBoxWrapper>
+            <Form onSubmit={SearchBarInputClickHandler}>
+                <div className="element">
+                    <div className="title">검색어</div>
+                    <div className="content">
+                        <DropDownForm category="member_list" LiOnClick={(event) => DropDownOnClickHandler(event)} titleRef={DropDownTitleRef} />
+                        <SearchBarForm SearchBarInputRef={SearchBarInputRef} SearchBarOnClick={SearchBarInputClickHandler} SearchBarInputOnKeyDown={SearchBarInputOnKeyDownHandler} />
+                    </div>
+                </div>
+                <div className="element">
+                    <div className="title">가입일자</div>
+                    <div className="content">
+                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "5px" }}>
+                            <input type="checkbox" onChange={allDateOnClickHandler} checked={searchData.allDate} />
+                            <span>전체</span>
+                        </div>
+                        <DateRangePickerForm startDate={searchData.startDate} setStartDate={setStartDate} endDate={searchData.endDate} setEndDate={setEndDate} disabled={searchData.allDate} />
+                    </div>
+                </div>
+                <div className="element">
+                    <div className="title">Role</div>
+                    <div className="content">
+                        <RadioBtnWrapper>
+                            {roleOptions.map((option) => (
+                                <RadioBtnLabel key={option.value}>
+                                    <input type="radio" value={option.value} checked={option.value === searchData.role} onClick={roleRadioBtnClickHandler} />
+                                    <span>{option.name}</span>
+                                </RadioBtnLabel>
+                            ))}
+                        </RadioBtnWrapper>
+                    </div>
+                </div>
+                <div className="element">
+                    <div className="title">회원등급</div>
+                    <div className="content">
+                        <CheckBoxWrapper>
+                            <CheckBoxLabel>
+                                <input type="checkbox" checked={searchData.levelAllChecked} onClick={levelAllCheckedClickHandler} />
+                                <span>전체</span>
+                            </CheckBoxLabel>
+                            {levelOptions.map((option) => (
+                                <CheckBoxLabel key={option.value}>
+                                    <input type="checkbox" value={option.value} checked={searchData.level.includes(option.value) === true} onClick={levelCheckBoxClickHandler} />
+                                    <span>{option.name}</span>
+                                </CheckBoxLabel>
+                            ))}
+                        </CheckBoxWrapper>
+                    </div>
+                </div>
+                <div className="element" style={{ justifyContent: "center" }}>
+                    <Button className="brown" onClick={SearchBarInputClickHandler} style={{ width: "120px", height: "44px" }}>
+                        검색
+                    </Button>
+                    <Button type="reset" onClick={resetOnClickHandler} style={{ width: "120px", height: "44px" }}>
+                        초기화
+                    </Button>
+                </div>
+            </Form>
+        </SearchBoxWrapper>
+    );
 }
 
 export default MemberSearchForm;
