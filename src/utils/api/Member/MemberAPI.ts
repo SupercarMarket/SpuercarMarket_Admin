@@ -7,7 +7,7 @@ type paramsInterface = { [key: string]: string | number | boolean };
 export const getMemberListHandler = async (filter: string, keyword: string, allDate: boolean, startDate: Date, endDate: Date, role: string, level: string[], page: number) => {
     try {
         const params: paramsInterface = {
-            page: 1,
+            page: page,
         };
         if (keyword !== "") {
             params.filter = filter;

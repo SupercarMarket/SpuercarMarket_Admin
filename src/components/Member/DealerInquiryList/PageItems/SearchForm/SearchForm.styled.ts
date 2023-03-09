@@ -1,30 +1,27 @@
 import styled from "styled-components";
+import { Button } from "components/Common/Button/ButtonForm.styled";
 
-const Form = styled.form`
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  background: #ffffff;
-
-  input.textBox {
-    padding: 0px 20px;
-
-    width: 360px;
-    height: 44px;
-
-    background: #ffffff;
-    border: 1px solid #c3c3c7;
-    border-radius: 4px;
-  }
+export const TopWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
 `;
 
-const SearchIconButton = styled.button`
-  background: none;
-  border: none;
-  position: relative;
-  right: 70px;
+export const TopLeftWrapper = styled.div`
+    display: flex;
+    gap: 20px;
+    z-index: 1;
 `;
 
-export { Form, SearchIconButton };
+export const TopRightWrapper = styled.div`
+    display: flex;
+    gap: 9px;
+`;
+
+export const TopProgressButton = styled(Button)<{}>``;
+
+export const TotalTopButton = styled(Button)<{ totalCount: number }>`
+    cursor: default;
+    color: ${({ totalCount }) => (totalCount > 0 ? ({ theme }) => theme.colors.greyScale_6 : ({ theme }) => theme.colors.greyScale_5)};
+    background-color: ${({ totalCount }) => (totalCount > 0 ? ({ theme }) => theme.colors.greyScale_1 : ({ theme }) => theme.colors.greyScale_3)};
+`;

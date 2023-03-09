@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
-const TableHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: calc(100vh - 96px);
+    padding: 40px 40px;
 `;
 
-export { TableHeader };
+export { Wrapper };

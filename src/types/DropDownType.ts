@@ -123,6 +123,24 @@ export const MemberListSwitchDropDownMap: DropDownMapType = {
     'userEmail': '이메일',
 }
 
+export const DealerInquiryListDropDownMap: DropDownMapType = {
+    '전체': 'all',
+    '상사명': 'comName',
+    '상사 전화번호': 'comPhone',
+    '상사 주소': 'comAddress',
+    '조합명': 'guildName',
+    '사원증 번호': 'dlrNum',
+}
+
+export const DealerInquiryListSwitchDropDownMap: DropDownMapType = {
+    'all': '전체',
+    'comName': '상사명',
+    'comPhone': '상사 전화번호',
+    'comAddress': '상사 주소',
+    'guildName': '조합명',
+    'dlrNum': '사원증 번호',
+}
+
 export const MarketListDropDownMap : DropDownMapType = {
     '전체' : '',
     '차종' : 'category',

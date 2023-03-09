@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MemberInfo from "../MemberDetail/PageItems/MemberInfo/MemberInfo";
 import DealerInfo from "../MemberDetail/PageItems/DealerInfo/DealerInfo";
 

@@ -1,83 +1,51 @@
 import React, { useState, useEffect } from "react";
 
-import { Dealer } from "types/MemberType";
-import DealerTableHeaderForm from "./PageItems/Table/DealerTableHeaderForm";
 import DealerInquiryTable from "./PageItems/Table/DealerInquiryTableForm";
 import SearchForm from "./PageItems/SearchForm/SearchForm";
-import Pagination from "../commons/Pagination";
-import axios from "axios";
-import { TableHeader } from "./DealerInquiryList.styled";
+import { Wrapper } from "./DealerInquiryList.styled";
+import PaginationForm from "components/Common/Pagination/PaginationForm";
+
+import { useAppDispatch, useAppSelector } from "store/rootReducer";
+import { DealerInquiryAction, getDealerInquiryList, setDealerAccept } from "redux/modules/DealerInquirySlice";
 
 function DealerInquiryListForm() {
-  const [registerRequestNumber, setRegisterRequestNumber] = useState(0);
-  const [dealerList, setDealerList] = useState<Dealer[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+    const paginationCount = 10;
+    // 페이지당 몇개 그려줄지
+    const postsPerPage = 20;
+    // 첫 페이지
+    const startPage = 1;
+    const [isPage, setIsPage] = useState<number>(startPage);
+    const offset = (isPage - 1) * postsPerPage;
 
-  const [selectFilter, setSelectFilter] = useState<string>("all");
-  const [searchText, setSearchText] = useState<string>("");
+    const { isLoading, filter, keyword, currentPage, totalCount, list } = useAppSelector((state) => state.DealerInquirySlice);
+    const dispatch = useAppDispatch();
 
-  const getDealerInquiryData = (targetPage: number = 1) => {
-    axios
-      .get("/super-admin/v1/inquiry/dealer", {
-        headers: {
-          ACCESS_TOKEN: process.env.REACT_APP_TOKEN,
-          REFRESH_TOKEN: process.env.REACT_APP_R_TOKEN,
-        },
-        params: {
-          filter: selectFilter !== "all" ? selectFilter : null,
-          keyword: searchText !== "" ? searchText : null,
-          page: targetPage,
-        },
-      })
-      .then((response) => {
-        console.log("success");
-        const dealerListData: Dealer[] = response.data.list;
-        setRegisterRequestNumber(response.data.totalCount);
-        setDealerList(dealerListData);
-      })
-      .catch((err) => {
-        console.log("fail");
-        console.log(err);
-        const dealerListData: Dealer[] = Array(50)
-          .fill(0)
-          .map((_, i) => ({
-            userSeq: i + 1,
-            comName: "슈퍼카마켓상사",
-            comPhone: "02-0000-0000",
-            comAddress: "경기도 성남시 분당구 판교역로 166 (우)13529",
-            guildName: "슈퍼카마켓조합",
-            dlrNum: "11-123-12345",
-            dlrEmployeeCardFront: "",
-            dlrEmployeeCardBack: "",
-            dlrProfileImage: "",
-            comment: "기타기타기타",
-            regAdmin: "",
-          }));
-        setRegisterRequestNumber(dealerListData.length);
-        setDealerList(dealerListData);
-      });
-  };
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        dispatch(DealerInquiryAction.setDealerInquiryListCurrentPage({ isPage }));
+        if (isPage === currentPage) {
+            dispatch(
+                getDealerInquiryList({
+                    filter: filter as string,
+                    keyword: keyword as string,
+                    page: isPage,
+                })
+            );
+        }
+        setIsPage(() => currentPage);
+    }, [isPage, currentPage, dispatch]);
 
-  const doRegister = (registerList: number[]) => {
-    setDealerList([...dealerList]);
-    setRegisterRequestNumber(registerRequestNumber - registerList.length);
-  };
+    const registerDealerHandler = (userSeq: number) => {
+        dispatch(setDealerAccept({ userSeq: userSeq }));
+        dispatch(DealerInquiryAction.setDealerInquiryListCount({ totalCount: totalCount - 1 }));
+    };
 
-  // userList axios 만들어서 PaginationTable 로 Props 전달
-  useEffect(() => {
-    getDealerInquiryData();
-  }, []);
-
-  return (
-    <div style={{ padding: "40px", width: "100%" }}>
-      <TableHeader>
-        <SearchForm selectFilter={selectFilter} setSelectFilter={setSelectFilter} searchText={searchText} setSearchText={setSearchText} getDealerInquiryData={getDealerInquiryData} />
-        <DealerTableHeaderForm registerRequest={registerRequestNumber} />
-      </TableHeader>
-      <DealerInquiryTable dealerList={dealerList} doRegister={doRegister} />
-      <Pagination total={dealerList.length} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-    </div>
-  );
+    return (
+        <Wrapper>
+            <SearchForm />
+            {!isLoading ? <DealerInquiryTable offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalCount} registerDealerHandler={registerDealerHandler} /> : <div>조회 중입니다.</div>}
+            <PaginationForm paginationCount={paginationCount} postsPerPage={postsPerPage} totalContentsCount={totalCount} isPage={isPage} setIsPage={setIsPage} />
+        </Wrapper>
+    );
 }
-
 export default DealerInquiryListForm;
