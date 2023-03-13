@@ -37,14 +37,14 @@ const initState = {
     },
 } as InitDealerInquiryStateType;
 
-interface MemberListDataType {
+interface DealerInquiryListDataType {
     filter: string;
     keyword: string;
     page: number;
 }
 
 // 딜러요청 리스트 조회하기
-export const getDealerInquiryList = createAsyncThunk("GET/getMemberList", async (params: MemberListDataType, thunkApi) => {
+export const getDealerInquiryList = createAsyncThunk("GET/getDealerInquiryList", async (params: DealerInquiryListDataType, thunkApi) => {
     try {
         const response = await getDealerInquiryListHandler(params.filter, params.keyword, params.page);
         console.log(response);
@@ -54,12 +54,12 @@ export const getDealerInquiryList = createAsyncThunk("GET/getMemberList", async 
     }
 });
 
-interface getMemberListDetailType {
+interface getDealerInquiryListDetailType {
     dlrSeq: string;
 }
 
 // 딜러 상세정보 조회하기
-export const getDealerInquiryListDetail = createAsyncThunk("GET/getMemberListDetail", async (params: getMemberListDetailType, thunkApi) => {
+export const getDealerInquiryListDetail = createAsyncThunk("GET/getDealerInquiryListDetail", async (params: getDealerInquiryListDetailType, thunkApi) => {
     try {
         const response = await getDealerInquiryListDetailHandler(params.dlrSeq);
         console.log(response);

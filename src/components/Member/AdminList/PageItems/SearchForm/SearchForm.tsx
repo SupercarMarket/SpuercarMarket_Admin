@@ -1,64 +1,77 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { TopWrapper, TopLeftWrapper, TopRightWrapper, TotalTopButton } from "./SearchForm.styled";
+import SearchBarForm from "components/Common/SearchBar/SearchBarForm";
+import { AdminAction, getAdminList } from "redux/modules/AdminSlice";
+import { useAppDispatch, useAppSelector } from "store/rootReducer";
+import { AdminListDropDownMap, AdminListSwitchDropDownMap } from "types/DropDownType";
+import DropDownForm from "components/Common/DropDown/DropDownForm";
+import NewAdminModalForm from "../NewAdminModal/NewAdminModalForm";
 
-import Select from "../../../commons/Select";
+type searchDataInterface = { filter: string; keyword: string };
 
-import { Form, SearchIconButton } from "./SearchForm.styled";
-import { ReactComponent as SearchIcon } from "assets/search.svg";
+function SearchForm() {
+    const dispatch = useAppDispatch();
+    const { filter, keyword, totalCount } = useAppSelector((state) => state.AdminSlice);
 
-const selectOptions = [
-  { value: "all", name: "전체" },
-  { value: "comName", name: "상사명" },
-  { value: "comPhone", name: "상사 전화번호" },
-  { value: "comAddress", name: "상사 주소" },
-  { value: "guildName", name: "조합명" },
-  { value: "dlrNum", name: "사원증 번호" },
-];
+    const [searchData, setSearchData] = useState<searchDataInterface>({
+        filter: filter,
+        keyword: keyword,
+    });
 
-type searchFormProps = {
-  selectFilter: string;
-  setSelectFilter: Function;
-  searchText: string;
-  setSearchText: Function;
-  getAdminList: Function;
-};
+    useEffect(() => {
+        if (keyword && SearchBarInputRef.current) {
+            SearchBarInputRef.current.value = keyword as string;
+        }
+        if (filter && DropDownTitleRef.current) {
+            DropDownTitleRef.current.textContent = AdminListSwitchDropDownMap[filter as string];
+        }
+    }, []);
 
-function SearchForm({ selectFilter, setSelectFilter, searchText, setSearchText, getAdminList }: searchFormProps) {
-  // const [selectFilter, setSelectFilter] = useState("all");
-  const [searchTextTmp, setSearchTextTmp] = useState("");
+    // DropDown이 눌릴 때 textContent 값 가져오기
+    const DropDownTitleRef = useRef<HTMLSpanElement>(null);
+    const LiOnClickHandler = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+        let selectedfilter = AdminListDropDownMap[event.currentTarget.textContent as string];
+        setSearchData({ ...searchData, filter: selectedfilter });
+    };
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTextTmp(event.currentTarget.value);
-  };
+    // ref로 접근하여 버튼 눌렸을 때 ref 값 가져오기
+    const SearchBarInputRef = useRef<HTMLInputElement>(null);
+    const SearchBarInputClickHandler = () => {
+        let inputKeyword = SearchBarInputRef.current?.value as string;
+        if (!inputKeyword) {
+            alert("검색어를 입력하세요");
+            return;
+        }
+        setSearchData({ ...searchData, keyword: inputKeyword });
+        dispatch(
+            AdminAction.setAdminListSearchData({
+                filter: searchData.filter as string,
+                keyword: inputKeyword as string,
+                page: 1,
+            })
+        );
+        dispatch(getAdminList({ filter: filter as string, keyword: inputKeyword as string, page: 1 }));
+    };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSearchText(searchTextTmp);
-    if (searchText !== "") {
-      getAdminList();
-      if (selectFilter !== "all") {
-        console.log(`Filter: ${selectFilter}`);
-      }
-      if (searchText !== "") {
-        console.log(`Text: ${searchText}`);
-      }
-      console.log("request!");
-      setSearchTextTmp("");
-    }
-  };
+    // 엔터키 입력시
+    const SearchBarInputOnKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            SearchBarInputClickHandler();
+        }
+    };
 
-  return (
-    <div>
-      <Form onSubmit={handleSubmit}>
-        <div style={{ width: "134px" }}>
-          <Select optionData={selectOptions} value={selectFilter} setValue={setSelectFilter} />
-        </div>
-        <input className="textBox" placeholder="검색어를 입력해주세요." value={searchText} onChange={handleTextChange}></input>
-        <SearchIconButton type="submit">
-          <SearchIcon />
-        </SearchIconButton>
-      </Form>
-    </div>
-  );
+    return (
+        <TopWrapper>
+            <TopLeftWrapper>
+                <DropDownForm category="member_admin" LiOnClick={(event) => LiOnClickHandler(event)} titleRef={DropDownTitleRef} />
+                <SearchBarForm SearchBarInputRef={SearchBarInputRef} SearchBarOnClick={SearchBarInputClickHandler} SearchBarInputOnKeyDown={SearchBarInputOnKeyDownHandler} />
+            </TopLeftWrapper>
+            <TopRightWrapper>
+                <NewAdminModalForm />
+                <TotalTopButton totalCount={totalCount}>{`등록된 관리자 수 ${String(totalCount.toString()).padStart(3, "0")}명`}</TotalTopButton>
+            </TopRightWrapper>
+        </TopWrapper>
+    );
 }
 
 export default SearchForm;

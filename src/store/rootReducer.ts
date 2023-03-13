@@ -5,6 +5,7 @@ import ForSaleListSlice from "../redux/modules/ForSaleInquirySlice";
 import EtcInquirySlice from "../redux/modules/EtcInquirySlice";
 import MemberSlice from "redux/modules/MemberSlice";
 import DealerInquirySlice from "redux/modules/DealerInquirySlice";
+import AdminSlice from "redux/modules/AdminSlice";
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
         EtcInquirySlice: EtcInquirySlice,
         MemberSlice: MemberSlice,
         DealerInquirySlice: DealerInquirySlice,
+        AdminSlice: AdminSlice,
     },
     middleware: getDefaultMiddleware({
         serializableCheck: false,

@@ -1,57 +1,46 @@
 import React, { useState, useEffect } from "react";
 
-import { Admin } from "types/MemberType";
 import SearchForm from "./PageItems/SearchForm/SearchForm";
-import Pagination from "../commons/Pagination";
-import AdminHeader from "./PageItems/Table/AdminHeader";
-import AdminTable from "./PageItems/Table/AdminTable";
+import { Wrapper } from "./AdminListForm.styled.ts";
+import PaginationForm from "components/Common/Pagination/PaginationForm";
 
-import { Wrapper } from "../DealerInquiryList/DealerInquiryList.styled";
-
-import axios from "axios";
+import { useAppDispatch, useAppSelector } from "store/rootReducer";
+import { AdminAction, getAdminList } from "redux/modules/AdminSlice";
+import AdminTableForm from "./PageItems/Table/AdminTableForm";
 
 function AdminListForm() {
-    const [adminNumber, setAdminNumber] = useState(0);
-    const [adminList, setAdminList] = useState<Admin[]>([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const paginationCount = 10;
+    // 페이지당 몇개 그려줄지
+    const postsPerPage = 20;
+    // 첫 페이지
+    const startPage = 1;
+    const [isPage, setIsPage] = useState<number>(startPage);
+    const offset = (isPage - 1) * postsPerPage;
 
-    const [selectFilter, setSelectFilter] = useState("all");
-    const [searchText, setSearchText] = useState("");
+    const { isLoading, filter, keyword, currentPage, totalCount, list } = useAppSelector((state) => state.AdminSlice);
+    const dispatch = useAppDispatch();
 
-    const getAdminList = (targetPage: number = 1) => {
-        axios
-            .get("/super-admin/v1/admin", {
-                headers: {
-                    ACCESS_TOKEN: process.env.REACT_APP_TOKEN,
-                    REFRESH_TOKEN: process.env.REACT_APP_R_TOKEN,
-                },
-            })
-            .then((response) => {
-                console.log("success");
-                const resData = response.data;
-                setAdminList(resData.list);
-                setAdminNumber(resData.totalCount);
-            })
-            .catch((error) => {
-                console.log("error");
-            });
-    };
-
-    // userList axios 만들어서 PaginationTable 로 Props 전달
     useEffect(() => {
-        getAdminList();
-    }, []);
+        window.scrollTo(0, 0);
+        dispatch(AdminAction.setAdminListCurrentPage({ isPage }));
+        if (isPage === currentPage) {
+            dispatch(
+                getAdminList({
+                    filter: filter as string,
+                    keyword: keyword as string,
+                    page: isPage,
+                })
+            );
+        }
+        setIsPage(() => currentPage);
+    }, [isPage, currentPage, dispatch]);
 
     return (
-        <div style={{ padding: "40px", width: "100%" }}>
-            {/* <TableHeader>
-                <SearchForm selectFilter={selectFilter} setSelectFilter={setSelectFilter} searchText={searchText} setSearchText={setSearchText} getAdminList={getAdminList} />
-                <AdminHeader adminCount={adminNumber} />
-            </TableHeader>
-            <AdminTable adminList={adminList} />
-            <Pagination total={adminList.length} currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
-        </div>
+        <Wrapper>
+            <SearchForm />
+            {!isLoading ? <AdminTableForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalCount} /> : <div>조회 중입니다.</div>}
+            <PaginationForm paginationCount={paginationCount} postsPerPage={postsPerPage} totalContentsCount={totalCount} isPage={isPage} setIsPage={setIsPage} />
+        </Wrapper>
     );
 }
-
 export default AdminListForm;
