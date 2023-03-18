@@ -1,5 +1,6 @@
 import React from "react";
 import DealerInquiryTableBodyForm from "./Body/DealerInquiryTableBodyForm";
+import { DealerInquiryTable } from "./DealerInquiryTable.styled";
 import DealerInquiryTableHeaderForm from "./Header/DealerInquiryTableHeaderForm";
 
 export type DealerInquiryTableProps = {
@@ -11,12 +12,10 @@ export type DealerInquiryTableProps = {
 
 function DealerInquiryTableForm({ offset, postsPerPage, totalContentsCount, registerDealerHandler }: DealerInquiryTableProps) {
     return (
-        <div className="table">
-            <table>
-                <DealerInquiryTableHeaderForm />
-                <DealerInquiryTableBodyForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} registerDealerHandler={registerDealerHandler} />
-            </table>
-        </div>
+        <DealerInquiryTable>
+            <DealerInquiryTableHeaderForm />
+            <DealerInquiryTableBodyForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} registerDealerHandler={registerDealerHandler} />
+        </DealerInquiryTable>
     );
 }
 

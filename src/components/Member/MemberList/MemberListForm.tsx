@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import MemberTable from "./PageItems/MemberTable/MemberTable";
+import MemberTableForm from "./PageItems/MemberTable/MemberTable";
 import MemberSearchForm from "./PageItems/MemberSearchForm/MemberSearchForm";
 import MemberHeader from "./PageItems/MemberHeader/MemberHeader";
 import PaginationForm from "components/Common/Pagination/PaginationForm";
@@ -85,7 +85,7 @@ function MemberListForm() {
             <MemberHeader doCheckedBanHandler={banCheckedMembersHandler} />
             {!isLoading ? (
                 <>
-                    <MemberTable offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalCount} banMemberHandler={banMemberHandler} unbanMemberHandler={unbanMemberHandler} />
+                    <MemberTableForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalCount} banMemberHandler={banMemberHandler} unbanMemberHandler={unbanMemberHandler} />
                 </>
             ) : (
                 <div>조회중입니다.</div>

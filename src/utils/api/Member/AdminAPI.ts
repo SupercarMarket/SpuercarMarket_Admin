@@ -1,5 +1,5 @@
 import ClientAxios from "../AxiosAPI/ClientAxios";
-import { AxiosError } from "axios";
+import { Axios, AxiosError } from "axios";
 
 type paramsInterface = { [key: string]: string | number | boolean };
 
@@ -49,9 +49,7 @@ export const addAdminHandler = async (name: string, phone: string, email: string
 // 관리자 차단
 export const banAdminHandler = async (admSeq: number) => {
     try {
-        return await ClientAxios.patch("admin/block", {
-            admSeq: admSeq,
-        });
+        return await ClientAxios.patch("admin/block", [admSeq]);
     } catch (error) {
         const { response } = error as unknown as AxiosError;
         return response;
@@ -62,7 +60,7 @@ export const banAdminHandler = async (admSeq: number) => {
 export const unbanAdminHandler = async (adminSeq: number) => {
     try {
         return await ClientAxios.patch("admin/un-block", {
-            adminSeq: adminSeq,
+            seq: adminSeq,
         });
     } catch (error) {
         const { response } = error as unknown as AxiosError;
@@ -78,8 +76,17 @@ export const modifyAdminDetailHandler = async (adminSeq: number, name: string, p
             name: name,
             phone: phone,
             email: email,
-            nickname: nickname,
+            nickName: nickname,
         });
+    } catch (error) {
+        const { response } = error as unknown as AxiosError;
+        return response;
+    }
+};
+
+export const adminPasswordInitHandler = async (adminSeq: number) => {
+    try {
+        return await ClientAxios.patch("admin/password-init", { params: { seq: adminSeq } });
     } catch (error) {
         const { response } = error as unknown as AxiosError;
         return response;

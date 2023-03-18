@@ -3,7 +3,7 @@ import { Button } from "components/Common/Button/ButtonForm.styled";
 import { ModalBackground, ModalContainer, Input, InputRow, InputTable } from "./AdminModifyModal.styled";
 
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
-import AdminSlice, { AdminAction, setAdminInfo } from "redux/modules/AdminSlice";
+import { AdminAction, setAdminInfo } from "redux/modules/AdminSlice";
 import { AdminListType } from "types/AdminList";
 
 type AdminModifyModalProps = {
@@ -70,6 +70,7 @@ function AdminModifyModalForm({ admSeq, admName, admPhone, admEmail, admNickname
                     admName: admName,
                     admPhone: admPhone,
                     regMagazineCount: el.regMagazineCount,
+                    isBlock: el.isBlock,
                 });
             } else {
                 newList.push(el);

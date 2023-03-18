@@ -2,6 +2,8 @@ import React from "react";
 import AdminTableBodyForm from "./Body/AdminTableBodyForm";
 import AdminTableHeaderForm from "./Header/AdminTableHeaderForm";
 
+import { AdminTable } from "./AdminTableForm.styled";
+
 export type AdminTableProps = {
     offset: number;
     postsPerPage: number;
@@ -10,12 +12,10 @@ export type AdminTableProps = {
 
 function AdminTableForm({ offset, postsPerPage, totalContentsCount }: AdminTableProps) {
     return (
-        <div className="table">
-            <table>
-                <AdminTableHeaderForm />
-                <AdminTableBodyForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} />
-            </table>
-        </div>
+        <AdminTable>
+            <AdminTableHeaderForm />
+            <AdminTableBodyForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} />
+        </AdminTable>
     );
 }
 

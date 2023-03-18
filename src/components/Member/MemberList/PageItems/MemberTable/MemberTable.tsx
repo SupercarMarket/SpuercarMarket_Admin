@@ -2,6 +2,7 @@ import React from "react";
 
 import MemberTableHeaderForm from "./Header/MemberTableHeaderForm";
 import MemberTableBodyForm from "./Body/MemberTableBodyForm";
+import { MemberTable } from "./MemberTable.styled";
 
 export type MemberTableProps = {
     offset: number;
@@ -11,15 +12,13 @@ export type MemberTableProps = {
     unbanMemberHandler: Function;
 };
 
-function MemberTable({ offset, postsPerPage, totalContentsCount, banMemberHandler, unbanMemberHandler }: MemberTableProps) {
+function MemberTableForm({ offset, postsPerPage, totalContentsCount, banMemberHandler, unbanMemberHandler }: MemberTableProps) {
     return (
-        <div className="table">
-            <table>
-                <MemberTableHeaderForm />
-                <MemberTableBodyForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} banMemberHandler={banMemberHandler} unbanMemberHandler={unbanMemberHandler} />
-            </table>
-        </div>
+        <MemberTable>
+            <MemberTableHeaderForm />
+            <MemberTableBodyForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalContentsCount} banMemberHandler={banMemberHandler} unbanMemberHandler={unbanMemberHandler} />
+        </MemberTable>
     );
 }
 
-export default MemberTable;
+export default MemberTableForm;

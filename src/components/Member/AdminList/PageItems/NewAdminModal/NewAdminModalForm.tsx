@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getAdminList, setNewAdmin } from "redux/modules/AdminSlice";
+import { AdminAction, getAdminList, setNewAdmin } from "redux/modules/AdminSlice";
 import { useAppDispatch } from "store/rootReducer";
 
 import { Button } from "components/Common/Button/ButtonForm.styled";
@@ -7,9 +7,9 @@ import { ModalBackground, ModalContainer, Input, InputTable, InputRow } from "./
 
 function NewAdminModalForm() {
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
-    const [adminName, setAdminName] = useState("");
-    const [adminPhoneNumber, setAdminPhoneNumber] = useState("");
-    const [adminEmail, setAdminEmail] = useState("");
+    const [adminName, setAdminName] = useState<string>("");
+    const [adminPhoneNumber, setAdminPhoneNumber] = useState<string>("");
+    const [adminEmail, setAdminEmail] = useState<string>("");
 
     const dispatch = useAppDispatch();
 
@@ -37,8 +37,9 @@ function NewAdminModalForm() {
 
     const registerAdmin = () => {
         dispatch(setNewAdmin({ name: adminName, phone: adminPhoneNumber, email: adminEmail }));
-        dispatch(getAdminList({ filter: "", keyword: "", page: 1 }));
         setIsShowModal(false);
+        dispatch(AdminAction.setAdminListSearchData({ filter: "", keyword: "", page: 1 }));
+        dispatch(getAdminList({ filter: "", keyword: "", page: 1 }));
     };
 
     return (

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { InitAdminStateType } from "types/AdminList";
-import { getAdminListHandler, getAdminDetailHandler, banAdminHandler, unbanAdminHandler, addAdminHandler, modifyAdminDetailHandler } from "utils/api/Member/AdminAPI";
+import { getAdminListHandler, getAdminDetailHandler, banAdminHandler, unbanAdminHandler, addAdminHandler, modifyAdminDetailHandler, adminPasswordInitHandler } from "utils/api/Member/AdminAPI";
 
 const initState = {
     isLoading: false,
@@ -19,6 +19,7 @@ const initState = {
         admEmail: "",
         admNickname: "",
         regMagazineCount: 0,
+        isBlock: false,
     },
 } as InitAdminStateType;
 
@@ -87,6 +88,16 @@ export const setAdminUnblock = createAsyncThunk("PATCH/setAdminUnblock", async (
     try {
         const response = await unbanAdminHandler(params.admSeq);
         // console.log(response);
+        return response;
+    } catch (error) {
+        return thunkApi.rejectWithValue(error);
+    }
+});
+
+// 관리자 비밀번호 초기화
+export const setAdminPasswordInit = createAsyncThunk("PATCH/setAdminPasswordInit", async (params: AdminListDetailType, thunkApi) => {
+    try {
+        const response = await adminPasswordInitHandler(params.admSeq);
         return response;
     } catch (error) {
         return thunkApi.rejectWithValue(error);

@@ -1,3 +1,5 @@
 import styled from "styled-components";
 
-export {};
+export const AdminTable = styled.table`
+    width: 100%;
+`;

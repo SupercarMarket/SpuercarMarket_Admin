@@ -1,4 +1,5 @@
 import styled from "styled-components";
 
-
-export { };
+export const MemberTable = styled.table`
+    width: 100%;
+`;

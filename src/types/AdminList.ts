@@ -7,6 +7,7 @@ export interface AdminListType {
     admEmail: string;
     admNickname: string;
     regMagazineCount: number;
+    isBlock: boolean;
 }
 
 // 딜러요청 상세정보 type
@@ -17,6 +18,7 @@ interface AdminListDetailType {
     admPhone: string;
     admEmail: string;
     regMagazineCount: number;
+    isBlock: boolean;
 }
 
 // reducer initial type

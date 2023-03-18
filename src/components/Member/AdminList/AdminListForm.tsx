@@ -33,7 +33,7 @@ function AdminListForm() {
             );
         }
         setIsPage(() => currentPage);
-    }, [isPage, currentPage, dispatch]);
+    }, [isPage, currentPage, dispatch, list]);
 
     return (
         <Wrapper>
