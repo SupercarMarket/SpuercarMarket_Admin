@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "components/Common/Button/ButtonForm.styled";
 import { ModalBackground, ModalContainer, Input, InputRow, InputTable } from "./AdminModifyModal.styled";
+import { modifyAdminDetailHandler } from "utils/api/Member/AdminAPI";
 
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
-import { AdminAction, setAdminInfo } from "redux/modules/AdminSlice";
+import { AdminAction } from "redux/modules/AdminSlice";
 import { AdminListType } from "types/AdminList";
 
 type AdminModifyModalProps = {
@@ -58,26 +59,33 @@ function AdminModifyModalForm({ admSeq, admName, admPhone, admEmail, admNickname
     };
 
     const modifyAdmin = () => {
-        dispatch(setAdminInfo({ admSeq: admSeq, name: adminName, phone: adminPhoneNumber, email: adminEmail, nickname: adminNickName }));
-        let newList: AdminListType[] = [];
-        list.forEach((el: AdminListType) => {
-            if (el.admSeq === admSeq) {
-                newList.push({
-                    admSeq: admSeq,
-                    admProfileImageUrl: el.admProfileImageUrl,
-                    admNickname: admNickname,
-                    admEmail: admEmail,
-                    admName: admName,
-                    admPhone: admPhone,
-                    regMagazineCount: el.regMagazineCount,
-                    isBlock: el.isBlock,
-                });
-            } else {
-                newList.push(el);
-            }
-        });
-        dispatch(AdminAction.setAdminList({ list: newList }));
-        setIsShowModal(false);
+        modifyAdminDetailHandler(admSeq, adminName, adminPhoneNumber, adminEmail, adminNickName)
+            .then((response) => {
+                if (response?.status === 200) {
+                    let newList: AdminListType[] = [];
+                    list.forEach((el: AdminListType) => {
+                        if (el.admSeq === admSeq) {
+                            newList.push({
+                                admSeq: admSeq,
+                                admProfileImageUrl: el.admProfileImageUrl,
+                                admNickname: admNickname,
+                                admEmail: admEmail,
+                                admName: admName,
+                                admPhone: admPhone,
+                                regMagazineCount: el.regMagazineCount,
+                                isBlock: el.isBlock,
+                            });
+                        } else {
+                            newList.push(el);
+                        }
+                        dispatch(AdminAction.setAdminList({ list: newList }));
+                    });
+                }
+                setIsShowModal(false);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (

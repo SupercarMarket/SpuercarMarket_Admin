@@ -28,12 +28,12 @@ function AdminListForm() {
                 getAdminList({
                     filter: filter as string,
                     keyword: keyword as string,
-                    page: isPage,
+                    page: currentPage,
                 })
             );
         }
         setIsPage(() => currentPage);
-    }, [isPage, currentPage, dispatch, list]);
+    }, [isPage, currentPage, dispatch]);
 
     return (
         <Wrapper>

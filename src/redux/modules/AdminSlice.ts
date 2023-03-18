@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { InitAdminStateType } from "types/AdminList";
-import { getAdminListHandler, getAdminDetailHandler, banAdminHandler, unbanAdminHandler, addAdminHandler, modifyAdminDetailHandler, adminPasswordInitHandler } from "utils/api/Member/AdminAPI";
+import { getAdminListHandler, getAdminDetailHandler } from "utils/api/Member/AdminAPI";
 
 const initState = {
     isLoading: false,
@@ -49,74 +49,6 @@ export const getAdminListDetail = createAsyncThunk("GET/getAdminListDetailType",
     try {
         const response = await getAdminDetailHandler(params.admSeq);
         console.log(response);
-        return response;
-    } catch (error) {
-        return thunkApi.rejectWithValue(error);
-    }
-});
-
-interface AdminType {
-    name: string;
-    phone: string;
-    email: string;
-}
-
-// 관리자 추가
-export const setNewAdmin = createAsyncThunk("POST/setNewAdmin", async (params: AdminType, thunkApi) => {
-    try {
-        const response = await addAdminHandler(params.name, params.phone, params.email);
-        // console.log(response);
-        return response;
-    } catch (error) {
-        return thunkApi.rejectWithValue(error);
-    }
-});
-
-// 관리자 차단
-export const setAdminBlock = createAsyncThunk("PATCH/setAdminBlock", async (params: AdminListDetailType, thunkApi) => {
-    try {
-        const response = await banAdminHandler(params.admSeq);
-        // console.log(response);
-        return response;
-    } catch (error) {
-        return thunkApi.rejectWithValue(error);
-    }
-});
-
-// 관리자 차단 해제
-export const setAdminUnblock = createAsyncThunk("PATCH/setAdminUnblock", async (params: AdminListDetailType, thunkApi) => {
-    try {
-        const response = await unbanAdminHandler(params.admSeq);
-        // console.log(response);
-        return response;
-    } catch (error) {
-        return thunkApi.rejectWithValue(error);
-    }
-});
-
-// 관리자 비밀번호 초기화
-export const setAdminPasswordInit = createAsyncThunk("PATCH/setAdminPasswordInit", async (params: AdminListDetailType, thunkApi) => {
-    try {
-        const response = await adminPasswordInitHandler(params.admSeq);
-        return response;
-    } catch (error) {
-        return thunkApi.rejectWithValue(error);
-    }
-});
-
-interface AdminModifyType {
-    admSeq: number;
-    name: string;
-    phone: string;
-    email: string;
-    nickname: string;
-}
-
-// 관리자 정보 변경
-export const setAdminInfo = createAsyncThunk("PATCH/setAdminInfo", async (params: AdminModifyType, thunkApi) => {
-    try {
-        const response = await modifyAdminDetailHandler(params.admSeq, params.name, params.phone, params.email, params.nickname);
-        // console.log(response);
         return response;
     } catch (error) {
         return thunkApi.rejectWithValue(error);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { AdminAction, getAdminList, setNewAdmin } from "redux/modules/AdminSlice";
-import { useAppDispatch } from "store/rootReducer";
+import { AdminAction, getAdminList} from "redux/modules/AdminSlice";
+import { useAppDispatch} from "store/rootReducer";
+import { addAdminHandler } from "utils/api/Member/AdminAPI";
 
 import { Button } from "components/Common/Button/ButtonForm.styled";
 import { ModalBackground, ModalContainer, Input, InputTable, InputRow } from "./NewAdminModal.styled";
@@ -36,10 +37,17 @@ function NewAdminModalForm() {
     };
 
     const registerAdmin = () => {
-        dispatch(setNewAdmin({ name: adminName, phone: adminPhoneNumber, email: adminEmail }));
-        setIsShowModal(false);
-        dispatch(AdminAction.setAdminListSearchData({ filter: "", keyword: "", page: 1 }));
-        dispatch(getAdminList({ filter: "", keyword: "", page: 1 }));
+        addAdminHandler(adminName, adminPhoneNumber, adminEmail)
+            .then((response) => {
+                if (response?.status === 200) {
+                    dispatch(AdminAction.setAdminListSearchData({ filter: "", keyword: "", page: 1 }));
+                    dispatch(getAdminList({ filter: "", keyword: "", page: 1 }));
+                    setIsShowModal(false);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (

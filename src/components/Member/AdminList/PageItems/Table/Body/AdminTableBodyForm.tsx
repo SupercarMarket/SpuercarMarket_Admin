@@ -6,7 +6,8 @@ import { useAppDispatch, useAppSelector } from "store/rootReducer";
 import { AdminTableProps } from "../AdminTableForm";
 import AdminModifyModalForm from "../../AdminModifyModal/AdminModifyModal";
 
-import { AdminAction, setAdminBlock, setAdminPasswordInit, setAdminUnblock } from "redux/modules/AdminSlice";
+import { banAdminHandler, unbanAdminHandler, adminPasswordInitHandler } from "utils/api/Member/AdminAPI";
+import { AdminAction } from "redux/modules/AdminSlice";
 import { AdminListType } from "types/AdminList";
 
 const AdminTableBodyForm = ({ offset, postsPerPage, totalContentsCount }: AdminTableProps) => {
@@ -14,34 +15,57 @@ const AdminTableBodyForm = ({ offset, postsPerPage, totalContentsCount }: AdminT
     const dispatch = useAppDispatch();
 
     const blockButtonOnClickHandler = (admSeq: number) => {
-        dispatch(setAdminBlock({ admSeq: admSeq }));
-        let newList: AdminListType[] = [];
-        list.forEach((el) => {
-            if (el.admSeq === admSeq) {
-                newList.push({ ...el, isBlock: true });
-            } else {
-                newList.push(el);
-            }
-        });
-        dispatch(AdminAction.setAdminList({ list: newList }));
+        banAdminHandler(admSeq)
+            .then((response) => {
+                if (response?.status === 200) {
+                    let newList: AdminListType[] = [];
+                    list.forEach((el) => {
+                        if (el.admSeq === admSeq) {
+                            newList.push({ ...el, isBlock: true });
+                        } else {
+                            newList.push(el);
+                        }
+                    });
+                    dispatch(AdminAction.setAdminList({ list: newList }));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     const unblockButtonOnClickHandler = (admSeq: number) => {
-        dispatch(setAdminUnblock({ admSeq: admSeq }));
-        let newList: AdminListType[] = [];
-        list.forEach((el) => {
-            if (el.admSeq === admSeq) {
-                newList.push({ ...el, isBlock: false });
-            } else {
-                newList.push(el);
-            }
-        });
-        dispatch(AdminAction.setAdminList({ list: newList }));
+        unbanAdminHandler(admSeq)
+            .then((response) => {
+                if (response?.status === 200) {
+                    let newList: AdminListType[] = [];
+                    list.forEach((el) => {
+                        if (el.admSeq === admSeq) {
+                            newList.push({ ...el, isBlock: false });
+                        } else {
+                            newList.push(el);
+                        }
+                    });
+                    dispatch(AdminAction.setAdminList({ list: newList }));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     const passwordInitOnClickHandler = (admSeq: number) => {
         if (window.confirm("비밀번호를 초기화하시겠습니까?")) {
-            setAdminPasswordInit({ admSeq: admSeq });
+            adminPasswordInitHandler(admSeq)
+                .then((response) => {
+                    if (response?.status === 200) {
+                        window.alert("비밀번호 초기화 성공");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    window.alert("비밀번호 초기화 실패");
+                });
         }
     };
 
