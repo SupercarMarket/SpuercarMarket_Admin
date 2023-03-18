@@ -5,16 +5,19 @@ import DealerInfo from "../MemberDetail/PageItems/DealerInfo/DealerInfo";
 import { Container } from "../MemberDetail/MemberDetailForm.styled";
 
 import ApproveRejectForm from "./PageItems/ApproveReject/ApproveRejectForm";
+import { useAppSelector } from "store/rootReducer";
+import { useParams } from "react-router-dom";
 
 function DealerInquiryDetailForm() {
-    let isLoading = true;
+    const { dlrSeq } = useParams();
+    const { isLoading } = useAppSelector((state) => state.DealerInquirySlice);
     return (
         <div style={{ padding: "40px", width: "100%" }}>
             {!isLoading ? (
                 <Container>
                     <div>
                         <DealerInfo />
-                        <ApproveRejectForm dlrSeq={1} />
+                        <ApproveRejectForm dlrSeq={parseInt(dlrSeq as string)} />
                     </div>
                     <MemberInfo />
                 </Container>

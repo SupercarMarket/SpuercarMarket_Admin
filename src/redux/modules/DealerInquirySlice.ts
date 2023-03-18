@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { InitDealerInquiryStateType } from "types/DealerInquiryList";
-import { getDealerInquiryListHandler, getDealerInquiryListDetailHandler, dealerAcceptHandler, dealerRejectHandler } from "utils/api/Member/DealerInquiryAPI";
+import { getDealerInquiryListHandler, getDealerInquiryListDetailHandler } from "utils/api/Member/DealerInquiryAPI";
 
 const initState = {
     isLoading: false,
@@ -63,28 +63,6 @@ export const getDealerInquiryListDetail = createAsyncThunk("GET/getDealerInquiry
     try {
         const response = await getDealerInquiryListDetailHandler(params.dlrSeq);
         console.log(response);
-        return response;
-    } catch (error) {
-        return thunkApi.rejectWithValue(error);
-    }
-});
-
-// 딜러 등록 승인
-export const setDealerAccept = createAsyncThunk("POST/setDealerAccept", async (data: { userSeq: number }, thunkApi) => {
-    try {
-        const response = await dealerAcceptHandler(data.userSeq);
-        // console.log(response);
-        return response;
-    } catch (error) {
-        return thunkApi.rejectWithValue(error);
-    }
-});
-
-// 딜러 등록 반려
-export const setDealerReject = createAsyncThunk("POST/setDealerReject", async (data: { userSeq: number; comment: string }, thunkApi) => {
-    try {
-        const response = await dealerRejectHandler(data.userSeq, data.comment);
-        // console.log(response);
         return response;
     } catch (error) {
         return thunkApi.rejectWithValue(error);

@@ -6,7 +6,8 @@ import { Wrapper } from "./DealerInquiryList.styled";
 import PaginationForm from "components/Common/Pagination/PaginationForm";
 
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
-import { DealerInquiryAction, getDealerInquiryList, setDealerAccept } from "redux/modules/DealerInquirySlice";
+import { DealerInquiryAction, getDealerInquiryList } from "redux/modules/DealerInquirySlice";
+import { dealerAcceptHandler } from "utils/api/Member/DealerInquiryAPI";
 
 function DealerInquiryListForm() {
     const paginationCount = 10;
@@ -17,7 +18,7 @@ function DealerInquiryListForm() {
     const [isPage, setIsPage] = useState<number>(startPage);
     const offset = (isPage - 1) * postsPerPage;
 
-    const { isLoading, filter, keyword, currentPage, totalCount, list } = useAppSelector((state) => state.DealerInquirySlice);
+    const { isLoading, filter, keyword, currentPage, totalCount } = useAppSelector((state) => state.DealerInquirySlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -36,8 +37,16 @@ function DealerInquiryListForm() {
     }, [isPage, currentPage, dispatch]);
 
     const registerDealerHandler = (userSeq: number) => {
-        dispatch(setDealerAccept({ userSeq: userSeq }));
-        dispatch(DealerInquiryAction.setDealerInquiryListCount({ totalCount: totalCount - 1 }));
+        dealerAcceptHandler(userSeq)
+            .then((response) => {
+                if (response?.status === 200) {
+                    dispatch(getDealerInquiryList({ filter: filter, keyword: keyword, page: currentPage }));
+                    dispatch(DealerInquiryAction.setDealerInquiryListCount({ totalCount: totalCount - 1 }));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (
