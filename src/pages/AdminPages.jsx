@@ -8,11 +8,20 @@ import VehicleRegistrationInquriyForm from "../components/Market/VehicleRegistra
 import VehicleRegistrationInquiryDetailForm from "../components/Market/VehicleRegistrationInquiryDetail/VehicleRegistrationInquiryDetailForm";
 import EtcInquiryForm from "../components/Inquiry/EtcInquiryList/EtcInquiryListForm";
 import EtcInquiryDetailForm from "../components/Inquiry/EtcInquiryDetail/EtcDetailForm";
+import MemberListForm from "components/Member/MemberList/MemberListForm";
+import DealerInquiryListForm from "components/Member/DealerInquiryList/DealerInquiryListForm";
+import AdminListForm from "components/Member/AdminList/AdminListForm";
+import MemberDetailForm from "components/Member/MemberDetail/MemberDetailForm";
 
 const AdminPages = () => {
   return (
     <Routes>
         <Route element={<PrivateRoutes />}>
+            <Route path="/memberlist" element={<MemberListForm/>}/>
+            <Route path="/memberlist/:dlrSeq" element={<MemberDetailForm/>}/>
+            <Route path="/dealerinquiry" element={<DealerInquiryListForm/>}/>
+            <Route path="/adminlist" element={<AdminListForm/>}/>
+
             <Route path="/salelist" element={<ForSaleListForm />} />
             <Route path="/salelist/:saleId" element={<ForSaleListDetailForm/>} />
             

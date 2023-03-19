@@ -22,19 +22,19 @@ const SubMenuItems: SubMenuItemTypes = {
       key: "member",
       name: "회원 정보 리스트",
       isClicked: true,
-      path: "/member",
+      path: "/memberlist",
     },
     {
       key: "member",
       name: "딜러 등록 문의",
       isClicked: false,
-      path: "회원정보 리스트",
+      path: "/dealerinquiry",
     },
     {
       key: "member",
       name: "관리자 관리",
       isClicked: false,
-      path: "회원정보 리스트",
+      path: "/adminlist",
     },
   ],
   market: [

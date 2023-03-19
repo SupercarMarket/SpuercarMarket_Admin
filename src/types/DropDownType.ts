@@ -44,6 +44,12 @@ export const DropDownItemMap: DropDownMapItemsType = {
         { name: "조합명" },
         { name: "사원증 번호" },
     ],
+    member_admin: [
+        { name: "전체" },
+        { name: "닉네임" },
+        { name: "전화번호" },
+        { name: "이메일" },
+    ],
     market_list: [
         { name: "전체" },
         { name: "차종" },
@@ -104,6 +110,56 @@ export const DropDownItemMap: DropDownMapItemsType = {
         { name: "내용" },
     ]
 };
+
+export const MemberListDropDownMap: DropDownMapType = {
+    '전체': 'all',
+    '회원번호': 'userSeq',
+    '아이디': 'userId',
+    '닉네임': 'userNickName',
+    '전화번호': 'userPhone',
+    '이메일': 'userEmail',
+}
+
+export const MemberListSwitchDropDownMap: DropDownMapType = {
+    'all': '전체',
+    'userSeq': '회원번호',
+    'userId': '아이디',
+    'userNickName': '닉네임',
+    'userPhone': '전화번호',
+    'userEmail': '이메일',
+}
+
+export const DealerInquiryListDropDownMap: DropDownMapType = {
+    '전체': 'all',
+    '상사명': 'comName',
+    '상사 전화번호': 'comPhone',
+    '상사 주소': 'comAddress',
+    '조합명': 'guildName',
+    '사원증 번호': 'dlrNum',
+}
+
+export const DealerInquiryListSwitchDropDownMap: DropDownMapType = {
+    'all': '전체',
+    'comName': '상사명',
+    'comPhone': '상사 전화번호',
+    'comAddress': '상사 주소',
+    'guildName': '조합명',
+    'dlrNum': '사원증 번호',
+}
+
+export const AdminListDropDownMap: DropDownMapType = {
+    '전체': 'all',
+    '닉네임': 'nickname',
+    '이메일': 'email',
+    '전화번호': 'phone',
+}
+
+export const AdminListSwitchDropDownMap: DropDownMapType = {
+    'all': '전체',
+    'nickname': '닉네임',
+    'email': '이메일',
+    'phone': '전화번호',
+}
 
 export const MarketListDropDownMap : DropDownMapType = {
     '전체' : '',
