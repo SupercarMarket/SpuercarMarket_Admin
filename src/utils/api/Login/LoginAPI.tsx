@@ -33,7 +33,7 @@ export const LoginHandler = async (
       path: "/",
       secure: true,
     });
-    navigate("/salelist");
+    navigate("/memberlist");
   } else if (response?.status === 415) {
     alert(response.data.message);
   } else if (response?.status === 414) {
