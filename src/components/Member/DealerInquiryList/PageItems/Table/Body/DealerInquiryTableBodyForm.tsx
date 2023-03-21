@@ -31,7 +31,7 @@ const DealerInquiryTableBodyForm = ({ offset, postsPerPage, totalContentsCount, 
                                 <DealerInquiryTableImage src={dealerInquiry.dlrEmployeeCardBack} alt="dlrEmployeeCardBack" />
                             </DealerInquiryTableBodyRowSpan>
                             <DealerInquiryTableBodyRowSpan rowSpan={2}>
-                                <DealerInquiryTableImage src={dealerInquiry.dlrProileImage} alt="dlrProfileImage" />
+                                <DealerInquiryTableImage src={dealerInquiry.dlrProfileImage} alt="dlrProfileImage" />
                             </DealerInquiryTableBodyRowSpan>
                             <DealerInquiryTableBodyRowSpan rowSpan={2}>{dealerInquiry.comment}</DealerInquiryTableBodyRowSpan>
                             <DealerInquiryTableBodyRowSpan rowSpan={2}>

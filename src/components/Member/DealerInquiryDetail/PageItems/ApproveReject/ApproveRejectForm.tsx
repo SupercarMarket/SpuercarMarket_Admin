@@ -3,15 +3,15 @@ import { Button } from "../../../styles/buttonStyles";
 import { ButtonWrapper, ModalBackground, ModalContainer, TextArea } from "./ApproveRejectForm.styled";
 
 import { dealerAcceptHandler, dealerRejectHandler } from "utils/api/Member/DealerInquiryAPI";
-import { useAppDispatch, useAppSelector } from "store/rootReducer";
+// import { useAppDispatch, useAppSelector } from "store/rootReducer";
 import { useNavigate } from "react-router-dom";
-import { getDealerInquiryList } from "redux/modules/DealerInquirySlice";
+// import { getDealerInquiryList } from "redux/modules/DealerInquirySlice";
 
 function ApproveRejectForm({ dlrSeq }: { dlrSeq: number }) {
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
     const [rejectReasonText, setRejectReasonText] = useState("");
-    const { filter, keyword, currentPage } = useAppSelector((state) => state.DealerInquirySlice);
-    const dispatch = useAppDispatch();
+    // const { filter, keyword, currentPage } = useAppSelector((state) => state.DealerInquirySlice);
+    // const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const textChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,7 +32,7 @@ function ApproveRejectForm({ dlrSeq }: { dlrSeq: number }) {
         dealerAcceptHandler(dlrSeq)
             .then((response) => {
                 if (response?.status === 200) {
-                    dispatch(getDealerInquiryList({ filter: filter, keyword: keyword, page: currentPage }));
+                    // dispatch(getDealerInquiryList({ filter: filter, keyword: keyword, page: currentPage }));
                     navigate("/dealerinquiry");
                 }
             })
@@ -45,7 +45,7 @@ function ApproveRejectForm({ dlrSeq }: { dlrSeq: number }) {
         dealerRejectHandler(dlrSeq, rejectReasonText)
             .then((response) => {
                 if (response?.status === 200) {
-                    dispatch(getDealerInquiryList({ filter: filter, keyword: keyword, page: currentPage }));
+                    // dispatch(getDealerInquiryList({ filter: filter, keyword: keyword, page: currentPage }));
                     navigate("/dealerinquiry");
                 }
             })

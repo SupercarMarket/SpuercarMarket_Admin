@@ -37,7 +37,7 @@ function DealerInfoTableForm() {
                     <tr style={{ height: "152px" }}>
                         <TitleCell>프로필 사진</TitleCell>
                         <ContentCell colSpan={3}>
-                            <TableImage src={detailItem?.dlrProileImage} alt="profileImg" />
+                            <TableImage src={detailItem?.dlrProfileImage} alt="profileImg" />
                         </ContentCell>
                     </tr>
                     <tr style={{ height: "158px" }}>

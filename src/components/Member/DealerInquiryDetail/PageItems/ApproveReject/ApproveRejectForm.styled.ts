@@ -41,22 +41,24 @@ const ModalContainer = styled.div`
     .Button {
         display: flex;
         flex-direction: row;
-        align-items: center;
         gap: 16px;
+        justify-content: right;
     }
 `;
 
 const TextArea = styled.textarea`
     width: 100%;
     height: 500px;
+    border: 1px solid #c3c3c7;
+    border-radius: 4px;
+    resize: none;
 `;
 
 const ButtonWrapper = styled.div`
     display: flex;
     flex-direction: row;
     gap: 8px;
-    width: 10px;
-    margin: 0 auto;
+    justify-content: center;
 `;
 
 export { ModalBackground, ModalContainer, TextArea, ButtonWrapper };
