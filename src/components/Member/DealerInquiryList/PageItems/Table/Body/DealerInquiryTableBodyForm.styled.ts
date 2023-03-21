@@ -12,7 +12,7 @@ export const DealerInquiryTableBody = styled.tbody`
 `;
 
 export const DealerInquiryTableBodyRowSpan = styled.td`
-    height: 40px;
+    height: 80px;
     text-align: center;
 
     text-align: center;
@@ -28,6 +28,7 @@ export const DealerInquiryTableBodyClamp = styled.div`
 `;
 
 export const DealerInquiryTableBodyNoSpan = styled.td.attrs({})`
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     border: 1px solid ${({ theme }) => theme.colors.greyScale_3};
@@ -40,4 +41,14 @@ export const DealerInquiryTableBodyButton = styled(Button)`
     text-align: center;
     vertical-align: middle;
     border: 1px solid ${({ theme }) => theme.colors.greyScale_4};
+`;
+
+export const DealerInquiryTableImage = styled.img`
+    width: auto;
+    max-width: 140px;
+    height: 80px;
+    margin: 0 auto;
+    padding: 10px;
+    display: block;
+    overflow: hidden;
 `;

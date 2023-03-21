@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../../styles/buttonStyles";
-import { ModalBackground, ModalContainer, TextArea } from "./ApproveRejectForm.styled";
+import { ButtonWrapper, ModalBackground, ModalContainer, TextArea } from "./ApproveRejectForm.styled";
 
 import { dealerAcceptHandler, dealerRejectHandler } from "utils/api/Member/DealerInquiryAPI";
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
@@ -56,10 +56,10 @@ function ApproveRejectForm({ dlrSeq }: { dlrSeq: number }) {
 
     return (
         <>
-            <div style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+            <ButtonWrapper>
                 <Button onClick={dealerApprove}>딜러 등록</Button>
                 <Button onClick={openModalHandler}>반려</Button>
-            </div>
+            </ButtonWrapper>
             {isShowModal && (
                 <>
                     <ModalBackground onClick={closeModalHandler}></ModalBackground>
