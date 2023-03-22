@@ -1,5 +1,5 @@
 import ClientAxios from "../AxiosAPI/ClientAxios";
-import { Axios, AxiosError } from "axios";
+import { AxiosError } from "axios";
 
 type paramsInterface = { [key: string]: string | number | boolean };
 
