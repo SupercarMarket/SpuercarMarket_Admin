@@ -11,7 +11,7 @@ import { Wrapper } from "./MagazineListForm.styled";
 import { getMagazineList, MagazineListAction } from "redux/modules/MagazineListSlice";
 import { deleteMagazineHandler, undiscloseMagazineHandler } from "utils/api/Magazine/MagazineListAPI";
 
-function MemberListForm() {
+function MagazineListForm() {
     const paginationCount = 10;
     // 페이지당 몇개 그려줄지
     const postsPerPage = 20;
@@ -112,16 +112,23 @@ function MemberListForm() {
         <Wrapper>
             <MagazineSearchForm />
             <MagazineHeader hideCheckedMagazineOnClickHandler={hideCheckedMagazineOnClickHandler} />
-            {/* {!isLoading ? (
+            {!isLoading ? (
                 <>
-                    <MemberTableForm offset={offset} postsPerPage={postsPerPage} totalContentsCount={totalCount} banMemberHandler={banMemberHandler} unbanMemberHandler={unbanMemberHandler} />
+                    <MagazineListTableForm
+                        offset={offset}
+                        postsPerPage={postsPerPage}
+                        totalContentsCount={totalCount}
+                        hideButtonOnClickHandler={hideCheckedMagazineOnClickHandler}
+                        unhideButtonOnClickHandler={unhideMagazineOnClickHandler}
+                        deleteButtonOnClickHandler={deleteMagazineOnClickHandler}
+                    />
                 </>
             ) : (
                 <div>조회중입니다.</div>
-            )} */}
+            )}
             <PaginationForm paginationCount={paginationCount} postsPerPage={postsPerPage} totalContentsCount={totalCount} isPage={isPage} setIsPage={setIsPage} />
         </Wrapper>
     );
 }
 
-export default MemberListForm;
+export default MagazineListForm;

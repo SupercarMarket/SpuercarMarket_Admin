@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import BlackCheckBox from "assets/black_checkbox.svg";
 
-export const MemberTableHeader = styled.thead`
+export const MagazineListTableHeader = styled.thead`
     height: 80px;
 
     font-weight: ${({ theme }) => theme.fontWeight.normal};
@@ -11,8 +11,7 @@ export const MemberTableHeader = styled.thead`
     color: ${({ theme }) => theme.colors.greyScale_6};
 `;
 
-export const MemberTableHeaderRowSpan = styled.th`
-    width: 160px;
+export const MagazineListTableHeaderRowSpan = styled.th`
     text-align: center;
     vertical-align: middle;
     border: 1px solid ${({ theme }) => theme.colors.greyScale_3};
@@ -20,7 +19,7 @@ export const MemberTableHeaderRowSpan = styled.th`
     background-color: ${({ theme }) => theme.colors.greyScale_2};
 `;
 
-export const MemberCheckBoxWrapper = styled.div`
+export const MagazineListCheckBoxWrapper = styled.div`
     /* inline-block 사이에 공백이 생기게 되는데, parent 태그에 font-size: 0를 적용하면 해결 */
     /* &+label의 display를 block으로 바꾸면 font-size 주석처리 해도 됨 */
     font-size: 0;
@@ -28,7 +27,7 @@ export const MemberCheckBoxWrapper = styled.div`
     /* vertical-align: top; */
 `;
 
-export const MemberInputCheckBox = styled.input.attrs({ type: "checkbox" })`
+export const MagazineListInputCheckBox = styled.input.attrs({ type: "checkbox" })`
     display: none;
     /* + 연산 : 바로 옆 태그를 참조 */
     /* 체크 된 상태 CSS */
@@ -53,4 +52,4 @@ export const MemberInputCheckBox = styled.input.attrs({ type: "checkbox" })`
     }
 `;
 
-export const MemberLabelCheckBox = styled.label``;
+export const MagazineListLabelCheckBox = styled.label``;

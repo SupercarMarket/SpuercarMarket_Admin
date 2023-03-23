@@ -56,7 +56,7 @@ const SubMenuItems: SubMenuItemTypes = {
       key: "magazine",
       name: "매거진 리스트",
       isClicked: true,
-      path: "회원정보 리스트",
+      path: "/magazinelist",
     },
     {
       key: "magazine",

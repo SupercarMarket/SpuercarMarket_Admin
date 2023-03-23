@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Button } from "components/Common/Button/ButtonForm.styled";
 import BlackCheckBox from "assets/black_checkbox.svg";
 
-export const MemberTableBody = styled.tbody`
+export const MagazineListTableBody = styled.tbody`
     height: 80px;
 
     font-weight: ${({ theme }) => theme.fontWeight.normal};
@@ -12,7 +12,7 @@ export const MemberTableBody = styled.tbody`
     color: ${({ theme }) => theme.colors.greyScale_6};
 `;
 
-export const MemberTableBodyRowSpan = styled.td`
+export const MagazineListTableBodyRowSpan = styled.td`
     height: 40px;
     text-align: center;
 
@@ -21,20 +21,20 @@ export const MemberTableBodyRowSpan = styled.td`
     border: 1px solid ${({ theme }) => theme.colors.greyScale_3};
 `;
 
-export const MemberTableBodyClamp = styled.div`
+export const MagazineListTableBodyClamp = styled.div`
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3; /* ellipsis line */
     -webkit-box-orient: vertical;
 `;
 
-export const MemberTableBodyNoSpan = styled.td.attrs({})`
+export const MagazineListTableBodyNoSpan = styled.td.attrs({})`
     text-align: center;
     vertical-align: middle;
     border: 1px solid ${({ theme }) => theme.colors.greyScale_3};
 `;
 
-export const MemberTableBodyButton = styled(Button)`
+export const MagazineListTableBodyButton = styled(Button)`
     background-color: ${({ theme }) => theme.colors.greyScale_1};
     color: ${({ theme }) => theme.colors.greyScale_6};
 
@@ -43,7 +43,7 @@ export const MemberTableBodyButton = styled(Button)`
     border: 1px solid ${({ theme }) => theme.colors.greyScale_4};
 `;
 
-export const MemberCheckBoxWrapper = styled.div`
+export const MagazineListCheckBoxWrapper = styled.div`
     /* inline-block 사이에 공백이 생기게 되는데, parent 태그에 font-size: 0를 적용하면 해결 */
     /* &+label의 display를 block으로 바꾸면 font-size 주석처리 해도 됨 */
     font-size: 0;
@@ -51,7 +51,7 @@ export const MemberCheckBoxWrapper = styled.div`
     /* vertical-align: top; */
 `;
 
-export const MemberInputCheckBox = styled.input.attrs({ type: "checkbox" })`
+export const MagazineListInputCheckBox = styled.input.attrs({ type: "checkbox" })`
     display: none;
     /* + 연산 : 바로 옆 태그를 참조 */
     /* 체크 된 상태 CSS */
@@ -80,4 +80,4 @@ export const MemberInputCheckBox = styled.input.attrs({ type: "checkbox" })`
     }
 `;
 
-export const MemberLabelCheckBox = styled.label``;
+export const MagazineLiseLabelCheckBox = styled.label``;
