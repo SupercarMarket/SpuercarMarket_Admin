@@ -27,14 +27,15 @@ interface MagazineDetailType {
     contentHtml: string;
     isScraped: boolean;
     isCounseling: boolean;
-    createdAt: string;
-    updatedAt: string;
+    createAt: string;
+    updateAt: string;
     user: MagazineWriterType;
 }
 
 // reducer initial type
 export interface InitMagazineStateType {
     isLoading: boolean;
+    isHistoryLoading: boolean;
     totalCount: number;
     totalPages: number;
     keywordAll?: string;

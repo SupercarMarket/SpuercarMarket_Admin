@@ -52,7 +52,7 @@ export const undiscloseMagazineHandler = async (magazineIds: number[], undisclos
 };
 
 // 매거진 삭제하기
-export const deleteMagazineHandler = async (brdSeq: number) => {
+export const deleteMagazineHandler = async (brdSeq: string) => {
     try {
         return await ClientAxios.delete(`magazine/${brdSeq}`, {});
     } catch (error) {
@@ -62,13 +62,23 @@ export const deleteMagazineHandler = async (brdSeq: number) => {
 };
 
 // 매거진 수정하기
-export const updateMagazineHandler = async (brdSeq: number, contents: string, thumbnail: string, title: string) => {
+export const updateMagazineHandler = async (brdSeq: string, contents: string, thumbnail: string, title: string) => {
     try {
         return await ClientAxios.put(`magazine/${brdSeq}`, {
             contents: contents,
             thumbnail: thumbnail,
             title: title,
         });
+    } catch (error) {
+        const { response } = error as unknown as AxiosError;
+        return response;
+    }
+};
+
+// 매거진 히스토리 조회하기
+export const getMagazineHistoryHandler = async (brdSeq: string) => {
+    try {
+        return await ClientAxios.get(`magazine/${brdSeq}/history`, {});
     } catch (error) {
         const { response } = error as unknown as AxiosError;
         return response;

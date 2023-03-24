@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { InitMagazineStateType } from "types/MagazineList";
-import { getDetailMagazineHandler, getMagazineListHandler } from "utils/api/Magazine/MagazineListAPI";
+import { getDetailMagazineHandler, getMagazineHistoryHandler, getMagazineListHandler } from "utils/api/Magazine/MagazineListAPI";
 
 const initState = {
     isLoading: false,
+    isHistoryLoading: false,
     totalCount: 0,
     totalPages: 0,
     keywordAll: "",
@@ -27,8 +28,8 @@ const initState = {
         contentHtml: "",
         isScraped: false,
         isCounseling: false,
-        createdAt: "",
-        updatedAt: "",
+        createAt: "",
+        updateAt: "",
         user: {
             id: 0,
             nickName: "",
@@ -47,7 +48,7 @@ interface MagazineListDataType {
     page: number;
 }
 
-// 멤버 리스트 조회하기
+// 매거진 리스트 조회하기
 export const getMagazineList = createAsyncThunk("GET/getMagazineList", async (params: MagazineListDataType, thunkApi) => {
     try {
         const response = await getMagazineListHandler(params.keywordAll, params.keywordTitle, params.allDate, params.startDate, params.endDate, params.page);
@@ -58,14 +59,24 @@ export const getMagazineList = createAsyncThunk("GET/getMagazineList", async (pa
     }
 });
 
-interface getMemberListDetailType {
-    dlrSeq: string;
+interface getMagazineListDetailProps {
+    brdSeq: string;
 }
 
-// 딜러 상세정보 조회하기
-export const getMagazineDetail = createAsyncThunk("GET/getMagazineDetail", async (params: getMemberListDetailType, thunkApi) => {
+// 매거진 상세정보 조회하기
+export const getMagazineDetail = createAsyncThunk("GET/getMagazineDetail", async (params: getMagazineListDetailProps, thunkApi) => {
     try {
-        const response = await getDetailMagazineHandler(params.dlrSeq);
+        const response = await getDetailMagazineHandler(params.brdSeq);
+        console.log(response);
+        return response;
+    } catch (error) {
+        return thunkApi.rejectWithValue(error);
+    }
+});
+
+export const getMagazineHistory = createAsyncThunk("GET/getMagazineHistory", async (params: getMagazineListDetailProps, thunkApi) => {
+    try {
+        const response = await getMagazineHistoryHandler(params.brdSeq);
         console.log(response);
         return response;
     } catch (error) {
@@ -145,18 +156,31 @@ const MagazineListSlice = createSlice({
             .addCase(getMagazineList.rejected, (state, action) => {
                 state.isLoading = true;
             })
-            // 딜러 상세 조회
+            // 매거진 상세 조회
             .addCase(getMagazineDetail.pending, (state, action) => {
                 state.isLoading = true;
             })
             .addCase(getMagazineDetail.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
                     state.isLoading = false;
-                    state.detailItem = action.payload.data.data;
+                    state.detailItem = action.payload.data;
                 }
             })
             .addCase(getMagazineDetail.rejected, (state, action) => {
                 state.isLoading = true;
+            })
+            // 매거진 히스토리 조회
+            .addCase(getMagazineHistory.pending, (state, action) => {
+                state.isHistoryLoading = true;
+            })
+            .addCase(getMagazineHistory.fulfilled, (state, action) => {
+                if (action.payload?.status === 200) {
+                    state.isLoading = false;
+                    // state.historyItem = action.payload.data.data;
+                }
+            })
+            .addCase(getMagazineHistory.rejected, (state, action) => {
+                state.isHistoryLoading = true;
             });
     },
 });

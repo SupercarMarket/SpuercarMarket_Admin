@@ -13,6 +13,7 @@ import DealerInquiryListForm from "components/Member/DealerInquiryList/DealerInq
 import AdminListForm from "components/Member/AdminList/AdminListForm";
 import MemberDetailForm from "components/Member/MemberDetail/MemberDetailForm";
 import MagazineListForm from "components/Magazine/MagazineList/MagazineListForm";
+import MagazineDetailForm from "components/Magazine/MagazineDetail/MagazineDetailForm";
 
 const AdminPages = () => {
   return (
@@ -24,6 +25,7 @@ const AdminPages = () => {
             <Route path="/adminlist" element={<AdminListForm/>}/>
 
             <Route path="/magazinelist" element={<MagazineListForm/>}/>
+            <Route path="/magazinelist/:brdSeq" element={<MagazineDetailForm/>}/>
 
             <Route path="/salelist" element={<ForSaleListForm />} />
             <Route path="/salelist/:saleId" element={<ForSaleListDetailForm/>} />

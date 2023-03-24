@@ -35,11 +35,11 @@ const MagazineListTableBodyForm = ({ offset, postsPerPage, totalContentsCount, h
 
     // 매거진 디테일로 넘어가기
     const magazineDetailOnClickHandler = (brdSeq: number) => {
-        navigate(`/magazine/${brdSeq.toString()}`);
+        navigate(`/magazinelist/${brdSeq.toString()}`);
     };
 
     const magazineModifyOnClickHandler = (brdSeq: number) => {
-        navigate(`/magazine/${brdSeq.toString()}/modify`);
+        navigate(`/magazinelist/${brdSeq.toString()}/modify`);
     };
 
     return (
