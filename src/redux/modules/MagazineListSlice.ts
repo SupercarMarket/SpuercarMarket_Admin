@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { InitMagazineStateType } from "types/MagazineList";
-import { getDetailMagazineHandler, getMagazineHistoryHandler, getMagazineListHandler } from "utils/api/Magazine/MagazineListAPI";
+import { getDetailMagazineHandler, getMagazineHistoryHandler, getMagazineListHandler, updateMagazineHandler } from "utils/api/Magazine/MagazineListAPI";
 
 const initState = {
     isLoading: false,
@@ -135,6 +135,12 @@ const MagazineListSlice = createSlice({
         setMagazineListCheckedList: (state, action) => {
             state.checkList = action.payload.checkList;
         },
+        // 디테일 내용 업데이트
+        setMagazineDetail: (state, action) => {
+            state.detailItem.title = action.payload.title;
+            state.detailItem.contentHtml = action.payload.contents;
+            state.detailItem.thumbnail = action.payload.thumbnail;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -176,7 +182,7 @@ const MagazineListSlice = createSlice({
             .addCase(getMagazineHistory.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
                     state.isLoading = false;
-                    // state.historyItem = action.payload.data.data;
+                    // state.historyItem = action.payload.data;
                 }
             })
             .addCase(getMagazineHistory.rejected, (state, action) => {

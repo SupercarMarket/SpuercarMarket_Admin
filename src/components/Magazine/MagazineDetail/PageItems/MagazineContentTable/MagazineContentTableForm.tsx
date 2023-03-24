@@ -11,7 +11,9 @@ import {
     MagazineInfo,
     MagazineProfileImage,
     MagazineCreatedDate,
+    MagazineContent,
 } from "./MagazineContentTableForm.styled";
+
 import { ReactComponent as EyeIcon } from "assets/eye.svg";
 import { ReactComponent as ChatIcon } from "assets/chat.svg";
 
@@ -34,7 +36,9 @@ function MagazineContentTableForm() {
                         </MagazineCount>
                     </MagazineInfo>
                 </MagazineHeaderBox>
-                <MagazineBodyBox dangerouslySetInnerHTML={{ __html: detailItem.contentHtml }}></MagazineBodyBox>
+                <MagazineBodyBox>
+                    <MagazineContent dangerouslySetInnerHTML={{ __html: detailItem.contentHtml }}></MagazineContent>
+                </MagazineBodyBox>
             </ContentTable>
         </Container>
     );

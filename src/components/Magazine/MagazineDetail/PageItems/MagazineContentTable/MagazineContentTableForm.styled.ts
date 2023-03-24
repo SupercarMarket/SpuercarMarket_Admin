@@ -97,3 +97,7 @@ export const MagazineBodyBox = styled.div`
     min-height: 600px;
     padding: 16px;
 `;
+
+export const MagazineContent = styled.div`
+    width: 100%;
+`;
