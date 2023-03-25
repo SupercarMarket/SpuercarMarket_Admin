@@ -144,7 +144,7 @@ const MagazineListSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // 멤버 리스트 조회
+            // 매거진 리스트 조회
             .addCase(getMagazineList.pending, (state, action) => {
                 state.isLoading = true;
             })

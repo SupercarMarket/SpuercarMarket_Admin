@@ -23,7 +23,7 @@ function MagazineTmpEditForm() {
             titleRef.current.value = detailItem.title;
         }
         if (contentRef && contentRef.current) {
-            contentRef.current.value = detailItem.contentHtml;
+            contentRef.current.value = detailItem.contents;
         }
     }, [location.state, dispatch]);
 

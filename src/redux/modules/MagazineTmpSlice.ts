@@ -14,17 +14,9 @@ const initState = {
 
     detailItem: {
         title: "",
-        id: 0,
+        brdSeq: 0,
         thumbnail: "",
-        contentHtml: "",
-        createAt: "",
-        updateAt: "",
-        user: {
-            id: 0,
-            nickName: "",
-            call: "",
-            profileSrc: "",
-        },
+        contents: "",
     },
 } as InitMagazineTmpStateType;
 
@@ -33,7 +25,7 @@ interface MagazineTmpListDataType {
 }
 
 // 매거진 리스트 조회하기
-export const getMagazineTmpList = createAsyncThunk("GET/getMagazineList", async (params: MagazineTmpListDataType, thunkApi) => {
+export const getMagazineTmpList = createAsyncThunk("GET/getMagazineTmpList", async (params: MagazineTmpListDataType, thunkApi) => {
     try {
         const response = await getMagazineTmpListHandler(params.page);
         // console.log(response);
@@ -48,7 +40,7 @@ interface getMagazineTmpDetailProps {
 }
 
 // 매거진 상세정보 조회하기
-export const getMagazineTmpDetail = createAsyncThunk("GET/getMagazineDetail", async (params: getMagazineTmpDetailProps, thunkApi) => {
+export const getMagazineTmpDetail = createAsyncThunk("GET/getMagazineTmpDetail", async (params: getMagazineTmpDetailProps, thunkApi) => {
     try {
         const response = await getDetailMagazineTmpHandler(params.brdSeq);
         console.log(response);
@@ -107,19 +99,19 @@ const MagazineTmpSlice = createSlice({
         // 디테일 내용 업데이트
         setMagazineDetail: (state, action) => {
             state.detailItem.title = action.payload.title;
-            state.detailItem.contentHtml = action.payload.contents;
+            state.detailItem.contents = action.payload.contents;
             state.detailItem.thumbnail = action.payload.thumbnail;
         },
         // 디테일 내용 초기화
         setMagazineDetailInit: (state, action) => {
             state.detailItem.title = "";
-            state.detailItem.contentHtml = "";
+            state.detailItem.contents = "";
             state.detailItem.thumbnail = "";
         },
     },
     extraReducers: (builder) => {
         builder
-            // 멤버 리스트 조회
+            // 매거진 임시저장 리스트 조회
             .addCase(getMagazineTmpList.pending, (state, action) => {
                 state.isLoading = true;
             })

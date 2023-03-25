@@ -1,8 +1,8 @@
 import React from "react";
 
-import MemberTableHeaderForm from "./Header/MagazineListTableHeaderForm";
-import MemberTableBodyForm from "./Body/MagazineListTableBodyForm";
-import { MemberTable } from "./MagazineListTableForm.styled";
+import MagazineTableHeaderForm from "./Header/MagazineListTableHeaderForm";
+import MagazineTableBodyForm from "./Body/MagazineListTableBodyForm";
+import { MagazineTable } from "./MagazineListTableForm.styled";
 
 export type MagazineListTableProps = {
     offset: number;
@@ -15,9 +15,9 @@ export type MagazineListTableProps = {
 
 function MagazineListTableForm({ offset, postsPerPage, totalContentsCount, hideButtonOnClickHandler, unhideButtonOnClickHandler, deleteButtonOnClickHandler }: MagazineListTableProps) {
     return (
-        <MemberTable>
-            <MemberTableHeaderForm />
-            <MemberTableBodyForm
+        <MagazineTable>
+            <MagazineTableHeaderForm />
+            <MagazineTableBodyForm
                 offset={offset}
                 postsPerPage={postsPerPage}
                 totalContentsCount={totalContentsCount}
@@ -25,7 +25,7 @@ function MagazineListTableForm({ offset, postsPerPage, totalContentsCount, hideB
                 unhideButtonOnClickHandler={unhideButtonOnClickHandler}
                 deleteButtonOnClickHandler={deleteButtonOnClickHandler}
             />
-        </MemberTable>
+        </MagazineTable>
     );
 }
 

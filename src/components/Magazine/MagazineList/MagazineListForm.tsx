@@ -113,16 +113,14 @@ function MagazineListForm() {
             <MagazineSearchForm />
             <MagazineHeader hideCheckedMagazineOnClickHandler={hideCheckedMagazineOnClickHandler} />
             {!isLoading ? (
-                <>
-                    <MagazineListTableForm
-                        offset={offset}
-                        postsPerPage={postsPerPage}
-                        totalContentsCount={totalCount}
-                        hideButtonOnClickHandler={hideCheckedMagazineOnClickHandler}
-                        unhideButtonOnClickHandler={unhideMagazineOnClickHandler}
-                        deleteButtonOnClickHandler={deleteMagazineOnClickHandler}
-                    />
-                </>
+                <MagazineListTableForm
+                    offset={offset}
+                    postsPerPage={postsPerPage}
+                    totalContentsCount={totalCount}
+                    hideButtonOnClickHandler={hideCheckedMagazineOnClickHandler}
+                    unhideButtonOnClickHandler={unhideMagazineOnClickHandler}
+                    deleteButtonOnClickHandler={deleteMagazineOnClickHandler}
+                />
             ) : (
                 <div>조회중입니다.</div>
             )}

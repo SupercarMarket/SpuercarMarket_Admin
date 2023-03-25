@@ -1,5 +1,5 @@
 import styled from "styled-components";
 
-export const MemberTable = styled.table`
+export const MagazineTable = styled.table`
     width: 100%;
 `;

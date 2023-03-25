@@ -5,22 +5,12 @@ export interface MagazineTmpListType {
     created: string;
 }
 
-interface MagazineWriterType {
-    id: number;
-    nickName: string;
-    call: string;
-    profileSrc: string;
-}
-
 // 매거진 상세 리스트 type
 interface MagazineDetailType {
     title: string;
-    id: number;
+    brdSeq: number;
     thumbnail: string;
-    contentHtml: string;
-    createAt: string;
-    updateAt: string;
-    user: MagazineWriterType;
+    contents: string;
 }
 
 // reducer initial type
@@ -36,4 +26,3 @@ export interface InitMagazineTmpStateType {
     // 상세 조회
     detailItem: MagazineDetailType;
 }
-
