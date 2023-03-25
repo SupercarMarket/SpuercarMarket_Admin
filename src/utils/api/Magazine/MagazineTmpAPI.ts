@@ -64,10 +64,14 @@ export const deleteMagazineTmpHandler = async (brdSeq: string) => {
         return response;
     }
 };
-// 매거진 히스토리 조회하기
-export const getMagazineHistoryHandler = async (brdSeq: string) => {
+
+export const newMagazineHandler = async (contents: string, thumbnail: string, title: string) => {
     try {
-        return await ClientAxios.get(`magazine/${brdSeq}/history`, {});
+        return await ClientAxios.post(`magazine/`, {
+            contents: contents,
+            thumbnail: thumbnail,
+            title: title,
+        });
     } catch (error) {
         const { response } = error as unknown as AxiosError;
         return response;

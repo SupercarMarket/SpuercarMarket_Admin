@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getMagazineTmpDetail, MagazineTmpAction } from "redux/modules/MagazineTmpSlice";
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
+import { newMagazineHandler, newMagazineTmpHandler } from "utils/api/Magazine/MagazineTmpAPI";
 import { Button } from "../styles/buttonStyles";
 
 import { ButtonContainer, Wrapper, Container, ContentTable, MagazineHeaderBox, MagazineTitleTextArea, MagazineBodyBox, MagazineContentTextArea } from "./MagazineTmpEditForm.styled";
@@ -10,6 +11,7 @@ function MagazineTmpEditForm() {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const { isLoading, detailItem } = useAppSelector((state) => state.MagazineTmpSlice);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (location.state && location.state.brdSeq) {
@@ -36,31 +38,29 @@ function MagazineTmpEditForm() {
 
     const saveTmpButtonOnClickHandler = () => {
         if (titleRef.current && contentRef.current) {
-            // updateMagazineHandler(brdSeq as string, contentRef.current.value, "", titleRef.current.value)
-            //     .then((response) => {
-            //         if (response?.status === 200) {
-            //             dispatch(MagazineListAction.setMagazineDetail({ title: titleRef.current?.value, contents: contentRef.current?.value, thumbnail: detailItem.thumbnail }));
-            //         }
-            //         setIsModifying(false);
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
+            newMagazineTmpHandler(contentRef.current.value, "", titleRef.current.value)
+                .then((response) => {
+                    if (response?.status === 200) {
+                        navigate("/magazinetmp");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     };
 
     const saveMagazineButtonOnClickHandler = () => {
         if (titleRef.current && contentRef.current) {
-            // updateMagazineHandler(brdSeq as string, contentRef.current.value, "", titleRef.current.value)
-            //     .then((response) => {
-            //         if (response?.status === 200) {
-            //             dispatch(MagazineListAction.setMagazineDetail({ title: titleRef.current?.value, contents: contentRef.current?.value, thumbnail: detailItem.thumbnail }));
-            //         }
-            //         setIsModifying(false);
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
+            newMagazineHandler(contentRef.current.value, "", titleRef.current.value)
+                .then((response) => {
+                    if (response?.status === 200) {
+                        navigate("/magazinetmp");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     };
 

@@ -33,16 +33,16 @@ function MagazineContentTableModifyForm({ setIsModifying }: { setIsModifying: Fu
 
     const updateFinishButtonOnClickHandler = () => {
         if (titleRef.current && contentRef.current) {
-            // updateMagazineHandler(brdSeq as string, contentRef.current.value, "", titleRef.current.value)
-            //     .then((response) => {
-            //         if (response?.status === 200) {
-            //             dispatch(MagazineListAction.setMagazineDetail({ title: titleRef.current?.value, contents: contentRef.current?.value, thumbnail: detailItem.thumbnail }));
-            //         }
-            //         setIsModifying(false);
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
+            updateMagazineHandler(brdSeq as string, contentRef.current.value, "", titleRef.current.value)
+                .then((response) => {
+                    if (response?.status === 200) {
+                        dispatch(MagazineListAction.setMagazineDetail({ title: titleRef.current?.value, contents: contentRef.current?.value, thumbnail: detailItem.thumbnail }));
+                    }
+                    setIsModifying(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     };
 
