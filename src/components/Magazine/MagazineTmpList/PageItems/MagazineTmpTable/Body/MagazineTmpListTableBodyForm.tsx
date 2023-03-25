@@ -42,31 +42,31 @@ const MagazineTmpListTableBodyForm = ({ offset, postsPerPage, totalContentsCount
         <MagazineListTableBody key={`uuid`}>
             {list.slice(offset, offset + postsPerPage).map((magazine, index) => {
                 return (
-                    <React.Fragment key={magazine.brdSeq}>
+                    <React.Fragment key={magazine.id}>
                         <tr>
                             <MagazineListTableBodyRowSpan>
                                 <MagazineListCheckBoxWrapper>
                                     <MagazineListInputCheckBox
-                                        id={magazine.brdSeq.toString()}
+                                        id={magazine.id.toString()}
                                         ref={inputCheckTypeRef}
                                         onClick={inputCheckOnClickHandler}
                                         onChange={(event) => {
                                             inputCheckOnChangeHandler(event);
                                         }}
-                                        checked={checkList.includes(magazine.brdSeq) ? true : false}
+                                        checked={checkList.includes(magazine.id) ? true : false}
                                         disabled={false}
                                     />
-                                    <MagazineLiseLabelCheckBox htmlFor={magazine.brdSeq.toString()} />
+                                    <MagazineLiseLabelCheckBox htmlFor={magazine.id.toString()} />
                                 </MagazineListCheckBoxWrapper>
                             </MagazineListTableBodyRowSpan>
-                            <MagazineListTableBodyRowSpan>{String(magazine.brdSeq.toString()).padStart(7, "0")}</MagazineListTableBodyRowSpan>
+                            <MagazineListTableBodyRowSpan>{String(magazine.id.toString()).padStart(7, "0")}</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>{magazine.title}</MagazineListTableBodyRowSpan>
-                            <MagazineListTableBodyRowSpan>{magazine.createdDate}</MagazineListTableBodyRowSpan>
+                            <MagazineListTableBodyRowSpan>{magazine.created}</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>
-                                <MagazineListTableBodyButton onClick={() => magazineModifyOnClickHandler(magazine.brdSeq)}>수정하기</MagazineListTableBodyButton>
+                                <MagazineListTableBodyButton onClick={() => magazineModifyOnClickHandler(magazine.id)}>수정하기</MagazineListTableBodyButton>
                             </MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>
-                                <MagazineListTableBodyButton onClick={() => deleteButtonOnClickHandler(magazine.brdSeq)}>삭제하기</MagazineListTableBodyButton>
+                                <MagazineListTableBodyButton onClick={() => deleteButtonOnClickHandler(magazine.id)}>삭제하기</MagazineListTableBodyButton>
                             </MagazineListTableBodyRowSpan>
                         </tr>
                     </React.Fragment>

@@ -7,7 +7,7 @@ import { HeaderDiv, HeaderTitle } from "./MagazineTmpHeaderForm.styled";
 import { useNavigate } from "react-router-dom";
 
 function MagazineTmpHeader({ deleteMagazineTmpButtonOnClickHandler }: { deleteMagazineTmpButtonOnClickHandler: Function }) {
-    const { checkList } = useAppSelector((state) => state.MagazineListSlice);
+    const { checkList } = useAppSelector((state) => state.MagazineTmpSlice);
     const navigate = useNavigate();
 
     const newMagazineButtonOnClickHandler = () => {

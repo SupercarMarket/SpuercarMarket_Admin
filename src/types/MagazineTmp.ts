@@ -1,8 +1,8 @@
 // 매거진 리스트 initial type
 export interface MagazineTmpListType {
-    brdSeq: number;
+    id: number;
     title: string;
-    createdDate: string;
+    created: string;
 }
 
 interface MagazineWriterType {

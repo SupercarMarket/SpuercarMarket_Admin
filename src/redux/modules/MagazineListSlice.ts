@@ -150,11 +150,11 @@ const MagazineListSlice = createSlice({
             })
             .addCase(getMagazineList.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
-                    state.isLoading = false;
                     state.totalPages = action.payload.data.totalPages;
                     state.totalCount = action.payload.data.totalCount;
                     state.list = [];
                     state.list = action.payload.data.data;
+                    state.isLoading = false;
                 } else {
                     return state;
                 }
@@ -168,8 +168,8 @@ const MagazineListSlice = createSlice({
             })
             .addCase(getMagazineDetail.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
-                    state.isLoading = false;
                     state.detailItem = action.payload.data;
+                    state.isLoading = false;
                 }
             })
             .addCase(getMagazineDetail.rejected, (state, action) => {
@@ -181,7 +181,7 @@ const MagazineListSlice = createSlice({
             })
             .addCase(getMagazineHistory.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
-                    state.isLoading = false;
+                    state.isHistoryLoading = false;
                     // state.historyItem = action.payload.data;
                 }
             })

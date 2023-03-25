@@ -76,7 +76,7 @@ const MagazineTmpSlice = createSlice({
             if (action.payload.allChecked) {
                 const checked: number[] = [];
                 state.list.forEach((list) => {
-                    checked.push(list.brdSeq);
+                    checked.push(list.id);
                 });
                 state.checkList = checked;
             } else {
@@ -110,6 +110,12 @@ const MagazineTmpSlice = createSlice({
             state.detailItem.contentHtml = action.payload.contents;
             state.detailItem.thumbnail = action.payload.thumbnail;
         },
+        // 디테일 내용 초기화
+        setMagazineDetailInit: (state, action) => {
+            state.detailItem.title = "";
+            state.detailItem.contentHtml = "";
+            state.detailItem.thumbnail = "";
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -119,11 +125,11 @@ const MagazineTmpSlice = createSlice({
             })
             .addCase(getMagazineTmpList.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
-                    state.isLoading = false;
                     state.totalPages = action.payload.data.totalPages;
                     state.totalCount = action.payload.data.totalCount;
                     state.list = [];
                     state.list = action.payload.data.data;
+                    state.isLoading = false;
                 } else {
                     return state;
                 }
@@ -137,8 +143,8 @@ const MagazineTmpSlice = createSlice({
             })
             .addCase(getMagazineTmpDetail.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
-                    state.isLoading = false;
                     state.detailItem = action.payload.data;
+                    state.isLoading = false;
                 }
             })
             .addCase(getMagazineTmpDetail.rejected, (state, action) => {
