@@ -7,6 +7,7 @@ import MemberSlice from "redux/modules/MemberSlice";
 import DealerInquirySlice from "redux/modules/DealerInquirySlice";
 import AdminSlice from "redux/modules/AdminSlice";
 import MagazineListSlice from "redux/modules/MagazineListSlice";
+import MagazineTmpSlice from "redux/modules/MagazineTmpSlice";
 
 export const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
         DealerInquirySlice: DealerInquirySlice,
         AdminSlice: AdminSlice,
         MagazineListSlice: MagazineListSlice,
+        MagazineTmpSlice: MagazineTmpSlice,
     },
     middleware: getDefaultMiddleware({
         serializableCheck: false,
