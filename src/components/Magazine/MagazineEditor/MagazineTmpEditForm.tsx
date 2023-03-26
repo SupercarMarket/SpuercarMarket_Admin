@@ -1,44 +1,51 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
+
 import { useLocation, useNavigate } from "react-router-dom";
-import { getMagazineTmpDetail, MagazineTmpAction } from "redux/modules/MagazineTmpSlice";
+import { getMagazineTmpDetail, initMagazineTmpDetail } from "redux/modules/MagazineTmpSlice";
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
 import { newMagazineHandler, newMagazineTmpHandler } from "utils/api/Magazine/MagazineTmpAPI";
+import { deleteImage, getFileNameFromHTML, getNotEqualFileList } from "utils/api/S3Upload/AdminS3ClientAPI";
 import { Button } from "../styles/buttonStyles";
 
-import { ButtonContainer, Wrapper, Container, ContentTable, MagazineHeaderBox, MagazineTitleTextArea, MagazineBodyBox, MagazineContentTextArea } from "./MagazineTmpEditForm.styled";
+import { ButtonContainer, Wrapper, Container, ContentTable, MagazineBodyBox } from "./MagazineTmpEditForm.styled";
+import MagazineEditorHeaderBoxForm from "./PageItems/MagazineEditorHeaderBox/MagazineEditorHeaderBoxForm";
+import TuiEditorForm from "./PageItems/TuiEditor/TuiEditorForm";
+import TuiPreviewForm from "./PageItems/TuiPreview/TuiPreviewForm";
 
 function MagazineTmpEditForm() {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const { isLoading, detailItem } = useAppSelector((state) => state.MagazineTmpSlice);
     const navigate = useNavigate();
+    const [uploadedImage, setUploadedImage] = useState<string[]>([]);
+    const [thumbnailImage, setThumbnailImage] = useState("");
+    const [isViewerOn, setIsViewerOn] = useState(false);
 
     useEffect(() => {
         if (location.state && location.state.brdSeq) {
-            dispatch(getMagazineTmpDetail({ brdSeq: location.state.brdSeq }));
+            dispatch(getMagazineTmpDetail({ brdSeq: location.state.brdSeq })).then(() => {
+                const uploaded = getImageURLFromHTML();
+                setUploadedImage(uploaded);
+                setThumbnailImage(detailItem.thumbnail);
+            });
         } else {
-            dispatch(MagazineTmpAction.setMagazineDetailInit({}));
-        }
-        if (titleRef && titleRef.current) {
-            titleRef.current.value = detailItem.title;
-        }
-        if (contentRef && contentRef.current) {
-            contentRef.current.value = detailItem.contents;
+            dispatch(initMagazineTmpDetail()).then(() => {
+                setUploadedImage([]);
+            });
         }
     }, [location.state, dispatch]);
 
     const titleRef = useRef<HTMLTextAreaElement>(null);
-    const contentRef = useRef<HTMLTextAreaElement>(null);
-
-    const textareaResizeHandler = useCallback(() => {
-        if (titleRef && titleRef.current) {
-            titleRef.current.style.height = titleRef.current.scrollHeight + "px";
-        }
-    }, []);
+    const contentRef = useRef<any>(null);
 
     const saveTmpButtonOnClickHandler = () => {
         if (titleRef.current && contentRef.current) {
-            newMagazineTmpHandler(contentRef.current.value, "", titleRef.current.value)
+            const delFileList: string[] = getNotEqualFileList(uploadedImage, getImageURLFromHTML());
+            console.log(delFileList);
+            if (delFileList) {
+                deleteImage(delFileList);
+            }
+            newMagazineTmpHandler(contentRef.current.getInstance().getHTML(), thumbnailImage, titleRef.current.value)
                 .then((response) => {
                     if (response?.status === 200) {
                         navigate("/magazinetmp");
@@ -51,17 +58,26 @@ function MagazineTmpEditForm() {
     };
 
     const saveMagazineButtonOnClickHandler = () => {
-        if (titleRef.current && contentRef.current) {
-            newMagazineHandler(contentRef.current.value, "", titleRef.current.value)
-                .then((response) => {
-                    if (response?.status === 200) {
-                        navigate("/magazinetmp");
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+        // if (titleRef.current && contentRef.current) {
+        //     newMagazineHandler(contentRef.current.value, "", titleRef.current.value)
+        //         .then((response) => {
+        //             if (response?.status === 200) {
+        //                 navigate("/magazinetmp");
+        //             }
+        //         })
+        //         .catch((error) => {
+        //             console.log(error);
+        //         });
+        // }
+    };
+
+    const getImageURLFromHTML = () => {
+        if (contentRef.current) {
+            if (contentRef.current.getInstance().getHTML()) {
+                return getFileNameFromHTML(contentRef.current.getInstance().getHTML()) as string[];
+            }
         }
+        return [] as string[];
     };
 
     return (
@@ -69,17 +85,28 @@ function MagazineTmpEditForm() {
             {!isLoading ? (
                 <Wrapper>
                     <ContentTable>
-                        <MagazineHeaderBox imageUrl={detailItem.thumbnail}>
-                            <MagazineTitleTextArea ref={titleRef} placeholder="제목을 입력해주세요." onInput={textareaResizeHandler} />
-                        </MagazineHeaderBox>
+                        <MagazineEditorHeaderBoxForm titleRef={titleRef} defaultValue={detailItem.title} thumbnailImage={thumbnailImage} setThumbnailImage={setThumbnailImage} />
                         <MagazineBodyBox>
-                            <MagazineContentTextArea ref={contentRef} placeholder="내용을 입력해주세요." />
+                            {!isViewerOn ? (
+                                <TuiEditorForm contents={detailItem.contents} editorRef={contentRef} setUploadedImage={setUploadedImage} />
+                            ) : (
+                                <TuiPreviewForm contents={contentRef.current.getInstance().getHTML()} />
+                            )}
                         </MagazineBodyBox>
                     </ContentTable>
                     <ButtonContainer style={{ marginTop: "20px" }}>
-                        <Button onClick={saveTmpButtonOnClickHandler}>임시저장</Button>
-                        <Button>미리보기</Button>
-                        <Button onClick={saveMagazineButtonOnClickHandler}>게시하기</Button>
+                        {!isViewerOn ? (
+                            <>
+                                <Button onClick={saveTmpButtonOnClickHandler}>임시저장</Button>
+                                <Button onClick={() => setIsViewerOn(true)}>미리보기</Button>
+                                <Button onClick={saveMagazineButtonOnClickHandler}>게시하기</Button>
+                            </>
+                        ) : (
+                            <>
+                                <Button onClick={() => setIsViewerOn(false)}>수정하기</Button>
+                                <Button onClick={saveMagazineButtonOnClickHandler}>게시하기</Button>
+                            </>
+                        )}
                     </ButtonContainer>
                 </Wrapper>
             ) : (

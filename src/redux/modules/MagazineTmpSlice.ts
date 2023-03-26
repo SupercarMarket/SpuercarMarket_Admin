@@ -50,6 +50,10 @@ export const getMagazineTmpDetail = createAsyncThunk("GET/getMagazineTmpDetail",
     }
 });
 
+export const initMagazineTmpDetail = createAsyncThunk("DELETE/initMagazineTmpDetail", () => {
+    return;
+});
+
 const MagazineTmpSlice = createSlice({
     name: "MagazineTmpSlice",
     initialState: initState,
@@ -140,6 +144,18 @@ const MagazineTmpSlice = createSlice({
                 }
             })
             .addCase(getMagazineTmpDetail.rejected, (state, action) => {
+                state.isLoading = true;
+            })
+            .addCase(initMagazineTmpDetail.pending, (state, action) => {
+                state.isLoading = true;
+            })
+            .addCase(initMagazineTmpDetail.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.detailItem.title = "";
+                state.detailItem.contents = "";
+                state.detailItem.thumbnail = "";
+            })
+            .addCase(initMagazineTmpDetail.rejected, (state, action) => {
                 state.isLoading = true;
             });
     },
