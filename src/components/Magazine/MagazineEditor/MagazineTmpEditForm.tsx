@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useCallback, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { getMagazineTmpDetail, initMagazineTmpDetail } from "redux/modules/MagazineTmpSlice";
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
-import { newMagazineHandler, newMagazineTmpHandler } from "utils/api/Magazine/MagazineTmpAPI";
+import { deleteMagazineTmpHandler, newMagazineHandler, newMagazineTmpHandler, updateMagazineTmpHandler } from "utils/api/Magazine/MagazineTmpAPI";
 import { deleteImage, getFileNameFromHTML, getNotEqualFileList } from "utils/api/S3Upload/AdminS3ClientAPI";
 import { Button } from "../styles/buttonStyles";
 
@@ -22,8 +22,8 @@ function MagazineTmpEditForm() {
     const [isViewerOn, setIsViewerOn] = useState(false);
 
     useEffect(() => {
-        if (location.state && location.state.brdSeq) {
-            dispatch(getMagazineTmpDetail({ brdSeq: location.state.brdSeq })).then(() => {
+        if (location.state && location.state.id) {
+            dispatch(getMagazineTmpDetail({ id: location.state.id })).then(() => {
                 const uploaded = getImageURLFromHTML();
                 setUploadedImage(uploaded);
                 setThumbnailImage(detailItem.thumbnail);
@@ -40,14 +40,60 @@ function MagazineTmpEditForm() {
 
     const saveTmpButtonOnClickHandler = () => {
         if (titleRef.current && contentRef.current) {
+            if (titleRef.current.value === "") {
+                alert("제목을 입력해주세요!");
+                return;
+            }
             const delFileList: string[] = getNotEqualFileList(uploadedImage, getImageURLFromHTML());
             console.log(delFileList);
-            if (delFileList) {
+            if (delFileList.length !== 0) {
                 deleteImage(delFileList);
             }
-            newMagazineTmpHandler(contentRef.current.getInstance().getHTML(), thumbnailImage, titleRef.current.value)
+            if (location.state && location.state.id) {
+                console.log("update");
+                updateMagazineTmpHandler(location.state.id, contentRef.current.getInstance().getHTML(), thumbnailImage, titleRef.current.value)
+                    .then((response) => {
+                        if (response?.status === 200) {
+                            navigate("/magazinetmp");
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } else {
+                console.log("new");
+                newMagazineTmpHandler(contentRef.current.getInstance().getHTML(), thumbnailImage, titleRef.current.value)
+                    .then((response) => {
+                        if (response?.status === 200) {
+                            navigate("/magazinetmp");
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+        }
+    };
+
+    const saveMagazineButtonOnClickHandler = () => {
+        if (titleRef.current && contentRef.current) {
+            if (titleRef.current.value === "") {
+                alert("제목을 입력해주세요!");
+                return;
+            }
+            const delFileList: string[] = getNotEqualFileList(uploadedImage, getImageURLFromHTML());
+            console.log(delFileList);
+            if (delFileList.length !== 0) {
+                deleteImage(delFileList);
+            }
+            newMagazineHandler(contentRef.current.getInstance().getHTML(), thumbnailImage, titleRef.current.value)
                 .then((response) => {
                     if (response?.status === 200) {
+                        if (location.state && location.state.id) {
+                            deleteMagazineTmpHandler(location.state.id).catch((error) => {
+                                console.log(error);
+                            });
+                        }
                         navigate("/magazinetmp");
                     }
                 })
@@ -55,20 +101,6 @@ function MagazineTmpEditForm() {
                     console.log(error);
                 });
         }
-    };
-
-    const saveMagazineButtonOnClickHandler = () => {
-        // if (titleRef.current && contentRef.current) {
-        //     newMagazineHandler(contentRef.current.value, "", titleRef.current.value)
-        //         .then((response) => {
-        //             if (response?.status === 200) {
-        //                 navigate("/magazinetmp");
-        //             }
-        //         })
-        //         .catch((error) => {
-        //             console.log(error);
-        //         });
-        // }
     };
 
     const getImageURLFromHTML = () => {

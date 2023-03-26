@@ -36,13 +36,13 @@ export const getMagazineTmpList = createAsyncThunk("GET/getMagazineTmpList", asy
 });
 
 interface getMagazineTmpDetailProps {
-    brdSeq: string;
+    id: string;
 }
 
 // 매거진 상세정보 조회하기
 export const getMagazineTmpDetail = createAsyncThunk("GET/getMagazineTmpDetail", async (params: getMagazineTmpDetailProps, thunkApi) => {
     try {
-        const response = await getDetailMagazineTmpHandler(params.brdSeq);
+        const response = await getDetailMagazineTmpHandler(params.id);
         console.log(response);
         return response;
     } catch (error) {

@@ -34,8 +34,8 @@ const MagazineTmpListTableBodyForm = ({ offset, postsPerPage, totalContentsCount
     };
 
     // 매거진 디테일로 넘어가기
-    const magazineModifyOnClickHandler = (brdSeq: number) => {
-        navigate(`/magazinetmp/editor`, { state: { brdSeq: brdSeq } });
+    const magazineModifyOnClickHandler = (id: number) => {
+        navigate(`/magazinetmp/editor`, { state: { id: id } });
     };
 
     return (
