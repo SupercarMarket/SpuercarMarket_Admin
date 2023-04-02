@@ -10,9 +10,13 @@ import EtcInquiryForm from "../components/Inquiry/EtcInquiryList/EtcInquiryListF
 import EtcInquiryDetailForm from "../components/Inquiry/EtcInquiryDetail/EtcDetailForm";
 import MemberListForm from "components/Member/MemberList/MemberListForm";
 import DealerInquiryListForm from "components/Member/DealerInquiryList/DealerInquiryListForm";
+import DealerInquiryDetailForm from "components/Member/DealerInquiryDetail/DealerInquiryDetailForm";
 import AdminListForm from "components/Member/AdminList/AdminListForm";
 import MemberDetailForm from "components/Member/MemberDetail/MemberDetailForm";
-import DealerInquiryDetailForm from "components/Member/DealerInquiryDetail/DealerInquiryDetailForm";
+import MagazineListForm from "components/Magazine/MagazineList/MagazineListForm";
+import MagazineDetailForm from "components/Magazine/MagazineDetail/MagazineDetailForm";
+import MagazineTmpListForm from "components/Magazine/MagazineTmpList/MagazineTmpListForm";
+import MagazineTmpEditForm from "components/Magazine/MagazineEditor/MagazineTmpEditForm";
 
 const AdminPages = () => {
   return (
@@ -23,6 +27,11 @@ const AdminPages = () => {
             <Route path="/dealerinquiry" element={<DealerInquiryListForm/>}/>
             <Route path="/dealerinquiry/:dlrSeq" element={<DealerInquiryDetailForm/>}/>
             <Route path="/adminlist" element={<AdminListForm/>}/>
+
+            <Route path="/magazinelist" element={<MagazineListForm/>}/>
+            <Route path="/magazinelist/:brdSeq" element={<MagazineDetailForm/>}/>
+            <Route path="/magazinetmp" element={<MagazineTmpListForm/>}/>
+            <Route path="/magazinetmp/editor" element={<MagazineTmpEditForm/>}/>
 
             <Route path="/salelist" element={<ForSaleListForm />} />
             <Route path="/salelist/:saleId" element={<ForSaleListDetailForm/>} />
