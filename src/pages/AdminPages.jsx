@@ -10,6 +10,7 @@ import EtcInquiryForm from "../components/Inquiry/EtcInquiryList/EtcInquiryListF
 import EtcInquiryDetailForm from "../components/Inquiry/EtcInquiryDetail/EtcDetailForm";
 import MemberListForm from "components/Member/MemberList/MemberListForm";
 import DealerInquiryListForm from "components/Member/DealerInquiryList/DealerInquiryListForm";
+import DealerInquiryDetailForm from "components/Member/DealerInquiryDetail/DealerInquiryDetailForm";
 import AdminListForm from "components/Member/AdminList/AdminListForm";
 import MemberDetailForm from "components/Member/MemberDetail/MemberDetailForm";
 import MagazineListForm from "components/Magazine/MagazineList/MagazineListForm";
@@ -24,6 +25,7 @@ const AdminPages = () => {
             <Route path="/memberlist" element={<MemberListForm/>}/>
             <Route path="/memberlist/:dlrSeq" element={<MemberDetailForm/>}/>
             <Route path="/dealerinquiry" element={<DealerInquiryListForm/>}/>
+            <Route path="/dealerinquiry/:dlrSeq" element={<DealerInquiryDetailForm/>}/>
             <Route path="/adminlist" element={<AdminListForm/>}/>
 
             <Route path="/magazinelist" element={<MagazineListForm/>}/>

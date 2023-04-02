@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Button } from "../../../styles/buttonStyles";
-import { ModalBackground, ModalContainer, TextArea } from "./ApproveRejectForm.styled";
+import { ButtonWrapper, ModalBackground, ModalContainer, TextArea } from "./ApproveRejectForm.styled";
 
 import { dealerAcceptHandler, dealerRejectHandler } from "utils/api/Member/DealerInquiryAPI";
-import { useAppDispatch, useAppSelector } from "store/rootReducer";
+// import { useAppDispatch, useAppSelector } from "store/rootReducer";
 import { useNavigate } from "react-router-dom";
-import { getDealerInquiryList } from "redux/modules/DealerInquirySlice";
+// import { getDealerInquiryList } from "redux/modules/DealerInquirySlice";
 
 function ApproveRejectForm({ dlrSeq }: { dlrSeq: number }) {
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
     const [rejectReasonText, setRejectReasonText] = useState("");
-    const { filter, keyword, currentPage } = useAppSelector((state) => state.DealerInquirySlice);
-    const dispatch = useAppDispatch();
+    // const { filter, keyword, currentPage } = useAppSelector((state) => state.DealerInquirySlice);
+    // const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const textChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,7 +32,7 @@ function ApproveRejectForm({ dlrSeq }: { dlrSeq: number }) {
         dealerAcceptHandler(dlrSeq)
             .then((response) => {
                 if (response?.status === 200) {
-                    dispatch(getDealerInquiryList({ filter: filter, keyword: keyword, page: currentPage }));
+                    // dispatch(getDealerInquiryList({ filter: filter, keyword: keyword, page: currentPage }));
                     navigate("/dealerinquiry");
                 }
             })
@@ -45,7 +45,7 @@ function ApproveRejectForm({ dlrSeq }: { dlrSeq: number }) {
         dealerRejectHandler(dlrSeq, rejectReasonText)
             .then((response) => {
                 if (response?.status === 200) {
-                    dispatch(getDealerInquiryList({ filter: filter, keyword: keyword, page: currentPage }));
+                    // dispatch(getDealerInquiryList({ filter: filter, keyword: keyword, page: currentPage }));
                     navigate("/dealerinquiry");
                 }
             })
@@ -56,10 +56,10 @@ function ApproveRejectForm({ dlrSeq }: { dlrSeq: number }) {
 
     return (
         <>
-            <div style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+            <ButtonWrapper>
                 <Button onClick={dealerApprove}>딜러 등록</Button>
                 <Button onClick={openModalHandler}>반려</Button>
-            </div>
+            </ButtonWrapper>
             {isShowModal && (
                 <>
                     <ModalBackground onClick={closeModalHandler}></ModalBackground>

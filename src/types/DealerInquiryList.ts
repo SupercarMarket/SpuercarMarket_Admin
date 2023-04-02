@@ -8,7 +8,7 @@ export interface DealerInquiryListType {
     dlrNum: string;
     dlrEmployeeCardFront: string;
     dlrEmployeeCardBack: string;
-    dlrProileImage: string;
+    dlrProfileImage: string;
     comment: string;
 }
 
@@ -22,7 +22,7 @@ interface DealerInquiryListDetailType {
     dlrNum: string;
     dlrEmployeeCardFront: string;
     dlrEmployeeCardBack: string;
-    dlrProileImage: string;
+    dlrProfileImage: string;
     userId: string;
     userName: string;
     userNickName: string;
