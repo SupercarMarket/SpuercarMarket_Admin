@@ -49,7 +49,7 @@ function MagazineListForm() {
                     let newList: MagazineListType[] = [];
                     list.forEach((magazine) => {
                         let thisMagazine = { ...magazine };
-                        if (hideMagazineList.includes(thisMagazine.brdSeq)) {
+                        if (hideMagazineList.includes(thisMagazine.id)) {
                             thisMagazine.hidden = true;
                         }
                         newList.push(thisMagazine);
@@ -64,13 +64,13 @@ function MagazineListForm() {
     };
 
     // 숨기기 취소 함수
-    const unhideMagazineOnClickHandler = (brdSeq: number) => {
-        undiscloseMagazineHandler([brdSeq], false)
+    const unhideMagazineOnClickHandler = (id: number) => {
+        undiscloseMagazineHandler([id], false)
             .then((response) => {
                 if (response?.status === 200) {
                     let newList: MagazineListType[] = [];
                     list.forEach((magazine) => {
-                        if (magazine.brdSeq === brdSeq) {
+                        if (magazine.id === id) {
                             newList.push({ ...magazine, hidden: false });
                         } else {
                             newList.push(magazine);
@@ -85,9 +85,9 @@ function MagazineListForm() {
     };
 
     // 매거진 삭제 함수
-    const deleteMagazineOnClickHandler = (brdSeq: number) => {
+    const deleteMagazineOnClickHandler = (id: number) => {
         if (window.confirm("정말로 삭제하시겠습니까?")) {
-            deleteMagazineHandler(brdSeq.toString())
+            deleteMagazineHandler(id.toString())
                 .then((response) => {
                     if (response?.status === 200) {
                         dispatch(

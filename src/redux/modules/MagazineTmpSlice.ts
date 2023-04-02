@@ -43,7 +43,6 @@ interface getMagazineTmpDetailProps {
 export const getMagazineTmpDetail = createAsyncThunk("GET/getMagazineTmpDetail", async (params: getMagazineTmpDetailProps, thunkApi) => {
     try {
         const response = await getDetailMagazineTmpHandler(params.id);
-        console.log(response);
         return response;
     } catch (error) {
         return thunkApi.rejectWithValue(error);

@@ -36,6 +36,7 @@ const initState = {
             call: "",
             profileSrc: "",
         },
+        editHistory: [],
     },
 } as InitMagazineStateType;
 
@@ -52,7 +53,7 @@ interface MagazineListDataType {
 export const getMagazineList = createAsyncThunk("GET/getMagazineList", async (params: MagazineListDataType, thunkApi) => {
     try {
         const response = await getMagazineListHandler(params.keywordAll, params.keywordTitle, params.allDate, params.startDate, params.endDate, params.page);
-        // console.log(response);
+        console.log(response);
         return response;
     } catch (error) {
         return thunkApi.rejectWithValue(error);
@@ -107,7 +108,7 @@ const MagazineListSlice = createSlice({
             if (action.payload.allChecked) {
                 const checked: number[] = [];
                 state.list.forEach((list) => {
-                    checked.push(list.brdSeq);
+                    checked.push(list.id);
                 });
                 state.checkList = checked;
             } else {
@@ -151,9 +152,9 @@ const MagazineListSlice = createSlice({
             .addCase(getMagazineList.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
                     state.totalPages = action.payload.data.totalPages;
-                    state.totalCount = action.payload.data.totalCount;
+                    state.totalCount = action.payload.data.totalCounts;
                     state.list = [];
-                    state.list = action.payload.data.data;
+                    state.list = action.payload.data.list;
                     state.isLoading = false;
                 } else {
                     return state;
@@ -182,7 +183,7 @@ const MagazineListSlice = createSlice({
             .addCase(getMagazineHistory.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
                     state.isHistoryLoading = false;
-                    // state.historyItem = action.payload.data;
+                    state.detailItem.editHistory = action.payload.data;
                 }
             })
             .addCase(getMagazineHistory.rejected, (state, action) => {

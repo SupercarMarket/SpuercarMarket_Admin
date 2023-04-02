@@ -25,8 +25,8 @@ const MagazineListTableBodyForm = ({ offset, postsPerPage, totalContentsCount, h
     };
 
     // 항목 체크 박스 셋업
-    const magazineCheckBoxClickHandler = (brdSeq: number, isChecked: boolean) => {
-        dispatch(MagazineListAction.setMagazineListEachChecked({ brdSeq, isChecked }));
+    const magazineCheckBoxClickHandler = (id: number, isChecked: boolean) => {
+        dispatch(MagazineListAction.setMagazineListEachChecked({ id, isChecked }));
     };
 
     const inputCheckOnChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,57 +34,57 @@ const MagazineListTableBodyForm = ({ offset, postsPerPage, totalContentsCount, h
     };
 
     // 매거진 디테일로 넘어가기
-    const magazineDetailOnClickHandler = (brdSeq: number) => {
-        navigate(`/magazinelist/${brdSeq.toString()}`, { state: { edit: false } });
+    const magazineDetailOnClickHandler = (id: number) => {
+        navigate(`/magazinelist/${id.toString()}`, { state: { edit: false } });
     };
 
-    const magazineModifyOnClickHandler = (brdSeq: number) => {
-        navigate(`/magazinelist/${brdSeq.toString()}`, { state: { edit: true } });
+    const magazineModifyOnClickHandler = (id: number) => {
+        navigate(`/magazinelist/${id.toString()}`, { state: { edit: true } });
     };
 
     return (
         <MagazineListTableBody key={`uuid`}>
             {list.slice(offset, offset + postsPerPage).map((magazine, index) => {
                 return (
-                    <React.Fragment key={magazine.brdSeq}>
-                        <tr onClick={() => magazineDetailOnClickHandler(magazine.brdSeq)}>
+                    <React.Fragment key={magazine.id}>
+                        <tr onClick={() => magazineDetailOnClickHandler(magazine.id)}>
                             <MagazineListTableBodyRowSpan>
                                 <MagazineListCheckBoxWrapper>
                                     <MagazineListInputCheckBox
-                                        id={magazine.brdSeq.toString()}
+                                        id={magazine.id.toString()}
                                         ref={inputCheckTypeRef}
                                         onClick={inputCheckOnClickHandler}
                                         onChange={(event) => {
                                             inputCheckOnChangeHandler(event);
                                         }}
-                                        checked={checkList.includes(magazine.brdSeq) ? true : false}
+                                        checked={checkList.includes(magazine.id) ? true : false}
                                         disabled={false}
                                     />
-                                    <MagazineLiseLabelCheckBox htmlFor={magazine.brdSeq.toString()} />
+                                    <MagazineLiseLabelCheckBox htmlFor={magazine.id.toString()} />
                                 </MagazineListCheckBoxWrapper>
                             </MagazineListTableBodyRowSpan>
-                            <MagazineListTableBodyRowSpan>{String(magazine.brdSeq.toString()).padStart(7, "0")}</MagazineListTableBodyRowSpan>
+                            <MagazineListTableBodyRowSpan>{String(magazine.id.toString()).padStart(7, "0")}</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>{magazine.title}</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>{magazine.createdDate}</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>{magazine.likeCount}개</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>{magazine.cmtCount}개</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>{magazine.viewCount}개</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>
-                                <MagazineListTableBodyButton onClick={() => magazineModifyOnClickHandler(magazine.brdSeq)}>수정하기</MagazineListTableBodyButton>
+                                <MagazineListTableBodyButton onClick={() => magazineModifyOnClickHandler(magazine.id)}>수정하기</MagazineListTableBodyButton>
                             </MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>
                                 {magazine.hidden === true ? (
-                                    <MagazineListTableBodyButton id={magazine.brdSeq.toString()} onClick={() => unhideButtonOnClickHandler(magazine.brdSeq)}>
+                                    <MagazineListTableBodyButton id={magazine.id.toString()} onClick={() => unhideButtonOnClickHandler(magazine.id)}>
                                         숨기기 취소
                                     </MagazineListTableBodyButton>
                                 ) : (
-                                    <MagazineListTableBodyButton id={magazine.brdSeq.toString()} onClick={() => hideButtonOnClickHandler(magazine.brdSeq)}>
+                                    <MagazineListTableBodyButton id={magazine.id.toString()} onClick={() => hideButtonOnClickHandler(magazine.id)}>
                                         숨기기
                                     </MagazineListTableBodyButton>
                                 )}
                             </MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>
-                                <MagazineListTableBodyButton onClick={() => deleteButtonOnClickHandler(magazine.brdSeq)}>삭제하기</MagazineListTableBodyButton>
+                                <MagazineListTableBodyButton onClick={() => deleteButtonOnClickHandler(magazine.id)}>삭제하기</MagazineListTableBodyButton>
                             </MagazineListTableBodyRowSpan>
                         </tr>
                     </React.Fragment>

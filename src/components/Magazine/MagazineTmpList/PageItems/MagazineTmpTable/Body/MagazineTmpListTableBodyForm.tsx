@@ -66,7 +66,7 @@ const MagazineTmpListTableBodyForm = ({ offset, postsPerPage, totalContentsCount
                                 <MagazineListTableBodyButton onClick={() => magazineModifyOnClickHandler(magazine.id)}>수정하기</MagazineListTableBodyButton>
                             </MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>
-                                <MagazineListTableBodyButton onClick={() => deleteButtonOnClickHandler(magazine.id)}>삭제하기</MagazineListTableBodyButton>
+                                <MagazineListTableBodyButton onClick={() => deleteButtonOnClickHandler([magazine.id])}>삭제하기</MagazineListTableBodyButton>
                             </MagazineListTableBodyRowSpan>
                         </tr>
                     </React.Fragment>

@@ -1,6 +1,6 @@
 // 매거진 리스트 initial type
 export interface MagazineListType {
-    brdSeq: number;
+    id: number;
     title: string;
     createdDate: string;
     likeCount: number;
@@ -30,6 +30,15 @@ interface MagazineDetailType {
     createAt: string;
     updateAt: string;
     user: MagazineWriterType;
+    editHistory: MagazineEditHistoryType[];
+}
+
+interface MagazineEditHistoryType {
+    dateTime: string;
+    historySeq: string;
+    contents: string;
+    admin: string;
+    magazine: string;
 }
 
 // reducer initial type
@@ -51,4 +60,3 @@ export interface InitMagazineStateType {
     // 상세 조회
     detailItem: MagazineDetailType;
 }
-

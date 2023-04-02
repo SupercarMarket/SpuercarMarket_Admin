@@ -35,9 +35,9 @@ function MagazineTmpListForm() {
     }, [isPage, currentPage, dispatch]);
 
     // 매거진 삭제 함수
-    const deleteMagazineOnClickHandler = (brdSeq: number) => {
+    const deleteMagazineOnClickHandler = (storageIds: number[]) => {
         if (window.confirm("정말로 삭제하시겠습니까?")) {
-            deleteMagazineTmpHandler(brdSeq.toString())
+            deleteMagazineTmpHandler(storageIds)
                 .then((response) => {
                     if (response?.status === 200) {
                         dispatch(

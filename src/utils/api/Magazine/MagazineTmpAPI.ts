@@ -19,9 +19,9 @@ export const getMagazineTmpListHandler = async (page: number) => {
 };
 
 // 매거진 정보 상세 조회
-export const getDetailMagazineTmpHandler = async (brdSeq: string) => {
+export const getDetailMagazineTmpHandler = async (storageId: string) => {
     try {
-        return await ClientAxios.get(`magazine/storage/${brdSeq}`, {});
+        return await ClientAxios.get(`magazine/storage/${storageId}`, {});
     } catch (error) {
         const { response } = error as unknown as AxiosError;
         return response;
@@ -42,9 +42,9 @@ export const newMagazineTmpHandler = async (contents: string, thumbnail: string,
     }
 };
 // 매거진 수정하기
-export const updateMagazineTmpHandler = async (brdSeq: string, contents: string, thumbnail: string, title: string) => {
+export const updateMagazineTmpHandler = async (storageId: string, contents: string, thumbnail: string, title: string) => {
     try {
-        return await ClientAxios.patch(`magazine/storage/${brdSeq}`, {
+        return await ClientAxios.patch(`magazine/storage/${storageId}`, {
             contents: contents,
             thumbnail: thumbnail,
             title: title,
@@ -56,9 +56,11 @@ export const updateMagazineTmpHandler = async (brdSeq: string, contents: string,
 };
 
 // 매거진 삭제하기
-export const deleteMagazineTmpHandler = async (brdSeq: string) => {
+export const deleteMagazineTmpHandler = async (storageIds: number[]) => {
     try {
-        return await ClientAxios.delete(`magazine/storage/${brdSeq}`, {});
+        return await ClientAxios.post(`magazine/storage/delete`, {
+            storageIds: storageIds,
+        });
     } catch (error) {
         const { response } = error as unknown as AxiosError;
         return response;
