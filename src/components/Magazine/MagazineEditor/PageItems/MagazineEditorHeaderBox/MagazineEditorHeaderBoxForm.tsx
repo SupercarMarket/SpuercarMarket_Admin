@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { MagazineHeaderBox, MagazineTitleTextArea } from "./MagazineEditorHeaderBoxForm.styled";
+import { MagazineHeaderBox, MagazineHeaderThumbnail, MagazineTitleTextArea } from "./MagazineEditorHeaderBoxForm.styled";
 import ThumbnailBoxForm from "../ThumbnailBox/ThumbnailBoxForm";
 
 interface Props {
@@ -17,10 +17,13 @@ function MagazineEditorHeaderBoxForm({ titleRef, defaultValue, thumbnailImage, s
     }, []);
 
     return (
-        <MagazineHeaderBox imageUrl={thumbnailImage}>
-            <ThumbnailBoxForm thumbnailImage={thumbnailImage} setThumbnailImage={setThumbnailImage} />
-            <MagazineTitleTextArea defaultValue={defaultValue} ref={titleRef} placeholder="제목을 입력해주세요." onInput={textareaResizeHandler} />
-        </MagazineHeaderBox>
+        <>
+            <MagazineHeaderThumbnail src={thumbnailImage} />
+            <MagazineHeaderBox>
+                <ThumbnailBoxForm thumbnailImage={thumbnailImage} setThumbnailImage={setThumbnailImage} />
+                <MagazineTitleTextArea defaultValue={defaultValue} ref={titleRef} placeholder="제목을 입력해주세요." onInput={textareaResizeHandler} />
+            </MagazineHeaderBox>
+        </>
     );
 }
 

@@ -35,10 +35,10 @@ function ThumbnailBoxForm({ thumbnailImage, setThumbnailImage }: ThumbnailBoxPro
     }, []);
 
     const deleteImageButtonOnClickHandler = () => {
-        const fileToDelete: string = thumbnailImage.split("/")[-1];
-        deleteImage([fileToDelete]).catch((error) => {
-            console.log(error);
-        });
+        // const fileToDelete: string = thumbnailImage.split("/")[-1];
+        // deleteImage([fileToDelete]).catch((error) => {
+        //     console.log(error);
+        // });
         setThumbnailImage("");
     };
 

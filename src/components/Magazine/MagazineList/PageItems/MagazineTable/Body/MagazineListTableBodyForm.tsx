@@ -66,7 +66,7 @@ const MagazineListTableBodyForm = ({ offset, postsPerPage, totalContentsCount, h
                             <MagazineListTableBodyRowSpan>{String(magazine.id.toString()).padStart(7, "0")}</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>{magazine.title}</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>{magazine.createdDate}</MagazineListTableBodyRowSpan>
-                            <MagazineListTableBodyRowSpan>{magazine.likeCount}개</MagazineListTableBodyRowSpan>
+                            <MagazineListTableBodyRowSpan>{magazine.scrapCount}개</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>{magazine.cmtCount}개</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>{magazine.viewCount}개</MagazineListTableBodyRowSpan>
                             <MagazineListTableBodyRowSpan>

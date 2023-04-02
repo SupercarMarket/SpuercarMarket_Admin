@@ -25,7 +25,7 @@ const initState = {
         id: 0,
         thumbnail: "",
         view: 0,
-        contentHtml: "",
+        contents: "",
         isScraped: false,
         isCounseling: false,
         createAt: "",
@@ -139,7 +139,7 @@ const MagazineListSlice = createSlice({
         // 디테일 내용 업데이트
         setMagazineDetail: (state, action) => {
             state.detailItem.title = action.payload.title;
-            state.detailItem.contentHtml = action.payload.contents;
+            state.detailItem.contents = action.payload.contents;
             state.detailItem.thumbnail = action.payload.thumbnail;
         },
     },
@@ -169,7 +169,7 @@ const MagazineListSlice = createSlice({
             })
             .addCase(getMagazineDetail.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
-                    state.detailItem = action.payload.data;
+                    state.detailItem = action.payload.data.data;
                     state.isLoading = false;
                 }
             })

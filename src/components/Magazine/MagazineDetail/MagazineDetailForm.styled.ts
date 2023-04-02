@@ -12,7 +12,13 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
+`;
+
+export const Table = styled.div`
+    width: 100%;
+    border: 1px solid #c3c3c7;
+    border-radius: 4px;
 `;
 
 export const ButtonContainer = styled.div`
@@ -21,4 +27,11 @@ export const ButtonContainer = styled.div`
     align-items: center;
     gap: 8px;
     justify-content: center;
+`;
+
+export const MagazineBodyBox = styled.div`
+    width: 100%;
+    height: auto;
+    min-height: 600px;
+    padding: 16px;
 `;
