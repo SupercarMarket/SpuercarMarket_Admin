@@ -25,7 +25,7 @@ interface DealerDetailType {
     dlrNum: string;
     dlrEmployeeCardFront: string;
     dlrEmployeeCardBack: string;
-    dlrProileImage: string;
+    dlrProfileImage: string;
     userId: string;
     userName: string;
     userNickName: string;

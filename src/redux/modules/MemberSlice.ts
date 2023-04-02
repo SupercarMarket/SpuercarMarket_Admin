@@ -32,7 +32,7 @@ const initState = {
         dlrNum: "",
         dlrEmployeeCardFront: "",
         dlrEmployeeCardBack: "",
-        dlrProileImage: "",
+        dlrProfileImage: "",
         userId: "",
         userName: "",
         userNickName: "",

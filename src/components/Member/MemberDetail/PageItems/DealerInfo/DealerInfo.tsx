@@ -47,7 +47,7 @@ function DealerInfo() {
                     <tr style={{ height: "152px" }}>
                         <td className="title">프로필 사진</td>
                         <td className="content" colSpan={3}>
-                            <img src={detailItem?.dlrProileImage} alt="profileImg" />
+                            <img src={detailItem?.dlrProfileImage} alt="profileImg" />
                         </td>
                     </tr>
                     <tr style={{ height: "158px" }}>
