@@ -3,7 +3,7 @@ export interface MagazineListType {
     id: number;
     title: string;
     createdDate: string;
-    likeCount: number;
+    scrapCount: number;
     cmtCount: number;
     viewCount: number;
     hidden: boolean;
@@ -24,7 +24,7 @@ interface MagazineDetailType {
     id: number;
     thumbnail: string;
     view: number;
-    contentHtml: string;
+    contents: string;
     isScraped: boolean;
     isCounseling: boolean;
     createAt: string;

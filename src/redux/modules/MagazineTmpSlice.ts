@@ -43,6 +43,7 @@ interface getMagazineTmpDetailProps {
 export const getMagazineTmpDetail = createAsyncThunk("GET/getMagazineTmpDetail", async (params: getMagazineTmpDetailProps, thunkApi) => {
     try {
         const response = await getDetailMagazineTmpHandler(params.id);
+        console.log(response);
         return response;
     } catch (error) {
         return thunkApi.rejectWithValue(error);
@@ -120,11 +121,11 @@ const MagazineTmpSlice = createSlice({
             })
             .addCase(getMagazineTmpList.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
+                    state.isLoading = false;
                     state.totalPages = action.payload.data.totalPages;
                     state.totalCount = action.payload.data.totalCount;
                     state.list = [];
                     state.list = action.payload.data.data;
-                    state.isLoading = false;
                 } else {
                     return state;
                 }
@@ -138,7 +139,7 @@ const MagazineTmpSlice = createSlice({
             })
             .addCase(getMagazineTmpDetail.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
-                    state.detailItem = action.payload.data;
+                    state.detailItem = action.payload.data.data;
                     state.isLoading = false;
                 }
             })

@@ -26,11 +26,12 @@ function MagazineTmpEditForm() {
             dispatch(getMagazineTmpDetail({ id: location.state.id })).then(() => {
                 const uploaded = getImageURLFromHTML();
                 setUploadedImage(uploaded);
-                setThumbnailImage(detailItem.thumbnail);
+                    setThumbnailImage(detailItem.thumbnail);
             });
         } else {
             dispatch(initMagazineTmpDetail()).then(() => {
                 setUploadedImage([]);
+                setThumbnailImage("");
             });
         }
     }, [location.state, dispatch]);
@@ -117,7 +118,12 @@ function MagazineTmpEditForm() {
             {!isLoading ? (
                 <Wrapper>
                     <ContentTable>
-                        <MagazineEditorHeaderBoxForm titleRef={titleRef} defaultValue={detailItem.title} thumbnailImage={thumbnailImage} setThumbnailImage={setThumbnailImage} />
+                        <MagazineEditorHeaderBoxForm
+                            titleRef={titleRef}
+                            defaultValue={detailItem.title}
+                            thumbnailImage={thumbnailImage}
+                            setThumbnailImage={setThumbnailImage}
+                        />
                         <MagazineBodyBox>
                             {!isViewerOn ? (
                                 <TuiEditorForm contents={detailItem.contents} editorRef={contentRef} setUploadedImage={setUploadedImage} />
