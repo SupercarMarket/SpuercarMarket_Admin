@@ -12,7 +12,7 @@ import { SearchBoxWrapper, SearchBox, RadioBtnWrapper, RadioBtnLabel, CheckBoxWr
 import { Button } from "components/Member/styles/buttonStyles";
 
 const roleOptions = [
-    { value: "", name: "전체" },
+    { value: "0", name: "전체" },
     { value: "1", name: "일반" },
     { value: "2", name: "딜러" },
 ];
@@ -168,7 +168,7 @@ function MemberSearchForm() {
             SearchBarInputRef.current.value = "";
         }
         if (DropDownTitleRef.current) {
-            DropDownTitleRef.current.textContent = "전체"
+            DropDownTitleRef.current.textContent = "전체";
         }
     };
 

@@ -68,18 +68,18 @@ function AdminModifyModalForm({ admSeq, admName, admPhone, admEmail, admNickname
                             newList.push({
                                 admSeq: admSeq,
                                 admProfileImageUrl: el.admProfileImageUrl,
-                                admNickname: admNickname,
-                                admEmail: admEmail,
-                                admName: admName,
-                                admPhone: admPhone,
+                                admNickname: adminNickName,
+                                admEmail: adminEmail,
+                                admName: adminName,
+                                admPhone: adminPhoneNumber,
                                 regMagazineCount: el.regMagazineCount,
                                 isBlock: el.isBlock,
                             });
                         } else {
                             newList.push(el);
                         }
-                        dispatch(AdminAction.setAdminList({ list: newList }));
                     });
+                    dispatch(AdminAction.setAdminList({ list: newList }));
                 }
                 setIsShowModal(false);
             })

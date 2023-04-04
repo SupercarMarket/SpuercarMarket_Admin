@@ -91,10 +91,10 @@ const MemberTableBodyForm = ({ offset, postsPerPage, totalContentsCount, banMemb
                             </MemberTableBodyRowSpan>
                         </tr>
                         <tr>
-                            <MemberTableBodyRowSpan style={{ cursor: "pointer" }}>{user.userName}</MemberTableBodyRowSpan>
-                            <MemberTableBodyRowSpan style={{ cursor: "pointer" }}>{user.nickname}</MemberTableBodyRowSpan>
-                            <MemberTableBodyRowSpan style={{ cursor: "pointer" }}>{user.email}</MemberTableBodyRowSpan>
-                            <MemberTableBodyRowSpan style={{ cursor: "pointer" }}>{user.commentNumber}</MemberTableBodyRowSpan>
+                            <MemberTableBodyRowSpan>{user.userName}</MemberTableBodyRowSpan>
+                            <MemberTableBodyRowSpan>{user.nickname}</MemberTableBodyRowSpan>
+                            <MemberTableBodyRowSpan>{user.email}</MemberTableBodyRowSpan>
+                            <MemberTableBodyRowSpan>{user.commentNumber}</MemberTableBodyRowSpan>
                         </tr>
                     </React.Fragment>
                 );
