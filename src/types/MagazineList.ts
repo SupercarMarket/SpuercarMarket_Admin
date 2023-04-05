@@ -47,8 +47,8 @@ export interface InitMagazineStateType {
     isHistoryLoading: boolean;
     totalCount: number;
     totalPages: number;
-    keywordAll?: string;
-    keywordTitle?: string;
+    keyword?: string;
+    title?: string;
     allDate: boolean;
     startDate: Date;
     endDate: Date;

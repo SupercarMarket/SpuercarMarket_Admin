@@ -1,25 +1,24 @@
 import React, { useRef, useEffect, useState } from "react";
 import DateRangePickerForm from "../DateRangePicker/DateRangePickerForm";
 import SearchBarForm from "components/Common/SearchBar/SearchBarForm";
-import DropDownForm from "components/Common/DropDown/DropDownForm";
 
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
 
-import { SearchBoxWrapper, SearchBox, RadioBtnWrapper, RadioBtnLabel, CheckBoxWrapper, CheckBoxLabel } from "./MagazineSearch.styled";
+import { SearchBoxWrapper, SearchBox } from "./MagazineSearch.styled";
 import { Button } from "components/Magazine/styles/buttonStyles";
 import { getMagazineList, MagazineListAction } from "redux/modules/MagazineListSlice";
 
 type searchDataInterface = {
-    keywordAll: string;
-    keywordTitle: string;
+    keyword: string;
+    title: string;
     allDate: boolean;
     startDate: Date;
     endDate: Date;
 };
 
 const searchDataInitState: searchDataInterface = {
-    keywordAll: "",
-    keywordTitle: "",
+    keyword: "",
+    title: "",
     allDate: true,
     startDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
     endDate: new Date(),
@@ -27,22 +26,22 @@ const searchDataInitState: searchDataInterface = {
 
 function MagazineSearchForm() {
     const dispatch = useAppDispatch();
-    const { keywordAll, keywordTitle, allDate, startDate, endDate } = useAppSelector((state) => state.MagazineListSlice);
+    const { keyword, title, allDate, startDate, endDate } = useAppSelector((state) => state.MagazineListSlice);
 
     const [searchData, setSearchData] = useState<searchDataInterface>({
-        keywordAll: keywordAll as string,
-        keywordTitle: keywordTitle as string,
+        keyword: keyword as string,
+        title: title as string,
         allDate: allDate as boolean,
         startDate: startDate as Date,
         endDate: endDate as Date,
     });
 
     useEffect(() => {
-        if (searchData.keywordAll && SearchBarInputRefAll.current) {
-            SearchBarInputRefAll.current.value = searchData.keywordAll as string;
+        if (searchData.keyword && SearchBarInputRefAll.current) {
+            SearchBarInputRefAll.current.value = searchData.keyword as string;
         }
-        if (searchData.keywordTitle && SearchBarInputRefTitle.current) {
-            SearchBarInputRefTitle.current.value = searchData.keywordTitle as string;
+        if (searchData.title && SearchBarInputRefTitle.current) {
+            SearchBarInputRefTitle.current.value = searchData.title as string;
         }
     }, []);
 
@@ -63,13 +62,13 @@ function MagazineSearchForm() {
     const SearchBarInputRefAll = useRef<HTMLInputElement>(null);
     const SearchBarInputRefTitle = useRef<HTMLInputElement>(null);
     const SearchButtonOnClickHandler = () => {
-        let inputKeywordAll = SearchBarInputRefAll.current?.value as string;
-        let inputKeywordTitle = SearchBarInputRefTitle.current?.value as string;
-        setSearchData({ ...searchData, keywordAll: inputKeywordAll, keywordTitle: inputKeywordTitle });
+        let inputKeyword = SearchBarInputRefAll.current?.value as string;
+        let inputTitle = SearchBarInputRefTitle.current?.value as string;
+        setSearchData({ ...searchData, keyword: inputKeyword, title: inputTitle });
         dispatch(
             MagazineListAction.setMagazineListSearchData({
-                keywordAll: inputKeywordAll as string,
-                keywordTitle: inputKeywordTitle as string,
+                keyword: inputKeyword as string,
+                title: inputTitle as string,
                 allDate: searchData.allDate as boolean,
                 startDate: searchData.startDate as Date,
                 endDate: searchData.endDate as Date,
@@ -78,8 +77,8 @@ function MagazineSearchForm() {
         );
         dispatch(
             getMagazineList({
-                keywordAll: inputKeywordAll as string,
-                keywordTitle: inputKeywordTitle as string,
+                keyword: inputKeyword as string,
+                title: inputTitle as string,
                 allDate: searchData.allDate as boolean,
                 startDate: searchData.startDate as Date,
                 endDate: searchData.endDate as Date,

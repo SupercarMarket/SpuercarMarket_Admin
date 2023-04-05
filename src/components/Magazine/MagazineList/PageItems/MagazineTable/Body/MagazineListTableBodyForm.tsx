@@ -34,8 +34,14 @@ const MagazineListTableBodyForm = ({ offset, postsPerPage, totalContentsCount, h
     };
 
     // 매거진 디테일로 넘어가기
-    const magazineDetailOnClickHandler = (id: number) => {
-        navigate(`/magazinelist/${id.toString()}`, { state: { edit: false } });
+    const tableRowOnClickHandler = (event: any) => {
+        if (event.target.nodeName !== "BUTTON") {
+            magazineDetailOnClickHandler(event.currentTarget.id);
+        }
+    };
+
+    const magazineDetailOnClickHandler = (id: string) => {
+        navigate(`/magazinelist/${id}`, { state: { edit: false } });
     };
 
     const magazineModifyOnClickHandler = (id: number) => {
@@ -47,7 +53,7 @@ const MagazineListTableBodyForm = ({ offset, postsPerPage, totalContentsCount, h
             {list.slice(offset, offset + postsPerPage).map((magazine, index) => {
                 return (
                     <React.Fragment key={magazine.id}>
-                        <tr onClick={() => magazineDetailOnClickHandler(magazine.id)}>
+                        <tr id={magazine.id.toString()} onClick={tableRowOnClickHandler}>
                             <MagazineListTableBodyRowSpan>
                                 <MagazineListCheckBoxWrapper>
                                     <MagazineListInputCheckBox
@@ -78,7 +84,7 @@ const MagazineListTableBodyForm = ({ offset, postsPerPage, totalContentsCount, h
                                         숨기기 취소
                                     </MagazineListTableBodyButton>
                                 ) : (
-                                    <MagazineListTableBodyButton id={magazine.id.toString()} onClick={() => hideButtonOnClickHandler(magazine.id)}>
+                                    <MagazineListTableBodyButton id={magazine.id.toString()} onClick={() => hideButtonOnClickHandler([magazine.id])}>
                                         숨기기
                                     </MagazineListTableBodyButton>
                                 )}

@@ -7,8 +7,8 @@ const initState = {
     isHistoryLoading: false,
     totalCount: 0,
     totalPages: 0,
-    keywordAll: "",
-    keywordTitle: "",
+    keyword: "",
+    title: "",
     allDate: true,
     startDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
     endDate: new Date(),
@@ -41,8 +41,8 @@ const initState = {
 } as InitMagazineStateType;
 
 interface MagazineListDataType {
-    keywordAll: string;
-    keywordTitle: string;
+    keyword: string;
+    title: string;
     allDate: boolean;
     startDate: Date;
     endDate: Date;
@@ -52,7 +52,7 @@ interface MagazineListDataType {
 // 매거진 리스트 조회하기
 export const getMagazineList = createAsyncThunk("GET/getMagazineList", async (params: MagazineListDataType, thunkApi) => {
     try {
-        const response = await getMagazineListHandler(params.keywordAll, params.keywordTitle, params.allDate, params.startDate, params.endDate, params.page);
+        const response = await getMagazineListHandler(params.keyword, params.title, params.allDate, params.startDate, params.endDate, params.page);
         console.log(response);
         return response;
     } catch (error) {
@@ -95,8 +95,8 @@ const MagazineListSlice = createSlice({
         },
         // 검색 정보 저장
         setMagazineListSearchData: (state, action) => {
-            state.keywordAll = action.payload.keywordAll;
-            state.keywordTitle = action.payload.keywordTitle;
+            state.keyword = action.payload.keyword;
+            state.title = action.payload.title;
             state.allDate = action.payload.allDate;
             state.startDate = action.payload.startDate;
             state.endDate = action.payload.endDate;

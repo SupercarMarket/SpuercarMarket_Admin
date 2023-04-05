@@ -33,9 +33,6 @@ function MagazineDetailForm() {
             setMagazineHidden(detailItem.hidden);
             setThumbnailImage(detailItem.thumbnail);
             dispatch(getMagazineHistory({ brdSeq: brdSeq as string }));
-            if (titleRef && titleRef.current) {
-                titleRef.current.value = detailItem.title;
-            }
         });
         setIsModifying(location.state.edit || false);
     }, [brdSeq, dispatch]);
