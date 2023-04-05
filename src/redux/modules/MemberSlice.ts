@@ -14,7 +14,7 @@ const initState = {
     allDate: true,
     startDate: new Date(new Date().setMonth(new Date().getMonth() - 1)),
     endDate: new Date(),
-    role: "",
+    role: "0",
     levelAllChecked: true,
     level: ["1", "2", "3", "4", "5"],
     list: [],
@@ -44,7 +44,6 @@ const initState = {
         commentCount: 0,
         comment: "",
         regAdmin: "",
-        regAdminEmail: "",
         regAdminNickname: "",
     },
 } as InitMemberStateType;

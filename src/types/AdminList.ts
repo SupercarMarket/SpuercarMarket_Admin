@@ -5,18 +5,19 @@ export interface AdminListType {
     admName: string;
     admPhone: string;
     admEmail: string;
-    admNickname: string;
+    nickName: string;
     regMagazineCount: number;
     isBlock: boolean;
 }
 
-// 딜러요청 상세정보 type
+// 관리자 상세정보 type
 interface AdminListDetailType {
     admSeq: number;
     admProfileImageUrl: string;
     admName: string;
     admPhone: string;
     admEmail: string;
+    nickName: string;
     regMagazineCount: number;
     isBlock: boolean;
 }

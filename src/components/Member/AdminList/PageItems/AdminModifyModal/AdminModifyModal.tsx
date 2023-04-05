@@ -68,7 +68,7 @@ function AdminModifyModalForm({ admSeq, admName, admPhone, admEmail, admNickname
                             newList.push({
                                 admSeq: admSeq,
                                 admProfileImageUrl: el.admProfileImageUrl,
-                                admNickname: adminNickName,
+                                nickName: adminNickName,
                                 admEmail: adminEmail,
                                 admName: adminName,
                                 admPhone: adminPhoneNumber,

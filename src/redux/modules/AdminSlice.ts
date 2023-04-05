@@ -17,7 +17,7 @@ const initState = {
         admName: "",
         admPhone: "",
         admEmail: "",
-        admNickname: "",
+        nickName: "",
         regMagazineCount: 0,
         isBlock: false,
     },
