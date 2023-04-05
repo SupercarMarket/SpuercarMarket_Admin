@@ -76,12 +76,12 @@ const AdminTableBodyForm = ({ offset, postsPerPage, totalContentsCount }: AdminT
                     <React.Fragment key={admin.admSeq}>
                         <tr>
                             <AdminTableBodyRowSpan>{admin.admProfileImageUrl}</AdminTableBodyRowSpan>
-                            <AdminTableBodyRowSpan>{admin.admNickname}</AdminTableBodyRowSpan>
+                            <AdminTableBodyRowSpan>{admin.nickName}</AdminTableBodyRowSpan>
                             <AdminTableBodyRowSpan>{admin.admEmail}</AdminTableBodyRowSpan>
                             <AdminTableBodyRowSpan>{admin.admPhone}</AdminTableBodyRowSpan>
                             <AdminTableBodyRowSpan>{admin.regMagazineCount}</AdminTableBodyRowSpan>
                             <AdminTableBodyRowSpan>
-                                <AdminModifyModalForm admSeq={admin.admSeq} admName={admin.admName} admNickname={admin.admNickname} admEmail={admin.admEmail} admPhone={admin.admPhone} />
+                                <AdminModifyModalForm admSeq={admin.admSeq} admName={admin.admName} admNickname={admin.nickName} admEmail={admin.admEmail} admPhone={admin.admPhone} />
                             </AdminTableBodyRowSpan>
                             <AdminTableBodyRowSpan>
                                 {admin.isBlock ? (

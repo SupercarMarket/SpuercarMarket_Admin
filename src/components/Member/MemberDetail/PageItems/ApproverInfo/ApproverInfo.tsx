@@ -17,10 +17,6 @@ function ApproverDetail() {
                         <td className="content">{detailItem?.regAdmin}</td>
                     </tr>
                     <tr style={{ height: "53px" }}>
-                        <td className="title">이메일</td>
-                        <td className="content">{detailItem?.regAdminEmail}</td>
-                    </tr>
-                    <tr style={{ height: "53px" }}>
                         <td className="title">닉네임</td>
                         <td className="content">{detailItem?.regAdminNickname}</td>
                     </tr>

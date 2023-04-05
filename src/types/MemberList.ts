@@ -37,7 +37,6 @@ interface DealerDetailType {
     commentCount: number;
     comment: string;
     regAdmin: string;
-    regAdminEmail: string;
     regAdminNickname: string;
 }
 
