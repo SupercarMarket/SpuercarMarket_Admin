@@ -1,14 +1,14 @@
 import React from "react";
 import { MagazineListTableHeader, MagazineListTableHeaderRowSpan, MagazineListCheckBoxWrapper, MagazineListInputCheckBox, MagazineListLabelCheckBox } from "./MagazineListTableHeaderForm.styled";
-import { MemberAction } from "redux/modules/MemberSlice";
 import { useAppSelector, useAppDispatch } from "store/rootReducer";
+import { MagazineListAction } from "redux/modules/MagazineListSlice";
 
 const MagazineListTableHeaderForm = () => {
-    const { allChecked } = useAppSelector((state) => state.MemberSlice);
+    const { allChecked } = useAppSelector((state) => state.MagazineListSlice);
     const dispatch = useAppDispatch();
     const allCheckBoxClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         console.log(event.currentTarget.checked);
-        dispatch(MemberAction.setMemberListAllChecked({ allChecked: event.currentTarget.checked }));
+        dispatch(MagazineListAction.setMagazineListAllChecked({ allChecked: event.currentTarget.checked }));
     };
 
     return (
