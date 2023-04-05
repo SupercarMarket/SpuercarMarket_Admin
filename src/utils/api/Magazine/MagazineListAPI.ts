@@ -4,21 +4,21 @@ import { AxiosError } from "axios";
 type paramsInterface = { [key: string]: string | number | boolean };
 
 // 매거진 리스트 조회
-export const getMagazineListHandler = async (keywordAll: string, keywordTitle: string, allDate: boolean, startDate: Date, endDate: Date, page: number) => {
+export const getMagazineListHandler = async (keyword: string, title: string, allDate: boolean, startDate: Date, endDate: Date, page: number) => {
     try {
         const params: paramsInterface = {
             page: page,
         };
-        // if (keywordAll !== "") {
-        //     params.keywordAll = keywordAll;
-        // }
-        // if (keywordTitle !== "") {
-        //     params.keywordTitle = keywordTitle;
-        // }
-        // if (!allDate) {
-        //     params.startDate = startDate.toString().split("T")[0];
-        //     params.endDate = endDate.toString().split("T")[0];
-        // }
+        if (keyword !== "") {
+            params.keyword = keyword;
+        }
+        if (title !== "") {
+            params.title = title;
+        }
+        if (!allDate) {
+            params.startDate = startDate.toString().split("T")[0].replace("-", "");
+            params.endDate = endDate.toString().split("T")[0].replace("-", "");
+        }
         return await ClientAxios.get(`magazine`, {
             params: params,
         });

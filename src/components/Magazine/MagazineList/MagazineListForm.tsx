@@ -20,7 +20,7 @@ function MagazineListForm() {
     const [isPage, setIsPage] = useState<number>(startPage);
     const offset = (isPage - 1) * postsPerPage;
 
-    const { isLoading, keywordAll, keywordTitle, allDate, startDate, endDate, currentPage, totalCount, list, checkList } = useAppSelector((state) => state.MagazineListSlice);
+    const { isLoading, keyword, title, allDate, startDate, endDate, currentPage, totalCount, list, checkList } = useAppSelector((state) => state.MagazineListSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -29,8 +29,8 @@ function MagazineListForm() {
         if (isPage === currentPage) {
             dispatch(
                 getMagazineList({
-                    keywordAll: keywordAll as string,
-                    keywordTitle: keywordTitle as string,
+                    keyword: keyword as string,
+                    title: title as string,
                     allDate: allDate as boolean,
                     startDate: startDate as Date,
                     endDate: endDate as Date,
@@ -92,8 +92,8 @@ function MagazineListForm() {
                     if (response?.status === 200) {
                         dispatch(
                             getMagazineList({
-                                keywordAll: keywordAll as string,
-                                keywordTitle: keywordTitle as string,
+                                keyword: keyword as string,
+                                title: title as string,
                                 allDate: allDate as boolean,
                                 startDate: startDate as Date,
                                 endDate: endDate as Date,
