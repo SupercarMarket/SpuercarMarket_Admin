@@ -51,17 +51,16 @@ ClientAxios.interceptors.request.use(async (config) => {
                 } else {
                     console.log((response.data as unknown as Error405Type).error);
                     const navigate = useNavigate();
-                    if (response.status === 422) {
-                        alert("로그인 사용 정보가 만료되었습니다. 재 로그인해주세요.");
-                        removeCookie(LoginType.refresh as string, { path: "/" });
-                        removeCookie(LoginType.access as string, { path: "/" });
-                        navigate("/");
-                    } else if (response.status === 420) {
-                        alert("로그인 사용 정보가 만료되었습니다. 재 로그인해주세요.");
-                        removeCookie(LoginType.refresh as string, { path: "/" });
-                        removeCookie(LoginType.access as string, { path: "/" });
-                        navigate("/");
-                    }
+                    alert("로그인 사용 정보가 만료되었습니다. 재 로그인해주세요.");
+                    removeCookie(LoginType.refresh as string, { path: "/" });
+                    removeCookie(LoginType.access as string, { path: "/" });
+                    navigate("/");
+                    // if (response.status === 422) {
+                    //     alert("로그인 사용 정보가 만료되었습니다. 재 로그인해주세요.");
+                    //     removeCookie(LoginType.refresh as string, { path: "/" });
+                    //     removeCookie(LoginType.access as string, { path: "/" });
+                    //     navigate("/");
+                    // }
                 }
             }
         }
