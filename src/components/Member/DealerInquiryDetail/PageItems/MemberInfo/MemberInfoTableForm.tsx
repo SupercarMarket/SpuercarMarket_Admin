@@ -20,7 +20,7 @@ function MemberInfoTableForm() {
                 <tbody>
                     <tr style={{ height: "53px" }}>
                         <TitleCell style={{ width: "15%" }}>회원 정보</TitleCell>
-                        <ContentCell style={{ width: "35%" }}>{detailItem?.dlrSeq.toString().padStart(7, "0")}</ContentCell>
+                        <ContentCell style={{ width: "35%" }}>{detailItem?.brdSeq.toString().padStart(7, "0")}</ContentCell>
                         <TitleCell style={{ width: "15%" }}>아이디</TitleCell>
                         <ContentCell>{detailItem?.userId}</ContentCell>
                     </tr>

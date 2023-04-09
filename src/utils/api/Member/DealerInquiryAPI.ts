@@ -23,9 +23,9 @@ export const getDealerInquiryListHandler = async (filter: string, keyword: strin
 };
 
 // 딜러요청 상세정보 조회
-export const getDealerInquiryListDetailHandler = async (dlrSeq: string) => {
+export const getDealerInquiryListDetailHandler = async (brdSeq: string) => {
     try {
-        return await ClientAxios.get(`inquiry?category=dealer&dlrSeq=${dlrSeq}`, {});
+        return await ClientAxios.get(`inquiry?category=dealer&brdSeq=${brdSeq}`, {});
     } catch (error) {
         const { response } = error as unknown as AxiosError;
         return response;
@@ -33,10 +33,10 @@ export const getDealerInquiryListDetailHandler = async (dlrSeq: string) => {
 };
 
 // 딜러등록 승인
-export const dealerAcceptHandler = async (dlrSeq: number) => {
+export const dealerAcceptHandler = async (brdSeq: number) => {
     try {
-        return await ClientAxios.post("dealer/accept", {
-            userSeq: dlrSeq,
+        return await ClientAxios.post("inquiry/dealer/accept", {
+            seq: brdSeq,
         });
     } catch (error) {
         const { response } = error as unknown as AxiosError;
@@ -45,10 +45,10 @@ export const dealerAcceptHandler = async (dlrSeq: number) => {
 };
 
 // 딜러등록 반려
-export const dealerRejectHandler = async (dlrSeq: number, comment: string) => {
+export const dealerRejectHandler = async (brdSeq: number, comment: string) => {
     try {
-        return await ClientAxios.post("dealer/reject", {
-            userSeq: dlrSeq,
+        return await ClientAxios.patch("inquiry/dealer/reject", {
+            brdSeq: brdSeq,
             comment: comment,
         });
     } catch (error) {

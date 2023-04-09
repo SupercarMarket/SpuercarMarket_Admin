@@ -41,6 +41,11 @@ export const DealerInquiryTableBodyButton = styled(Button)`
     text-align: center;
     vertical-align: middle;
     border: 1px solid ${({ theme }) => theme.colors.greyScale_4};
+
+    &:disabled {
+        background: ${({ theme }) => theme.colors.greyScale_3};
+        color: ${({ theme }) => theme.colors.greyScale_5};
+    }
 `;
 
 export const DealerInquiryTableImage = styled.img`

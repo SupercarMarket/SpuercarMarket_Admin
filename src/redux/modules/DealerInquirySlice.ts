@@ -12,7 +12,7 @@ const initState = {
     currentPage: 1,
 
     detailItem: {
-        dlrSeq: 0,
+        brdSeq: 0,
         comName: "",
         comPhone: "",
         comAddress: "",
@@ -21,6 +21,7 @@ const initState = {
         dlrEmployeeCardFront: "",
         dlrEmployeeCardBack: "",
         dlrProfileImage: "",
+        accepted: "R",
         userId: "",
         userName: "",
         userNickName: "",
@@ -32,7 +33,6 @@ const initState = {
         commentCount: 0,
         comment: "",
         regAdmin: "",
-        regAdminEmail: "",
         regAdminNickname: "",
     },
 } as InitDealerInquiryStateType;
@@ -85,6 +85,12 @@ const DealerInquirySlice = createSlice({
         },
         setDealerInquiryListCount: (state, action) => {
             state.totalCount = action.payload.totalCount;
+        },
+        setDealerInquiryList: (state, action) => {
+            state.list = action.payload.list;
+        },
+        setDealerInquiryDetailAcceptedStatus: (state, action) => {
+            state.detailItem.accepted = action.payload.accepted;
         },
     },
     extraReducers: (builder) => {

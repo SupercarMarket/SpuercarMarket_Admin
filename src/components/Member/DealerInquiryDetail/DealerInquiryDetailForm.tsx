@@ -24,7 +24,7 @@ function DealerInquiryDetailForm() {
                 <Container>
                     <div>
                         <DealerInfoTableForm />
-                        <ApproveRejectForm dlrSeq={parseInt(dlrSeq as string)} />
+                        <ApproveRejectForm brdSeq={parseInt(dlrSeq as string)} />
                     </div>
                     <MemberInfoTableForm />
                 </Container>
