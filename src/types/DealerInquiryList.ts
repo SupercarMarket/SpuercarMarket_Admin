@@ -1,6 +1,6 @@
 // 딜러요청 리스트  type
 export interface DealerInquiryListType {
-    userSeq: number;
+    brdSeq: number;
     comName: string;
     comAddress: string;
     comPhone: string;
@@ -10,11 +10,13 @@ export interface DealerInquiryListType {
     dlrEmployeeCardBack: string;
     dlrProfileImage: string;
     comment: string;
+    accepted: "R" | "Y" | "N";
+    regAdmin: string | null;
 }
 
 // 딜러요청 상세정보 type
 interface DealerInquiryListDetailType {
-    dlrSeq: number;
+    brdSeq: number;
     comName: string;
     comPhone: string;
     comAddress: string;
@@ -23,6 +25,7 @@ interface DealerInquiryListDetailType {
     dlrEmployeeCardFront: string;
     dlrEmployeeCardBack: string;
     dlrProfileImage: string;
+    accepted: string;
     userId: string;
     userName: string;
     userNickName: string;
@@ -32,9 +35,8 @@ interface DealerInquiryListDetailType {
     createdDate: string;
     postCount: number;
     commentCount: number;
-    comment: string;
+    comment: string | null;
     regAdmin: string;
-    regAdminEmail: string;
     regAdminNickname: string;
 }
 

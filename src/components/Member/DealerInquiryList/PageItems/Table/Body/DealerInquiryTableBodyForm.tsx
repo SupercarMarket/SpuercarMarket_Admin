@@ -1,26 +1,27 @@
 import React from "react";
 import { DealerInquiryTableBody, DealerInquiryTableBodyRowSpan, DealerInquiryTableBodyNoSpan, DealerInquiryTableBodyButton, DealerInquiryTableImage } from "./DealerInquiryTableBodyForm.styled";
 
-import { useAppDispatch, useAppSelector } from "store/rootReducer";
+import { useAppSelector } from "store/rootReducer";
 import { useNavigate } from "react-router";
 
 import { DealerInquiryTableProps } from "../DealerInquiryTableForm";
+import AcceptedButtonForm from "./AcceptedButtonForm";
 
 const DealerInquiryTableBodyForm = ({ offset, postsPerPage, totalContentsCount, registerDealerHandler }: DealerInquiryTableProps) => {
     const navigate = useNavigate();
     const { list } = useAppSelector((state) => state.DealerInquirySlice);
 
     // 매물 디테일로 넘어가기
-    const DealerInquiryDetailOnClickHandler = (userSeq: number) => {
-        navigate(`/dealerinquiry/${userSeq.toString()}`);
+    const DealerInquiryDetailOnClickHandler = (brdSeq: number) => {
+        navigate(`/dealerinquiry/${brdSeq.toString()}`);
     };
 
     return (
         <DealerInquiryTableBody key={`uuid`}>
             {list.slice(offset, offset + postsPerPage).map((dealerInquiry, index) => {
                 return (
-                    <React.Fragment key={dealerInquiry.userSeq}>
-                        <tr onClick={() => DealerInquiryDetailOnClickHandler(dealerInquiry.userSeq)}>
+                    <React.Fragment key={dealerInquiry.brdSeq}>
+                        <tr onClick={() => DealerInquiryDetailOnClickHandler(dealerInquiry.brdSeq)}>
                             <DealerInquiryTableBodyNoSpan>{dealerInquiry.comName}</DealerInquiryTableBodyNoSpan>
                             <DealerInquiryTableBodyNoSpan>{dealerInquiry.comPhone}</DealerInquiryTableBodyNoSpan>
                             <DealerInquiryTableBodyNoSpan>{dealerInquiry.guildName}</DealerInquiryTableBodyNoSpan>
@@ -35,16 +36,12 @@ const DealerInquiryTableBodyForm = ({ offset, postsPerPage, totalContentsCount, 
                             </DealerInquiryTableBodyRowSpan>
                             <DealerInquiryTableBodyRowSpan rowSpan={2}>{dealerInquiry.comment}</DealerInquiryTableBodyRowSpan>
                             <DealerInquiryTableBodyRowSpan rowSpan={2}>
-                                <DealerInquiryTableBodyButton id={dealerInquiry.userSeq.toString()} onClick={() => registerDealerHandler(dealerInquiry.userSeq)}>
-                                    딜러 등록
-                                </DealerInquiryTableBodyButton>
+                                <AcceptedButtonForm accepted={dealerInquiry.accepted} />
                             </DealerInquiryTableBodyRowSpan>
                         </tr>
-                        <tr onClick={() => DealerInquiryDetailOnClickHandler(dealerInquiry.userSeq)}>
-                            <DealerInquiryTableBodyNoSpan colSpan={2} style={{ cursor: "pointer" }}>
-                                {dealerInquiry.comAddress}
-                            </DealerInquiryTableBodyNoSpan>
-                            <DealerInquiryTableBodyNoSpan style={{ cursor: "pointer" }}>{dealerInquiry.dlrNum}</DealerInquiryTableBodyNoSpan>
+                        <tr onClick={() => DealerInquiryDetailOnClickHandler(dealerInquiry.brdSeq)}>
+                            <DealerInquiryTableBodyNoSpan colSpan={2}>{dealerInquiry.comAddress}</DealerInquiryTableBodyNoSpan>
+                            <DealerInquiryTableBodyNoSpan>{dealerInquiry.dlrNum}</DealerInquiryTableBodyNoSpan>
                         </tr>
                     </React.Fragment>
                 );
