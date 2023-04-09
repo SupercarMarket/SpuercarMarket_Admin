@@ -58,7 +58,7 @@ export const updateMagazineTmpHandler = async (storageId: string, contents: stri
 // 매거진 삭제하기
 export const deleteMagazineTmpHandler = async (storageIds: number[]) => {
     try {
-        return await ClientAxios.post(`magazine/storage/delete`, {
+        return await ClientAxios.post(`magazine/storage/deletion`, {
             storageIds: storageIds,
         });
     } catch (error) {

@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { getMagazineHistory } from "redux/modules/MagazineListSlice";
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
 
-import { ExpandArrow, HistoryTitle } from "./MagazineDetailHistoryForm.styled";
+import { ExpandArrow, HistoryElement, HistoryTitle } from "./MagazineDetailHistoryForm.styled";
 
 function MagazineDetailHistoryForm({ brdSeq }: { brdSeq: string }) {
     const [isShowHistory, setIsShowHistory] = useState(false);
-    const { isHistoryLoading } = useAppSelector((state) => state.MagazineListSlice);
+    const { isHistoryLoading, editHistory } = useAppSelector((state) => state.MagazineListSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        // dispatch(getMagazineHistory({ brdSeq: brdSeq as string }));
+        dispatch(getMagazineHistory({ brdSeq: brdSeq as string }));
     }, [brdSeq, dispatch]);
 
     return (
@@ -19,7 +19,21 @@ function MagazineDetailHistoryForm({ brdSeq }: { brdSeq: string }) {
                 <span>관리 히스토리&nbsp;&nbsp;</span>
                 <ExpandArrow isClicked={isShowHistory} />
             </HistoryTitle>
-            {isShowHistory && <>{!isHistoryLoading ? <>히스토리 내용</> : <div>조회중입니다.</div>}</>}
+            {isShowHistory && (
+                <>
+                    {!isHistoryLoading ? (
+                        <>
+                            {editHistory.map((el) => (
+                                <HistoryElement>
+                                    {el.date} 에 {el.nickname} 님이 {el.contents}했습니다.
+                                </HistoryElement>
+                            ))}
+                        </>
+                    ) : (
+                        <div>조회중입니다.</div>
+                    )}
+                </>
+            )}
         </>
     );
 }

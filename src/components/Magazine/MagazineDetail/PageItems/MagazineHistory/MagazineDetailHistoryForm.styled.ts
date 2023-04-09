@@ -5,6 +5,7 @@ export const HistoryTitle = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 20px;
 
     span {
         font-family: "Pretendard";
@@ -23,4 +24,15 @@ export const ExpandArrow = styled.img.attrs({ src: `${Arrow}` })<{ isClicked: bo
     width: 20px;
     transition: all ease 0.4s;
     transform: ${({ isClicked }) => (isClicked ? `rotate(180deg)` : `rotate(0deg)`)};
+`;
+
+export const HistoryElement = styled.div`
+    height: 40px;
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+
+    color: ${({ theme }) => theme.colors.greyScale_5}; ;
 `;
