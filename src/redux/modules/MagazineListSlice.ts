@@ -36,8 +36,8 @@ const initState = {
             call: "",
             profileSrc: "",
         },
-        editHistory: [],
     },
+    editHistory: [],
 } as InitMagazineStateType;
 
 interface MagazineListDataType {
@@ -183,7 +183,7 @@ const MagazineListSlice = createSlice({
             .addCase(getMagazineHistory.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
                     state.isHistoryLoading = false;
-                    state.detailItem.editHistory = action.payload.data;
+                    state.editHistory = action.payload.data.history;
                 }
             })
             .addCase(getMagazineHistory.rejected, (state, action) => {

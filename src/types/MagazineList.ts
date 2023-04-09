@@ -30,15 +30,12 @@ interface MagazineDetailType {
     createAt: string;
     updateAt: string;
     user: MagazineWriterType;
-    editHistory: MagazineEditHistoryType[];
 }
 
 interface MagazineEditHistoryType {
-    dateTime: string;
-    historySeq: string;
+    date: string;
     contents: string;
-    admin: string;
-    magazine: string;
+    nickname: string;
 }
 
 // reducer initial type
@@ -59,4 +56,5 @@ export interface InitMagazineStateType {
     currentPage: number;
     // 상세 조회
     detailItem: MagazineDetailType;
+    editHistory: MagazineEditHistoryType[];
 }
