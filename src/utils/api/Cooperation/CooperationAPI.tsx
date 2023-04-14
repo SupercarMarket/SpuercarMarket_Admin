@@ -22,7 +22,7 @@ export const getCooperationListHandler = async (
 };
 
 // 제휴업체 리스트 상세 조회
-export const getDetailMarketItemHandler = async (brdSeq: string) => {
+export const getDetailCooperationItemHandler = async (brdSeq: string) => {
   try {
     return await ClientAxios.get(`product/${brdSeq}`);
   } catch (error) {
