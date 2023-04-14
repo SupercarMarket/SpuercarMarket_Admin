@@ -24,7 +24,7 @@ export const getCooperationListHandler = async (
 // 제휴업체 리스트 상세 조회
 export const getDetailCooperationItemHandler = async (brdSeq: string) => {
   try {
-    return await ClientAxios.get(`product/${brdSeq}`);
+    return await ClientAxios.get(`partnership/${brdSeq}`);
   } catch (error) {
     const { response } = error as unknown as AxiosError;
     return response;

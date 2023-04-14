@@ -8,21 +8,23 @@ import DealerInquirySlice from "redux/modules/DealerInquirySlice";
 import AdminSlice from "redux/modules/AdminSlice";
 import MagazineListSlice from "redux/modules/MagazineListSlice";
 import MagazineTmpSlice from "redux/modules/MagazineTmpSlice";
+import CooperationSlice from "redux/modules/CooperationSlice";
 
 export const store = configureStore({
-    reducer: {
-        MarketSlice: MarketSlice,
-        ForSaleListSlice: ForSaleListSlice,
-        EtcInquirySlice: EtcInquirySlice,
-        MemberSlice: MemberSlice,
-        DealerInquirySlice: DealerInquirySlice,
-        AdminSlice: AdminSlice,
-        MagazineListSlice: MagazineListSlice,
-        MagazineTmpSlice: MagazineTmpSlice,
-    },
-    middleware: getDefaultMiddleware({
-        serializableCheck: false,
-    }),
+  reducer: {
+    MarketSlice: MarketSlice,
+    ForSaleListSlice: ForSaleListSlice,
+    EtcInquirySlice: EtcInquirySlice,
+    MemberSlice: MemberSlice,
+    DealerInquirySlice: DealerInquirySlice,
+    AdminSlice: AdminSlice,
+    MagazineListSlice: MagazineListSlice,
+    MagazineTmpSlice: MagazineTmpSlice,
+    CooperationSlice: CooperationSlice,
+  },
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
