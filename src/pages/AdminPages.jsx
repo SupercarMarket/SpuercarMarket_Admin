@@ -17,36 +17,75 @@ import MagazineListForm from "components/Magazine/MagazineList/MagazineListForm"
 import MagazineDetailForm from "components/Magazine/MagazineDetail/MagazineDetailForm";
 import MagazineTmpListForm from "components/Magazine/MagazineTmpList/MagazineTmpListForm";
 import MagazineTmpEditForm from "components/Magazine/MagazineEditor/MagazineTmpEditForm";
+import CommunityForm from "components/Community/CommunityList/CommunityForm";
+import CommunityDetailForm from "components/Community/CommunityListDetail/CommunityDetailForm";
+import CooperationListForm from "components/Cooperation/CooperationList/CooperationListForm";
+import CooperationListDetailForm from "components/Cooperation/CooperationListDetail/CooperationListDetailForm";
+import CooperationInquiryForm from "components/Cooperation/CooperationInquiry/CooperationInquiryForm";
+import CooperationInquiryDetailForm from "components/Cooperation/CooperationInquiryDetail/CooperationInquiryDetailForm";
 
 const AdminPages = () => {
   return (
     <Routes>
-        <Route element={<PrivateRoutes />}>
-            <Route path="/memberlist" element={<MemberListForm/>}/>
-            <Route path="/memberlist/:dlrSeq" element={<MemberDetailForm/>}/>
-            <Route path="/dealerinquiry" element={<DealerInquiryListForm/>}/>
-            <Route path="/dealerinquiry/:dlrSeq" element={<DealerInquiryDetailForm/>}/>
-            <Route path="/adminlist" element={<AdminListForm/>}/>
+      <Route element={<PrivateRoutes />}>
+        {/* 회원 관리 */}
+        <Route path="/memberlist" element={<MemberListForm />} />
+        <Route path="/memberlist/:dlrSeq" element={<MemberDetailForm />} />
+        <Route path="/dealerinquiry" element={<DealerInquiryListForm />} />
+        <Route
+          path="/dealerinquiry/:dlrSeq"
+          element={<DealerInquiryDetailForm />}
+        />
+        <Route path="/adminlist" element={<AdminListForm />} />
+        {/* 매거진 관리 */}
+        <Route path="/magazinelist" element={<MagazineListForm />} />
+        <Route path="/magazinelist/:brdSeq" element={<MagazineDetailForm />} />
+        <Route path="/magazinetmp" element={<MagazineTmpListForm />} />
+        <Route path="/magazinetmp/editor" element={<MagazineTmpEditForm />} />
+        {/* 매장 관리 */}
+        <Route path="/salelist" element={<ForSaleListForm />} />
+        <Route path="/salelist/:saleId" element={<ForSaleListDetailForm />} />
+        <Route
+          path="/saleinquriy"
+          element={<VehicleRegistrationInquriyForm />}
+        />
+        <Route
+          path="/saleinquriy/:inquiryId"
+          element={<VehicleRegistrationInquiryDetailForm />}
+        />
+        {/* 커뮤니티 관리 */}
+        <Route path="/community" element={<CommunityForm />} />
+        <Route
+          path="/community/:communityId"
+          element={<CommunityDetailForm />}
+        />
 
-            <Route path="/magazinelist" element={<MagazineListForm/>}/>
-            <Route path="/magazinelist/:brdSeq" element={<MagazineDetailForm/>}/>
-            <Route path="/magazinetmp" element={<MagazineTmpListForm/>}/>
-            <Route path="/magazinetmp/editor" element={<MagazineTmpEditForm/>}/>
+        {/* 제휴 업체 */}
+        <Route path="/cooperationlist" element={<CooperationListForm />} />
+        <Route
+          path="/cooperationlist/:cooperationlistId"
+          element={<CooperationListDetailForm />}
+        />
+        <Route
+          path="/cooperationinquirylist"
+          element={<CooperationInquiryForm />}
+        />
+        <Route
+          path="/cooperationinquirylist/:cooperationlistId"
+          element={<CooperationInquiryDetailForm />}
+        />
+        {/* 문의 하기 */}
+        <Route path="/etcinquiry" element={<EtcInquiryForm />} />
+        <Route
+          path="/etcinquiry/:inquiryId"
+          element={<EtcInquiryDetailForm />}
+        />
+      </Route>
 
-            <Route path="/salelist" element={<ForSaleListForm />} />
-            <Route path="/salelist/:saleId" element={<ForSaleListDetailForm/>} />
-            
-            <Route path='/saleinquriy' element={<VehicleRegistrationInquriyForm/>} />
-            <Route path="/saleinquriy/:inquiryId" element={<VehicleRegistrationInquiryDetailForm/>} />
-
-            <Route path='/etcinquiry' element={<EtcInquiryForm/>} />
-            <Route path="/etcinquiry/:inquiryId" element={<EtcInquiryDetailForm/>} />
-        </Route>
-
-        {/* Login 아니면 */}
-        <Route path="/" element={<LoginForm />} />
+      {/* Login 아니면 */}
+      <Route path="/" element={<LoginForm />} />
     </Routes>
-  )
-}
+  );
+};
 
-export default AdminPages
+export default AdminPages;
