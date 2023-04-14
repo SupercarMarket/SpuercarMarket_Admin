@@ -18,6 +18,10 @@ export const AmdinLoginHanlder = async (email: string, password: string) => {
   }
 };
 
+// test
+// gltlvl12@gmail.com
+// !2#superadmin
+
 export const LoginHandler = async (
   email: string,
   password: string,
@@ -33,6 +37,10 @@ export const LoginHandler = async (
       path: "/",
       secure: true,
     });
+    console.log(response.data);
+    localStorage.setItem("login-imgSrc", response.data.imgSrc);
+    localStorage.setItem("login-nickname", response.data.name);
+    alert(`환영합니다 ${localStorage.getItem("login-nickname")}님`);
     navigate("/memberlist");
   } else if (response?.status === 415) {
     alert(response.data.message);
