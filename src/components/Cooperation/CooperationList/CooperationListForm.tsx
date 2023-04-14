@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from "react";
+
+import { useAppDispatch, useAppSelector } from "store/rootReducer";
+import {
+  getCooperationList,
+  CooperationAction,
+} from "redux/modules/CooperationSlice";
+import TopBannerForm from "./PageItems/TopBanner/TopBannerForm";
+import CooperationMainTableForm from "./PageItems/Table/CooperationMainTableForm";
+import PaginationForm from "../../Common/Pagination/PaginationForm";
 import { Wrapper } from "./CooperationListForm.styled";
-import TopBannerForm from './PageItems/TopBanner/TopBannerForm';
-import CooperationMainTableForm from './PageItems/Table/CooperationMainTableForm';
-import PaginationForm from '../../Common/Pagination/PaginationForm';
 
 const CooperationListForm = () => {
   const paginationCount = 10;
@@ -12,26 +18,53 @@ const CooperationListForm = () => {
   let totalContentsCount = 21;
   // 첫 페이지
   const startPage = 1;
-  const [ isPage, setIsPage ] = useState< number >( startPage );
-  const offset = ( isPage - 1 ) * postsPerPage;
+  const [isPage, setIsPage] = useState<number>(startPage);
+  const offset = (isPage - 1) * postsPerPage;
+
+  const { isLoading, filter, keyword, currentPage, totalElements } =
+    useAppSelector((state) => state.CooperationSlice);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(CooperationAction.setCooperationListCurrentPage({ isPage }));
+
+    if (isPage === currentPage) {
+      dispatch(
+        getCooperationList({
+          filter: filter as string,
+          keyword: keyword as string,
+          page: isPage,
+        })
+      );
+    }
+
+    setIsPage(() => currentPage);
+  }, [isPage, currentPage, dispatch]);
 
   return (
     <Wrapper>
       <TopBannerForm />
-      <CooperationMainTableForm
-        offset={offset}
-        postsPerPage={postsPerPage}
-        totalContentsCount={totalContentsCount}
-      />
-      <PaginationForm
-        paginationCount={paginationCount}
-        postsPerPage={postsPerPage}
-        totalContentsCount={totalContentsCount}
-        isPage={isPage}
-        setIsPage={setIsPage}
-      />
+      {!isLoading ? (
+        <>
+          <CooperationMainTableForm
+            offset={offset}
+            postsPerPage={postsPerPage}
+            totalContentsCount={totalContentsCount}
+          />
+          <PaginationForm
+            paginationCount={paginationCount}
+            postsPerPage={postsPerPage}
+            totalContentsCount={totalContentsCount}
+            isPage={isPage}
+            setIsPage={setIsPage}
+          />
+        </>
+      ) : (
+        <div>조회 중입니다.</div>
+      )}
     </Wrapper>
   );
-}
+};
 
 export default CooperationListForm;
