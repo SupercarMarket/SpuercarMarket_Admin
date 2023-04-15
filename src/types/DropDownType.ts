@@ -102,6 +102,11 @@ export const DropDownItemMap: DropDownMapItemsType = {
     { name: "제목" },
     { name: "내용" },
   ],
+  banner_list: [
+    { name: "전체" },
+    { name: "PC" },
+    { name: "Mobile" },
+  ],
 };
 
 export const MemberListDropDownMap: DropDownMapType = {
@@ -194,7 +199,11 @@ export const EtcInquiryListSwitchDropDownMap: DropDownMapType = {
   title: "제목",
   contents: "내용",
 };
-
+export const BannerListDropDownMap: DropDownMapType = {
+  전체: "",
+  PC: "D",
+  Mobile: "M",
+};
 export const CooperationListDropDownMap: DropDownMapType = {
   전체: "ALL",
   업체명: "companyName",

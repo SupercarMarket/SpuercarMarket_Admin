@@ -23,7 +23,7 @@ import CooperationListForm from "components/Cooperation/CooperationList/Cooperat
 import CooperationListDetailForm from "components/Cooperation/CooperationListDetail/CooperationListDetailForm";
 import CooperationInquiryForm from "components/Cooperation/CooperationInquiry/CooperationInquiryForm";
 import CooperationInquiryDetailForm from "components/Cooperation/CooperationInquiryDetail/CooperationInquiryDetailForm";
-
+import BannerListForm from "components/Advertisement/Banner/BannerList/BannerListForm";
 const AdminPages = () => {
   return (
     <Routes>
@@ -73,6 +73,11 @@ const AdminPages = () => {
         <Route
           path="/cooperationinquirylist/:cooperationlistId"
           element={<CooperationInquiryDetailForm />}
+        />
+        {/* 광고 관리 */}
+        <Route
+          path="/bannerlist"
+          element={<BannerListForm />}
         />
         {/* 문의 하기 */}
         <Route path="/etcinquiry" element={<EtcInquiryForm />} />
