@@ -5,7 +5,6 @@ import {
     getAdvertisementListHandler,
     getDetailAdvertisementItemHandler, setAdvertisementInquiryProgressHandler
 } from "../../utils/api/Advertisement/AdvertisementAPI";
-import {setEtcInquiryProgressHandler} from "../../utils/api/Inquiry/EtcInquiryAPI";
 
 const initState = {
     isLoading: false,

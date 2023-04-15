@@ -14,6 +14,20 @@ import {AdvertisementAction, setAdvertisementProgress} from "redux/modules/Adver
 import {useAppDispatch, useAppSelector} from "store/rootReducer";
 import {useNavigate} from "react-router";
 
+interface List {
+    adSeq: number;
+    userSeq: number;
+    id: string;
+    name: string;
+    nickname: string;
+    phone: string;
+    email: string;
+    title: string;
+    contents: string;
+    confirm: string;
+    link: string;
+}
+
 const TableBodyForm = ({}: AdvertisementPropsType) => {
     const inputCheckTypeRef = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch();
@@ -50,7 +64,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
 
     return (
         <Tbody key={"advertisemet-uuid"}>
-            {inquiryList.map((item, index) => {
+            {inquiryList.map((item:List, index) => {
                 return (
                     <Fragment key={item.id}>
                         <tr onClick={() => AdvertisementInquiryDetailOnClickHandler(item.userSeq)}>

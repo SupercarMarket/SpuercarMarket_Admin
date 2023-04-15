@@ -8,7 +8,6 @@ import {
 import PageTitle from '../../../../Common/PageTitle/PageTitle';
 import {useAppDispatch, useAppSelector} from "../../../../../store/rootReducer";
 import {Link} from "react-router-dom";
-import {InputPW} from "../../../../Login/LoginForm.styled";
 
 const AdvertisementInfoTableForm = () => {
     const {detail, showImage} = useAppSelector(state => state.AdvertisementSlice);
