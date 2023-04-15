@@ -35,6 +35,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
     // const [isPage, setIsPage] = useState<number>(0);
     const {inquiryList, checkList} = useAppSelector((state) => state.AdvertisementSlice);
 
+    console.log(inquiryList)
 
     // 항목 체크 박스 셋업
     const userCheckBoxClickHandler = (brdSeq: number, isChecked: boolean) => {
@@ -63,15 +64,15 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
     }
 
     return (
-        <Tbody key={"advertisemet-uuid"}>
+        <Tbody key={"advertisemetInquiry-uuid"}>
             {inquiryList.map((item:List, index) => {
                 return (
-                    <Fragment key={item.id}>
+                    <Fragment key={item.userSeq}>
                         <tr onClick={() => AdvertisementInquiryDetailOnClickHandler(item.userSeq)}>
                             <BodyContent rowSpan={2}>
                                 <CheckBoxWrapper>
                                     <InputCheckBox
-                                        id={item.id.toString()}
+                                        id={item.userSeq.toString()}
                                         ref={inputCheckTypeRef}
                                         onClick={inputCheckOnClickHandler}
                                         onChange={(event) => {
@@ -111,14 +112,6 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
                             <BodyContent>{item.nickname}</BodyContent>
                             <BodyContent>{item.email}</BodyContent>
                             <BodyContent>{item.contents}</BodyContent>
-                            {/*<BodyContent rowSpan={2} >*/}
-                            {/*  <BodyButton>숨기기</BodyButton>*/}
-                            {/*</BodyContent>*/}
-                            {/*<BodyContent>{item.treatedItem}</BodyContent>*/}
-                            {/*<BodyContent style={{ cursor: "pointer" }}>*/}
-                            {/*  <a href={item.website}>{item.website}</a>*/}
-                            {/*</BodyContent>*/}
-                            {/*<BodyContent>{item.phoneNumber}</BodyContent>*/}
                         </tr>
                     </Fragment>
                 );

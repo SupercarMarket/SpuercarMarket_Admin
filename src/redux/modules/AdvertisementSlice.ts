@@ -210,10 +210,10 @@ const AdvertisementSlice = createSlice({
             .addCase(getAdvertisementInquiryList.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
                     state.isLoading = false;
-                    state.totalPages = action.payload.data.totalPages;
-                    state.totalElements = action.payload.data.totalCount;
+                    state.totalPages = action.payload.data.data.totalPages;
+                    state.totalElements = action.payload.data.data.totalCount;
                     // state. = [];
-                    state.inquiryList = action.payload.data.list;
+                    state.inquiryList = action.payload.data.data.list;
                 } else {
                     return state;
                 }
