@@ -1,15 +1,15 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef} from 'react'
 import {
-    Wrapper,
-    TableWrapper,
-    CompleteButtonWrapper,
+    BottomArea,
     CompleteButton,
+    CompleteButtonWrapper,
     Modal,
     ModalBody,
-    ModalTextArea,
-    BottomArea,
     ModalButton,
-    ModalCompleteButton
+    ModalCompleteButton,
+    ModalTextArea,
+    TableWrapper,
+    Wrapper
 } from './EtcDetailForm.styled';
 
 import MemberInfoTableForm from './Detail/MemberInfoTable/MemberInfoTableForm'
@@ -23,7 +23,6 @@ import {
     setEtcInquiryReply
 } from "../../../redux/modules/EtcInquirySlice";
 import PageTitle from "../../Common/PageTitle/PageTitle";
-import {current} from "@reduxjs/toolkit";
 
 const EtcDetailForm = () => {
     const { inquiryId } = useParams();

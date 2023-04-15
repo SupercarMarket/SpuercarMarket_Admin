@@ -113,13 +113,13 @@ const SubMenuItems: SubMenuItemTypes = {
       key: "advertisement",
       name: "광고 리스트",
       isClicked: true,
-      path: "회원정보 리스트",
+      path: "/advertisementlist",
     },
     {
       key: "advertisement",
       name: "광고 문의",
       isClicked: false,
-      path: "회원정보 리스트",
+      path: "advertisementlist/inquiry",
     },
     {
       key: "advertisement",

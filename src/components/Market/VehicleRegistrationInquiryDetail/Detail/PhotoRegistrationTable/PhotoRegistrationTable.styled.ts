@@ -51,7 +51,7 @@ export const PhotoUploadWrapper = styled.div`
 `;
 
 export const PhotoImage = styled.img`
-    width: 100%;
+    width: 200%;
     height: 180px;
 
     border: 1px solid ${({theme}) => theme.colors.greyScale_4};
