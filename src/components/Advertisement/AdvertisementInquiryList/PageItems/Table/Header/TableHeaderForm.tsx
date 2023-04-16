@@ -15,6 +15,7 @@ const TableHeaderForm = () => {
         <TableHeader colSpan={2}>아이디</TableHeader>
         <TableHeader>전화번호</TableHeader>
         <TableHeader>제목</TableHeader>
+        <TableHeader rowSpan={2}>상태</TableHeader>
       </tr>
       <tr>
         <TableHeader>이름</TableHeader>

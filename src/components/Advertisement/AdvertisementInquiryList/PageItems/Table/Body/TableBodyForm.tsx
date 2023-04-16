@@ -90,7 +90,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
                             <BodyContent colSpan={2}>{item.id}</BodyContent>
                             {/*<BodyContent>{TypeOfBusiness[item.category]}</BodyContent>*/}
                             <BodyContent>{item.phone}</BodyContent>
-                            <BodyContent rowSpan={2}>{item.title}</BodyContent>
+                            <BodyContent>{item.title}</BodyContent>
 
                             <AdvertisementTableBodyRowSpan rowSpan={2}
                                                            onClick={(event) => {

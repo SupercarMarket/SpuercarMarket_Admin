@@ -1,24 +1,21 @@
 import React, {useEffect} from 'react'
-import {TableWrapper, Wrapper,} from './AdvertisementDetailForm.styled';
+import {TableWrapper, Wrapper,} from './AdvertisementInquiryDetailForm.styled';
 
-import AdvertisementInfoTableForm from "./Detail/AdvertisementInfoTable/AdvertisementInfoTableForm";
-import {useNavigate, useParams} from "react-router";
+import AdvertisementInquiryInfoTableForm
+    from "./Detail/AdvertisementInquiryInfoTable/AdvertisementInquiryInfoTableForm";
+import {useParams} from "react-router";
 import {useAppDispatch, useAppSelector} from "../../../store/rootReducer";
-import {getAdvertisementDetail} from "../../../redux/modules/AdvertisementSlice";
+import {getAdvertisementInquiryDetail} from "../../../redux/modules/AdvertisementSlice";
+import MemberInfoTableForm
+    from "../../Advertisement/AdvertisementInquiryDetail/Detail/MemberInfoTable/MemberInfoTableForm";
 
-const AdvertisementDetailForm = () => {
+const AdvertisementInquiryDetailForm = () => {
     const {brdSeq} = useParams();
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
     const {isLoading, updated} = useAppSelector((state) => state.AdvertisementSlice);
     useEffect(() => {
-        dispatch(getAdvertisementDetail({brdSeq: brdSeq as string}));
+        dispatch(getAdvertisementInquiryDetail({brdSeq: brdSeq as string}));
     }, [brdSeq, dispatch, updated]);
-
-    // 광고 수정으로 넘어가기
-    const advertisementEdit = (detail: Object) => {
-        navigate(`/advertisementlist/edit/${detail}`);
-    };
 
     return (
         <>
@@ -28,7 +25,8 @@ const AdvertisementDetailForm = () => {
                 ) : (
                     <>
                         <TableWrapper>
-                            <AdvertisementInfoTableForm/>
+                            <AdvertisementInquiryInfoTableForm/>
+                            <MemberInfoTableForm/>
                         </TableWrapper>
                         {/*<ButtonWrapper>*/}
                         {/*    <Button onClick={() => advertisementEdit(detail)}*/}
@@ -42,4 +40,4 @@ const AdvertisementDetailForm = () => {
     );
 }
 
-export default AdvertisementDetailForm
+export default AdvertisementInquiryDetailForm

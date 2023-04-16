@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {AdvertisementDetailSeqType, InitAdvertisementStateType} from "types/AdvertisementType";
 import {
-    closeAdvertisementHandler, getAdvertisementInquiryListHandler,
+    closeAdvertisementHandler, getAdvertisementInquiryDetailHandler, getAdvertisementInquiryListHandler,
     getAdvertisementListHandler,
     getDetailAdvertisementItemHandler, setAdvertisementInquiryProgressHandler
 } from "../../utils/api/Advertisement/AdvertisementAPI";
@@ -81,11 +81,23 @@ export const getAdvertisementInquiryList = createAsyncThunk(
 );
 
 
-export const getAdvertisementListDetail = createAsyncThunk(
+export const getAdvertisementDetail = createAsyncThunk(
     "GET/getAdvertisementDetail",
     async (params: AdvertisementDetailSeqType, thunkApi) => {
         try {
             const response = await getDetailAdvertisementItemHandler(params.brdSeq);
+            return response;
+        } catch (error) {
+            return thunkApi.rejectWithValue(error);
+        }
+    }
+);
+
+export const getAdvertisementInquiryDetail = createAsyncThunk(
+    "GET/getAdvertisementInquiryDetail",
+    async (params: AdvertisementDetailSeqType, thunkApi) => {
+        try {
+            const response = await getAdvertisementInquiryDetailHandler(params.brdSeq);
             return response;
         } catch (error) {
             return thunkApi.rejectWithValue(error);
@@ -191,7 +203,7 @@ const AdvertisementSlice = createSlice({
                 return state;
             })
             //광고 상세 조회
-            .addCase(getAdvertisementListDetail.fulfilled, (state, action) => {
+            .addCase(getAdvertisementDetail.fulfilled, (state, action) => {
                 if (action.payload?.status === 200) {
                     state.isLoading = false;
                     state.showImage = false;
@@ -199,7 +211,7 @@ const AdvertisementSlice = createSlice({
                 }
             })
             //광고 상세 조회
-            .addCase(getAdvertisementListDetail.rejected, (state, action) => {
+            .addCase(getAdvertisementDetail.rejected, (state, action) => {
                 state.isLoading = true;
             })
 
@@ -219,6 +231,25 @@ const AdvertisementSlice = createSlice({
                 }
             })
             .addCase(getAdvertisementInquiryList.rejected, (state, action) => {
+                state.isLoading = true;
+            })
+
+            //광고 문의 상세 조회
+            .addCase(getAdvertisementInquiryDetail.pending, (state, action) => {
+                state.isLoading = true;
+            })
+            .addCase(getAdvertisementInquiryDetail.fulfilled, (state, action) => {
+                if (action.payload?.status === 200) {
+                    state.isLoading = false;
+                    state.showImage = false;
+                    state.inquiryDetail = action.payload.data.data.detail;
+
+                    state.inquiryDetailAttachment = action.payload.data.data.attachment;
+                    console.log(state.inquiryDetailAttachment)
+                }
+            })
+            //광고 문의 상세 조회
+            .addCase(getAdvertisementInquiryDetail.rejected, (state, action) => {
                 state.isLoading = true;
             })
         //

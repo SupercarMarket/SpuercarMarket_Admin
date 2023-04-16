@@ -5,20 +5,19 @@ import {
 } from './AdvertisementEditForm.styled';
 
 import AdvertisementEditTableForm from "./edit/AdvertisementEditTable/AdvertisementEditTableForm";
-import {useNavigate, useParams} from "react-router";
+import {useParams} from "react-router";
 import {useAppDispatch, useAppSelector} from "../../../store/rootReducer";
 import {
-    getAdvertisementListDetail
+    getAdvertisementDetail
 
 } from "../../../redux/modules/AdvertisementSlice";
 
 const AdvertisementEditForm = () => {
     const {brdSeq} = useParams();
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const {isLoading, detail, updated} = useAppSelector((state) => state.AdvertisementSlice);
+    const {isLoading, updated} = useAppSelector((state) => state.AdvertisementSlice);
     useEffect(() => {
-        dispatch(getAdvertisementListDetail({brdSeq: brdSeq as string}));
+        dispatch(getAdvertisementDetail({brdSeq: brdSeq as string}));
     }, [brdSeq, dispatch, updated]);
 
     return (

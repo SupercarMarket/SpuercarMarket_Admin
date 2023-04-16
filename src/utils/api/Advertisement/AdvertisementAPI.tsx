@@ -62,7 +62,24 @@ export const getAdvertisementInquiryListHandler = async (
   }
 };
 
+// 광고 문의 상세 조화
+export const getAdvertisementInquiryDetailHandler = async (
+    brdSeq:string
+) => {
+  try {
+    return await ClientAxios.get(`inquiry`, {
+      params:{
+        category:"ad",
+        adSeq:brdSeq
+      }
+    });
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response;
+  }
+};
 
+// 광고 완료 처리
 export const setAdvertisementInquiryProgressHandler = async (closeSeqList: number[]) => {
   try {
     return await ClientAxios.post(`ad/confirm`, {

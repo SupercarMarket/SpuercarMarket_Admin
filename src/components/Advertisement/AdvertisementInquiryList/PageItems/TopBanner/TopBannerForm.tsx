@@ -12,7 +12,7 @@ const TopBannerForm = () => {
   const SearchBarInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
 
-  const { totalElements, keyword, inquiryList } = useAppSelector(
+  const { totalElements, keyword } = useAppSelector(
     (state) => state.AdvertisementSlice
   );
 
@@ -62,7 +62,7 @@ const TopBannerForm = () => {
         />
       </TopLeftWrapper>
       <TopRightWrapper>
-        <TopHideButton>선택 항목 종료하기</TopHideButton>
+        <TopHideButton>완료</TopHideButton>
         <TotalTopButton>{`총 문의 수 ${String(
           totalElements?totalElements.toString():""
         ).padStart(3, "0")}개`}</TotalTopButton>

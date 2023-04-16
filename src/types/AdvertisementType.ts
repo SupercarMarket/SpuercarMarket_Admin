@@ -23,6 +23,8 @@ export interface InitAdvertisementStateType {
     showImage : boolean;
     detail? : AdvertisementDetailType;
     inquiryList: AdvertisementInquiryListType[];
+    inquiryDetail? : AdvertisementInquiryDetailType;
+    inquiryDetailAttachment? : AdvertisementInquiryDetailAttachmentType[];
 }
 
 export interface AdvertisementListType {
@@ -71,4 +73,29 @@ export interface AdvertisementInquiryListType {
     contents: string;
     confirm: string;
     link: string;
+}
+
+export interface AdvertisementInquiryDetailType {
+    isLoading: boolean;
+    adSeq: number;
+    commentCount: number;
+    contents:string;
+    createDate: string;
+    email: string;
+    isDealer: boolean;
+    link: string;
+    nickName: string;
+    phone: string;
+    postCount: number;
+    rejectReason: string;
+    title: string;
+    userName: string;
+    userId: string;
+    userRating: string;
+    userSeq: number;
+}
+
+export interface AdvertisementInquiryDetailAttachmentType {
+    attUrl: string;
+    originName: string;
 }

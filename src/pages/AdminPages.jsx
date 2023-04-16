@@ -30,6 +30,8 @@ import AdvertisementListForm from "../components/Advertisement/AdvertisementList
 import AdvertisementDetailForm from "../components/Advertisement/AdvertisementDetail/AdvertisementDetailForm";
 import AdvertisementInquiryListForm
     from "../components/Advertisement/AdvertisementInquiryList/AdvertisementInquiryListForm";
+import AdvertisementInquiryDetailForm
+  from "../components/Advertisement/AdvertisementInquiryDetail/AdvertisementInquiryDetailForm";
 
 const AdminPages = () => {
   return (
@@ -76,6 +78,7 @@ const AdminPages = () => {
         <Route path="/advertisementlist" element={<AdvertisementListForm/>}/>
         <Route path="/advertisementlist/:brdSeq" element={<AdvertisementDetailForm/>}/>
         <Route path="/advertisementlist/inquiry" element={<AdvertisementInquiryListForm/>}/>
+        <Route path="/advertisementlist/inquiry/:brdSeq" element={<AdvertisementInquiryDetailForm/>}/>
         {/* 배너 관리*/}
         <Route
             path="/bannerlist"

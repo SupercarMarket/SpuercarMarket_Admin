@@ -6,15 +6,14 @@ import {
     TableHeader
 } from "./AdvertisementInfoTableForm.styled";
 import PageTitle from '../../../../Common/PageTitle/PageTitle';
-import {useAppDispatch, useAppSelector} from "../../../../../store/rootReducer";
+import {useAppSelector} from "../../../../../store/rootReducer";
 import {Link} from "react-router-dom";
 
 const AdvertisementInfoTableForm = () => {
-    const {detail, showImage} = useAppSelector(state => state.AdvertisementSlice);
-    const dispatch = useAppDispatch();
-    let test = "";
+    const {detail} = useAppSelector(state => state.AdvertisementSlice);
+    let newDate = "";
     detail?.viewDate.map((v => {
-        test = test + v.substring(2, 4) + "년 " + v.substring(5, 7) + "월, ";
+        newDate = newDate + v.substring(2, 4) + "년 " + v.substring(5, 7) + "월, ";
     }))
 
 
@@ -52,7 +51,7 @@ const AdvertisementInfoTableForm = () => {
                     </tr>
                     <tr>
                         <TableHeader>기간</TableHeader>
-                        <TableContent colSpan={4}>{test.substring(0, test.length - 2)}</TableContent>
+                        <TableContent colSpan={4}>{newDate.substring(0, newDate.length - 2)}</TableContent>
                     </tr>
                     <tr>
                         <TableHeader>1개월 단가</TableHeader>
