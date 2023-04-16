@@ -1,4 +1,6 @@
 import React, { useRef } from "react";
+
+import { getCooperationInquiryListHandler } from "utils/api/Cooperation/CooperationAPI";
 import {
   TopWrapper,
   TopLeftWrapper,
@@ -11,7 +13,13 @@ import SearchBarForm from "../../../../Common/SearchBar/SearchBarForm";
 import DropDownForm from "../../../../Common/DropDown/DropDownForm";
 
 const TopBannerForm = () => {
-  const LiOnClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {};
+  const LiOnClick = async (
+    event: React.MouseEvent<HTMLLIElement, MouseEvent>
+  ) => {
+    console.log("???");
+    const result = await getCooperationInquiryListHandler("", "", 1);
+    console.log(result);
+  };
   const titleRef = useRef<HTMLDivElement>(null);
   const SearchBarInputClickHandler = () => {};
   // 엔터키 입력시
