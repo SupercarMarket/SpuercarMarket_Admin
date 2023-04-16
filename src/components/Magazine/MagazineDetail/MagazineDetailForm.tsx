@@ -8,9 +8,9 @@ import { Button } from "../styles/buttonStyles";
 import { ButtonContainer, Wrapper, Container, MagazineBodyBox, Table } from "./MagazineDetailForm.styled";
 import MagazineDetailHistoryForm from "./PageItems/MagazineHistory/MagazineDetailHistoryForm";
 import MagazineDetailHeaderForm from "./PageItems/MagazineDetailHeader/MagazineDetailHeaderForm";
-import TuiPreviewForm from "../MagazineEditor/PageItems/TuiPreview/TuiPreviewForm";
-import MagazineEditorHeaderBoxForm from "../MagazineEditor/PageItems/MagazineEditorHeaderBox/MagazineEditorHeaderBoxForm";
-import TuiEditorForm from "../MagazineEditor/PageItems/TuiEditor/TuiEditorForm";
+import TuiPreviewForm from "../Common/TuiPreview/TuiPreviewForm";
+import MagazineEditorHeaderBoxForm from "../Common/MagazineEditorHeaderBox/MagazineEditorHeaderBoxForm";
+import TuiEditorForm from "../Common/TuiEditor/TuiEditorForm";
 import { updateMagazineHandler } from "utils/api/Magazine/MagazineListAPI";
 import { deleteImage, getFileNameFromHTML, getNotEqualFileList } from "utils/api/S3Upload/AdminS3ClientAPI";
 
@@ -35,7 +35,7 @@ function MagazineDetailForm() {
             dispatch(getMagazineHistory({ brdSeq: brdSeq as string }));
         });
         setIsModifying(location.state.edit || false);
-    }, [brdSeq, dispatch]);
+    }, [brdSeq, dispatch, detailItem.thumbnail]);
 
     const hideButtonOnClickHandler = () => {
         undiscloseMagazineHandler([parseInt(brdSeq as string)], true)
@@ -67,8 +67,7 @@ function MagazineDetailForm() {
                 alert("제목을 입력해주세요!");
                 return;
             }
-            const delFileList: string[] = getNotEqualFileList(uploadedImage, getImageURLFromHTML());
-            console.log(delFileList);
+            const delFileList = getImagesToDelete();
             if (delFileList.length !== 0) {
                 deleteImage(delFileList);
             }
@@ -98,14 +97,29 @@ function MagazineDetailForm() {
         return [] as string[];
     };
 
+    const getImagesToDelete = () => {
+        const remainImage = getImageURLFromHTML();
+        remainImage.push(thumbnailImage.split("/").pop() as string);
+        const delFileList: string[] = getNotEqualFileList(uploadedImage, remainImage);
+        return delFileList;
+    };
+
     return (
         <Container>
             {!isLoading ? (
                 <Wrapper>
                     {!isModifying ? (
                         <>
-                            <Table>
-                                <MagazineDetailHeaderForm />
+                            <Table display>
+                                <MagazineDetailHeaderForm
+                                    thumbnailImageSrc={detailItem.thumbnail}
+                                    title={detailItem.title}
+                                    userProfileSrc={detailItem.user.profileSrc}
+                                    userNickName={detailItem.user.nickName}
+                                    postCreatedAt={detailItem.createAt}
+                                    postViewCnt={detailItem.view}
+                                    postCommentCnt={detailItem.totalCommentCount}
+                                />
                                 <MagazineBodyBox>
                                     <TuiPreviewForm contents={detailItem.contents} />
                                 </MagazineBodyBox>
@@ -117,7 +131,7 @@ function MagazineDetailForm() {
                         </>
                     ) : (
                         <>
-                            <Table>
+                            <Table display={!isPreview}>
                                 <MagazineEditorHeaderBoxForm
                                     titleRef={titleRef}
                                     defaultValue={detailItem.title}
@@ -126,12 +140,20 @@ function MagazineDetailForm() {
                                     setUploadedImage={setUploadedImage}
                                 />
                                 <MagazineBodyBox>
-                                    {!isPreview ? (
-                                        <TuiEditorForm contents={detailItem.contents} editorRef={contentRef} setUploadedImage={setUploadedImage} />
-                                    ) : (
-                                        <TuiPreviewForm contents={contentRef.current.getInstance().getHTML()} />
-                                    )}
+                                    <TuiEditorForm contents={detailItem.contents} editorRef={contentRef} uploadedImage={uploadedImage} setUploadedImage={setUploadedImage} />
                                 </MagazineBodyBox>
+                            </Table>
+                            <Table display={isPreview}>
+                                <MagazineDetailHeaderForm
+                                    thumbnailImageSrc={thumbnailImage}
+                                    title={titleRef.current?.value as string}
+                                    userProfileSrc={detailItem.user.profileSrc}
+                                    userNickName={detailItem.user.nickName}
+                                    postCreatedAt={detailItem.createAt}
+                                    postViewCnt={detailItem.view}
+                                    postCommentCnt={detailItem.totalCommentCount}
+                                />
+                                <MagazineBodyBox>{isPreview && <TuiPreviewForm contents={contentRef.current.getInstance().getHTML()} />}</MagazineBodyBox>
                             </Table>
                             <ButtonContainer>
                                 {!isPreview ? <Button onClick={() => setIsPreview(true)}>미리보기</Button> : <Button onClick={() => setIsPreview(false)}>수정하기</Button>}

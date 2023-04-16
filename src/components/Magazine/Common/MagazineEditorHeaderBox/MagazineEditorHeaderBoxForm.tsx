@@ -19,7 +19,7 @@ function MagazineEditorHeaderBoxForm({ titleRef, defaultValue, thumbnailImage, s
 
     return (
         <>
-            {thumbnailImage && <MagazineHeaderThumbnail src={thumbnailImage} />}
+            {thumbnailImage && <MagazineHeaderThumbnail src={thumbnailImage} alt="thumbnailImage" />}
             <MagazineHeaderBox>
                 <ThumbnailBoxForm thumbnailImage={thumbnailImage} setThumbnailImage={setThumbnailImage} setUploadedImage={setUploadedImage} />
                 <MagazineTitleTextArea defaultValue={defaultValue} ref={titleRef} placeholder="제목을 입력해주세요." onInput={textareaResizeHandler} />

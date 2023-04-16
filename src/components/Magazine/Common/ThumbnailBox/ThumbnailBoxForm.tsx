@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from "react";
 import { ThumbnailBox } from "./ThumbnailBoxForm.styled";
 import { ReactComponent as ImageIcon } from "assets/image.svg";
 import { ReactComponent as TrashIcon } from "assets/trash.svg";
-import { deleteImage, makeUploadImageURL, uploadImage } from "utils/api/S3Upload/AdminS3ClientAPI";
+import { makeUploadImageURL, uploadImage } from "utils/api/S3Upload/AdminS3ClientAPI";
 
 interface ThumbnailBoxProps {
     thumbnailImage: string;
@@ -22,11 +22,11 @@ function ThumbnailBoxForm({ thumbnailImage, setThumbnailImage, setUploadedImage 
             .then(() => {
                 const url = makeUploadImageURL(fileToUpload);
                 setThumbnailImage(url);
+                setUploadedImage((prevState: any) => [...prevState, url.split("/")[-1]]);
             })
             .catch((error) => {
                 console.log(error);
             });
-        setUploadedImage((prevState: any) => [...prevState, thumbnailImage.split("/")[-1]]);
     }, []);
 
     const onUploadImageButtonClick = useCallback(() => {
