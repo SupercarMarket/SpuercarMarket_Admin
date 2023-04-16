@@ -1,5 +1,6 @@
 import { NavigateFunction } from "react-router";
 import axios, { AxiosError } from "axios";
+import { Cookies } from "react-cookie";
 import { setCookie, getCookie } from "../CustomCookies/CustomCookies";
 import { LoginType } from "../../../types/LoginType";
 
@@ -38,7 +39,7 @@ export const LoginHandler = async (
       secure: true,
     });
 
-    localStorage.setItem("login-imgSrc", response.data.imgSrc);
+    localStorage.setItem("login-imgSrc", response.data?.imgSrc);
     localStorage.setItem("login-nickname", response.data.name);
     alert(`환영합니다 ${localStorage.getItem("login-nickname")}님`);
     navigate("/memberlist");
@@ -64,8 +65,11 @@ const AdminLogoutHandler = async () => {
 };
 
 export const AdminLogout = async (navigate: NavigateFunction) => {
+  const cookie = new Cookies();
   const respons = await AdminLogoutHandler();
   if (respons?.status === 200) {
+    cookie.remove(LoginType.access as string);
+    cookie.remove(LoginType.refresh as string);
     navigate("/");
   }
 };
