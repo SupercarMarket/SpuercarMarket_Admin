@@ -30,3 +30,19 @@ export const getDetailCooperationItemHandler = async (brdSeq: string) => {
     return response;
   }
 };
+
+export const getCooperationInquiryListHandler = async (
+  filter: string,
+  keyword: string,
+  page: number
+) => {
+  try {
+    const result = await ClientAxios.get(`partnership/inquiry`, {
+      params: {
+        filter: filter,
+        keyword: keyword,
+        page: page,
+      },
+    });
+  } catch (error) {}
+};

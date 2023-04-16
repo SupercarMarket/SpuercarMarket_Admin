@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useRef } from "react";
+
+import { CommunityAction } from "redux/modules/CommunitySlice";
+import { useAppDispatch, useAppSelector } from "store/rootReducer";
+import { useNavigate } from "react-router";
 import {
   CommunityTbody,
   CommunityTableContent,
@@ -6,54 +10,90 @@ import {
   CommunityTableBodyClamp,
   CommunityCheckBoxWrapper,
   CommunityInputCheckBox,
-  CommunityLabelCheckBox
+  CommunityLabelCheckBox,
 } from "./CommunityMainTableBodyForm.styled";
 
 import { CommunityPropsType } from "../../../../../../types/CommunityType";
 
-const CommunityMainTableBodyForm = ( { offset, postsPerPage, totalContentsCount } : CommunityPropsType ) => {
+const CommunityMainTableBodyForm = ({
+  offset,
+  postsPerPage,
+  totalContentsCount,
+}: CommunityPropsType) => {
+  const inputCheckTypeRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { list, checkList } = useAppSelector((state) => state.CommunitySlice);
+
+  // 항목 체크 박스 셋업
+  const userCheckBoxClickHandler = (brdSeq: number, isChecked: boolean) => {
+    dispatch(
+      CommunityAction.setCommunityListEachChecked({ brdSeq, isChecked })
+    );
+  };
+
+  const inputCheckOnClickHandler = () => {
+    console.log(inputCheckTypeRef.current?.checked);
+  };
+
+  const inputCheckOnChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    userCheckBoxClickHandler(parseInt(event.target.id), event.target.checked);
+  };
+
+  // 제휴업체 디테일로 넘어가기
+  const cooperationDetailOnClickHandler = (brdSeq: number) => {
+    navigate(`/community/${brdSeq}`);
+  };
+
   return (
     <CommunityTbody>
-      {Array( totalContentsCount ).fill( 0 ).slice( offset, offset + postsPerPage ).map( ( _, i ) => {
-        return (
-          <>
-            <tr>
-              <CommunityTableContent rowSpan={2}>
-                <CommunityCheckBoxWrapper>
-                  <CommunityInputCheckBox id="checkbox_body" />
-                  <CommunityLabelCheckBox htmlFor="checkbox_body" />
-                </CommunityCheckBoxWrapper>
-              </CommunityTableContent>
-              <CommunityTableContent rowSpan={2}>0000000</CommunityTableContent>
-              <CommunityTableContent rowSpan={2}>
-                내 차 자랑
-              </CommunityTableContent>
-              <CommunityTableContent
-                rowSpan={2}
-                style={{ textAlign: "left", padding: "19px 16px" }}
-              >
-                <CommunityTableBodyClamp>
-                  제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목
-                </CommunityTableBodyClamp>
-              </CommunityTableContent>
-              <CommunityTableContent>0000000</CommunityTableContent>
-              <CommunityTableContent>abcdegf</CommunityTableContent>
-              <CommunityTableContent rowSpan={2}>
-                2022-12-23
-              </CommunityTableContent>
-              <CommunityTableContent rowSpan={2}>
-                <CommunityButton>숨기기</CommunityButton>
-              </CommunityTableContent>
-            </tr>
-            <tr>
-              <CommunityTableContent>작성자</CommunityTableContent>
-              <CommunityTableContent>
-                슈퍼카마켓슈퍼카마켓
-              </CommunityTableContent>
-            </tr>
-          </>
-        );
-      })}
+      {Array(totalContentsCount)
+        .fill(0)
+        .slice(offset, offset + postsPerPage)
+        .map((_, i) => {
+          return (
+            <>
+              <tr>
+                <CommunityTableContent rowSpan={2}>
+                  <CommunityCheckBoxWrapper>
+                    <CommunityInputCheckBox id="checkbox_body" />
+                    <CommunityLabelCheckBox htmlFor="checkbox_body" />
+                  </CommunityCheckBoxWrapper>
+                </CommunityTableContent>
+                <CommunityTableContent rowSpan={2}>
+                  0000000
+                </CommunityTableContent>
+                <CommunityTableContent rowSpan={2}>
+                  내 차 자랑
+                </CommunityTableContent>
+                <CommunityTableContent
+                  rowSpan={2}
+                  style={{ textAlign: "left", padding: "19px 16px" }}
+                >
+                  <CommunityTableBodyClamp>
+                    제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목
+                  </CommunityTableBodyClamp>
+                </CommunityTableContent>
+                <CommunityTableContent>0000000</CommunityTableContent>
+                <CommunityTableContent>abcdegf</CommunityTableContent>
+                <CommunityTableContent rowSpan={2}>
+                  2022-12-23
+                </CommunityTableContent>
+                <CommunityTableContent rowSpan={2}>
+                  <CommunityButton>숨기기</CommunityButton>
+                </CommunityTableContent>
+              </tr>
+              <tr>
+                <CommunityTableContent>작성자</CommunityTableContent>
+                <CommunityTableContent>
+                  슈퍼카마켓슈퍼카마켓
+                </CommunityTableContent>
+              </tr>
+            </>
+          );
+        })}
       {/* <tr>
         <CommunityTableContent rowSpan={2}>
           <CommunityCheckBoxWrapper>
@@ -81,6 +121,6 @@ const CommunityMainTableBodyForm = ( { offset, postsPerPage, totalContentsCount 
       </tr> */}
     </CommunityTbody>
   );
-}
+};
 
 export default CommunityMainTableBodyForm;
