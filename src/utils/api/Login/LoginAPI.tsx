@@ -1,11 +1,11 @@
 import { NavigateFunction } from "react-router";
 import axios, { AxiosError } from "axios";
-import { setCookie } from "../CustomCookies/CustomCookies";
+import { setCookie, getCookie } from "../CustomCookies/CustomCookies";
 import { LoginType } from "../../../types/LoginType";
 
 const URL = process.env.REACT_APP_ADMIN_SERVER_URL;
 
-export const AmdinLoginHanlder = async (email: string, password: string) => {
+const AmdinLoginHanlder = async (email: string, password: string) => {
   try {
     return await axios.post(`${URL}login`, {
       email: email,
@@ -37,7 +37,7 @@ export const LoginHandler = async (
       path: "/",
       secure: true,
     });
-    console.log(response.data);
+
     localStorage.setItem("login-imgSrc", response.data.imgSrc);
     localStorage.setItem("login-nickname", response.data.name);
     alert(`환영합니다 ${localStorage.getItem("login-nickname")}님`);
@@ -46,5 +46,26 @@ export const LoginHandler = async (
     alert(response.data.message);
   } else if (response?.status === 414) {
     alert("비밀번호가 틀렸습니다.");
+  }
+};
+
+const AdminLogoutHandler = async () => {
+  const accessToken = getCookie(LoginType.access as string);
+  try {
+    return await axios.delete(`${URL}logout`, {
+      headers: {
+        ACCESS_TOKEN: accessToken,
+      },
+    });
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response;
+  }
+};
+
+export const AdminLogout = async (navigate: NavigateFunction) => {
+  const respons = await AdminLogoutHandler();
+  if (respons?.status === 200) {
+    navigate("/");
   }
 };
