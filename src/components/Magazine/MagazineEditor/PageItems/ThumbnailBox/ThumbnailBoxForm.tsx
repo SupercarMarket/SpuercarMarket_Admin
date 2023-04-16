@@ -7,9 +7,10 @@ import { deleteImage, makeUploadImageURL, uploadImage } from "utils/api/S3Upload
 interface ThumbnailBoxProps {
     thumbnailImage: string;
     setThumbnailImage: Function;
+    setUploadedImage: Function;
 }
 
-function ThumbnailBoxForm({ thumbnailImage, setThumbnailImage }: ThumbnailBoxProps) {
+function ThumbnailBoxForm({ thumbnailImage, setThumbnailImage, setUploadedImage }: ThumbnailBoxProps) {
     const thumbnailInputRef = useRef<HTMLInputElement | null>(null);
 
     const onUploadImage = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +26,7 @@ function ThumbnailBoxForm({ thumbnailImage, setThumbnailImage }: ThumbnailBoxPro
             .catch((error) => {
                 console.log(error);
             });
+        setUploadedImage((prevState: any) => [...prevState, thumbnailImage.split("/")[-1]]);
     }, []);
 
     const onUploadImageButtonClick = useCallback(() => {
@@ -35,10 +37,6 @@ function ThumbnailBoxForm({ thumbnailImage, setThumbnailImage }: ThumbnailBoxPro
     }, []);
 
     const deleteImageButtonOnClickHandler = () => {
-        // const fileToDelete: string = thumbnailImage.split("/")[-1];
-        // deleteImage([fileToDelete]).catch((error) => {
-        //     console.log(error);
-        // });
         setThumbnailImage("");
     };
 

@@ -82,7 +82,9 @@ function MagazineTmpEditForm() {
                 alert("제목을 입력해주세요!");
                 return;
             }
-            const delFileList: string[] = getNotEqualFileList(uploadedImage, getImageURLFromHTML());
+            const remainImage = getImageURLFromHTML();
+            remainImage.push(thumbnailImage.split("/")[-1]);
+            const delFileList: string[] = getNotEqualFileList(uploadedImage, remainImage);
             console.log(delFileList);
             if (delFileList.length !== 0) {
                 deleteImage(delFileList);
@@ -118,7 +120,13 @@ function MagazineTmpEditForm() {
             {!isLoading ? (
                 <Wrapper>
                     <ContentTable>
-                        <MagazineEditorHeaderBoxForm titleRef={titleRef} defaultValue={detailItem.title} thumbnailImage={thumbnailImage} setThumbnailImage={setThumbnailImage} />
+                        <MagazineEditorHeaderBoxForm
+                            titleRef={titleRef}
+                            defaultValue={detailItem.title}
+                            thumbnailImage={thumbnailImage}
+                            setThumbnailImage={setThumbnailImage}
+                            setUploadedImage={setUploadedImage}
+                        />
                         <MagazineBodyBox>
                             {!isViewerOn ? (
                                 <TuiEditorForm contents={detailItem.contents} editorRef={contentRef} setUploadedImage={setUploadedImage} />

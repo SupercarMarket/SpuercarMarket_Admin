@@ -11,7 +11,7 @@ export const MagazineHeaderBox = styled.div`
 
 export const MagazineHeaderThumbnail = styled.img`
     position: absolute;
-    width: 100%;
+    width: 1198px;
     height: 360px;
     object-fit: cover;
 `;

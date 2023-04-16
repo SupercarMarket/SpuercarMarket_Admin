@@ -118,7 +118,13 @@ function MagazineDetailForm() {
                     ) : (
                         <>
                             <Table>
-                                <MagazineEditorHeaderBoxForm titleRef={titleRef} defaultValue={detailItem.title} thumbnailImage={thumbnailImage} setThumbnailImage={setThumbnailImage} />
+                                <MagazineEditorHeaderBoxForm
+                                    titleRef={titleRef}
+                                    defaultValue={detailItem.title}
+                                    thumbnailImage={thumbnailImage}
+                                    setThumbnailImage={setThumbnailImage}
+                                    setUploadedImage={setUploadedImage}
+                                />
                                 <MagazineBodyBox>
                                     {!isPreview ? (
                                         <TuiEditorForm contents={detailItem.contents} editorRef={contentRef} setUploadedImage={setUploadedImage} />
