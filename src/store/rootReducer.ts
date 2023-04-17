@@ -9,6 +9,7 @@ import AdminSlice from "redux/modules/AdminSlice";
 import MagazineListSlice from "redux/modules/MagazineListSlice";
 import MagazineTmpSlice from "redux/modules/MagazineTmpSlice";
 import CooperationSlice from "redux/modules/CooperationSlice";
+import CommunitySlice from "redux/modules/CommunitySlice";
 import AdvertisementSlice from "../redux/modules/AdvertisementSlice";
 
 export const store = configureStore({
@@ -22,6 +23,7 @@ export const store = configureStore({
     MagazineListSlice: MagazineListSlice,
     MagazineTmpSlice: MagazineTmpSlice,
     CooperationSlice: CooperationSlice,
+    CommunitySlice: CommunitySlice,
     AdvertisementSlice: AdvertisementSlice,
   },
   middleware: getDefaultMiddleware({

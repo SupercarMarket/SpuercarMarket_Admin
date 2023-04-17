@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { AdminLogout } from "utils/api/Login/LoginAPI";
 import {
   Wrapper,
   Logo,
@@ -12,6 +15,7 @@ import ModalForm from "./Modal/ModalForm";
 import DefaultIcon from "../../assets/default_user_icon.svg";
 
 const HeaderForm = () => {
+  const navigate = useNavigate();
   const [isOpenPWModal, setIsOpenPWModal] = useState(false);
   const [isOpenInfoModal, setIsOpenInfoModal] = useState(false);
 
@@ -25,7 +29,11 @@ const HeaderForm = () => {
     setIsOpenPWModal(false);
   };
 
-  const handlerOnClickLogout = () => () => {};
+  const handlerOnClickLogout = async () => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      await AdminLogout(navigate);
+    }
+  };
 
   return (
     <Wrapper>

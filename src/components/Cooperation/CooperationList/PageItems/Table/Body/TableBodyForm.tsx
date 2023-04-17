@@ -69,7 +69,6 @@ const TableBodyForm = ({
                 </CheckBoxWrapper>
               </BodyContent>
               <BodyContent rowSpan={2}>
-                {" "}
                 {String(item.brdSeq.toString()).padStart(7, "0")}
               </BodyContent>
               <BodyContent colSpan={2}>{item.companyName}</BodyContent>
