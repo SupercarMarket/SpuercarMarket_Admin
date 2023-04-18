@@ -24,6 +24,9 @@ import CooperationListDetailForm from "components/Cooperation/CooperationListDet
 import CooperationInquiryForm from "components/Cooperation/CooperationInquiry/CooperationInquiryForm";
 import CooperationInquiryDetailForm from "components/Cooperation/CooperationInquiryDetail/CooperationInquiryDetailForm";
 import BannerListForm from "components/Advertisement/Banner/BannerList/BannerListForm";
+import BannerDetailForm from "components/Advertisement/Banner/BannerDetail/BannerDetailForm";
+import BannerUpdateForm from "components/Advertisement/Banner/BannerDetail/BannerUpdateForm";
+import BannerCreateForm from "components/Advertisement/Banner/BannerDetail/BannerCreateForm";
 const AdminPages = () => {
   return (
     <Routes>
@@ -78,6 +81,18 @@ const AdminPages = () => {
         <Route
           path="/bannerlist"
           element={<BannerListForm />}
+        />
+        <Route
+          path="/banner/:id"
+          element={<BannerDetailForm />}
+        />
+        <Route
+          path="/banner/update/:id"
+          element={<BannerUpdateForm />}
+        />
+        <Route
+          path="/banner/create"
+          element={<BannerCreateForm />}
         />
         {/* 문의 하기 */}
         <Route path="/etcinquiry" element={<EtcInquiryForm />} />

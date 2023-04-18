@@ -3,7 +3,6 @@ import { Wrapper } from "./BannerListForm.styled";
 import BannerTableForm from "./BannerTableForm";
 import BannerTopForm from "./BannerTopForm";
 import ClientAxios from "utils/api/AxiosAPI/ClientAxios";
-import { async } from "q";
 
 const BannerListForm = () => {
     const [list, setList] = useState<any>();

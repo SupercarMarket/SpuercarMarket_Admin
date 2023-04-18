@@ -8,16 +8,14 @@ import {
 } from "./BannerTopForm.styled";
 import DropDownForm from "../../../Common/DropDown/DropDownForm";
 import SearchBarForm from "../../../Common/SearchBar/SearchBarForm";
+import { useNavigate } from "react-router";
 interface Props {
     checked: number[];
     setKeyword: (keyword: string) => void;
     deleteBanner: (v: number[]) => void;
 }
-const BannerTopForm = ({
-    checked,
-    setKeyword,
-    deleteBanner,
-}: Props) => {
+const BannerTopForm = ({ checked, setKeyword, deleteBanner }: Props) => {
+    const navigate = useNavigate();
     const SearchBarInputRef = useRef<HTMLInputElement>(null);
 
     const SearchBarInputClickHandler = () => {
@@ -44,10 +42,7 @@ const BannerTopForm = ({
         // dispatch(setEtcInquiryProgress({checkList}));
     };
     const addClickHandler = () => {
-        // if (checkList.length == 0) {
-        //     return;
-        // }
-        // dispatch(setEtcInquiryProgress({checkList}));
+        navigate("/banner/create");
     };
     return (
         <TopWrapper>
