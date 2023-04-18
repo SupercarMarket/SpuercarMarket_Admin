@@ -37,7 +37,7 @@ const BannerListForm = () => {
         console.log(toDelete);
 
         const response = await ClientAxios.delete(`banner`, {
-            data: { requestDto: toDelete },
+            data: { checkList: toDelete },
         });
         console.log(response);
         setUpdated((prev) => !prev);
