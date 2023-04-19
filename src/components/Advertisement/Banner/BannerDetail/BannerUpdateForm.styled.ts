@@ -199,3 +199,9 @@ flex: none;
 order: 0;
 flex-grow: 1;
 `
+export const DeleteButton = styled( Button )`
+    /* margin : 80px auto; */
+    /* width: 87.48px; */
+    margin-left: 10px;
+    display: inline-block;
+`;

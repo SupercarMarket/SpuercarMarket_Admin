@@ -17,6 +17,7 @@ import {
     OptionItem,
     FileLabel,
     FileNameWrapper,
+    DeleteButton
 } from "./BannerUpdateForm.styled";
 
 import ClientAxios from "utils/api/AxiosAPI/ClientAxios";
@@ -72,6 +73,11 @@ const BannerCreateForm = () => {
         setFile(event.target.files[0]);
         setFileUrl(URL.createObjectURL(event.target.files[0]));
         setFileName(event.target.files[0].name);
+    };
+    const deleteImage = () => {
+        setFile(undefined);
+        setFileUrl(undefined);
+        setFileName(undefined);
     };
     return (
         <>
@@ -148,11 +154,15 @@ const BannerCreateForm = () => {
                                         onChange={changeFile}
                                     />
                                     <br />
-                                    <Link to={fileUrl as string} target="blank">
+                                    <Link to={fileUrl as string} target="blank"
+                                            style={{ display: "inline-block" }}>
                                         <FileNameWrapper>
                                             파일 {fileName}
                                         </FileNameWrapper>
                                     </Link>
+                                        <DeleteButton onClick={deleteImage}>
+                                            삭제 X{" "}
+                                        </DeleteButton>
                                     <div
                                         style={{
                                             padding: "5px",

@@ -17,6 +17,7 @@ import {
     OptionItem,
     FileLabel,
     FileNameWrapper,
+    DeleteButton,
 } from "./BannerUpdateForm.styled";
 
 import ClientAxios from "utils/api/AxiosAPI/ClientAxios";
@@ -44,6 +45,7 @@ const BannerUpdateForm = () => {
     const [fileUrl, setFileUrl] = useState<string>();
     const [file, setFile] = useState<any>();
     const [updated, setUpdated] = useState<boolean>(false);
+    const [isDeleteImage, setIsDeleteImage] = useState<boolean>(false);
     useEffect(() => {
         getData();
     }, [updated]);
@@ -71,16 +73,19 @@ const BannerUpdateForm = () => {
             title: title,
             type: type,
             url: url,
+            isDeleteImage: isDeleteImage,
         };
-        
+
         formData.append("image", file);
-        const blob = new Blob([JSON.stringify(requestDto)], { type: "application/json" });
+        const blob = new Blob([JSON.stringify(requestDto)], {
+            type: "application/json",
+        });
         formData.append("requestDto", blob);
         console.log(formData);
         await ClientAxios.post(`banner/${id}`, formData, {
-            headers : {
-                "Content-Type" : "multipart/form-data"
-            }
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
         });
         setUpdated((prev) => !prev);
     };
@@ -89,6 +94,13 @@ const BannerUpdateForm = () => {
         setFile(event.target.files[0]);
         setFileUrl(URL.createObjectURL(event.target.files[0]));
         setFileName(event.target.files[0].name);
+        setIsDeleteImage(true);
+    };
+    const deleteImage = () => {
+        setFile(undefined);
+        setFileUrl(undefined);
+        setFileName(undefined);
+        setIsDeleteImage(true);
     };
     return (
         <>
@@ -174,11 +186,15 @@ const BannerUpdateForm = () => {
                                         <Link
                                             to={fileUrl as string}
                                             target="blank"
+                                            style={{ display: "inline-block" }}
                                         >
                                             <FileNameWrapper>
                                                 파일 {fileName}
                                             </FileNameWrapper>
                                         </Link>
+                                        <DeleteButton onClick={deleteImage}>
+                                            삭제 X{" "}
+                                        </DeleteButton>
                                         <div
                                             style={{
                                                 padding: "5px",
