@@ -107,6 +107,18 @@ export const DropDownItemMap: DropDownMapItemsType = {
     { name: "PC" },
     { name: "Mobile" },
   ],
+  banner_order_list: [
+    { name: "1" },
+    { name: "2" },
+    { name: "3" },
+    { name: "4" },
+    { name: "5" },
+    { name: "6" },
+    { name: "7" },
+    { name: "8" },
+    { name: "9" },
+    { name: "10" },
+  ],
 };
 
 export const MemberListDropDownMap: DropDownMapType = {
@@ -216,4 +228,17 @@ export const CooperationListSwitchDropDownMap: DropDownMapType = {
   companyName: "업체명",
   category: "업종",
   address: "주소",
+};
+
+export const BannerOrderList: DropDownMapType = {
+  "1": "1",
+  "2": "2",
+  "3": "3",
+  "4": "4",
+  "5": "5",
+  "6": "6",
+  "7": "7",
+  "8": "8",
+  "9": "9",
+  "10": "10",
 };

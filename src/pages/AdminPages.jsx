@@ -33,6 +33,9 @@ import AdvertisementInquiryListForm
 import AdvertisementInquiryDetailForm
   from "../components/Advertisement/AdvertisementInquiryDetail/AdvertisementInquiryDetailForm";
 
+import BannerDetailForm from "components/Advertisement/Banner/BannerDetail/BannerDetailForm";
+import BannerUpdateForm from "components/Advertisement/Banner/BannerDetail/BannerUpdateForm";
+import BannerCreateForm from "components/Advertisement/Banner/BannerDetail/BannerCreateForm";
 const AdminPages = () => {
   return (
     <Routes>
@@ -85,6 +88,18 @@ const AdminPages = () => {
             element={<BannerListForm />}
         />
 
+        <Route
+          path="/banner/:id"
+          element={<BannerDetailForm />}
+        />
+        <Route
+          path="/banner/update/:id"
+          element={<BannerUpdateForm />}
+        />
+        <Route
+          path="/banner/create"
+          element={<BannerCreateForm />}
+        />
         {/* 문의 하기 */}
         <Route path="/etcinquiry" element={<EtcInquiryForm/>}/>
         <Route path="/etcinquiry/:inquiryId" element={<EtcInquiryDetailForm/>}/>
