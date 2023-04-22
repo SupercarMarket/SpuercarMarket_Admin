@@ -9,7 +9,7 @@ import {
     DeleteButton,
     FileLabel,
     FileNameWrapper,
-    Input,
+    Input, Label,
     MonthOptionWrapper,
     MonthSelecter,
     RadioBtnLabel,
@@ -17,7 +17,7 @@ import {
     SelecterWrapper,
     TableContent,
     TableHeader
-} from "./AdvertisementEditTableForm.styled";
+} from "./AdvertisementModifyTableForm.styled";
 import PageTitle from '../../../../Common/PageTitle/PageTitle';
 import DropDownForm from "../../../../Common/DropDown/DropDownForm";
 import {
@@ -26,20 +26,42 @@ import {
     AdvertisementSetYearSwitchDropDownMap
 } from "../../../../../types/DropDownType";
 import {Link} from "react-router-dom";
-import {useNavigate} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {advertisementDateCheck} from "../../../../../utils/api/Advertisement/AdvertisementAPI";
-import {useAppDispatch} from "../../../../../store/rootReducer";
+import {useAppDispatch, useAppSelector} from "../../../../../store/rootReducer";
 import {SelecterArrow,} from "../../../../Common/DropDown/DropDownForm.styeld";
 import MonthDropDownForm from "./MonthDropDownForm";
 import ClientAxios from "../../../../../utils/api/AxiosAPI/ClientAxios";
+import {getAdvertisementDetail} from "../../../../../redux/modules/AdvertisementSlice";
 
 
 // type searchDataInterface = {filter: string;};
-const AdvertisementEditTableForm = () => {
+const AdvertisementModifyTableForm = () => {
+    const {brdSeq} = useParams();
+
+    function temp() {
+        console.log(companyName)
+        console.log(version)
+        console.log(position)
+        console.log(page)
+        console.log(url)
+        console.log(fileName)
+        console.log(fileUrl)
+        console.log(month)
+        console.log(year)
+        console.log(dateList)
+        console.log(price)
+        console.log(totalPrice)
+        console.log(resDateList)
+    }
+
     const titleRef = useRef<HTMLSpanElement>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
     const [inquiryNumber, setInquiryNumber] = useState<string>();
+    const [adSeq, setAdSeq] = useState<string>();
+    const [inquirySeq, setInquirySeq] = useState<string>();
     const [companyName, setCompanyName] = useState<string>();
     const [version, setVersion] = useState<string>();
     const [position, setPosition] = useState<string>();
@@ -52,9 +74,12 @@ const AdvertisementEditTableForm = () => {
     const [year, setYear] = useState<string>("1")
     const [dateList, addDateList] = useState<string[]>([])
     const [resDateList, setResDateList] = useState<string[]>([])
-    const [price, setPrice] = useState<number>(0);
+    const [price, setPrice] = useState<string>();
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [possibleMonth, setPossibleMonth] = useState<string[]>([]);
+    const [status, setStatus] = useState<boolean>(false);
+    const [updated, setUpdated] = useState<boolean>(false);
+
 
     const DropDownTitleRefPage = useRef<HTMLSpanElement>(null);
     const DropDownTitleRefYear = useRef<HTMLSpanElement>(null);
@@ -70,19 +95,28 @@ const AdvertisementEditTableForm = () => {
         {value: "R", name: "우측"},
     ];
 
-    const create = async () => {
+    const update = async () => {
         const formData = new FormData();
+        console.log(Number(adSeq))
+        console.log(companyName)
+        console.log(version)
+        console.log(position)
+        console.log(page)
+        console.log(url)
+        console.log(dateList)
+        console.log(price)
+        console.log(file)
         const requestDto = {
-            inquiryId: Number(inquiryNumber),
+
+            id: Number(adSeq),
             adTitle: companyName,
             adType: version,
             adPosition: position,
             adPage: page,
             adLink: url,
             dates: dateList,
-            pricePerMonth:price
+            pricePerMonth: price
         };
-        if (inquiryNumber)
 
         formData.append("image", file);
         const blob = new Blob([JSON.stringify(requestDto)], {
@@ -90,14 +124,14 @@ const AdvertisementEditTableForm = () => {
         });
         formData.append("requestDto", blob);
         console.log(formData);
-        await ClientAxios.post(`ad`, formData, {
+        await ClientAxios.patch(`ad`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
-        }).catch(reason => {
-            alert(reason)
-        });
+        })
+        setUpdated((prev) => !prev);
         navigate("/advertisementlist");
+
     };
 
     const {isOpen, isTitle, ref, openDropDownFn} =
@@ -118,6 +152,29 @@ const AdvertisementEditTableForm = () => {
             DropDownTitleRefMonth.current.textContent = AdvertisementSetMonthSwitchDropDownMap[month as string];
         }
     }, []);
+
+
+    useEffect(() => {
+        getData();
+    }, [updated]);
+    const getData = async () => {
+        setLoading(true);
+        const response = await ClientAxios.get(`ad/${brdSeq}`);
+        console.log("getData", response.data);
+        setAdSeq(response.data.data.adSeq)
+        setInquirySeq(response.data.data.inquirySeq)
+        setCompanyName(response.data.data.adTitle);
+        setVersion(response.data.data.adType);
+        setPage(response.data.data.adPage);
+        setUrl(response.data.data.url);
+        setPosition(response.data.data.adPosition);
+        setFileName(response.data.data.imgName);
+        setFileUrl(response.data.data.imgUrl);
+        addDateList(response.data.data.viewDate);
+        setPrice(response.data.data.pricePerMonth)
+        setStatus(response.data.data.status)
+        setLoading(false);
+    };
 
     const ListOnClickHandler = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
 
@@ -182,7 +239,7 @@ const AdvertisementEditTableForm = () => {
 
 
     const priceOnChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPrice(Number(event.target.value))
+        setPrice(event.target.value)
         setTotalPrice(Number(event.target.value) * dateList.length)
     }
 
@@ -190,21 +247,27 @@ const AdvertisementEditTableForm = () => {
     return (
         <>
             <AdvertisementWrapper>
-                <PageTitle title={"광고 등록"}/>
+                <PageTitle title={"광고 수정"}/>
                 <AdvertisementDetailTable>
                     <tbody>
                     <tr>
+                        <TableHeader>광고 번호</TableHeader>
+                        <TableContent>
+                            <Label>{adSeq}</Label>
+                        </TableContent>
+                    </tr>
+                    <tr>
                         <TableHeader>광고 문의 번호</TableHeader>
                         <TableContent>
-                            <Input type={"number"} placeholder={"광고 문의 번호를 입력하세요"} onChange={event => {
-                                setInquiryNumber(event.target.value)
+                            <Input type={"number"} placeholder={inquirySeq} onChange={event => {
+                                setInquirySeq(event.target.value)
                             }}></Input>
                         </TableContent>
                     </tr>
                     <tr>
                         <TableHeader>업체명</TableHeader>
                         <TableContent>
-                            <Input type={"text"} placeholder={"업체명을 입력하세요"} onChange={event => {
+                            <Input type={"text"} placeholder={companyName} onChange={event => {
                                 setCompanyName(event.target.value)
                             }}></Input>
                         </TableContent>
@@ -250,7 +313,7 @@ const AdvertisementEditTableForm = () => {
                     <tr>
                         <TableHeader>URL</TableHeader>
                         <TableContent>
-                            <Input type={"text"} placeholder={"URL을 입력하세요"} onChange={event => {
+                            <Input type={"text"} placeholder={url} onChange={event => {
                                 setUrl(event.target.value)
                             }}></Input>
                         </TableContent>
@@ -300,7 +363,7 @@ const AdvertisementEditTableForm = () => {
                                     <MonthOptionWrapper isClicked={isOpen}>
                                         <MonthDropDownForm category={"month_list"}
                                                            LiOnClick={setMonthListOnClickHandler}
-                                                           monthResList={resDateList} />
+                                                           monthResList={resDateList}/>
                                     </MonthOptionWrapper>
 
                                 </SelecterWrapper>
@@ -332,18 +395,19 @@ const AdvertisementEditTableForm = () => {
 
                         <TableContent>
                             <Input style={{width: "300px"}} className={"monthPayment"} type={"number"}
-                                   placeholder={"단가를 입력하세요"} onChange={event => {
+                                   placeholder={price} onChange={event => {
                                 priceOnChangeHandler(event)
                             }}></Input>
                         </TableContent>
                         <TableHeader>총액</TableHeader>
-                        <TableContent>{(dateList.length * Number(price)).toLocaleString()} 원 <br></br> ( 1개월 단가 * 기간 값 출력 ) </TableContent>
+                        <TableContent>{(dateList.length * Number(price)).toLocaleString()} 원 <br></br> ( 1개월 단가 * 기간 값
+                            출력 ) </TableContent>
                     </tr>
                     </tbody>
                 </AdvertisementDetailTable>
                 <CompleteButtonWrapper>
                     {/*<CompleteButton onClick={addSubmit}>수정하기</CompleteButton>*/}
-                    <CompleteButton onClick={create}>등록하기</CompleteButton>
+                    <CompleteButton onClick={update}>수정하기</CompleteButton>
 
                 </CompleteButtonWrapper>
             </AdvertisementWrapper>
@@ -351,4 +415,5 @@ const AdvertisementEditTableForm = () => {
     )
 }
 
-export default AdvertisementEditTableForm;
+
+export default AdvertisementModifyTableForm;

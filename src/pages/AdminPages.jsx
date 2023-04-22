@@ -36,6 +36,7 @@ import AdvertisementInquiryListForm
 import AdvertisementInquiryDetailForm
   from "../components/Advertisement/AdvertisementInquiryDetail/AdvertisementInquiryDetailForm";
 import AdvertisementEditForm from "../components/Advertisement/AdvertisementEdit/AdvertisementEditForm";
+import AdvertisementModifyForm from "../components/Advertisement/AdvertisementModify/AdvertisementModifyForm";
 const AdminPages = () => {
   return (
     <Routes>
@@ -79,6 +80,7 @@ const AdminPages = () => {
         <Route path="/cooperationinquirylist/:cooperationlistId" element={<CooperationInquiryDetailForm/>}/>
         {/* 광고 관리*/}
         <Route path="/advertisementlist" element={<AdvertisementListForm/>}/>
+        <Route path="/advertisementlist/edit/:brdSeq" element={<AdvertisementModifyForm/>}/>
         <Route path="/advertisementlist/:brdSeq" element={<AdvertisementDetailForm/>}/>
         <Route path="/advertisementlist/add" element={<AdvertisementEditForm/>}/>
         <Route path="/advertisementlist/inquiry" element={<AdvertisementInquiryListForm/>}/>

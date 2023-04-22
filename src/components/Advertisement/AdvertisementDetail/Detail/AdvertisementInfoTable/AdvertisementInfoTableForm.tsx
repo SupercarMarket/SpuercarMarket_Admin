@@ -8,13 +8,26 @@ import {
 import PageTitle from '../../../../Common/PageTitle/PageTitle';
 import {useAppSelector} from "../../../../../store/rootReducer";
 import {Link} from "react-router-dom";
+import {CompleteButton, CompleteButtonWrapper} from "../../../Banner/BannerDetail/BannerDetailForm.styled";
+import {useParams} from "react-router";
 
 const AdvertisementInfoTableForm = () => {
     const {detail} = useAppSelector(state => state.AdvertisementSlice);
+    const {brdSeq} = useParams();
     let newDate = "";
     detail?.viewDate.map((v => {
         newDate = newDate + v.substring(2, 4) + "년 " + v.substring(5, 7) + "월, ";
     }))
+
+    const versionOption = [
+        {value: "D", name: "PC"},
+        {value: "M", name: "모바일"},
+    ];
+    const positionOption = [
+        {value: "M", name: "중앙"},
+        {value: "L", name: "좌측"},
+        {value: "R", name: "우측"},
+    ];
 
 
     return (
@@ -61,6 +74,11 @@ const AdvertisementInfoTableForm = () => {
                     </tr>
                     </tbody>
                 </AdvertisementDetailTable>
+                <CompleteButtonWrapper>
+                    <Link to={`/advertisementlist/edit/${brdSeq}`}>
+                        <CompleteButton>수정하기</CompleteButton>
+                    </Link>
+                </CompleteButtonWrapper>
             </AdvertisementWrapper>
         </>
     )

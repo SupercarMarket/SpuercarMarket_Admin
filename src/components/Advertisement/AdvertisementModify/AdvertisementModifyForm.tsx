@@ -1,19 +1,21 @@
 import React, {useEffect} from 'react'
-import {TableWrapper, Wrapper,} from './AdvertisementDetailForm.styled';
+import {TableWrapper, Wrapper,} from './AdvertisementModifyForm.styled';
 
-import AdvertisementInfoTableForm from "./Detail/AdvertisementInfoTable/AdvertisementInfoTableForm";
+import AdvertisementModifyTableForm from "./edit/AdvertisementModifyTable/AdvertisementModifyTableForm";
 import {useNavigate, useParams} from "react-router";
 import {useAppDispatch, useAppSelector} from "../../../store/rootReducer";
 import {getAdvertisementDetail} from "../../../redux/modules/AdvertisementSlice";
 
-const AdvertisementDetailForm = () => {
+const AdvertisementModifyForm = () => {
     const {brdSeq} = useParams();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const {isLoading, updated} = useAppSelector((state) => state.AdvertisementSlice);
     useEffect(() => {
+        console.log(brdSeq)
         dispatch(getAdvertisementDetail({brdSeq: brdSeq as string}));
     }, [brdSeq, dispatch, updated]);
+
 
 
     return (
@@ -24,7 +26,7 @@ const AdvertisementDetailForm = () => {
                 ) : (
                     <>
                         <TableWrapper>
-                            <AdvertisementInfoTableForm/>
+                            <AdvertisementModifyTableForm/>
                         </TableWrapper>
                         {/*<ButtonWrapper>*/}
                         {/*    <Button onClick={() => advertisementEdit(detail)}*/}
@@ -38,4 +40,4 @@ const AdvertisementDetailForm = () => {
     );
 }
 
-export default AdvertisementDetailForm
+export default AdvertisementModifyForm
