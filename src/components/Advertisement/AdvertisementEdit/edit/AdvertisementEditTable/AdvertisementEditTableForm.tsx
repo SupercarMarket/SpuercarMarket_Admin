@@ -82,6 +82,7 @@ const AdvertisementEditTableForm = () => {
             dates: dateList,
             pricePerMonth:price
         };
+        if (inquiryNumber)
 
         formData.append("image", file);
         const blob = new Blob([JSON.stringify(requestDto)], {
@@ -93,11 +94,13 @@ const AdvertisementEditTableForm = () => {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
+        }).catch(reason => {
+            alert(reason)
         });
         navigate("/advertisementlist");
     };
 
-    const {isOpen, isTitle, ref, openDropDownFn, changeDropDownTitleFn} =
+    const {isOpen, isTitle, ref, openDropDownFn} =
         useDetectOutSideHandler({
             initState: false,
             title: "month_list",
@@ -208,7 +211,7 @@ const AdvertisementEditTableForm = () => {
                     <tr>
                         <TableHeader>광고 문의 번호</TableHeader>
                         <TableContent>
-                            <Input type={"text"} placeholder={"광고 문의 번호를 입력하세요"} onChange={event => {
+                            <Input type={"number"} placeholder={"광고 문의 번호를 입력하세요"} onChange={event => {
                                 setInquiryNumber(event.target.value)
                             }}></Input>
                         </TableContent>
@@ -343,13 +346,13 @@ const AdvertisementEditTableForm = () => {
                         <TableHeader>1개월 단가</TableHeader>
 
                         <TableContent>
-                            <Input style={{width: "300px"}} className={"monthPayment"} type={"text"}
+                            <Input style={{width: "300px"}} className={"monthPayment"} type={"number"}
                                    placeholder={"단가를 입력하세요"} onChange={event => {
                                 priceOnChangeHandler(event)
                             }}></Input>
                         </TableContent>
                         <TableHeader>총액</TableHeader>
-                        <TableContent>{dateList.length * Number(price)} 원 ( 1개월 단가 * 기간 값 출력 ) </TableContent>
+                        <TableContent>{(dateList.length * Number(price)).toLocaleString()} 원 <br></br> ( 1개월 단가 * 기간 값 출력 ) </TableContent>
                     </tr>
                     </tbody>
                 </AdvertisementDetailTable>
