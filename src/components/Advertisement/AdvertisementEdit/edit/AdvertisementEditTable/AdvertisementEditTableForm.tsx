@@ -31,6 +31,7 @@ import {advertisementDateCheck} from "../../../../../utils/api/Advertisement/Adv
 import {useAppDispatch} from "../../../../../store/rootReducer";
 import {SelecterArrow,} from "../../../../Common/DropDown/DropDownForm.styeld";
 import MonthDropDownForm from "./MonthDropDownForm";
+import ClientAxios from "../../../../../utils/api/AxiosAPI/ClientAxios";
 
 
 // type searchDataInterface = {filter: string;};
@@ -38,18 +39,16 @@ const AdvertisementEditTableForm = () => {
     const titleRef = useRef<HTMLSpanElement>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [inquiryNumber, setInquiryNumber] = useState<string>();
     const [companyName, setCompanyName] = useState<string>();
     const [version, setVersion] = useState<string>();
     const [position, setPosition] = useState<string>();
-    // todo 첫 렌더링 시 드랍다운 초기 값 수정할 것
     const [page, setPage] = useState<string>();
     const [url, setUrl] = useState<string>();
     const [file, setFile] = useState<any>();
     const [fileName, setFileName] = useState();
     const [fileUrl, setFileUrl] = useState<string>();
-    // todo 첫 렌더링 시 드랍다운 초기 값 수정할 것
     const [month, setMonth] = useState<string>()
-    // todo 첫 렌더링 시 드랍다운 초기 값 수정할 것
     const [year, setYear] = useState<string>("1")
     const [dateList, addDateList] = useState<string[]>([])
     const [resDateList, setResDateList] = useState<string[]>([])
@@ -71,6 +70,33 @@ const AdvertisementEditTableForm = () => {
         {value: "R", name: "우측"},
     ];
 
+    const create = async () => {
+        const formData = new FormData();
+        const requestDto = {
+            inquiryId: Number(inquiryNumber),
+            adTitle: companyName,
+            adType: version,
+            adPosition: position,
+            adPage: page,
+            adLink: url,
+            dates: dateList,
+            pricePerMonth:price
+        };
+
+        formData.append("image", file);
+        const blob = new Blob([JSON.stringify(requestDto)], {
+            type: "application/json",
+        });
+        formData.append("requestDto", blob);
+        console.log(formData);
+        await ClientAxios.post(`ad`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        navigate("/advertisementlist");
+    };
+
     const {isOpen, isTitle, ref, openDropDownFn, changeDropDownTitleFn} =
         useDetectOutSideHandler({
             initState: false,
@@ -88,7 +114,6 @@ const AdvertisementEditTableForm = () => {
         if (month && DropDownTitleRefMonth.current) {
             DropDownTitleRefMonth.current.textContent = AdvertisementSetMonthSwitchDropDownMap[month as string];
         }
-
     }, []);
 
     const ListOnClickHandler = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
@@ -99,8 +124,6 @@ const AdvertisementEditTableForm = () => {
         if (currentPage == "SM001") {
             setPosition(undefined)
         }
-
-
     };
 
     const setYearListOnClickHandler = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
@@ -114,8 +137,6 @@ const AdvertisementEditTableForm = () => {
 
                 }
             })
-
-
     };
     const setMonthListOnClickHandler = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
         let currentMonth = event.currentTarget.textContent as string;
@@ -126,15 +147,12 @@ const AdvertisementEditTableForm = () => {
             return month
         }
         const isMonth = !!dateList.filter(data => {
-            return data === `${year}.${addMonthToZero(AdvertisementSetMonthSwitchDropDownMap[currentMonth as string])}`
+            return data === `${year}-${addMonthToZero(AdvertisementSetMonthSwitchDropDownMap[currentMonth as string])}`
         }).length
-
         setMonth(currentMonth);
         if (!isMonth) {
-            addDateList([...dateList, `${year}.${addMonthToZero(AdvertisementSetMonthSwitchDropDownMap[currentMonth as string])}`])
+            addDateList([...dateList, `${year}-${addMonthToZero(AdvertisementSetMonthSwitchDropDownMap[currentMonth as string])}`])
         }
-
-
     };
 
     const versionRadioBtnClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -175,35 +193,11 @@ const AdvertisementEditTableForm = () => {
         console.log(resDateList)
     }
 
-
     const priceOnChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(Number(event.target.value))
         setTotalPrice(Number(event.target.value) * dateList.length)
     }
 
-    // const update = async () => {
-    //     const formData = new FormData();
-    //     const requestDto = {
-    //         adTitle: companyName,
-    //         adType: version,
-    //         position: position,
-    //         page: page,
-    //         url: url,
-    //         dateList: dateList,
-    //         price: price,
-    //     };
-    //
-    //     formData.append("image", file);
-    //     const blob = new Blob([JSON.stringify(requestDto)], { type: "application/json" });
-    //     formData.append("requestDto", blob);
-    //     console.log(formData);
-    //     await ClientAxios.post(`banner/${id}`, formData, {
-    //         headers : {
-    //             "Content-Type" : "multipart/form-data"
-    //         }
-    //     });
-    //     setUpdated((prev) => !prev);
-    // };
 
     return (
         <>
@@ -211,6 +205,14 @@ const AdvertisementEditTableForm = () => {
                 <PageTitle title={"광고 등록"}/>
                 <AdvertisementDetailTable>
                     <tbody>
+                    <tr>
+                        <TableHeader>광고 문의 번호</TableHeader>
+                        <TableContent>
+                            <Input type={"text"} placeholder={"광고 문의 번호를 입력하세요"} onChange={event => {
+                                setInquiryNumber(event.target.value)
+                            }}></Input>
+                        </TableContent>
+                    </tr>
                     <tr>
                         <TableHeader>업체명</TableHeader>
                         <TableContent>
@@ -308,9 +310,9 @@ const AdvertisementEditTableForm = () => {
                                     </MonthSelecter>
                                     <SelecterArrow/>
                                     <MonthOptionWrapper isClicked={isOpen}>
-                                    <MonthDropDownForm category={"month_list"}
-                                                       LiOnClick={setMonthListOnClickHandler}
-                                                       monthResList={resDateList} />
+                                        <MonthDropDownForm category={"month_list"}
+                                                           LiOnClick={setMonthListOnClickHandler}
+                                                           monthResList={resDateList} />
                                     </MonthOptionWrapper>
 
                                 </SelecterWrapper>
@@ -323,7 +325,7 @@ const AdvertisementEditTableForm = () => {
                                 marginBottom: "16px"
                             }}>
                                 {dateList.map((data, idx) => (
-                                    <Circle key={`${data}_${idx}`}>{data.split(`.`).map((data, idx) => {
+                                    <Circle key={`${data}_${idx}`}>{data.split(`-`).map((data, idx) => {
                                             if (idx === 0) {
                                                 return `${data.substring(2, 4)}년 `
                                             }
@@ -346,16 +348,14 @@ const AdvertisementEditTableForm = () => {
                                 priceOnChangeHandler(event)
                             }}></Input>
                         </TableContent>
-
                         <TableHeader>총액</TableHeader>
-                        <TableContent>{dateList.length * Number(price)} 원
-                        </TableContent>
+                        <TableContent>{dateList.length * Number(price)} 원 ( 1개월 단가 * 기간 값 출력 ) </TableContent>
                     </tr>
                     </tbody>
                 </AdvertisementDetailTable>
                 <CompleteButtonWrapper>
                     {/*<CompleteButton onClick={addSubmit}>수정하기</CompleteButton>*/}
-                    <CompleteButton onClick={temp}>임시확인</CompleteButton>
+                    <CompleteButton onClick={create}>등록하기</CompleteButton>
 
                 </CompleteButtonWrapper>
             </AdvertisementWrapper>

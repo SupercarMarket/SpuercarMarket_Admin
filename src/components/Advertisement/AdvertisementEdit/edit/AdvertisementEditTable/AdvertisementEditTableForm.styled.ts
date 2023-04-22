@@ -12,7 +12,7 @@ export const AdvertisementDetailTable = styled.table`
   margin-top: 20px;
 `;
 export const TableHeader = styled.td`
-  width: 120px;
+  min-width: 150px;
   height: 53px;
   padding: 0px 16px;
   vertical-align: middle;
