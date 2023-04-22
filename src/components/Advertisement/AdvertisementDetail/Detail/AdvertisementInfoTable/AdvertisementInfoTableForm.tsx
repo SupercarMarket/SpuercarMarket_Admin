@@ -10,6 +10,10 @@ import {useAppSelector} from "../../../../../store/rootReducer";
 import {Link} from "react-router-dom";
 import {CompleteButton, CompleteButtonWrapper} from "../../../Banner/BannerDetail/BannerDetailForm.styled";
 import {useParams} from "react-router";
+import {
+    AdvertisementDefaultPositionSwitchDropDownMap,
+    AdvertisementDefaultVersionSwitchDropDownMap
+} from "../../../../../types/DropDownType";
 
 const AdvertisementInfoTableForm = () => {
     const {detail} = useAppSelector(state => state.AdvertisementSlice);
@@ -18,16 +22,6 @@ const AdvertisementInfoTableForm = () => {
     detail?.viewDate.map((v => {
         newDate = newDate + v.substring(2, 4) + "년 " + v.substring(5, 7) + "월, ";
     }))
-
-    const versionOption = [
-        {value: "D", name: "PC"},
-        {value: "M", name: "모바일"},
-    ];
-    const positionOption = [
-        {value: "M", name: "중앙"},
-        {value: "L", name: "좌측"},
-        {value: "R", name: "우측"},
-    ];
 
 
     return (
@@ -42,15 +36,15 @@ const AdvertisementInfoTableForm = () => {
                     </tr>
                     <tr>
                         <TableHeader>버전</TableHeader>
-                        <TableContent colSpan={4}>{detail?.adType}</TableContent>
+                        <TableContent colSpan={4}>{AdvertisementDefaultVersionSwitchDropDownMap[detail?.adType as string]}</TableContent>
                     </tr>
                     <tr>
                         <TableHeader>위치</TableHeader>
-                        <TableContent colSpan={4}>{detail?.adPosition}</TableContent>
+                        <TableContent colSpan={4}>{AdvertisementDefaultPositionSwitchDropDownMap[detail?.adPosition as string]}</TableContent>
                     </tr>
                     <tr>
                         <TableHeader>페이지</TableHeader>
-                        <TableContent colSpan={4}>{detail?.adPage}</TableContent>
+                        <TableContent colSpan={4}>{detail?.adPage as string}</TableContent>
                     </tr>
                     <tr>
                         <TableHeader>URL</TableHeader>

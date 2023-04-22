@@ -54,7 +54,6 @@ const AdvertisementEditTableForm = () => {
     const [resDateList, setResDateList] = useState<string[]>([])
     const [price, setPrice] = useState<number>(0);
     const [totalPrice, setTotalPrice] = useState<number>(0);
-    const [possibleMonth, setPossibleMonth] = useState<string[]>([]);
 
     const DropDownTitleRefPage = useRef<HTMLSpanElement>(null);
     const DropDownTitleRefYear = useRef<HTMLSpanElement>(null);
@@ -89,7 +88,6 @@ const AdvertisementEditTableForm = () => {
             type: "application/json",
         });
         formData.append("requestDto", blob);
-        console.log(formData);
         await ClientAxios.post(`ad`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -117,6 +115,8 @@ const AdvertisementEditTableForm = () => {
         if (month && DropDownTitleRefMonth.current) {
             DropDownTitleRefMonth.current.textContent = AdvertisementSetMonthSwitchDropDownMap[month as string];
         }
+
+
     }, []);
 
     const ListOnClickHandler = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
@@ -135,9 +135,7 @@ const AdvertisementEditTableForm = () => {
         advertisementDateCheck(version, page, position, Number(currentYear))
             .then(response => {
                 if (response?.status === 200) {
-                    setPossibleMonth(response.data.data.impossibleDate)
                     setResDateList(response.data.data.impossibleDate)
-
                 }
             })
     };
@@ -173,10 +171,12 @@ const AdvertisementEditTableForm = () => {
     };
 
     const deleteImage = (data: string) => {
-        console.log(data)
         setFile(undefined);
         setFileUrl(undefined);
         setFileName(undefined);
+    };
+
+    const deleteDate = (data: string) => {
         addDateList(dateList.filter(date => date !== data));
     };
 
@@ -319,7 +319,7 @@ const AdvertisementEditTableForm = () => {
                                             }
                                             return `${data}월`
                                         }
-                                    )} <DeleteButton onClick={() => deleteImage(data)}>
+                                    )} <DeleteButton onClick={() => deleteDate(data)}>
                                         X
                                     </DeleteButton>
                                     </Circle>

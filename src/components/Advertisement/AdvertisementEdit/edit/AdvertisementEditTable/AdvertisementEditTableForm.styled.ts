@@ -88,7 +88,7 @@ export const Circle = styled.div`
   padding: 10px 22px;
   gap: 4px;
 
-  width: 131px;
+  width: 135px;
   height: 44px;
 
   /* Grayscale/Grayscale-1 (White) */

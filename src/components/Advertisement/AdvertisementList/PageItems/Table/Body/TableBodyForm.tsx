@@ -76,7 +76,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
                             </BodyContent>
                             <BodyContent>{item.adTitle}</BodyContent>
                             {/*<BodyContent>{TypeOfBusiness[item.category]}</BodyContent>*/}
-                            <BodyContent rowSpan={2}>{item.adPosition}</BodyContent>
+                            <BodyContent rowSpan={2}>{item.adPage}</BodyContent>
                             <BodyContent>{item.url}</BodyContent>
                             <BodyContent rowSpan={2}>{item.viewDate} </BodyContent>
                             <BodyContent rowSpan={2}>{item.pricePerMonth} 원</BodyContent>

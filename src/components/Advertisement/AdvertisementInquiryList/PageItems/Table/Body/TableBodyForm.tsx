@@ -35,7 +35,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
     // const [isPage, setIsPage] = useState<number>(0);
     const {inquiryList, checkList} = useAppSelector((state) => state.AdvertisementSlice);
 
-    console.log(inquiryList)
+    // console.log(inquiryList)
 
     // 항목 체크 박스 셋업
     const userCheckBoxClickHandler = (brdSeq: number, isChecked: boolean) => {

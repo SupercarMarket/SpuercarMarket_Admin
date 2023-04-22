@@ -88,7 +88,7 @@ export const Circle = styled.div`
   padding: 10px 22px;
   gap: 4px;
 
-  width: 131px;
+  width: 135px;
   height: 44px;
 
   /* Grayscale/Grayscale-1 (White) */
@@ -109,10 +109,16 @@ export const Circle = styled.div`
 export const DeleteButton = styled.div`
 
   cursor: pointer;
-  //margin-left: 0px;
-  //display: inline-block;
+  margin-left: 0px;
+  display: inline-block;
   position: inherit;
 
+
+`;
+export const PhotoDeleteButton = styled ( Button )`
+  min-width: 92px;
+  margin-left: 10px;
+  display: inline-block;
 
 `;
 export const CompleteButton = styled(Button)`

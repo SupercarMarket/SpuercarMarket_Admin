@@ -9,9 +9,11 @@ import {
     DeleteButton,
     FileLabel,
     FileNameWrapper,
-    Input, Label,
+    Input,
+    Label,
     MonthOptionWrapper,
     MonthSelecter,
+    PhotoDeleteButton,
     RadioBtnLabel,
     RadioBtnWrapper,
     SelecterWrapper,
@@ -21,6 +23,7 @@ import {
 import PageTitle from '../../../../Common/PageTitle/PageTitle';
 import DropDownForm from "../../../../Common/DropDown/DropDownForm";
 import {
+    AdvertisementDefaultVersionSwitchDropDownMap,
     AdvertisementSetMonthSwitchDropDownMap,
     AdvertisementSetPageSwitchDropDownMap,
     AdvertisementSetYearSwitchDropDownMap
@@ -28,11 +31,9 @@ import {
 import {Link} from "react-router-dom";
 import {useNavigate, useParams} from "react-router";
 import {advertisementDateCheck} from "../../../../../utils/api/Advertisement/AdvertisementAPI";
-import {useAppDispatch, useAppSelector} from "../../../../../store/rootReducer";
 import {SelecterArrow,} from "../../../../Common/DropDown/DropDownForm.styeld";
 import MonthDropDownForm from "./MonthDropDownForm";
 import ClientAxios from "../../../../../utils/api/AxiosAPI/ClientAxios";
-import {getAdvertisementDetail} from "../../../../../redux/modules/AdvertisementSlice";
 
 
 // type searchDataInterface = {filter: string;};
@@ -56,10 +57,8 @@ const AdvertisementModifyTableForm = () => {
     }
 
     const titleRef = useRef<HTMLSpanElement>(null);
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [inquiryNumber, setInquiryNumber] = useState<string>();
     const [adSeq, setAdSeq] = useState<string>();
     const [inquirySeq, setInquirySeq] = useState<string>();
     const [companyName, setCompanyName] = useState<string>();
@@ -76,7 +75,6 @@ const AdvertisementModifyTableForm = () => {
     const [resDateList, setResDateList] = useState<string[]>([])
     const [price, setPrice] = useState<string>();
     const [totalPrice, setTotalPrice] = useState<number>(0);
-    const [possibleMonth, setPossibleMonth] = useState<string[]>([]);
     const [status, setStatus] = useState<boolean>(false);
     const [updated, setUpdated] = useState<boolean>(false);
 
@@ -179,7 +177,7 @@ const AdvertisementModifyTableForm = () => {
     const ListOnClickHandler = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
 
         const currentPage = AdvertisementSetPageSwitchDropDownMap[event.currentTarget.textContent as string]
-
+        console.log(AdvertisementDefaultVersionSwitchDropDownMap[version as string])
         setPage(currentPage);
         if (currentPage == "SM001") {
             setPosition(undefined)
@@ -192,9 +190,7 @@ const AdvertisementModifyTableForm = () => {
         advertisementDateCheck(version, page, position, Number(currentYear))
             .then(response => {
                 if (response?.status === 200) {
-                    setPossibleMonth(response.data.data.impossibleDate)
                     setResDateList(response.data.data.impossibleDate)
-
                 }
             })
     };
@@ -221,6 +217,7 @@ const AdvertisementModifyTableForm = () => {
     };
     const positionRadioBtnClickHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         let currentPosition = event.currentTarget.value as string;
+        console.log(currentPosition)
         setPosition(currentPosition);
     };
     const changeFile = (event: any) => {
@@ -229,14 +226,14 @@ const AdvertisementModifyTableForm = () => {
         setFileName(event.target.files[0].name);
     };
 
-    const deleteImage = (data: string) => {
-        console.log(data)
+    const deleteImage = () =>  {
         setFile(undefined);
         setFileUrl(undefined);
         setFileName(undefined);
+    };
+    const deleteDate = (data: string) => {
         addDateList(dateList.filter(date => date !== data));
     };
-
 
     const priceOnChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(event.target.value)
@@ -321,7 +318,7 @@ const AdvertisementModifyTableForm = () => {
                     <tr>
                         <TableHeader>이미지</TableHeader>
                         <TableContent>
-                            <FileLabel htmlFor="file_banner">
+                            <FileLabel htmlFor="file_banner" style={{width:"120px", cursor:"pointer"}}>
                                 파일 추가 +
                             </FileLabel>
                             <input
@@ -331,6 +328,7 @@ const AdvertisementModifyTableForm = () => {
                                 onChange={changeFile}
                             />
                             <br/>
+                            <div style={{display: "flex", marginTop: "10px", cursor:"pointer"}}>
                             <Link
                                 to={fileUrl as string}
                                 target="blank"
@@ -339,7 +337,10 @@ const AdvertisementModifyTableForm = () => {
                                     파일 {fileName}
                                 </FileNameWrapper>
                             </Link>
-
+                            <PhotoDeleteButton onClick={()=>deleteImage()}>
+                                삭제 X
+                            </PhotoDeleteButton>
+                            </div>
                         </TableContent>
                     </tr>
                     <tr>
@@ -382,7 +383,7 @@ const AdvertisementModifyTableForm = () => {
                                             }
                                             return `${data}월`
                                         }
-                                    )} <DeleteButton onClick={() => deleteImage(data)}>
+                                    )} <DeleteButton onClick={() => deleteDate(data)}>
                                         X
                                     </DeleteButton>
                                     </Circle>
@@ -407,7 +408,7 @@ const AdvertisementModifyTableForm = () => {
                 </AdvertisementDetailTable>
                 <CompleteButtonWrapper>
                     {/*<CompleteButton onClick={addSubmit}>수정하기</CompleteButton>*/}
-                    <CompleteButton onClick={update}>수정하기</CompleteButton>
+                    <CompleteButton onClick={temp}>수정하기</CompleteButton>
 
                 </CompleteButtonWrapper>
             </AdvertisementWrapper>

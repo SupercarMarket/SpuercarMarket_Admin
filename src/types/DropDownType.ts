@@ -312,3 +312,14 @@ export const AdvertisementSetYearSwitchDropDownMap: DropDownMapType = {
   "2": (parseInt(year.toString(),10)+1).toString(),
   "3": (parseInt(year.toString(),10)+2).toString(),
 };
+
+export const AdvertisementDefaultVersionSwitchDropDownMap: DropDownMapType = {
+  "D": "DESKTOP",
+  "M": "MOBILE",
+};
+
+export const AdvertisementDefaultPositionSwitchDropDownMap: DropDownMapType = {
+  "L": "좌측",
+  "R": "우측",
+  "M": "중앙",
+};
