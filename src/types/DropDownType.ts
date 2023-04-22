@@ -7,6 +7,12 @@ export interface DropDownPropsType {
   titleRef: React.RefObject<HTMLSpanElement>;
 }
 
+export interface MonthDropDownPropsType {
+  category: string;
+  LiOnClick: React.MouseEventHandler<HTMLLIElement>;
+  monthResList: string[];
+}
+
 export interface DropDownMapItemsType {
   [key: string]: { name: string }[];
 }
@@ -15,6 +21,7 @@ export interface DropDownMapType {
   [key: string]: string;
 }
 
+const year = new Date().getFullYear();
 // name은 해당 카테고리의 문구
 // value는 해당 카테고리가 선택되었을 때, 전달해줄 의미로 두었습니다.
 // selector에 들어갈 문구 및 value 값입니다.
@@ -118,6 +125,37 @@ export const DropDownItemMap: DropDownMapItemsType = {
     { name: "8" },
     { name: "9" },
     { name: "10" },
+  ],
+  advertisement_page_list: [
+    { name: "메인" },
+    { name: "매장" },
+    { name: "매거진" },
+    { name: "커뮤니티" },
+    { name: "제휴업체" },
+    { name: "문의" },
+    { name: "통합검색" },
+    { name: "LIVE" },
+  ],
+
+  month_list: [
+    { name: "1월" },
+    { name: "2월" },
+    { name: "3월" },
+    { name: "4월" },
+    { name: "5월" },
+    { name: "6월" },
+    { name: "7월" },
+    { name: "8월" },
+    { name: "9월" },
+    { name: "10월" },
+    { name: "11월" },
+    { name: "12월" },
+  ],
+
+  year_list: [
+    { name: year.toString()},
+    { name: (parseInt(year.toString(),10)+1).toString() },
+    { name: (parseInt(year.toString(),10)+2).toString() },
   ],
 };
 
@@ -241,4 +279,36 @@ export const BannerOrderList: DropDownMapType = {
   "8": "8",
   "9": "9",
   "10": "10",
+};
+
+export const AdvertisementSetPageSwitchDropDownMap: DropDownMapType = {
+  "메인": "SM001",
+  "매장": "SM002",
+  "매거진": "SM003",
+  "커뮤니티": "SM004",
+  "제휴업체": "SM005",
+  "문의": "SM006",
+  "통합검색": "SM007",
+  "LIVE": "SM008",
+};
+
+export const AdvertisementSetMonthSwitchDropDownMap: DropDownMapType = {
+  "1월": "1",
+  "2월": "2",
+  "3월": "3",
+  "4월": "4",
+  "5월": "5",
+  "6월": "6",
+  "7월": "7",
+  "8월": "8",
+  "9월": "9",
+  "10월": "10",
+  "11월": "11",
+  "12월": "12",
+};
+
+export const AdvertisementSetYearSwitchDropDownMap: DropDownMapType = {
+  "1": year.toString(),
+  "2": (parseInt(year.toString(),10)+1).toString(),
+  "3": (parseInt(year.toString(),10)+2).toString(),
 };

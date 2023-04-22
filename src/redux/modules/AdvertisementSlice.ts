@@ -10,9 +10,18 @@ const initState = {
     isLoading: false,
     totalElements: 0,
     totalPages: 0,
-    filter: "",
+    page: "",
+    year: 1,
+    month: 1,
+    position:"",
+    companyName:"",
+    version:"",
+    url:"",
+    date:[],
+    price:0,
     keyword: "",
     list: [],
+    impossibleDate: [],
     allChecked: false,
     checkList: [],
     isChecked: false,
@@ -133,6 +142,12 @@ const AdvertisementSlice = createSlice({
         setAdvertisementListFilter: (state, action) => {
             state.filter = action.payload.filter;
         },
+        setAdvertisementAddYear: (state, action) => {
+            state.year = action.payload.year;
+        },
+        setAdvertisementAddMonth: (state, action) => {
+            state.month = action.payload.month;
+        },
         // keyword reducer
         setAdvertisementListKeyword: (state, action) => {
             state.keyword = action.payload.keyword;
@@ -173,7 +188,11 @@ const AdvertisementSlice = createSlice({
         },
         setAdvertisementShowImage(state, action) {
             state.showImage = action.payload.showImage;
-        }
+        },
+        // setAdvertisementImpossibleDate: (state, action) => {
+        //     state.impossibleDate = action.payload.data.impossibleDate;
+        // },
+
     },
     extraReducers: (builder) => {
         builder

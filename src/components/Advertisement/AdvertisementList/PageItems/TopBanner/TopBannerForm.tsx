@@ -3,12 +3,14 @@ import {useAppDispatch, useAppSelector} from "store/rootReducer";
 
 import {AdvertisementAction, getAdvertisementList,} from "redux/modules/AdvertisementSlice";
 
-import {TopHideButton, TopLeftWrapper, TopRightWrapper, TopWrapper, TotalTopButton,} from "./TopBannerForm.styled";
+import {TopLeftWrapper, TopRightWrapper, TopWrapper, TotalTopButton,} from "./TopBannerForm.styled";
 
 import SearchBarForm from "../../../../Common/SearchBar/SearchBarForm";
+import {Button} from "../../../../Common/Button/ButtonForm.styled";
+import {useNavigate} from "react-router";
 
 const TopBannerForm = () => {
-  let Lifilter = "";
+  const navigate = useNavigate();
   let Likeyword = "";
   const SearchBarInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
@@ -52,6 +54,9 @@ const TopBannerForm = () => {
       SearchBarInputClickHandler();
     }
   };
+  const addAdvertisementHandler = () => {
+    navigate(`/advertisementlist/add`);
+  };
 
   const closeClickHandler = () => {
     if (window.confirm("선택 항목을 종료 하시겠습니까?")) {
@@ -70,7 +75,8 @@ const TopBannerForm = () => {
         />
       </TopLeftWrapper>
       <TopRightWrapper>
-        <TopHideButton>선택 항목 종료하기</TopHideButton>
+        <Button onClick={()=>addAdvertisementHandler()}>광고 등록</Button>
+        <Button>선택 항목 종료하기</Button>
         <TotalTopButton>{`총 업체 수 ${String(
           totalElements.toString()
         ).padStart(3, "0")}개`}</TotalTopButton>

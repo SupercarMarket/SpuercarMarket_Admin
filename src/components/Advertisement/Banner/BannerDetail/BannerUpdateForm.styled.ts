@@ -135,9 +135,9 @@ export const OptionItem = styled.li`
 `;
 
 export const SelecterWrapper = styled.div`
-    position: relative;
-    width: 80px;
-    height: 32px;
+  position: relative;
+  width: 160px;
+  height: 44px;
 `;
 
 export const FileLabel = styled.label`

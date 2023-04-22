@@ -67,25 +67,25 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
         <Tbody key={"advertisemetInquiry-uuid"}>
             {inquiryList.map((item:List, index) => {
                 return (
-                    <Fragment key={item.userSeq}>
-                        <tr onClick={() => AdvertisementInquiryDetailOnClickHandler(item.userSeq)}>
+                    <Fragment key={item.adSeq}>
+                        <tr onClick={() => AdvertisementInquiryDetailOnClickHandler(item.adSeq)}>
                             <BodyContent rowSpan={2}>
                                 <CheckBoxWrapper>
                                     <InputCheckBox
-                                        id={item.userSeq.toString()}
+                                        id={item.adSeq.toString()}
                                         ref={inputCheckTypeRef}
                                         onClick={inputCheckOnClickHandler}
                                         onChange={(event) => {
                                             inputCheckOnChangeHandler(event);
                                         }}
-                                        checked={!!checkList.includes(item.userSeq)}
+                                        checked={!!checkList.includes(item.adSeq)}
                                     />
-                                    <LabelCheckBox htmlFor={item.userSeq.toString()}/>
+                                    <LabelCheckBox htmlFor={item.adSeq.toString()}/>
                                 </CheckBoxWrapper>
                             </BodyContent>
                             <BodyContent rowSpan={2}>
                                 {" "}
-                                {String(item.userSeq.toString()).padStart(7, "0")}
+                                {String(item.adSeq.toString()).padStart(7, "0")}
                             </BodyContent>
                             <BodyContent colSpan={2}>{item.id}</BodyContent>
                             {/*<BodyContent>{TypeOfBusiness[item.category]}</BodyContent>*/}

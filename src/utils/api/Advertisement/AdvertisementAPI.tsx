@@ -91,3 +91,16 @@ export const setAdvertisementInquiryProgressHandler = async (closeSeqList: numbe
   }
 };
 
+// 광고 날짜 체크
+export const advertisementDateCheck = async (version: string | undefined, page: string | undefined, position: string | undefined, year: number) => {
+  try {
+    return await ClientAxios.post("ad/impossible-date", {
+      adType : version,
+      adPage : page,
+      adPosition : position,
+      year : year},{});
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response;
+  }
+};

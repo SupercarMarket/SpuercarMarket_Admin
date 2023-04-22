@@ -13,6 +13,17 @@ export interface InitAdvertisementStateType {
     totalElements: number;
     totalPages: number;
     filter?: string;
+    page?: string;
+    year?: number;
+    month?: number;
+    position?:string;
+    companyName?:string;
+    version?:string;
+    url?:string
+    image?:string;
+    date?:string[];
+    impossibleDate?:string[];
+    price?:number;
     keyword?: string;
     allChecked: boolean;
     list: AdvertisementListType[];
