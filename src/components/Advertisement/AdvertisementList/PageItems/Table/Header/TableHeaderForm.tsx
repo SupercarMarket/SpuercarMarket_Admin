@@ -1,16 +1,43 @@
-import React from 'react'
-import {CheckBoxWrapper, InputCheckBox, LabelCheckBox, TableHeader, Thead,} from "./TableHeaderForm.styled";
+import React from "react";
+import {
+  CheckBoxWrapper,
+  InputCheckBox,
+  LabelCheckBox,
+  TableHeader,
+  TableHeaderRowSpan,
+  Thead,
+} from "./TableHeaderForm.styled";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../../store/rootReducer";
+import { AdvertisementAction } from "../../../../../../redux/modules/AdvertisementSlice";
 
 const TableHeaderForm = () => {
+  const { allChecked } = useAppSelector((state) => state.AdvertisementSlice);
+  const dispatch = useAppDispatch();
+  const allCheckBoxClickHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    dispatch(
+      AdvertisementAction.setAdvertisementListAllChecked({
+        allChecked: event.target.checked,
+      })
+    );
+  };
   return (
     <Thead>
       <tr>
-        <TableHeader rowSpan={2} style={{width:"80px", height:"80px"}}>
+        <TableHeaderRowSpan rowSpan={2} style={{ width: "80px" }}>
           <CheckBoxWrapper>
-            <InputCheckBox id="checkbox_header"/>
-            <LabelCheckBox htmlFor="checkbox_header"/>
+            <InputCheckBox
+              id="header_check"
+              onChange={(event) => allCheckBoxClickHandler(event)}
+              checked={allChecked}
+            />
+            <LabelCheckBox htmlFor="header_check" />
           </CheckBoxWrapper>
-        </TableHeader>
+        </TableHeaderRowSpan>
         <TableHeader rowSpan={2}>광고등록번호</TableHeader>
         <TableHeader>업체명</TableHeader>
         <TableHeader rowSpan={2}>광고 위치</TableHeader>
@@ -25,7 +52,7 @@ const TableHeaderForm = () => {
         <TableHeader>이미지</TableHeader>
       </tr>
     </Thead>
-  )
-}
+  );
+};
 
-export default TableHeaderForm
+export default TableHeaderForm;

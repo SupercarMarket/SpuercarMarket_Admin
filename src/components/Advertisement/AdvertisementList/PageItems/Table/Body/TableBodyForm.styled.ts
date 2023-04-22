@@ -65,3 +65,11 @@ export const InputCheckBox = styled.input.attrs({ type : "checkbox" } )`
 `;
 
 export const LabelCheckBox = styled.label``;
+
+export const TableBodyRowSpan = styled.td`
+    text-align: center;
+    height:40px;
+    text-align:center;
+    vertical-align:middle;
+    border : 1px solid ${({theme}) => theme.colors.greyScale_3};
+`;

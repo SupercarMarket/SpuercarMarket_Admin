@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import BlackCheckBox from "../../../../../../assets/black_checkbox.svg";
-import { Button } from "../../../../../Common/Button/ButtonForm.styled";
 
 export const Thead = styled.thead``;
 
@@ -49,3 +48,12 @@ export const InputCheckBox = styled.input.attrs({ type : "checkbox" } )`
 `;
 
 export const LabelCheckBox = styled.label``;
+
+export const TableHeaderRowSpan = styled.th`
+    width : 160px;
+    text-align:center;
+    vertical-align:middle;
+    border : 1px solid ${({theme}) => theme.colors.greyScale_3};
+
+    background-color: ${({theme}) => theme.colors.greyScale_2};
+`;

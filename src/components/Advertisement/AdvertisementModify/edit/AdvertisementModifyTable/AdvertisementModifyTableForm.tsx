@@ -408,7 +408,7 @@ const AdvertisementModifyTableForm = () => {
                 </AdvertisementDetailTable>
                 <CompleteButtonWrapper>
                     {/*<CompleteButton onClick={addSubmit}>수정하기</CompleteButton>*/}
-                    <CompleteButton onClick={temp}>수정하기</CompleteButton>
+                    <CompleteButton onClick={update}>수정하기</CompleteButton>
 
                 </CompleteButtonWrapper>
             </AdvertisementWrapper>

@@ -36,6 +36,7 @@ export interface InitAdvertisementStateType {
     inquiryList: AdvertisementInquiryListType[];
     inquiryDetail? : AdvertisementInquiryDetailType;
     inquiryDetailAttachment? : AdvertisementInquiryDetailAttachmentType[];
+    dateList : string[];
 }
 
 export interface AdvertisementListType {
