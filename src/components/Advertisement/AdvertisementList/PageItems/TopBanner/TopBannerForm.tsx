@@ -1,16 +1,27 @@
-import React, {useEffect, useRef} from "react";
-import {useAppDispatch, useAppSelector} from "store/rootReducer";
+import React, { useEffect, useRef } from "react";
+import { useAppDispatch, useAppSelector } from "store/rootReducer";
 
-import {AdvertisementAction, getAdvertisementList,} from "redux/modules/AdvertisementSlice";
+import {
+  AdvertisementAction,
+  getAdvertisementList,
+  setAdvertisementComplete,
+} from "redux/modules/AdvertisementSlice";
 
-import {TopLeftWrapper, TopRightWrapper, TopWrapper, TotalTopButton,} from "./TopBannerForm.styled";
+import {
+  TopLeftWrapper,
+  TopRightWrapper,
+  TopWrapper,
+  TotalTopButton,
+} from "./TopBannerForm.styled";
 
 import SearchBarForm from "../../../../Common/SearchBar/SearchBarForm";
-import {Button} from "../../../../Common/Button/ButtonForm.styled";
-import {useNavigate} from "react-router";
+import { Button } from "../../../../Common/Button/ButtonForm.styled";
+import { useNavigate } from "react-router";
 
 const TopBannerForm = () => {
   const navigate = useNavigate();
+  const { checkList } = useAppSelector((state) => state.AdvertisementSlice);
+
   let Likeyword = "";
   const SearchBarInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
@@ -23,15 +34,13 @@ const TopBannerForm = () => {
     if (keyword && SearchBarInputRef.current) {
       SearchBarInputRef.current.value = keyword as string;
     }
-
   }, []);
-
 
   // ref로 접근하여 버튼 눌렸을 때 ref 값 가져오기
   const SearchBarInputClickHandler = () => {
     Likeyword = SearchBarInputRef.current?.value as string;
     dispatch(
-        AdvertisementAction.setAdvertisementListKeyword({ keyword: Likeyword })
+      AdvertisementAction.setAdvertisementListKeyword({ keyword: Likeyword })
     );
     if (!Likeyword) {
       alert("검색어를 입력하세요");
@@ -55,11 +64,12 @@ const TopBannerForm = () => {
     }
   };
   const addAdvertisementHandler = () => {
-    navigate(`/advertisementlist/add`);
+    navigate(`/advertisement/add`);
   };
 
   const closeClickHandler = () => {
     if (window.confirm("선택 항목을 종료 하시겠습니까?")) {
+      dispatch(setAdvertisementComplete({ checkList: checkList }));
       alert("종료 처리 되었습니다.");
     } else {
     }
@@ -75,8 +85,8 @@ const TopBannerForm = () => {
         />
       </TopLeftWrapper>
       <TopRightWrapper>
-        <Button onClick={()=>addAdvertisementHandler()}>광고 등록</Button>
-        <Button>선택 항목 종료하기</Button>
+        <Button onClick={() => addAdvertisementHandler()}>광고 등록</Button>
+        <Button onClick={closeClickHandler}>선택 항목 종료하기</Button>
         <TotalTopButton>{`총 업체 수 ${String(
           totalElements.toString()
         ).padStart(3, "0")}개`}</TotalTopButton>

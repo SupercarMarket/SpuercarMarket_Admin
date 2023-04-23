@@ -1,13 +1,11 @@
 import PrivateRoutes from "./PrivateRoutes";
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 // pages
 import LoginForm from "../components/Login/LoginForm";
 import ForSaleListForm from "../components/Market/ForSaleList/ForSaleListForm";
 import ForSaleListDetailForm from "../components/Market/ForSaleListDetail/ForSaleListDetailForm";
-import VehicleRegistrationInquriyForm
-    from "../components/Market/VehicleRegistrationInquiry/VehicleRegistrationInquriyForm";
-import VehicleRegistrationInquiryDetailForm
-    from "../components/Market/VehicleRegistrationInquiryDetail/VehicleRegistrationInquiryDetailForm";
+import VehicleRegistrationInquriyForm from "../components/Market/VehicleRegistrationInquiry/VehicleRegistrationInquriyForm";
+import VehicleRegistrationInquiryDetailForm from "../components/Market/VehicleRegistrationInquiryDetail/VehicleRegistrationInquiryDetailForm";
 import EtcInquiryForm from "../components/Inquiry/EtcInquiryList/EtcInquiryListForm";
 import EtcInquiryDetailForm from "../components/Inquiry/EtcInquiryDetail/EtcDetailForm";
 import MemberListForm from "components/Member/MemberList/MemberListForm";
@@ -31,10 +29,8 @@ import BannerUpdateForm from "components/Advertisement/Banner/BannerDetail/Banne
 import BannerCreateForm from "components/Advertisement/Banner/BannerDetail/BannerCreateForm";
 import AdvertisementListForm from "../components/Advertisement/AdvertisementList/AdvertisementListForm";
 import AdvertisementDetailForm from "../components/Advertisement/AdvertisementDetail/AdvertisementDetailForm";
-import AdvertisementInquiryListForm
-    from "../components/Advertisement/AdvertisementInquiryList/AdvertisementInquiryListForm";
-import AdvertisementInquiryDetailForm
-  from "../components/Advertisement/AdvertisementInquiryDetail/AdvertisementInquiryDetailForm";
+import AdvertisementInquiryListForm from "../components/Advertisement/AdvertisementInquiryList/AdvertisementInquiryListForm";
+import AdvertisementInquiryDetailForm from "../components/Advertisement/AdvertisementInquiryDetail/AdvertisementInquiryDetailForm";
 import AdvertisementEditForm from "../components/Advertisement/AdvertisementEdit/AdvertisementEditForm";
 import AdvertisementModifyForm from "../components/Advertisement/AdvertisementModify/AdvertisementModifyForm";
 const AdminPages = () => {
@@ -74,44 +70,56 @@ const AdminPages = () => {
         />
 
         {/* 제휴 업체 */}
-        <Route path="/cooperationlist" element={<CooperationListForm/>}/>
-        <Route path="/cooperationlist/:cooperationlistId" element={<CooperationListDetailForm/>}/>
-        <Route path="/cooperationinquirylist" element={<CooperationInquiryForm/>}/>
-        <Route path="/cooperationinquirylist/:cooperationlistId" element={<CooperationInquiryDetailForm/>}/>
+        <Route path="/cooperationlist" element={<CooperationListForm />} />
+        <Route
+          path="/cooperationlist/:cooperationlistId"
+          element={<CooperationListDetailForm />}
+        />
+        <Route
+          path="/cooperationinquirylist"
+          element={<CooperationInquiryForm />}
+        />
+        <Route
+          path="/cooperationinquirylist/:cooperationlistId"
+          element={<CooperationInquiryDetailForm />}
+        />
         {/* 광고 관리*/}
-        <Route path="/advertisementlist" element={<AdvertisementListForm/>}/>
-        <Route path="/advertisementlist/edit/:brdSeq" element={<AdvertisementModifyForm/>}/>
-        <Route path="/advertisementlist/:brdSeq" element={<AdvertisementDetailForm/>}/>
-        <Route path="/advertisementlist/add" element={<AdvertisementEditForm/>}/>
-        <Route path="/advertisementlist/inquiry" element={<AdvertisementInquiryListForm/>}/>
-        <Route path="/advertisementlist/inquiry/:brdSeq" element={<AdvertisementInquiryDetailForm/>}/>
+        <Route path="/advertisementlist" element={<AdvertisementListForm />} />
+        <Route
+          path="/advertisementlist/edit/:brdSeq"
+          element={<AdvertisementModifyForm />}
+        />
+        <Route
+          path="/advertisementlist/:brdSeq"
+          element={<AdvertisementDetailForm />}
+        />
+        <Route path="/advertisement/add" element={<AdvertisementEditForm />} />
+        <Route
+          path="/advertisementlist/inquiry"
+          element={<AdvertisementInquiryListForm />}
+        />
+        <Route
+          path="/advertisementlist/inquiry/:brdSeq"
+          element={<AdvertisementInquiryDetailForm />}
+        />
         {/* 배너 관리*/}
-        <Route
-            path="/bannerlist"
-            element={<BannerListForm />}
-        />
+        <Route path="/bannerlist" element={<BannerListForm />} />
 
-        <Route
-          path="/banner/:id"
-          element={<BannerDetailForm />}
-        />
-        <Route
-          path="/banner/update/:id"
-          element={<BannerUpdateForm />}
-        />
-        <Route
-          path="/banner/create"
-          element={<BannerCreateForm />}
-        />
+        <Route path="/banner/:id" element={<BannerDetailForm />} />
+        <Route path="/banner/update/:id" element={<BannerUpdateForm />} />
+        <Route path="/banner/create" element={<BannerCreateForm />} />
         {/* 문의 하기 */}
-        <Route path="/etcinquiry" element={<EtcInquiryForm/>}/>
-        <Route path="/etcinquiry/:inquiryId" element={<EtcInquiryDetailForm/>}/>
-        </Route>
+        <Route path="/etcinquiry" element={<EtcInquiryForm />} />
+        <Route
+          path="/etcinquiry/:inquiryId"
+          element={<EtcInquiryDetailForm />}
+        />
+      </Route>
 
-        {/* Login 아니면 */}
-        <Route path="/" element={<LoginForm/>}/>
-        </Routes>
-    );
+      {/* Login 아니면 */}
+      <Route path="/" element={<LoginForm />} />
+    </Routes>
+  );
 };
 
 export default AdminPages;

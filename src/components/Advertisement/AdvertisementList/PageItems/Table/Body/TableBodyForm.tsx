@@ -4,6 +4,7 @@ import {
   BodyButton,
   BodyContent,
   CheckBoxWrapper,
+  DisableInputCheckBox,
   InputCheckBox,
   LabelCheckBox,
   TableBodyRowSpan,
@@ -32,10 +33,6 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
     dispatch(setAdvertisementComplete({ checkList: [id] }));
   };
 
-  const inputCheckOnClickHandler = () => {
-    console.log(inputCheckTypeRef.current?.checked);
-  };
-
   // 항목 체크 박스 셋업
   const userCheckBoxClickHandler = (brdSeq: number, isChecked: boolean) => {
     dispatch(
@@ -44,9 +41,10 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
   };
 
   const inputCheckOnChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: number
   ) => {
-    userCheckBoxClickHandler(parseInt(event.target.id), event.target.checked);
+    userCheckBoxClickHandler(id, e.target.checked);
   };
 
   // 제휴업체 디테일로 넘어가기
@@ -70,15 +68,19 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
                 }}
               >
                 <CheckBoxWrapper>
-                  <InputCheckBox
-                    id={item.id.toString()}
-                    ref={inputCheckTypeRef}
-                    onClick={inputCheckOnClickHandler}
-                    onChange={(event) => {
-                      inputCheckOnChangeHandler(event);
-                    }}
-                    checked={!!checkList.includes(item.id)}
-                  />
+                  {item.viewStatus ? (
+                    <InputCheckBox
+                      id={item.id.toString()}
+                      ref={inputCheckTypeRef}
+                      onChange={(event) => {
+                        inputCheckOnChangeHandler(event, item.id);
+                      }}
+                      checked={!!checkList.includes(item.id)}
+                    />
+                  ) : (
+                    <DisableInputCheckBox />
+                  )}
+
                   <LabelCheckBox htmlFor={item.id.toString()} />
                 </CheckBoxWrapper>
               </TableBodyRowSpan>
@@ -106,7 +108,12 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
               <BodyContent rowSpan={2}>
                 {item.viewStatus ? "진행 중" : "종료"}
               </BodyContent>
-              <AdvertisementTableBodyRowSpan rowSpan={2}>
+              <AdvertisementTableBodyRowSpan
+                rowSpan={2}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
                 {item.viewStatus ? (
                   <BodyButton
                     onClick={() =>
@@ -126,8 +133,8 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
             >
               <BodyContent>{item.adType}</BodyContent>
               <BodyContent>{item.imageName}</BodyContent>
-              {/*<BodyContent rowSpan={2} >*/}
-              {/*  <BodyButton>숨기기</BodyButton>*/}
+              {/*<BodyContent rowSpan={2}>*/}
+              {/*  <BodyButton onClick={temp}>임시확인</BodyButton>*/}
               {/*</BodyContent>*/}
               {/*<BodyContent>{item.treatedItem}</BodyContent>*/}
               {/*<BodyContent style={{ cursor: "pointer" }}>*/}

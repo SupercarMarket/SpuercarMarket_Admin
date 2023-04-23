@@ -79,7 +79,11 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
               }
             >
               <BodyContent rowSpan={2}>
-                <CheckBoxWrapper>
+                <CheckBoxWrapper
+                  onClick={(event) => {
+                    event.stopPropagation();
+                  }}
+                >
                   <InputCheckBox
                     id={item.adSeq.toString()}
                     ref={inputCheckTypeRef}
