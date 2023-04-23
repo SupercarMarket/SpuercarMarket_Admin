@@ -88,6 +88,21 @@ export const setAdvertisementInquiryProgressHandler = async (
     return response;
   }
 };
+// 광고 반려 처리
+export const setAdvertisementInquiryRejectProgressHandler = async (
+  seq: number,
+  contents: string
+) => {
+  try {
+    return await ClientAxios.post(`inquiry/ad/reject`, {
+      seq: seq,
+      contents: contents,
+    });
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response;
+  }
+};
 
 // 광고 날짜 체크
 export const advertisementDateCheck = async (
@@ -107,6 +122,21 @@ export const advertisementDateCheck = async (
       },
       {}
     );
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response;
+  }
+};
+// 광고 등록 반려
+export const AdvertisementRejectHandler = async (
+  brdSeq: number,
+  comment: string
+) => {
+  try {
+    return await ClientAxios.post("inquiry/ad/reject", {
+      seq: brdSeq,
+      contents: comment,
+    });
   } catch (error) {
     const { response } = error as unknown as AxiosError;
     return response;

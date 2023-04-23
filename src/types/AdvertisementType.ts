@@ -105,6 +105,7 @@ export interface AdvertisementInquiryDetailType {
   userId: string;
   userRating: string;
   userSeq: number;
+  confirm: string;
 }
 
 export interface AdvertisementInquiryDetailAttachmentType {

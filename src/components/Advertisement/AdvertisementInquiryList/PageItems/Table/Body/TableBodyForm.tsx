@@ -77,6 +77,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
           <Fragment key={item.id}>
             <tr
               onClick={() => AdvertisementInquiryDetailOnClickHandler(item.id)}
+              style={{ cursor: "pointer" }}
             >
               <TableBodyRowSpan
                 rowSpan={2}
@@ -121,9 +122,9 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
                 >
                   {
                     {
-                      Y: "완료",
-                      N: "반려",
-                      R: "대기중",
+                      Y: "완료됨",
+                      N: "반려하기",
+                      R: "완료하기",
                     }[item.confirm]
                   }
                 </AdvertisementInquiryTableBodyButton>
@@ -131,6 +132,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
             </tr>
             <tr
               onClick={() => AdvertisementInquiryDetailOnClickHandler(item.id)}
+              style={{ cursor: "pointer" }}
             >
               <BodyContent>{item.name}</BodyContent>
               <BodyContent>{item.nickname}</BodyContent>

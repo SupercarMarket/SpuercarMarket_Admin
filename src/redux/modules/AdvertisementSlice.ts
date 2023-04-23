@@ -121,8 +121,12 @@ export const getAdvertisementInquiryDetail = createAsyncThunk(
 interface setAdvertisementInquiryType {
   checkList: number[];
 }
+interface setAdvertisementInquiryRejectType {
+  seq: number;
+  contents: string;
+}
 
-// 기타 문의 상태 변경
+// 광고 문의 완료처리
 export const setAdvertisementProgress = createAsyncThunk(
   "POST/setAdvertisementInquiry",
   async (data: setAdvertisementInquiryType, thunkApi) => {
@@ -289,7 +293,6 @@ const AdvertisementSlice = createSlice({
           state.isLoading = false;
           state.showImage = false;
           state.inquiryDetail = action.payload.data.data.detail;
-
           state.inquiryDetailAttachment = action.payload.data.data.attachment;
         }
       })
