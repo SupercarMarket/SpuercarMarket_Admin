@@ -31,7 +31,6 @@ export const getDetailAdvertisementItemHandler = async (brdSeq: string) => {
   }
 };
 
-
 export const closeAdvertisementHandler = async (closeSeqList: number[]) => {
   try {
     return await ClientAxios.post(`ad/complete`, {
@@ -43,11 +42,10 @@ export const closeAdvertisementHandler = async (closeSeqList: number[]) => {
   }
 };
 
-
 // 광고 문의 리스트 조화
 export const getAdvertisementInquiryListHandler = async (
-    keyword: string,
-    page: number
+  keyword: string,
+  page: number
 ) => {
   try {
     return await ClientAxios.get(`inquiry/ad`, {
@@ -63,15 +61,13 @@ export const getAdvertisementInquiryListHandler = async (
 };
 
 // 광고 문의 상세 조화
-export const getAdvertisementInquiryDetailHandler = async (
-    brdSeq:string
-) => {
+export const getAdvertisementInquiryDetailHandler = async (brdSeq: string) => {
   try {
     return await ClientAxios.get(`inquiry`, {
-      params:{
-        category:"ad",
-        adSeq:brdSeq
-      }
+      params: {
+        category: "ad",
+        adSeq: brdSeq,
+      },
     });
   } catch (error) {
     const { response } = error as unknown as AxiosError;
@@ -80,10 +76,12 @@ export const getAdvertisementInquiryDetailHandler = async (
 };
 
 // 광고 완료 처리
-export const setAdvertisementInquiryProgressHandler = async (closeSeqList: number[]) => {
+export const setAdvertisementInquiryProgressHandler = async (
+  closeSeqList: number[]
+) => {
   try {
-    return await ClientAxios.post(`ad/confirm`, {
-      checkList: closeSeqList,
+    return await ClientAxios.post(`inquiry/ad/confirm`, {
+      seq: closeSeqList,
     });
   } catch (error) {
     const { response } = error as unknown as AxiosError;
@@ -92,13 +90,23 @@ export const setAdvertisementInquiryProgressHandler = async (closeSeqList: numbe
 };
 
 // 광고 날짜 체크
-export const advertisementDateCheck = async (version: string | undefined, page: string | undefined, position: string | undefined, year: number) => {
+export const advertisementDateCheck = async (
+  version: string | undefined,
+  page: string | undefined,
+  position: string | undefined,
+  year: number
+) => {
   try {
-    return await ClientAxios.post("ad/impossible-date", {
-      adType : version,
-      adPage : page,
-      adPosition : position,
-      year : year},{});
+    return await ClientAxios.post(
+      "ad/impossible-date",
+      {
+        adType: version,
+        adPage: page,
+        adPosition: position,
+        year: year,
+      },
+      {}
+    );
   } catch (error) {
     const { response } = error as unknown as AxiosError;
     return response;

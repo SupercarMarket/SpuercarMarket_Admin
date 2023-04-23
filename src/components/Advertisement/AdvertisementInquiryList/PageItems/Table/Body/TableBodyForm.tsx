@@ -16,11 +16,15 @@ import {
 } from "redux/modules/AdvertisementSlice";
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
 import { useNavigate } from "react-router";
+import {
+  DisableInputCheckBox,
+  TableBodyRowSpan,
+} from "../../../../AdvertisementList/PageItems/Table/Body/TableBodyForm.styled";
 
 interface List {
-  adSeq: number;
+  id: number;
   userSeq: number;
-  id: string;
+  userId: string;
   name: string;
   nickname: string;
   phone: string;
@@ -36,27 +40,25 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   // const [isPage, setIsPage] = useState<number>(0);
-  const { inquiryList, checkList } = useAppSelector(
+  const { inquiryList, inquiryCheckList } = useAppSelector(
     (state) => state.AdvertisementSlice
   );
 
-  console.log(inquiryList);
-
   // 항목 체크 박스 셋업
-  const userCheckBoxClickHandler = (brdSeq: number, isChecked: boolean) => {
+  const userCheckBoxClickHandler = (id: number, isChecked: boolean) => {
     dispatch(
-      AdvertisementAction.setAdvertisementListEachChecked({ brdSeq, isChecked })
+      AdvertisementAction.setAdvertisementInquiryListEachChecked({
+        id,
+        isChecked,
+      })
     );
   };
 
-  const inputCheckOnClickHandler = () => {
-    console.log(inputCheckTypeRef.current?.checked);
-  };
-
   const inputCheckOnChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: number
   ) => {
-    userCheckBoxClickHandler(parseInt(event.target.id), event.target.checked);
+    userCheckBoxClickHandler(id, e.target.checked);
   };
 
   // 제휴업체 문의 디테일로 넘어가기
@@ -70,37 +72,39 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
 
   return (
     <Tbody key={"advertisemetInquiry-uuid"}>
-      {inquiryList.map((item: List, index) => {
+      {inquiryList.map((item: List) => {
         return (
-          <Fragment key={item.adSeq}>
+          <Fragment key={item.id}>
             <tr
-              onClick={() =>
-                AdvertisementInquiryDetailOnClickHandler(item.adSeq)
-              }
+              onClick={() => AdvertisementInquiryDetailOnClickHandler(item.id)}
             >
-              <BodyContent rowSpan={2}>
-                <CheckBoxWrapper
-                  onClick={(event) => {
-                    event.stopPropagation();
-                  }}
-                >
-                  <InputCheckBox
-                    id={item.adSeq.toString()}
-                    ref={inputCheckTypeRef}
-                    onClick={inputCheckOnClickHandler}
-                    onChange={(event) => {
-                      inputCheckOnChangeHandler(event);
-                    }}
-                    checked={!!checkList.includes(item.adSeq)}
-                  />
-                  <LabelCheckBox htmlFor={item.adSeq.toString()} />
+              <TableBodyRowSpan
+                rowSpan={2}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
+                <CheckBoxWrapper>
+                  {item.confirm === "R" ? (
+                    <InputCheckBox
+                      id={item.id.toString()}
+                      ref={inputCheckTypeRef}
+                      onChange={(event) => {
+                        inputCheckOnChangeHandler(event, item.id);
+                      }}
+                      checked={!!inquiryCheckList.includes(item.id)}
+                    />
+                  ) : (
+                    <DisableInputCheckBox />
+                  )}
+                  <LabelCheckBox htmlFor={item.id.toString()} />
                 </CheckBoxWrapper>
-              </BodyContent>
+              </TableBodyRowSpan>
               <BodyContent rowSpan={2}>
                 {" "}
-                {String(item.adSeq.toString()).padStart(7, "0")}
+                {String(item.id.toString()).padStart(7, "0")}
               </BodyContent>
-              <BodyContent colSpan={2}>{item.id}</BodyContent>
+              <BodyContent colSpan={2}>{item.userId}</BodyContent>
               {/*<BodyContent>{TypeOfBusiness[item.category]}</BodyContent>*/}
               <BodyContent>{item.phone}</BodyContent>
               <BodyContent>{item.title}</BodyContent>
@@ -113,9 +117,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
               >
                 <AdvertisementInquiryTableBodyButton
                   progress={item.confirm}
-                  onClick={() =>
-                    progressOnClickHandler(item.adSeq, item.confirm)
-                  }
+                  onClick={() => progressOnClickHandler(item.id, item.confirm)}
                 >
                   {
                     {
@@ -128,9 +130,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
               </AdvertisementTableBodyRowSpan>
             </tr>
             <tr
-              onClick={() =>
-                AdvertisementInquiryDetailOnClickHandler(item.adSeq)
-              }
+              onClick={() => AdvertisementInquiryDetailOnClickHandler(item.id)}
             >
               <BodyContent>{item.name}</BodyContent>
               <BodyContent>{item.nickname}</BodyContent>

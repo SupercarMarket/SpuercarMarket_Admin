@@ -4,6 +4,7 @@ import {
   BodyButton,
   BodyContent,
   CheckBoxWrapper,
+  CompletedBodyButton,
   DisableInputCheckBox,
   InputCheckBox,
   LabelCheckBox,
@@ -54,7 +55,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
 
   return (
     <Tbody key={"advertisemet-uuid"}>
-      {list.map((item, index) => {
+      {list.map((item) => {
         return (
           <Fragment key={item.id}>
             <tr
@@ -123,7 +124,7 @@ const TableBodyForm = ({}: AdvertisementPropsType) => {
                     종료
                   </BodyButton>
                 ) : (
-                  <BodyButton>종료됨</BodyButton>
+                  <CompletedBodyButton>종료됨</CompletedBodyButton>
                 )}
               </AdvertisementTableBodyRowSpan>
             </tr>

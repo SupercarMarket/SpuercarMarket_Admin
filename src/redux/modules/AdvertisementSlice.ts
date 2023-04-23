@@ -31,6 +31,9 @@ const initState = {
   allChecked: false,
   checkList: [],
   isChecked: false,
+  inquiryAllChecked: false,
+  inquiryCheckList: [],
+  inquiryIsChecked: false,
   currentPage: 1,
   updated: false,
   showImage: false,
@@ -108,10 +111,7 @@ export const getAdvertisementInquiryDetail = createAsyncThunk(
   "GET/getAdvertisementInquiryDetail",
   async (params: AdvertisementDetailSeqType, thunkApi) => {
     try {
-      const response = await getAdvertisementInquiryDetailHandler(
-        params.brdSeq
-      );
-      return response;
+      return await getAdvertisementInquiryDetailHandler(params.brdSeq);
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -130,7 +130,9 @@ export const setAdvertisementProgress = createAsyncThunk(
       const response = await setAdvertisementInquiryProgressHandler(
         data.checkList
       );
-      // console.log(response);
+      alert("처리되었습니다");
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
       return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
@@ -171,21 +173,31 @@ const AdvertisementSlice = createSlice({
           // }
         });
         state.checkList = checked;
-        console.log(state.checkList);
       } else {
         state.checkList = [];
       }
       state.allChecked = !state.allChecked;
-      console.log(state.allChecked);
+    },
+    // 문의 전체 체크
+    setAdvertisementInquiryListAllChecked: (state, action) => {
+      if (action.payload.inquiryAllChecked) {
+        const checked: number[] = [];
+        state.inquiryList.forEach((list) => {
+          // if (!list.pdtApper) {
+          checked.push(list.id);
+          // }
+        });
+        state.inquiryCheckList = checked;
+      } else {
+        state.inquiryCheckList = [];
+      }
+      state.inquiryAllChecked = !state.inquiryAllChecked;
     },
     // 각각 체크
     setAdvertisementListEachChecked: (state, action) => {
       if (action.payload.isChecked) {
         state.checkList = [...state.checkList, action.payload.brdSeq];
-        // const length = state.list.filter((list) => !list.pdtApper).length;
-        // if (length === state.checkList.length) {
         state.allChecked = true;
-        // }
       } else {
         state.checkList = state.checkList.filter(
           (item) => item !== action.payload.brdSeq
@@ -193,13 +205,22 @@ const AdvertisementSlice = createSlice({
         state.allChecked = false;
       }
     },
+    // 문의 각각 체크
+    setAdvertisementInquiryListEachChecked: (state, action) => {
+      if (action.payload.isChecked) {
+        state.inquiryCheckList = [...state.inquiryCheckList, action.payload.id];
+        state.inquiryAllChecked = true;
+      } else {
+        state.inquiryCheckList = state.inquiryCheckList.filter(
+          (item) => item !== action.payload.id
+        );
+        state.inquiryAllChecked = false;
+      }
+    },
 
     setAdvertisementShowImage(state, action) {
       state.showImage = action.payload.showImage;
     },
-    // setAdvertisementImpossibleDate: (state, action) => {
-    //     state.impossibleDate = action.payload.data.impossibleDate;
-    // },
   },
   extraReducers: (builder) => {
     builder
@@ -250,7 +271,6 @@ const AdvertisementSlice = createSlice({
           state.isLoading = false;
           state.totalPages = action.payload.data.data.totalPages;
           state.totalElements = action.payload.data.data.totalCount;
-          // state. = [];
           state.inquiryList = action.payload.data.data.list;
         } else {
           return state;
@@ -271,25 +291,12 @@ const AdvertisementSlice = createSlice({
           state.inquiryDetail = action.payload.data.data.detail;
 
           state.inquiryDetailAttachment = action.payload.data.data.attachment;
-          console.log(state.inquiryDetailAttachment);
         }
       })
       //광고 문의 상세 조회
       .addCase(getAdvertisementInquiryDetail.rejected, (state, action) => {
         state.isLoading = true;
       });
-    //
-    // .addCase(getAdvertisementListDetail.fulfilled, (state, action) => {
-    //     if (action.payload?.status === 200) {
-    //         state.isLoading = false;
-    //         state.showImage = false;
-    //         state.detail = action.payload.data.data;
-    //     }
-    // })
-    // //광고 상세 조회
-    // .addCase(getEctInquiryDetailItem.rejected, (state, action) => {
-    //     state.isLoading = true;
-    // });
   },
 });
 

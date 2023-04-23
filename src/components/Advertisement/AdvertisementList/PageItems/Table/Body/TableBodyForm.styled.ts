@@ -21,6 +21,14 @@ export const BodyButton = styled(Button)`
   border: 1px solid ${({ theme }) => theme.colors.greyScale_4};
 `;
 
+export const CompletedBodyButton = styled(Button)`
+  background-color: ${({ theme }) => theme.colors.greyScale_3};
+  color: ${({ theme }) => theme.colors.greyScale_6};
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid ${({ theme }) => theme.colors.greyScale_4};
+`;
+
 export const AdvertisementTableBodyRowSpan = styled.td`
   height: 40px;
   text-align: center;
