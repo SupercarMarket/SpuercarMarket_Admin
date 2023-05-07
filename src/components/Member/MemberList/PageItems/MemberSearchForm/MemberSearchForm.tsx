@@ -98,6 +98,7 @@ function MemberSearchForm() {
   ) => {
     let selectedFilter =
       MemberListDropDownMap[event.currentTarget.textContent as string];
+    console.log(selectedFilter);
     setSearchData({ ...searchData, filter: selectedFilter });
   };
 

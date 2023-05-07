@@ -14,11 +14,11 @@ export interface MonthDropDownPropsType {
 }
 
 export interface DropDownMapItemsType {
-    [key: string]: { name: string }[];
+  [key: string]: { name: string }[];
 }
 
 export interface DropDownMapType {
-    [key:string] : string
+  [key: string]: string;
 }
 
 const year = new Date().getFullYear();
@@ -109,11 +109,7 @@ export const DropDownItemMap: DropDownMapItemsType = {
     { name: "제목" },
     { name: "내용" },
   ],
-  banner_list: [
-    { name: "전체" },
-    { name: "PC" },
-    { name: "Mobile" },
-  ],
+  banner_list: [{ name: "전체" }, { name: "PC" }, { name: "Mobile" }],
   banner_order_list: [
     { name: "1" },
     { name: "2" },
@@ -153,85 +149,87 @@ export const DropDownItemMap: DropDownMapItemsType = {
   ],
 
   year_list: [
-    { name: year.toString()},
-    { name: (parseInt(year.toString(),10)+1).toString() },
-    { name: (parseInt(year.toString(),10)+2).toString() },
+    { name: year.toString() },
+    { name: (parseInt(year.toString(), 10) + 1).toString() },
+    { name: (parseInt(year.toString(), 10) + 2).toString() },
   ],
 };
 
 export const MemberListDropDownMap: DropDownMapType = {
-    '전체': 'all',
-    '회원번호': 'userSeq',
-    '아이디': 'userId',
-    '닉네임': 'userNickName',
-    '전화번호': 'userPhone',
-    '이메일': 'userEmail',
-}
+  전체: "all",
+  회원번호: "userSeq",
+  아이디: "userId",
+  이름: "userName",
+  닉네임: "userNickName",
+  전화번호: "userPhone",
+  이메일: "userEmail",
+};
 
 export const MemberListSwitchDropDownMap: DropDownMapType = {
-    'all': '전체',
-    'userSeq': '회원번호',
-    'userId': '아이디',
-    'userNickName': '닉네임',
-    'userPhone': '전화번호',
-    'userEmail': '이메일',
-}
+  all: "전체",
+  userSeq: "회원번호",
+  userId: "아이디",
+  userName: "이름",
+  userNickName: "닉네임",
+  userPhone: "전화번호",
+  userEmail: "이메일",
+};
 
 export const DealerInquiryListDropDownMap: DropDownMapType = {
-    '전체': 'all',
-    '상사명': 'comName',
-    '상사 전화번호': 'comPhone',
-    '상사 주소': 'comAddress',
-    '조합명': 'guildName',
-    '사원증 번호': 'dlrNum',
-}
+  전체: "all",
+  상사명: "comName",
+  "상사 전화번호": "comPhone",
+  "상사 주소": "comAddress",
+  조합명: "guildName",
+  "사원증 번호": "dlrNum",
+};
 
 export const DealerInquiryListSwitchDropDownMap: DropDownMapType = {
-    'all': '전체',
-    'comName': '상사명',
-    'comPhone': '상사 전화번호',
-    'comAddress': '상사 주소',
-    'guildName': '조합명',
-    'dlrNum': '사원증 번호',
-}
+  all: "전체",
+  comName: "상사명",
+  comPhone: "상사 전화번호",
+  comAddress: "상사 주소",
+  guildName: "조합명",
+  dlrNum: "사원증 번호",
+};
 
 export const AdminListDropDownMap: DropDownMapType = {
-    '전체': 'all',
-    '닉네임': 'nickname',
-    '이메일': 'email',
-    '전화번호': 'phone',
-}
+  전체: "all",
+  닉네임: "nickname",
+  이메일: "email",
+  전화번호: "phone",
+};
 
 export const AdminListSwitchDropDownMap: DropDownMapType = {
-    'all': '전체',
-    'nickname': '닉네임',
-    'email': '이메일',
-    'phone': '전화번호',
-}
+  all: "전체",
+  nickname: "닉네임",
+  email: "이메일",
+  phone: "전화번호",
+};
 
-export const MarketListDropDownMap : DropDownMapType = {
-    '전체' : '',
-    '차종' : 'category',
-    '제목' : 'title',
-    '매물 상태' : 'status',
-    '등록 일자' : 'createdDate',
-    '딜러 회원번호' : 'dealerSeq',
-    '딜러 아이디' : 'id',
-    '딜러 닉네임' : 'nickname',
-    '딜러 이름' : 'name'
-}
+export const MarketListDropDownMap: DropDownMapType = {
+  전체: "",
+  차종: "category",
+  제목: "title",
+  "매물 상태": "status",
+  "등록 일자": "createdDate",
+  "딜러 회원번호": "dealerSeq",
+  "딜러 아이디": "id",
+  "딜러 닉네임": "nickname",
+  "딜러 이름": "name",
+};
 
-export const MarketListSwitchDropDownMap : DropDownMapType = {
-    '': '전체',
-    'category': '차종',
-    'title' : '제목',
-    'status' : '매물 상태',
-    'createdDate' : '등록 일자',
-    'dealerSeq' : '딜러 회원번호',
-    'id' : '딜러 아이디',
-    'nickname' : '딜러 닉네임',
-    'name' : '딜러 이름'
-}
+export const MarketListSwitchDropDownMap: DropDownMapType = {
+  "": "전체",
+  category: "차종",
+  title: "제목",
+  status: "매물 상태",
+  createdDate: "등록 일자",
+  dealerSeq: "딜러 회원번호",
+  id: "딜러 아이디",
+  nickname: "딜러 닉네임",
+  name: "딜러 이름",
+};
 
 export const EtcInquiryListDropDownMap: DropDownMapType = {
   전체: "all",
@@ -282,14 +280,14 @@ export const BannerOrderList: DropDownMapType = {
 };
 
 export const AdvertisementSetPageSwitchDropDownMap: DropDownMapType = {
-  "메인": "SM001",
-  "매장": "SM002",
-  "매거진": "SM003",
-  "커뮤니티": "SM004",
-  "제휴업체": "SM005",
-  "문의": "SM006",
-  "통합검색": "SM007",
-  "LIVE": "SM008",
+  메인: "SM001",
+  매장: "SM002",
+  매거진: "SM003",
+  커뮤니티: "SM004",
+  제휴업체: "SM005",
+  문의: "SM006",
+  통합검색: "SM007",
+  LIVE: "SM008",
 };
 
 export const AdvertisementSetMonthSwitchDropDownMap: DropDownMapType = {
@@ -309,17 +307,17 @@ export const AdvertisementSetMonthSwitchDropDownMap: DropDownMapType = {
 
 export const AdvertisementSetYearSwitchDropDownMap: DropDownMapType = {
   "1": year.toString(),
-  "2": (parseInt(year.toString(),10)+1).toString(),
-  "3": (parseInt(year.toString(),10)+2).toString(),
+  "2": (parseInt(year.toString(), 10) + 1).toString(),
+  "3": (parseInt(year.toString(), 10) + 2).toString(),
 };
 
 export const AdvertisementDefaultVersionSwitchDropDownMap: DropDownMapType = {
-  "D": "DESKTOP",
-  "M": "MOBILE",
+  D: "DESKTOP",
+  M: "MOBILE",
 };
 
 export const AdvertisementDefaultPositionSwitchDropDownMap: DropDownMapType = {
-  "L": "좌측",
-  "R": "우측",
-  "M": "중앙",
+  L: "좌측",
+  R: "우측",
+  M: "중앙",
 };
