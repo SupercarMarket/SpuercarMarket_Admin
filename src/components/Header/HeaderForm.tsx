@@ -37,7 +37,7 @@ const HeaderForm = () => {
 
   return (
     <Wrapper>
-      <Logo />
+      <Logo onClick={() => window.location.replace("/memberlist")} />
       <RightWrapper>
         <ControlButton onClick={handlerPWModalOnClick("pw")}>
           비밀번호 수정
