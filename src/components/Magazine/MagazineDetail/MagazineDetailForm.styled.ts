@@ -15,10 +15,11 @@ export const Wrapper = styled.div`
     gap: 16px;
 `;
 
-export const Table = styled.div`
+export const Table = styled.div<{ display: boolean }>`
     width: 100%;
     border: 1px solid #c3c3c7;
     border-radius: 4px;
+    display: ${(props) => (props.display ? "block" : "none")};
 `;
 
 export const ButtonContainer = styled.div`

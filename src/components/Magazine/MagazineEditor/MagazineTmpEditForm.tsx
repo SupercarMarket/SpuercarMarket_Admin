@@ -8,9 +8,9 @@ import { deleteImage, getFileNameFromHTML, getNotEqualFileList } from "utils/api
 import { Button } from "../styles/buttonStyles";
 
 import { ButtonContainer, Wrapper, Container, ContentTable, MagazineBodyBox } from "./MagazineTmpEditForm.styled";
-import MagazineEditorHeaderBoxForm from "./PageItems/MagazineEditorHeaderBox/MagazineEditorHeaderBoxForm";
-import TuiEditorForm from "./PageItems/TuiEditor/TuiEditorForm";
-import TuiPreviewForm from "./PageItems/TuiPreview/TuiPreviewForm";
+import MagazineEditorHeaderBoxForm from "../Common/MagazineEditorHeaderBox/MagazineEditorHeaderBoxForm";
+import TuiEditorForm from "../Common/TuiEditor/TuiEditorForm";
+import TuiPreviewForm from "../Common/TuiPreview/TuiPreviewForm";
 
 function MagazineTmpEditForm() {
     const location = useLocation();
@@ -25,7 +25,7 @@ function MagazineTmpEditForm() {
         if (location.state && location.state.id) {
             dispatch(getMagazineTmpDetail({ id: location.state.id })).then(() => {
                 const uploaded = getImageURLFromHTML();
-                setUploadedImage(uploaded);
+                setUploadedImage(uploaded.concat([detailItem.thumbnail.split("/").pop() as string]));
                 setThumbnailImage(detailItem.thumbnail);
             });
         } else {
@@ -34,7 +34,7 @@ function MagazineTmpEditForm() {
                 setThumbnailImage("");
             });
         }
-    }, [location.state, dispatch]);
+    }, [location.state, dispatch, detailItem.thumbnail]);
 
     const titleRef = useRef<HTMLTextAreaElement>(null);
     const contentRef = useRef<any>(null);
@@ -45,8 +45,7 @@ function MagazineTmpEditForm() {
                 alert("제목을 입력해주세요!");
                 return;
             }
-            const delFileList: string[] = getNotEqualFileList(uploadedImage, getImageURLFromHTML());
-            console.log(delFileList);
+            const delFileList = getImagesToDelete();
             if (delFileList.length !== 0) {
                 deleteImage(delFileList);
             }
@@ -82,8 +81,7 @@ function MagazineTmpEditForm() {
                 alert("제목을 입력해주세요!");
                 return;
             }
-            const delFileList: string[] = getNotEqualFileList(uploadedImage, getImageURLFromHTML());
-            console.log(delFileList);
+            const delFileList = getImagesToDelete();
             if (delFileList.length !== 0) {
                 deleteImage(delFileList);
             }
@@ -113,15 +111,28 @@ function MagazineTmpEditForm() {
         return [] as string[];
     };
 
+    const getImagesToDelete = () => {
+        const remainImage = getImageURLFromHTML();
+        remainImage.push(thumbnailImage.split("/").pop() as string);
+        const delFileList: string[] = getNotEqualFileList(uploadedImage, remainImage);
+        return delFileList;
+    };
+
     return (
         <Container>
             {!isLoading ? (
                 <Wrapper>
                     <ContentTable>
-                        <MagazineEditorHeaderBoxForm titleRef={titleRef} defaultValue={detailItem.title} thumbnailImage={thumbnailImage} setThumbnailImage={setThumbnailImage} />
+                        <MagazineEditorHeaderBoxForm
+                            titleRef={titleRef}
+                            defaultValue={detailItem.title}
+                            thumbnailImage={thumbnailImage}
+                            setThumbnailImage={setThumbnailImage}
+                            setUploadedImage={setUploadedImage}
+                        />
                         <MagazineBodyBox>
                             {!isViewerOn ? (
-                                <TuiEditorForm contents={detailItem.contents} editorRef={contentRef} setUploadedImage={setUploadedImage} />
+                                <TuiEditorForm contents={detailItem.contents} editorRef={contentRef} uploadedImage={uploadedImage} setUploadedImage={setUploadedImage} />
                             ) : (
                                 <TuiPreviewForm contents={contentRef.current.getInstance().getHTML()} />
                             )}

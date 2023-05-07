@@ -44,7 +44,7 @@ export const newMagazineTmpHandler = async (contents: string, thumbnail: string,
 // 매거진 수정하기
 export const updateMagazineTmpHandler = async (storageId: string, contents: string, thumbnail: string, title: string) => {
     try {
-        return await ClientAxios.patch(`magazine/storage/${storageId}`, {
+        return await ClientAxios.put(`magazine/storage/${storageId}`, {
             contents: contents,
             thumbnail: thumbnail,
             title: title,

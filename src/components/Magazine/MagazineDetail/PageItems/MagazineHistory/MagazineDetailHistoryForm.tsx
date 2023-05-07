@@ -23,8 +23,8 @@ function MagazineDetailHistoryForm({ brdSeq }: { brdSeq: string }) {
                 <>
                     {!isHistoryLoading ? (
                         <>
-                            {editHistory.map((el) => (
-                                <HistoryElement>
+                            {editHistory.map((el, index) => (
+                                <HistoryElement key={index}>
                                     {el.date} 에 {el.nickname} 님이 {el.contents}했습니다.
                                 </HistoryElement>
                             ))}

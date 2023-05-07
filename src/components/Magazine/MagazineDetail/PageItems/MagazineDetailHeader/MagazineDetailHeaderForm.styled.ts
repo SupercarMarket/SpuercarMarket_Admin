@@ -6,6 +6,7 @@ export const MagazineHeaderBox = styled.div<{ imageUrl: string }>`
     border-bottom: 1px solid #eaeaec;
     height: 360px;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${(props) => props.imageUrl || null});
+    background-size: cover;
     background-position: center;
 `;
 
