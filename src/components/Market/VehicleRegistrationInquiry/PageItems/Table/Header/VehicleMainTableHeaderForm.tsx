@@ -1,5 +1,8 @@
-import React from 'react'
-import { VehicleSaleThead, VehicleSaleTableHeader } from "./VehicleMainTableHeaderForm.styled";
+import React from "react";
+import {
+  VehicleSaleThead,
+  VehicleSaleTableHeader,
+} from "./VehicleMainTableHeaderForm.styled";
 
 const VehicleMainTableHeaderForm = () => {
   return (
@@ -14,7 +17,7 @@ const VehicleMainTableHeaderForm = () => {
           </VehicleSaleTableHeader>
           <VehicleSaleTableHeader>브랜드</VehicleSaleTableHeader>
           <VehicleSaleTableHeader rowSpan={2}>변속기</VehicleSaleTableHeader>
-          <VehicleSaleTableHeader>연식</VehicleSaleTableHeader>
+          <VehicleSaleTableHeader>최초등록일</VehicleSaleTableHeader>
           <VehicleSaleTableHeader>연료</VehicleSaleTableHeader>
           <VehicleSaleTableHeader>주행거리</VehicleSaleTableHeader>
           <VehicleSaleTableHeader>사고여부</VehicleSaleTableHeader>
@@ -32,6 +35,6 @@ const VehicleMainTableHeaderForm = () => {
       </VehicleSaleThead>
     </>
   );
-}
+};
 
 export default VehicleMainTableHeaderForm;

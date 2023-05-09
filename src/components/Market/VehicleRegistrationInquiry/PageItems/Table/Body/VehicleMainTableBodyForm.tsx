@@ -74,7 +74,7 @@ const VehicleMainTableBodyForm = ({
                 <VehicleSaleTableContent
                   onClick={() => ForSaleDetailOnClickHandler(item.brdSeq)}
                 >
-                  0000년 00월
+                  {item.pinfRegDate}
                 </VehicleSaleTableContent>
                 <VehicleSaleTableContent
                   onClick={() => ForSaleDetailOnClickHandler(item.brdSeq)}
@@ -133,7 +133,7 @@ const VehicleMainTableBodyForm = ({
                 <VehicleSaleTableContent
                   onClick={() => ForSaleDetailOnClickHandler(item.brdSeq)}
                 >
-                  0000년도
+                  {item.pinfRegDate}년도
                 </VehicleSaleTableContent>
                 <VehicleSaleTableContent
                   onClick={() => ForSaleDetailOnClickHandler(item.brdSeq)}
