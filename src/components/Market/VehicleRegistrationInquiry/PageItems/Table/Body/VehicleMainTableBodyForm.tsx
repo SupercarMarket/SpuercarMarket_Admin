@@ -45,8 +45,7 @@ const VehicleMainTableBodyForm = ({
   return (
     <>
       <VehicleSaleTbody>
-        {list.slice(offset, offset + postsPerPage).map((item) => {
-          console.log(item);
+        {list.map((item) => {
           return (
             <React.Fragment key={item.brdSeq}>
               <tr key={item.brdSeq}>
