@@ -53,7 +53,8 @@ interface MarketItemDetailType {
   price: string;
   sellType: number;
   //
-  trasmissionType: string;
+  transmissionType: string;
+  appear: boolean;
   description: string;
   introduction: string;
   imgSrc: string[];

@@ -92,7 +92,7 @@ const ForSaleTableBodyForm = ({
     }
   };
 
-  // 숨기기 버튼 동작
+  // 삭제 버튼 동작
   const productDeleteHandler = async (brdSeq: number) => {
     await ClientAxios.delete(`/product/${brdSeq}`)
       .then((response) => {
