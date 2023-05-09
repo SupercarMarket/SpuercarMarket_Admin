@@ -166,7 +166,7 @@ const ForSaleTableBodyForm = ({
                 <MarketTableBodyClamp>{item.title}</MarketTableBodyClamp>
               </MarketTableBodyRowSpan>
               <MarketTableBodyRowSpan rowSpan={2} style={{ cursor: "pointer" }}>
-                {item.pdtStatus}
+                {item?.pdtStatus === "Y" ? "판매중" : "종료"}
               </MarketTableBodyRowSpan>
               <MarketTableBodyRowSpan rowSpan={2} style={{ cursor: "pointer" }}>
                 {item.createdDate.split("T")[0]}
