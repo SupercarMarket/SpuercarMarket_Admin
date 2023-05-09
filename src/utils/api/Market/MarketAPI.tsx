@@ -34,7 +34,7 @@ export const getDetailMarketItemHandler = async (brdSeq: string) => {
 // 매물 리스트 숨기기
 export const hiddenButtonMarketItemsHandler = async (brdSeq: number[]) => {
   try {
-    return await ClientAxios.post(`product/hide/${brdSeq}`, brdSeq);
+    return await ClientAxios.post(`product/hide`, brdSeq);
   } catch (error) {
     const { response } = error as unknown as AxiosError;
     return response;

@@ -24,6 +24,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../../store/rootReducer";
+import ClientAxios from "../../../../../utils/api/AxiosAPI/ClientAxios";
 
 const ForSaleTopBannerForm = () => {
   let Lifilter = "";
@@ -84,9 +85,19 @@ const ForSaleTopBannerForm = () => {
     }
   };
 
-  const deleteClickHandler = () => {
+  const deleteClickHandler = async () => {
     if (window.confirm("삭제하시겠습니까?")) {
-      alert("삭제 되었습니다.");
+      await ClientAxios.post(`/product/delete/all`, checkList)
+        .then((response) => {
+          if (response.status === 200) {
+            alert("[삭제 완료]");
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
     } else {
     }
   };
