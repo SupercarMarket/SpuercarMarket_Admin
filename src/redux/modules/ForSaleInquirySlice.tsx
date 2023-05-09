@@ -136,7 +136,7 @@ const ForSaleListSlice = createSlice({
     setForSaleListConfirm: (state, action) => {
       state.list = state.list.map((item) => {
         if (item.brdSeq === action.payload) {
-          item.isAccepted = false;
+          item.isAccepted = "R";
         }
         return item;
       });
@@ -182,9 +182,9 @@ const ForSaleListSlice = createSlice({
       // 판매차량 등록 승인
       .addCase(confrimForSaleItem.pending, (state, action) => {})
       .addCase(confrimForSaleItem.fulfilled, (state, action) => {
-        console.log(action.payload);
-        console.log(state);
         if (action.payload?.status === 200) {
+          // eslint-disable-next-line no-restricted-globals
+          location.reload();
           return state;
         }
       })

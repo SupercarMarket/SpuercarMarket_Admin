@@ -220,7 +220,7 @@ export const MarketListDropDownMap: DropDownMapType = {
 };
 
 export const MarketListSwitchDropDownMap: DropDownMapType = {
-  "": "전체",
+  all: "전체",
   category: "차종",
   title: "제목",
   status: "매물 상태",

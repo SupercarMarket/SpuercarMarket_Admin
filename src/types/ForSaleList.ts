@@ -137,5 +137,5 @@ interface ForSaleListType {
   pinfAccidentHistory: boolean;
   pdtSellType: string;
   pdtPrice: number;
-  isAccepted: boolean;
+  isAccepted: string;
 }
