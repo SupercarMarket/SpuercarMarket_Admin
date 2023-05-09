@@ -114,7 +114,7 @@ const ForSaleTableBodyForm = ({
 
   return (
     <MarketTableBody key={`uuid`}>
-      {list.slice(offset, offset + postsPerPage).map((item, index) => {
+      {list.map((item, index) => {
         return (
           <React.Fragment key={item.brdSeq}>
             <tr onClick={() => MarketDetailOnClickHandler(item.brdSeq)}>
