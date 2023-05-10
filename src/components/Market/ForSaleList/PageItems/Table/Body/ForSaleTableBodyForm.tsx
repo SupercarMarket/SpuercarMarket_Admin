@@ -8,6 +8,8 @@ import {
   MarketTableBodyClamp,
   MarketTableBodyNoSpan,
   MarketTableBodyButton,
+  DisableMarketTableBodyButton,
+  DisableMarketInputCheckBox,
 } from "./ForSaleTableBodyForm.styled";
 
 import {
@@ -20,6 +22,10 @@ import {
   useAppSelector,
 } from "../../../../../../store/rootReducer";
 import { useNavigate } from "react-router";
+import { setAdvertisementComplete } from "../../../../../../redux/modules/AdvertisementSlice";
+import ClientAxios from "../../../../../../utils/api/AxiosAPI/ClientAxios";
+import { AdminLogout } from "../../../../../../utils/api/Login/LoginAPI";
+import { AxiosError } from "axios/index";
 
 const ForSaleTableBodyForm = ({
   offset,
@@ -47,7 +53,59 @@ const ForSaleTableBodyForm = ({
   };
 
   // 숨기기 버튼 동작
-  const userHiddenButtonClickHandler = () => {};
+  const productHideHandler = async (brdSeq: number, pdtApper: boolean) => {
+    if (pdtApper) {
+      await ClientAxios.post(`/product/hide`, [brdSeq], {
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert("[숨기기 완료]");
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    } else {
+      const requestDto = {
+        seq: brdSeq,
+      };
+      await ClientAxios.patch(`/product/un-hide`, requestDto, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            alert("[숨기기 취소 완료]");
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  };
+
+  // 삭제 버튼 동작
+  const productDeleteHandler = async (brdSeq: number) => {
+    await ClientAxios.delete(`/product/${brdSeq}`)
+      .then((response) => {
+        if (response.status === 200) {
+          alert("[삭제 완료]");
+          // eslint-disable-next-line no-restricted-globals
+          location.reload();
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
   // 매물 디테일로 넘어가기
   const MarketDetailOnClickHandler = (brdSeq: number) => {
@@ -56,23 +114,35 @@ const ForSaleTableBodyForm = ({
 
   return (
     <MarketTableBody key={`uuid`}>
-      {list.slice(offset, offset + postsPerPage).map((item, index) => {
+      {list.map((item, index) => {
         return (
           <React.Fragment key={item.brdSeq}>
-            <tr>
-              <MarketTableBodyRowSpan rowSpan={2}>
-                <MarketCheckBoxWrapper>
-                  <MarketInputCheckBox
-                    id={item.brdSeq.toString()}
-                    ref={inputCheckTypeRef}
-                    onClick={inputCheckOnClickHandler}
-                    onChange={(event) => {
-                      inputCheckOnChangeHandler(event);
-                    }}
-                    checked={checkList.includes(item.brdSeq) ? true : false}
-                  />
-                  <MarketLabelCheckBox htmlFor={item.brdSeq.toString()} />
-                </MarketCheckBoxWrapper>
+            <tr onClick={() => MarketDetailOnClickHandler(item.brdSeq)}>
+              <MarketTableBodyRowSpan
+                rowSpan={2}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
+                {item.pdtAppear ? (
+                  <MarketCheckBoxWrapper>
+                    <MarketInputCheckBox
+                      id={item.brdSeq.toString()}
+                      ref={inputCheckTypeRef}
+                      onClick={inputCheckOnClickHandler}
+                      onChange={(event) => {
+                        inputCheckOnChangeHandler(event);
+                      }}
+                      checked={!!checkList.includes(item.brdSeq)}
+                    />
+                    <MarketLabelCheckBox htmlFor={item.brdSeq.toString()} />
+                  </MarketCheckBoxWrapper>
+                ) : (
+                  <MarketCheckBoxWrapper>
+                    <DisableMarketInputCheckBox />
+                    <MarketLabelCheckBox />
+                  </MarketCheckBoxWrapper>
+                )}
               </MarketTableBodyRowSpan>
               <MarketTableBodyRowSpan
                 rowSpan={2}
@@ -96,7 +166,7 @@ const ForSaleTableBodyForm = ({
                 <MarketTableBodyClamp>{item.title}</MarketTableBodyClamp>
               </MarketTableBodyRowSpan>
               <MarketTableBodyRowSpan rowSpan={2} style={{ cursor: "pointer" }}>
-                {item.pdtStatus}
+                {item?.pdtStatus === "Y" ? "판매중" : "종료"}
               </MarketTableBodyRowSpan>
               <MarketTableBodyRowSpan rowSpan={2} style={{ cursor: "pointer" }}>
                 {item.createdDate.split("T")[0]}
@@ -107,13 +177,37 @@ const ForSaleTableBodyForm = ({
               <MarketTableBodyNoSpan style={{ cursor: "pointer" }}>
                 {item.userId}
               </MarketTableBodyNoSpan>
-              <MarketTableBodyRowSpan rowSpan={2}>
-                <MarketTableBodyButton>
-                  {item.pdtApper ? "숨기기 취소" : "숨기기"}
+              <MarketTableBodyRowSpan
+                rowSpan={2}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
+                <MarketTableBodyButton
+                  onClick={() =>
+                    productHideHandler(item.brdSeq, item.pdtAppear)
+                  }
+                >
+                  {item.pdtAppear ? "숨기기" : "숨기기 취소"}
                 </MarketTableBodyButton>
               </MarketTableBodyRowSpan>
-              <MarketTableBodyRowSpan rowSpan={2}>
-                <MarketTableBodyButton>삭제하기</MarketTableBodyButton>
+              <MarketTableBodyRowSpan
+                rowSpan={2}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
+                {item.pdtDelete ? (
+                  <DisableMarketTableBodyButton style={{ cursor: "auto" }}>
+                    삭제된 매물
+                  </DisableMarketTableBodyButton>
+                ) : (
+                  <MarketTableBodyButton
+                    onClick={() => productDeleteHandler(item.brdSeq)}
+                  >
+                    삭제하기
+                  </MarketTableBodyButton>
+                )}
               </MarketTableBodyRowSpan>
             </tr>
             <tr>

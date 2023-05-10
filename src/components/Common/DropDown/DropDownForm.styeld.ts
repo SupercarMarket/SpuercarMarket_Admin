@@ -36,7 +36,8 @@ export const SelecterArrow = styled.img.attrs( { src : `${Arrow}`})`
 
 export const OptionWrapper = styled.ul<{ isClicked : boolean }>`
     display: ${({isClicked}) => isClicked ? "block": "none"};
-    
+    z-index: 99;
+    position: absolute;
     width: 160px;
     
     background: #FFFFFF;

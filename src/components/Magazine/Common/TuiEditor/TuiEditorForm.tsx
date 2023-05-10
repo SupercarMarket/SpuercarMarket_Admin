@@ -12,10 +12,11 @@ import { uploadImage, makeUploadImageURL } from "utils/api/S3Upload/AdminS3Clien
 interface TuiEditorProps {
     contents: string;
     editorRef: React.MutableRefObject<any>;
+    uploadedImage: string[];
     setUploadedImage: Function;
 }
 
-function TuiEditorForm({ contents = "", editorRef, setUploadedImage }: TuiEditorProps) {
+function TuiEditorForm({ contents = "", editorRef, uploadedImage, setUploadedImage }: TuiEditorProps) {
     const toolbarItems = [["heading", "bold", "italic", "strike"], ["hr"], ["ul", "ol", "task"], ["table", "link"], ["image"], ["code"], ["scrollSync"]];
 
     const onUploadImage = async (blob: Blob, callback: HookCallback) => {
@@ -23,7 +24,7 @@ function TuiEditorForm({ contents = "", editorRef, setUploadedImage }: TuiEditor
             .then(() => {
                 const url = makeUploadImageURL(blob);
                 const filename = url.split("/")[-1];
-                setUploadedImage((prevState: any) => [...prevState, filename]);
+                setUploadedImage([...uploadedImage, filename]);
                 callback(url);
                 return false;
             })

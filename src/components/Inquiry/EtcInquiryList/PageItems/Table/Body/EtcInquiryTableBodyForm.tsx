@@ -11,6 +11,20 @@ import {
 } from "./EtcInquiryTableBodyForm.styled";
 import {EtcInquiryListPropsType} from "../../../../../../types/EtcInquiryList";
 import {EtcInquiryAction, setEtcInquiryProgress} from "../../../../../../redux/modules/EtcInquirySlice";
+import { log } from 'console';
+
+interface List{
+    brdSeq : number,
+    userSeq : number,
+    phone : string,
+    userId : string,
+    title : string,
+    progress : number,
+    userName : string,
+    nickname : string,
+    contents : string,
+    email : string
+}
 
 const EtcInquiryTableBodyForm = ({
      offset,
@@ -22,7 +36,6 @@ const EtcInquiryTableBodyForm = ({
     const navigate = useNavigate();
 
     const { list, checkList } = useAppSelector( state => state.EtcInquirySlice );
-
 
 
     // 항목 체크 박스 셋업
@@ -44,7 +57,7 @@ const EtcInquiryTableBodyForm = ({
     return (
         <EtcInquiryTableBody>
             {
-                list.map( ( item, index ) => {
+                list.map( ( item : List, index : number ) => {
                     return (
                         <React.Fragment key={item.brdSeq} >
 
@@ -98,19 +111,19 @@ const EtcInquiryTableBodyForm = ({
                             </tr>
                             <tr  onClick={() => EtcInquiryDetailOnClickHandler(item.brdSeq)}>
                                 <EtcInquiryTableBodyRowSpan>
-                                    {String(item.userName.toString())}
+                                    {String(item.userName)}
                                 </EtcInquiryTableBodyRowSpan>
 
                                 <EtcInquiryTableBodyRowSpan>
-                                    {String(item.nickname.toString())}
+                                    {String(item.nickname)}
                                 </EtcInquiryTableBodyRowSpan>
 
                                 <EtcInquiryTableBodyRowSpan>
-                                    {String(item.email.toString())}
+                                    {String(item.email)}
                                 </EtcInquiryTableBodyRowSpan>
 
                                 <EtcInquiryTableBodyRowSpan>
-                                    {String(item.contents.toString())}
+                                    {String(item.contents)}
                                 </EtcInquiryTableBodyRowSpan>
 
                             </tr>

@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { InitMarketStateType } from "../../types/ForSaleList";
 import {
-  getMarketListHandler,
   getDetailMarketItemHandler,
+  getMarketListHandler,
   hiddenButtonMarketItemsHandler,
 } from "../../utils/api/Market/MarketAPI";
 
@@ -33,7 +33,8 @@ const initState = {
     accident: false,
     price: "",
     sellType: 0,
-    trasmissionType: "",
+    transmissionType: "",
+    appear: false,
     description: "",
     introduction: "",
     imgSrc: [],
@@ -106,9 +107,7 @@ export const hideMarketList = createAsyncThunk(
   "POST/hideMarketList",
   async (params: number[], thunkApi) => {
     try {
-      const response = await hiddenButtonMarketItemsHandler(params);
-      console.log(response);
-      return response;
+      return await hiddenButtonMarketItemsHandler(params);
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -136,26 +135,21 @@ const MarketSlice = createSlice({
       if (action.payload.allChecked) {
         const checked: number[] = [];
         state.list.forEach((list) => {
-          if (!list.pdtApper) {
-            checked.push(list.brdSeq);
-          }
+          // if (!list.pdtApper) {
+          checked.push(list.brdSeq);
+          // }
         });
         state.checkList = checked;
-        console.log(state.checkList);
       } else {
         state.checkList = [];
       }
       state.allChecked = !state.allChecked;
-      console.log(state.allChecked);
     },
     // 각각 체크
     setMarketListEachChecked: (state, action) => {
       if (action.payload.isChecked) {
         state.checkList = [...state.checkList, action.payload.brdSeq];
-        const length = state.list.filter((list) => !list.pdtApper).length;
-        if (length === state.checkList.length) {
-          state.allChecked = true;
-        }
+        state.allChecked = true;
       } else {
         state.checkList = state.checkList.filter(
           (item) => item !== action.payload.brdSeq
@@ -203,7 +197,9 @@ const MarketSlice = createSlice({
       .addCase(hideMarketList.fulfilled, (state, action) => {
         if (action.payload?.status === 200) {
           state.isLoading = false;
-          console.log(action.payload);
+          alert("숨기기 완료");
+          // eslint-disable-next-line no-restricted-globals
+          location.reload();
         }
       })
       .addCase(hideMarketList.rejected, (state, action) => {});

@@ -32,7 +32,7 @@ export interface MarketListType {
   name: string;
   userId: string;
   userNickName: string;
-  pdtApper: boolean;
+  pdtAppear: boolean;
   pdtDelete: boolean;
 }
 // 매물 상세 리스트 type
@@ -53,7 +53,8 @@ interface MarketItemDetailType {
   price: string;
   sellType: number;
   //
-  trasmissionType: string;
+  transmissionType: string;
+  appear: boolean;
   description: string;
   introduction: string;
   imgSrc: string[];
@@ -136,5 +137,5 @@ interface ForSaleListType {
   pinfAccidentHistory: boolean;
   pdtSellType: string;
   pdtPrice: number;
-  isAccepted: boolean;
+  isAccepted: string;
 }

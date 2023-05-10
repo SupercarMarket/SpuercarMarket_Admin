@@ -24,6 +24,16 @@ import CooperationListDetailForm from "components/Cooperation/CooperationListDet
 import CooperationInquiryForm from "components/Cooperation/CooperationInquiry/CooperationInquiryForm";
 import CooperationInquiryDetailForm from "components/Cooperation/CooperationInquiryDetail/CooperationInquiryDetailForm";
 
+import BannerListForm from "components/Advertisement/Banner/BannerList/BannerListForm";
+import BannerDetailForm from "components/Advertisement/Banner/BannerDetail/BannerDetailForm";
+import BannerUpdateForm from "components/Advertisement/Banner/BannerDetail/BannerUpdateForm";
+import BannerCreateForm from "components/Advertisement/Banner/BannerDetail/BannerCreateForm";
+import AdvertisementListForm from "../components/Advertisement/AdvertisementList/AdvertisementListForm";
+import AdvertisementDetailForm from "../components/Advertisement/AdvertisementDetail/AdvertisementDetailForm";
+import AdvertisementInquiryListForm from "../components/Advertisement/AdvertisementInquiryList/AdvertisementInquiryListForm";
+import AdvertisementInquiryDetailForm from "../components/Advertisement/AdvertisementInquiryDetail/AdvertisementInquiryDetailForm";
+import AdvertisementEditForm from "../components/Advertisement/AdvertisementEdit/AdvertisementEditForm";
+import AdvertisementModifyForm from "../components/Advertisement/AdvertisementModify/AdvertisementModifyForm";
 const AdminPages = () => {
   return (
     <Routes>
@@ -74,6 +84,31 @@ const AdminPages = () => {
           path="/cooperationinquirylist/:cooperationlistId"
           element={<CooperationInquiryDetailForm />}
         />
+        {/* 광고 관리*/}
+        <Route path="/advertisementlist" element={<AdvertisementListForm />} />
+        <Route
+          path="/advertisementlist/edit/:brdSeq"
+          element={<AdvertisementModifyForm />}
+        />
+        <Route
+          path="/advertisementlist/:brdSeq"
+          element={<AdvertisementDetailForm />}
+        />
+        <Route path="/advertisement/add" element={<AdvertisementEditForm />} />
+        <Route
+          path="/advertisementlist/inquiry"
+          element={<AdvertisementInquiryListForm />}
+        />
+        <Route
+          path="/advertisementlist/inquiry/:brdSeq"
+          element={<AdvertisementInquiryDetailForm />}
+        />
+        {/* 배너 관리*/}
+        <Route path="/bannerlist" element={<BannerListForm />} />
+
+        <Route path="/banner/:id" element={<BannerDetailForm />} />
+        <Route path="/banner/update/:id" element={<BannerUpdateForm />} />
+        <Route path="/banner/create" element={<BannerCreateForm />} />
         {/* 문의 하기 */}
         <Route path="/etcinquiry" element={<EtcInquiryForm />} />
         <Route

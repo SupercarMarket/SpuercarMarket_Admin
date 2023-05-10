@@ -7,9 +7,10 @@ interface Props {
     defaultValue: string;
     thumbnailImage: string;
     setThumbnailImage: Function;
+    setUploadedImage: Function;
 }
 
-function MagazineEditorHeaderBoxForm({ titleRef, defaultValue, thumbnailImage, setThumbnailImage }: Props) {
+function MagazineEditorHeaderBoxForm({ titleRef, defaultValue, thumbnailImage, setThumbnailImage, setUploadedImage }: Props) {
     const textareaResizeHandler = useCallback(() => {
         if (titleRef && titleRef.current) {
             titleRef.current.style.height = titleRef.current.scrollHeight + "px";
@@ -18,9 +19,9 @@ function MagazineEditorHeaderBoxForm({ titleRef, defaultValue, thumbnailImage, s
 
     return (
         <>
-            <MagazineHeaderThumbnail src={thumbnailImage} />
+            {thumbnailImage && <MagazineHeaderThumbnail src={thumbnailImage} alt="thumbnailImage" />}
             <MagazineHeaderBox>
-                <ThumbnailBoxForm thumbnailImage={thumbnailImage} setThumbnailImage={setThumbnailImage} />
+                <ThumbnailBoxForm thumbnailImage={thumbnailImage} setThumbnailImage={setThumbnailImage} setUploadedImage={setUploadedImage} />
                 <MagazineTitleTextArea defaultValue={defaultValue} ref={titleRef} placeholder="제목을 입력해주세요." onInput={textareaResizeHandler} />
             </MagazineHeaderBox>
         </>

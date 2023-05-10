@@ -6,20 +6,29 @@ import { MagazineHeaderBox, MagazineTitle, MagazineInfo, MagazineProfileImage, M
 import { ReactComponent as EyeIcon } from "assets/eye.svg";
 import { ReactComponent as ChatIcon } from "assets/chat.svg";
 
-function MagazineDetailHeaderForm() {
-    const { detailItem } = useAppSelector((state) => state.MagazineListSlice);
+type MagazineDetailHeaderProps = {
+    thumbnailImageSrc: string;
+    title: string;
+    userProfileSrc: string;
+    userNickName: string;
+    postCreatedAt: string;
+    postViewCnt: number;
+    postCommentCnt: number;
+};
+
+function MagazineDetailHeaderForm({ thumbnailImageSrc, title, userProfileSrc, userNickName, postCreatedAt, postViewCnt, postCommentCnt }: MagazineDetailHeaderProps) {
     return (
-        <MagazineHeaderBox imageUrl={detailItem.thumbnail}>
-            <MagazineTitle>{detailItem.title}</MagazineTitle>
+        <MagazineHeaderBox imageUrl={thumbnailImageSrc}>
+            <MagazineTitle>{title}</MagazineTitle>
             <MagazineInfo>
-                <MagazineProfileImage imageUrl={detailItem.user.profileSrc} />
-                <MagazineWriter>{detailItem.user.nickName}</MagazineWriter>
-                <MagazineCreatedDate>{detailItem.createAt}</MagazineCreatedDate>
+                <MagazineProfileImage imageUrl={userProfileSrc} />
+                <MagazineWriter>{userNickName}</MagazineWriter>
+                <MagazineCreatedDate>{postCreatedAt}</MagazineCreatedDate>
                 <MagazineCount>
                     <EyeIcon width="15px" fill="white" />
-                    <span style={{ marginRight: "10px" }}>{detailItem.view}</span>
+                    <span style={{ marginRight: "10px" }}>{postViewCnt}</span>
                     <ChatIcon width="15px" fill="white" />
-                    <span>{detailItem.totalCommentCount}</span>
+                    <span>{postCommentCnt}</span>
                 </MagazineCount>
             </MagazineInfo>
         </MagazineHeaderBox>

@@ -10,6 +10,7 @@ import MagazineListSlice from "redux/modules/MagazineListSlice";
 import MagazineTmpSlice from "redux/modules/MagazineTmpSlice";
 import CooperationSlice from "redux/modules/CooperationSlice";
 import CommunitySlice from "redux/modules/CommunitySlice";
+import AdvertisementSlice from "../redux/modules/AdvertisementSlice";
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     MagazineTmpSlice: MagazineTmpSlice,
     CooperationSlice: CooperationSlice,
     CommunitySlice: CommunitySlice,
+    AdvertisementSlice: AdvertisementSlice,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false,
