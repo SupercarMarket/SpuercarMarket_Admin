@@ -1,21 +1,23 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
-  ModalOuter,
-  ModalWrapper,
-  ModalTitle,
-  ModalDisplayBox,
-  ModalSubTitle,
-  ModalInput,
-  ModalProfileImg,
-  ModalButtonWrapper,
   ModalButton,
+  ModalButtonWrapper,
+  ModalDisplayBox,
+  ModalInput,
+  ModalOuter,
+  ModalProfileImg,
+  ModalSubTitle,
+  ModalTitle,
+  ModalWrapper,
   WarningSpan,
 } from "./ModalForm.styled";
 import ClientAxios from "../../../utils/api/AxiosAPI/ClientAxios";
 import { AdminLogout } from "../../../utils/api/Login/LoginAPI";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
+import DefaultIcon from "../../../assets/default_user_icon.svg";
+import modalForm from "../../Cooperation/Modal/ModalForm";
 
 interface ModalPropsType {
   type: string;
@@ -25,16 +27,42 @@ interface ModalPropsType {
 
 const ModalForm = ({ type, isOpenModal, setIsOpenModal }: ModalPropsType) => {
   const pwInputRef = useRef<HTMLInputElement>(null);
+  const fileInput = useRef<HTMLInputElement>(null);
   const [isError, setIsError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [isConfirmError, setIsConfirmError] = useState(false);
   const [currentPassword, setCurrentPassword] = useState<string>();
   const [newPassword, setNewPassword] = useState<string>();
   const [newPasswordRe, setNewPasswordRe] = useState<string>();
+  const [seq, setSeq] = useState<number>();
+  const [file, setFile] = useState<any>();
+  const [fileName, setFileName] = useState();
+  const [fileUrl, setFileUrl] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [phone, setPhone] = useState<string>();
+  const [nickName, setNickName] = useState<string>();
+  const [imageChange, setImageChange] = useState<boolean>();
   const navigate = useNavigate();
+  const [profile, setProfile] = useState<any>(
+    `${localStorage.getItem("login-imgSrc")}`
+  );
+
   const [confirmErrorMsg, setConrifmErrorMsg] =
     useState("비밀번호가 일치하지 않습니다.");
+
   useEffect(() => {
+    ClientAxios.get(`/admin/info`)
+      .then((response) => {
+        if (response.status === 200) {
+          setSeq(response.data.seq);
+          setEmail(response.data.email);
+          setPhone(response.data.phone);
+          setNickName(response.data.nickName);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
     document.body.style.cssText = `
         position: fixed; 
         top: -${window.scrollY}px;
@@ -50,7 +78,6 @@ const ModalForm = ({ type, isOpenModal, setIsOpenModal }: ModalPropsType) => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setCurrentPassword(event.target.value);
-    console.log(currentPassword);
     setIsConfirmError(false);
   };
 
@@ -64,7 +91,6 @@ const ModalForm = ({ type, isOpenModal, setIsOpenModal }: ModalPropsType) => {
       );
     } else {
       setNewPassword(event.target.value);
-      console.log(newPassword);
       setIsError(false);
     }
   };
@@ -74,7 +100,6 @@ const ModalForm = ({ type, isOpenModal, setIsOpenModal }: ModalPropsType) => {
       setIsConfirmError(true);
     } else {
       setNewPasswordRe(event.target.value);
-      console.log(newPasswordRe);
       setIsConfirmError(false);
     }
   };
@@ -105,6 +130,47 @@ const ModalForm = ({ type, isOpenModal, setIsOpenModal }: ModalPropsType) => {
         } else {
           alert(error);
         }
+      });
+  };
+
+  //프로필 사진 변경
+  const changeProfileImage = (event: any) => {
+    setFile(event.target.files[0]);
+    console.log(event.target.files[0]);
+    setFileUrl(URL.createObjectURL(event.target.files[0]));
+    setFileName(event.target.files[0].name);
+    setProfile(URL.createObjectURL(event.target.files[0]));
+    setImageChange(true);
+  };
+
+  const changeMyInfoHandler = async () => {
+    console.log(file);
+    const formData = new FormData();
+    const requestDto = {
+      phone: phone,
+      email: email,
+      nickName: nickName,
+    };
+    formData.append("img", file);
+    const blob = new Blob([JSON.stringify(requestDto)], {
+      type: "application/json",
+    });
+    formData.append("infoChangeDto", blob);
+    await ClientAxios.patch(`/admin/my-info`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.setItem("login-imgSrc", response.data.imgSrc);
+          localStorage.setItem("login-nickname", response.data.nickName);
+          alert("[정보 수정 완료]");
+          setIsOpenModal(false);
+        }
+      })
+      .catch((error) => {
+        alert(error);
       });
   };
 
@@ -192,7 +258,10 @@ const ModalForm = ({ type, isOpenModal, setIsOpenModal }: ModalPropsType) => {
               <ModalSubTitle>닉네임</ModalSubTitle>
               <ModalInput
                 placeholder="닉네임을 입력하세요."
-                defaultValue={`닉네임닉네임`}
+                defaultValue={nickName}
+                onChange={(event) => {
+                  setNickName(event.target.value);
+                }}
               />
             </ModalDisplayBox>
             <ModalDisplayBox>
@@ -200,21 +269,42 @@ const ModalForm = ({ type, isOpenModal, setIsOpenModal }: ModalPropsType) => {
                 프로필 사진
               </ModalSubTitle>
               <ModalDisplayBox style={{ alignItems: "end" }}>
-                <ModalProfileImg />
-                <ModalButton title="cancel">수정하기</ModalButton>
+                <ModalProfileImg
+                  src={profile !== "null" ? (profile as string) : DefaultIcon}
+                />
+                <React.Fragment>
+                  <ModalButton
+                    title="cancel"
+                    // typeof={"file"}
+                    onClick={() => fileInput.current?.click()}
+                  >
+                    수정하기
+                  </ModalButton>
+                  <input
+                    ref={fileInput}
+                    type="file"
+                    style={{ display: "none" }}
+                    accept="image/jpg, image/png, image/jpeg"
+                    onChange={changeProfileImage}
+                  />
+                  {/*</AppStyle>*/}
+                </React.Fragment>
               </ModalDisplayBox>
             </ModalDisplayBox>
             <ModalDisplayBox>
               <ModalSubTitle>이메일</ModalSubTitle>
-              <ModalInput defaultValue={`abce@gmail.com`} disabled />
+              <ModalInput defaultValue={email} disabled />
             </ModalDisplayBox>
             <ModalDisplayBox>
               <ModalSubTitle style={{ paddingRight: "77px" }}>
                 전화번호
               </ModalSubTitle>
               <ModalInput
-                defaultValue={`01000000000`}
+                defaultValue={phone}
                 placeholder={`전화번호를 입력하세요.`}
+                onChange={(event) => {
+                  setPhone(event.target.value);
+                }}
               />
             </ModalDisplayBox>
             <ModalDisplayBox style={{ justifyContent: "center" }}>
@@ -225,7 +315,9 @@ const ModalForm = ({ type, isOpenModal, setIsOpenModal }: ModalPropsType) => {
                 >
                   취소
                 </ModalButton>
-                <ModalButton title="">수정 완료</ModalButton>
+                <ModalButton title="" onClick={() => changeMyInfoHandler()}>
+                  수정 완료
+                </ModalButton>
               </ModalButtonWrapper>
             </ModalDisplayBox>
           </ModalWrapper>
