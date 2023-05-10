@@ -13,7 +13,7 @@ import {
 import { useAppSelector } from "../../../../../../store/rootReducer";
 
 const DealerInfoTableForm = () => {
-  const { detailItem } = useAppSelector( state => state.MarketSlice );
+  const { detailItem } = useAppSelector((state) => state.MarketSlice);
   return (
     <>
       <DealerInfoWrapper>
@@ -28,31 +28,42 @@ const DealerInfoTableForm = () => {
             </tr>
             <tr>
               <DealerHeader>상사 주소</DealerHeader>
-              <DealerContent colSpan={3}>{detailItem?.dealerInfo?.comAddress}</DealerContent>
+              <DealerContent colSpan={3}>
+                {detailItem?.dealerInfo?.comAddress}
+              </DealerContent>
             </tr>
             <tr>
               {/* 조합 */}
               <DealerHeader>조합명</DealerHeader>
-              <DealerContent>{detailItem?.dealerInfo?.guildName }</DealerContent>
+              <DealerContent>{detailItem?.dealerInfo?.guildName}</DealerContent>
               <DealerHeader>사원증 번호</DealerHeader>
-              <DealerContent>{detailItem?.dealerInfo?.dlrNum }</DealerContent>
+              <DealerContent>{detailItem?.dealerInfo?.dlrNum}</DealerContent>
             </tr>
             <tr>
               {/* 사원증 */}
               <DealerPhotoHeader>사원증 사진 앞면</DealerPhotoHeader>
               <DealerPhotoContent>
-                <DealerPhoto src={detailItem?.dealerInfo?.dlrEmployeeCardFront} alt={'사원증 앞면'}/>
+                <DealerPhoto
+                  src={detailItem?.dealerInfo?.dlrEmployeeCardFront}
+                  alt={"사원증 앞면"}
+                />
               </DealerPhotoContent>
               <DealerPhotoHeader>사원증 사진 뒷면</DealerPhotoHeader>
               <DealerPhotoContent>
-                <DealerPhoto src={detailItem?.dealerInfo?.dlrEmployeeCardBack} alt={'사원증 후면'}/>
+                <DealerPhoto
+                  src={detailItem?.dealerInfo?.dlrEmployeeCardBack}
+                  alt={"사원증 후면"}
+                />
               </DealerPhotoContent>
             </tr>
             <tr>
               {/* 프로필 사진 */}
               <DealerPhotoHeader>프로필 사진</DealerPhotoHeader>
               <DealerPhotoContent>
-                <DealerPhoto src={detailItem?.dealerInfo?.dlrProfileImage} alt={'프로필 사진'}/>
+                <DealerPhoto
+                  src={detailItem?.dealerInfo?.dlrProfileImage}
+                  alt={"프로필 사진"}
+                />
               </DealerPhotoContent>
               <DealerPhotoContent colSpan={2} />
             </tr>
@@ -62,16 +73,7 @@ const DealerInfoTableForm = () => {
                 추가 전달 내용
               </DealerHeader>
               <DealerContent colSpan={3}>
-                상사명 상사명 상사명 상사명상사명 상사명상사명 상사명상사명
-                상사명상사명 상사명상사명 상사명상사명 상사명상사명 상사명상사명
-                상사명상사명 상사명상사명 상사명상사명 상사명상사명 상사명상사명
-                상사명상사명 상사명상사명 상사명상사명 상사명상사명 상사명상사명
-                상사명상사명 상사명상사명 상사명상사명 상사명상사명 상사명상사명
-                상사명상사명 상사명상사명 상사명상사명 상사명상사명 상사명상사명
-                상사명상사명 상사명상사명 상사명상사명 상사명상사명 상사명상사명
-                상사명상사명 상사명상사명 상사명상사명 상사명상사명 상사명상사명
-                상사명상사명 상사명상사명 상사명상사명 상사명상사명 상사명상사명
-                상사명
+                {detailItem?.dealerInfo?.comment}
               </DealerContent>
             </tr>
           </tbody>

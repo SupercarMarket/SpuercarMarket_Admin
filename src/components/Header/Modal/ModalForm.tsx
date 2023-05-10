@@ -17,7 +17,6 @@ import { AdminLogout } from "../../../utils/api/Login/LoginAPI";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import DefaultIcon from "../../../assets/default_user_icon.svg";
-import modalForm from "../../Cooperation/Modal/ModalForm";
 
 interface ModalPropsType {
   type: string;
@@ -136,7 +135,6 @@ const ModalForm = ({ type, isOpenModal, setIsOpenModal }: ModalPropsType) => {
   //프로필 사진 변경
   const changeProfileImage = (event: any) => {
     setFile(event.target.files[0]);
-    console.log(event.target.files[0]);
     setFileUrl(URL.createObjectURL(event.target.files[0]));
     setFileName(event.target.files[0].name);
     setProfile(URL.createObjectURL(event.target.files[0]));
@@ -144,7 +142,6 @@ const ModalForm = ({ type, isOpenModal, setIsOpenModal }: ModalPropsType) => {
   };
 
   const changeMyInfoHandler = async () => {
-    console.log(file);
     const formData = new FormData();
     const requestDto = {
       phone: phone,

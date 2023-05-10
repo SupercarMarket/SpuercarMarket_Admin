@@ -1,11 +1,20 @@
-import React from 'react'
-import { TableHeader, TableContent, TableContentClamp } from "../../../ForSaleListDetail/ForSaleListDetailForm.styled";
-import { VehicleDetailForSaleInfoTableWrapper, VehicleDetailForSaleInfoTable } from "./VehicleDetailTableForm.styled";
+import React from "react";
+import {
+  TableHeader,
+  TableContent,
+  TableContentClamp,
+} from "../../../ForSaleListDetail/ForSaleListDetailForm.styled";
+import {
+  VehicleDetailForSaleInfoTableWrapper,
+  VehicleDetailForSaleInfoTable,
+} from "./VehicleDetailTableForm.styled";
 
 import { useAppSelector } from "../../../../../store/rootReducer";
 
 const VehicleDetailTableForm = () => {
-  const { detailItem } = useAppSelector( state => state.ForSaleListSlice );
+  const { inquiryDetailItem } = useAppSelector(
+    (state) => state.ForSaleListSlice
+  );
   return (
     <>
       <VehicleDetailForSaleInfoTableWrapper>
@@ -14,7 +23,9 @@ const VehicleDetailTableForm = () => {
             <tr>
               <TableHeader style={{ height: "116px" }}>차량 설명글</TableHeader>
               <TableContent style={{ width: "1480px" }}>
-                <TableContentClamp>{detailItem?.introduction}</TableContentClamp>
+                <TableContentClamp>
+                  {inquiryDetailItem?.introduction}
+                </TableContentClamp>
               </TableContent>
             </tr>
           </tbody>
@@ -22,6 +33,6 @@ const VehicleDetailTableForm = () => {
       </VehicleDetailForSaleInfoTableWrapper>
     </>
   );
-}
+};
 
-export default VehicleDetailTableForm
+export default VehicleDetailTableForm;

@@ -62,6 +62,34 @@ interface MarketItemDetailType {
   dealerInfo: MarketItemUserInfo;
 }
 
+// 매물 문의 상세 리스트 type
+interface MarketInquiryItemDetailType {
+  carNumber: string;
+  category: string;
+  carName: string;
+  brand: string;
+  model: string;
+  regDate: string;
+  year: string;
+  fuel: string;
+  cc: string;
+  mileage: number;
+  color: string;
+  accident: boolean;
+  // 두개 바뀐듯
+  price: string;
+  sellType: number;
+  //
+  transmissionType: string;
+  appear: boolean;
+  description: string;
+  introduction: string;
+  imgSrc: string[];
+  attSrc: AttchType;
+  accept: string;
+  dealerInfo: MarketItemUserInfo;
+}
+
 // 매물 등록자 정보
 interface MarketItemUserInfo {
   dlrSeq: number;
@@ -84,6 +112,7 @@ interface MarketItemUserInfo {
   commentCount: number;
   regAdmin: string;
   regAdminEmail: string;
+  comment: string;
 }
 
 // attchSrc type
@@ -119,6 +148,7 @@ export interface ForSaleInitType {
   list: ForSaleListType[];
 
   detailItem?: MarketItemDetailType;
+  inquiryDetailItem?: MarketInquiryItemDetailType;
 }
 
 interface ForSaleListType {
