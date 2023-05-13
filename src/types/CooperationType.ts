@@ -35,6 +35,7 @@ export interface CooperationListType {
   phoneNumber: string;
   createdDate: string;
   companyName: string;
+  isAppear: boolean;
 }
 
 export interface InitCooperationStateType {

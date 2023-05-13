@@ -1,11 +1,11 @@
-import { useRef, Fragment } from "react";
+import { Fragment, useRef } from "react";
 import {
-  Tbody,
   BodyButton,
   BodyContent,
   CheckBoxWrapper,
   InputCheckBox,
   LabelCheckBox,
+  Tbody,
 } from "./TableBodyForm.styled";
 
 import {
@@ -15,12 +15,9 @@ import {
 import { CooperationAction } from "redux/modules/CooperationSlice";
 import { useAppDispatch, useAppSelector } from "store/rootReducer";
 import { useNavigate } from "react-router";
+import ClientAxios from "../../../../../../utils/api/AxiosAPI/ClientAxios";
 
-const TableBodyForm = ({
-  offset,
-  postsPerPage,
-  totalContentsCount,
-}: CooperationPropsType) => {
+const TableBodyForm = ({}: CooperationPropsType) => {
   const inputCheckTypeRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -46,6 +43,19 @@ const TableBodyForm = ({
   // 제휴업체 디테일로 넘어가기
   const cooperationDetailOnClickHandler = (brdSeq: number) => {
     navigate(`/cooperationlist/${brdSeq}`);
+  };
+  const hidePartnershipHandler = async (id: number) => {
+    await ClientAxios.post(`/partnerships/hide/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          alert("[완료]");
+          // eslint-disable-next-line no-restricted-globals
+          location.reload();
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   return (
@@ -75,8 +85,15 @@ const TableBodyForm = ({
               <BodyContent>{TypeOfBusiness[item.category]}</BodyContent>
               <BodyContent>{item.workingTime}</BodyContent>
               <BodyContent>{item.wiredNumber}</BodyContent>
-              <BodyContent rowSpan={2}>
-                <BodyButton>숨기기</BodyButton>
+              <BodyContent
+                rowSpan={2}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
+                <BodyButton onClick={() => hidePartnershipHandler(item.brdSeq)}>
+                  {item.isAppear ? "숨기기" : "숨기기 취소"}
+                </BodyButton>
               </BodyContent>
             </tr>
             <tr>
