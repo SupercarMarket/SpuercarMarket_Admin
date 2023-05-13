@@ -13,7 +13,10 @@ import {
 } from "../../../../../../store/rootReducer";
 import { AdvertisementAction } from "../../../../../../redux/modules/AdvertisementSlice";
 import SmallDropDownForm from "../../../../../Common/DropDown/TableHeaderDropDownForm";
-import { AdvertisementSetPageSwitchDropDownMap } from "../../../../../../types/DropDownType";
+import {
+  AdvertisementSetPageSwitchDropDownMap,
+  AdvertisementSetStateSwitchDropDownMap,
+} from "../../../../../../types/DropDownType";
 
 const TableHeaderForm = () => {
   const { allChecked } = useAppSelector((state) => state.AdvertisementSlice);
@@ -23,11 +26,6 @@ const TableHeaderForm = () => {
   const LiOnClickHandler = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>
   ) => {
-    console.log(
-      AdvertisementSetPageSwitchDropDownMap[
-        event.currentTarget.textContent as string
-      ]
-    );
     dispatch(
       AdvertisementAction.setFilter({
         filter: AdvertisementSetPageSwitchDropDownMap[
@@ -35,11 +33,17 @@ const TableHeaderForm = () => {
         ] as string,
       })
     );
-    // setType(
-    //   AdvertisementSetPageSwitchDropDownMap[
-    //     event.currentTarget.textContent as string
-    //   ]
-    // );
+  };
+  const StateLiOnClickHandler = (
+    event: React.MouseEvent<HTMLLIElement, MouseEvent>
+  ) => {
+    dispatch(
+      AdvertisementAction.setState({
+        status: AdvertisementSetStateSwitchDropDownMap[
+          event.currentTarget.textContent as string
+        ] as string,
+      })
+    );
   };
   const allCheckBoxClickHandler = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -76,7 +80,14 @@ const TableHeaderForm = () => {
         <TableHeader>URL</TableHeader>
         <TableHeader rowSpan={2}>기간</TableHeader>
         <TableHeader rowSpan={2}>단가</TableHeader>
-        <TableHeader rowSpan={2}>노출여부</TableHeader>
+        <TableHeader rowSpan={2}>
+          노출여부 <br />{" "}
+          <SmallDropDownForm
+            category={"advertisement_page_state_list"}
+            LiOnClick={(event) => StateLiOnClickHandler(event)}
+            titleRef={DropDownTitleRef}
+          ></SmallDropDownForm>
+        </TableHeader>
         <TableHeader rowSpan={2}>노출 여부 변경</TableHeader>
       </tr>
       <tr>

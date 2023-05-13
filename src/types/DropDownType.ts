@@ -133,6 +133,11 @@ export const DropDownItemMap: DropDownMapItemsType = {
     { name: "통합검색" },
     { name: "LIVE" },
   ],
+  advertisement_page_state_list: [
+    { name: "전체" },
+    { name: "종료" },
+    { name: "진행 중" },
+  ],
 
   month_list: [
     { name: "1월" },
@@ -290,6 +295,11 @@ export const AdvertisementSetPageSwitchDropDownMap: DropDownMapType = {
   문의: "SM006",
   통합검색: "SM007",
   LIVE: "SM008",
+};
+export const AdvertisementSetStateSwitchDropDownMap: DropDownMapType = {
+  전체: "",
+  "진행 중": "ing",
+  종료: "end",
 };
 
 export const AdvertisementSetMonthSwitchDropDownMap: DropDownMapType = {

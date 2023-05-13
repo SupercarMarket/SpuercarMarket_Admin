@@ -21,9 +21,8 @@ const AdvertisementListForm = () => {
   const [isPage, setIsPage] = useState<number>(startPage);
   const offset = (isPage - 1) * postsPerPage;
 
-  const { isLoading, filter, keyword, currentPage, updated } = useAppSelector(
-    (state) => state.AdvertisementSlice
-  );
+  const { isLoading, filter, keyword, currentPage, updated, status } =
+    useAppSelector((state) => state.AdvertisementSlice);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -35,13 +34,14 @@ const AdvertisementListForm = () => {
         getAdvertisementList({
           filter: filter as string,
           keyword: keyword as string,
+          status: status as string,
           page: isPage,
         })
       );
     }
 
     setIsPage(() => currentPage);
-  }, [isPage, currentPage, dispatch, updated, filter]);
+  }, [isPage, currentPage, dispatch, updated, filter, status]);
 
   return (
     <Wrapper>

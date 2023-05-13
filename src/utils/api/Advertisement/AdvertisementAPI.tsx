@@ -5,7 +5,8 @@ import { AxiosError } from "axios";
 export const getAdvertisementListHandler = async (
   filter: string,
   keyword: string,
-  page: number
+  page: number,
+  status: string
 ) => {
   try {
     return await ClientAxios.get(`ad`, {
@@ -13,6 +14,7 @@ export const getAdvertisementListHandler = async (
         filter: filter,
         keyword: keyword,
         page: page,
+        status: status,
       },
     });
   } catch (error) {
