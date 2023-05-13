@@ -72,36 +72,30 @@ const CooperationSlice = createSlice({
     },
     // 전체 체크
     setCooperationListAllChecked: (state, action) => {
-      // if (action.payload.allChecked) {
-      //   const checked: number[] = [];
-      //   state.list.forEach((list) => {
-      //     console.log(list);
-      //     if (!list.pdtApper) {
-      //       checked.push(list.brdSeq);
-      //     }
-      //   });
-      //   state.checkList = checked;
-      //   console.log(state.checkList);
-      // } else {
-      //   state.checkList = [];
-      // }
-      // state.allChecked = !state.allChecked;
-      // console.log(state.allChecked);
+      if (action.payload.allChecked) {
+        const checked: number[] = [];
+        state.list.forEach((list) => {
+          // if (!list.pdtApper) {
+          checked.push(list.brdSeq);
+          // }
+        });
+        state.checkList = checked;
+      } else {
+        state.checkList = [];
+      }
+      state.allChecked = !state.allChecked;
     },
     // 각각 체크
     setCooperationListEachChecked: (state, action) => {
-      // if (action.payload.isChecked) {
-      //   state.checkList = [...state.checkList, action.payload.brdSeq];
-      //   // const length = state.list.filter((list) => !list.pdtApper).length;
-      //   if (length === state.checkList.length) {
-      //     state.allChecked = true;
-      //   }
-      // } else {
-      //   state.checkList = state.checkList.filter(
-      //     (item) => item !== action.payload.brdSeq
-      //   );
-      //   state.allChecked = false;
-      // }
+      if (action.payload.isChecked) {
+        state.checkList = [...state.checkList, action.payload.brdSeq];
+        state.allChecked = true;
+      } else {
+        state.checkList = state.checkList.filter(
+          (item) => item !== action.payload.brdSeq
+        );
+        state.allChecked = false;
+      }
     },
   },
   extraReducers: (builder) => {

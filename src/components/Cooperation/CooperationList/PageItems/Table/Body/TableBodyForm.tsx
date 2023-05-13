@@ -44,6 +44,8 @@ const TableBodyForm = ({}: CooperationPropsType) => {
   const cooperationDetailOnClickHandler = (brdSeq: number) => {
     navigate(`/cooperationlist/${brdSeq}`);
   };
+
+  //숨기기 / 숨기기 취소
   const hidePartnershipHandler = async (id: number) => {
     await ClientAxios.post(`/partnerships/hide/${id}`)
       .then((response) => {
@@ -63,8 +65,16 @@ const TableBodyForm = ({}: CooperationPropsType) => {
       {list.map((item, index) => {
         return (
           <Fragment key={item.brdSeq}>
-            <tr onClick={() => cooperationDetailOnClickHandler(item.brdSeq)}>
-              <BodyContent rowSpan={2}>
+            <tr
+              onClick={() => cooperationDetailOnClickHandler(item.brdSeq)}
+              style={{ cursor: "pointer" }}
+            >
+              <BodyContent
+                rowSpan={2}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
                 <CheckBoxWrapper>
                   <InputCheckBox
                     id={item.brdSeq.toString()}
@@ -96,7 +106,10 @@ const TableBodyForm = ({}: CooperationPropsType) => {
                 </BodyButton>
               </BodyContent>
             </tr>
-            <tr>
+            <tr
+              onClick={() => cooperationDetailOnClickHandler(item.brdSeq)}
+              style={{ cursor: "pointer" }}
+            >
               <BodyContent>{item.userName}</BodyContent>
               <BodyContent>{item.address}</BodyContent>
               <BodyContent>{item.treatedItem}</BodyContent>
