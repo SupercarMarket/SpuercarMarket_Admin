@@ -41,7 +41,7 @@ const AdvertisementListForm = () => {
     }
 
     setIsPage(() => currentPage);
-  }, [isPage, currentPage, dispatch, updated]);
+  }, [isPage, currentPage, dispatch, updated, filter]);
 
   return (
     <Wrapper>

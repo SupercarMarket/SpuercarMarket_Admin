@@ -221,7 +221,10 @@ const AdvertisementSlice = createSlice({
         state.inquiryAllChecked = false;
       }
     },
-
+    //광고 필터 조회
+    setFilter(state, action) {
+      state.filter = action.payload.filter;
+    },
     setAdvertisementShowImage(state, action) {
       state.showImage = action.payload.showImage;
     },

@@ -53,7 +53,7 @@ const TableBodyForm = ({
       {list.map((item, index) => {
         return (
           <Fragment key={item.brdSeq}>
-            <tr>
+            <tr onClick={() => cooperationDetailOnClickHandler(item.brdSeq)}>
               <BodyContent rowSpan={2}>
                 <CheckBoxWrapper>
                   <InputCheckBox
@@ -63,7 +63,7 @@ const TableBodyForm = ({
                     onChange={(event) => {
                       inputCheckOnChangeHandler(event);
                     }}
-                    checked={checkList.includes(item.brdSeq) ? true : false}
+                    checked={!!checkList.includes(item.brdSeq)}
                   />
                   <LabelCheckBox htmlFor={item.brdSeq.toString()} />
                 </CheckBoxWrapper>

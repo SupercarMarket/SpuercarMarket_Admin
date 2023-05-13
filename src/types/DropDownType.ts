@@ -123,6 +123,7 @@ export const DropDownItemMap: DropDownMapItemsType = {
     { name: "10" },
   ],
   advertisement_page_list: [
+    { name: "전체" },
     { name: "메인" },
     { name: "매장" },
     { name: "매거진" },
@@ -280,6 +281,7 @@ export const BannerOrderList: DropDownMapType = {
 };
 
 export const AdvertisementSetPageSwitchDropDownMap: DropDownMapType = {
+  전체: "",
   메인: "SM001",
   매장: "SM002",
   매거진: "SM003",
