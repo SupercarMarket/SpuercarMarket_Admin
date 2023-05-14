@@ -47,9 +47,12 @@ export const setCommunityHideCancel = createAsyncThunk(
     "PATCH/community/hide-cancel",
     async (params: any, thunkApi) => {
         try {
-            return await setCommunityHideCancelHandler(
+            const response = await setCommunityHideCancelHandler(
                 params
             );
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+            return response;
         } catch (error) {
             return thunkApi.rejectWithValue(error);
         }
@@ -61,9 +64,12 @@ export const setCommunityHide = createAsyncThunk(
     "PATCH/community/hide",
     async (params: any, thunkApi) => {
         try {
-            return await setCommunityHideHandler(
+            const response = await setCommunityHideHandler(
                 params
             );
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+            return response;
         } catch (error) {
             return thunkApi.rejectWithValue(error);
         }
