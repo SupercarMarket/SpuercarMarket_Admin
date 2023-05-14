@@ -6,21 +6,34 @@ import {
     CommunityInputCheckBox,
     CommunityLabelCheckBox,
 } from "./CommnunityMainTableHeaderForm.styled";
-import SmallDropDownForm from "../../../../../Common/SmallDropDown/SmallDropDownForm";
 import {CommunityAction} from "../../../../../../redux/modules/CommunitySlice";
-import {useAppDispatch} from "../../../../../../store/rootReducer";
+import {useAppDispatch, useAppSelector} from "../../../../../../store/rootReducer";
+import CommunityTableHeaderDropDownForm from "./CommunityTableHeaderDropDownForm";
+import { CommunityCategoryDropDownMap } from "types/DropDownType";
+import {AdvertisementAction} from "../../../../../../redux/modules/AdvertisementSlice";
+import {
+    LabelCheckBox
+} from "../../../../../Advertisement/AdvertisementList/PageItems/Table/Header/TableHeaderForm.styled";
 
 const CommunityMainTableHeaderForm = () => {
+    const { allChecked } = useAppSelector((state) => state.CommunitySlice);
     const dispatch = useAppDispatch();
+    const allCheckBoxClickHandler = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        dispatch(
+            CommunityAction.setCommunityListAllChecked({
+                allChecked: event.target.checked,
+            })
+        );
+    };
     const LiOnClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-        const clickedCategory = event.currentTarget.textContent as string;
-        console.log(clickedCategory)
-        // setCategory(clickedCategory);
-        dispatch(CommunityAction.setCommunityCategory({clickedCategory}))
+        dispatch(CommunityAction.setCommunityCategory({clickedCategory : CommunityCategoryDropDownMap[
+                event.currentTarget.textContent as string
+            ] as string}))
     };
 
-
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLSpanElement>(null);
     return (
         <CommunityThead>
             <tr>
@@ -29,7 +42,11 @@ const CommunityMainTableHeaderForm = () => {
                     style={{height: "80px", width: "80px"}}
                 >
                     <CommunityCheckBoxWrapper>
-                        <CommunityInputCheckBox id="checkbox_header"/>
+                        <CommunityInputCheckBox
+                            id="checkbox_header"
+                            onChange={(event) => allCheckBoxClickHandler(event)}
+                            checked={allChecked}
+                        />
                         <CommunityLabelCheckBox htmlFor="checkbox_header"/>
                     </CommunityCheckBoxWrapper>
                 </CommunityTableHeader>
@@ -45,8 +62,8 @@ const CommunityMainTableHeaderForm = () => {
                         }}
                     >
                         <span style={{marginBottom: "8px"}}>카테고리</span>
-                        <SmallDropDownForm
-                            category="community_list_category"
+                        <CommunityTableHeaderDropDownForm
+                            category={"community_list_category"}
                             titleRef={ref}
                             LiOnClick={(event)=>LiOnClick(event)}
                         />

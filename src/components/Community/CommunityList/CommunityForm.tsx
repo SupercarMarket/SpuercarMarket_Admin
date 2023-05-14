@@ -39,7 +39,7 @@ const CommunityForm = ({setCategory}:any) => {
       );
     }
     setIsPage(() => currentPage);
-  }, [isPage, currentPage, dispatch]);
+  }, [isPage, currentPage, dispatch, category]);
 
   return (
     <Wrapper>

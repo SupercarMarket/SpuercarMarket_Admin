@@ -14,6 +14,7 @@ import {
 } from "./CommunityMainTableBodyForm.styled";
 
 import {CommunityPropsType} from "../../../../../../types/CommunityType";
+import {AdvertisementAction} from "../../../../../../redux/modules/AdvertisementSlice";
 
 const CommunityMainTableBodyForm = ({
                                         offset,
@@ -23,7 +24,7 @@ const CommunityMainTableBodyForm = ({
     const inputCheckTypeRef = useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const {list} = useAppSelector((state) => state.CommunitySlice);
+    const {list, checkList} = useAppSelector((state) => state.CommunitySlice);
 
     // 항목 체크 박스 셋업
     const userCheckBoxClickHandler = (brdSeq: number, isChecked: boolean) => {
@@ -32,18 +33,21 @@ const CommunityMainTableBodyForm = ({
         );
     };
 
-    const inputCheckOnClickHandler = () => {
-        console.log(inputCheckTypeRef.current?.checked);
+    const inputCheckOnChangeHandler = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        id: number
+    ) => {
+        userCheckBoxClickHandler(id, e.target.checked);
     };
 
     const hideOnClickHandler = (id: number, isHide: boolean) => {
         if (isHide) {
             dispatch(
-                setCommunityHideCancel([{id}])
+                setCommunityHideCancel([id])
             )
         } else {
             dispatch(
-                setCommunityHide([{id}])
+                setCommunityHide([id])
             )
         }
     };
@@ -54,18 +58,6 @@ const CommunityMainTableBodyForm = ({
         )
     };
 
-    const inputCheckOnChangeHandler = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        userCheckBoxClickHandler(parseInt(event.target.id), event.target.checked);
-    };
-
-    // 제휴업체 디테일로 넘어가기
-    const cooperationDetailOnClickHandler = (brdSeq: number) => {
-        navigate(`/community/${brdSeq}`);
-    };
-    // console.log("확인중 : " + srnNum);
-
     return (
         <CommunityTbody>
             {list
@@ -75,8 +67,15 @@ const CommunityMainTableBodyForm = ({
                             <tr>
                                 <CommunityTableContent rowSpan={2}>
                                     <CommunityCheckBoxWrapper>
-                                        <CommunityInputCheckBox id="checkbox_body"/>
-                                        <CommunityLabelCheckBox htmlFor="checkbox_body"/>
+                                        <CommunityInputCheckBox
+                                            id={data.id.toString()}
+                                            ref={inputCheckTypeRef}
+                                            onChange={(event) => {
+                                                inputCheckOnChangeHandler(event, data.id);
+                                            }}
+                                            checked={!!checkList.includes(data.id)}
+                                        />
+                                        <CommunityLabelCheckBox htmlFor={data.id.toString()}/>
                                     </CommunityCheckBoxWrapper>
                                 </CommunityTableContent>
                                 <CommunityTableContent rowSpan={2}>

@@ -321,3 +321,21 @@ export const AdvertisementDefaultPositionSwitchDropDownMap: DropDownMapType = {
   R: "우측",
   M: "중앙",
 };
+
+export const CommunityCategoryDropDownMap: DropDownMapType = {
+  전체: "all",
+  제보: "report",
+  "포토 갤러리": "gallery",
+  "내 차 자랑": "boast",
+  "차량 정보": "information",
+};
+
+export const CommunityFilterDropDownMap: DropDownMapType = {
+  전체: "all",
+  제목: "title",
+  "작성자 닉네임" : "nickname",
+  "작성자 회원번호": "userSeq",
+  "작성자 이름" : "userName",
+  "작성자 아이디": "userId",
+  "등록 일자" : "createdDate",
+};
