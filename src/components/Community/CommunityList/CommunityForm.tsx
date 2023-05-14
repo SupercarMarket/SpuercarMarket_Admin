@@ -10,7 +10,7 @@ import CommunityTopBannerForm from "./PageItems/TopBanner/CommunityTopBannerForm
 import CommunityMainTableForm from "./PageItems/Table/CommunityMainTableForm";
 import PaginationForm from "../../Common/Pagination/PaginationForm";
 
-const CommunityForm = () => {
+const CommunityForm = ({setCategory}:any) => {
   const paginationCount = 10;
   // 페이지당 몇개 그려줄지
   const postsPerPage = 20;
@@ -20,7 +20,7 @@ const CommunityForm = () => {
   const startPage = 1;
   const [isPage, setIsPage] = useState<number>(startPage);
   const offset = (isPage - 1) * postsPerPage;
-  const { isLoading, filter, keyword, currentPage, totalElements } =
+  const { isLoading, searchType, keyword, currentPage, category } =
     useAppSelector((state) => state.CommunitySlice);
   const dispatch = useAppDispatch();
 
@@ -30,11 +30,12 @@ const CommunityForm = () => {
 
     if (isPage === currentPage) {
       dispatch(
-        getCommunityList({
-          filter: filter as string,
-          keyword: keyword as string,
-          page: isPage,
-        })
+          getCommunityList({
+            category: category as string,
+            searchType: searchType as string,
+            keyword: keyword as string,
+            page: currentPage as number
+          })
       );
     }
     setIsPage(() => currentPage);

@@ -2,7 +2,7 @@ import React from "react";
 
 export interface DropDownPropsType {
   category: string;
-  // onclick event propps
+  // onclick event props
   LiOnClick: React.MouseEventHandler<HTMLLIElement>;
   titleRef: React.RefObject<HTMLSpanElement>;
 }
