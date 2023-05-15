@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { Fragment, useRef } from "react";
 import {
   Tbody,
   BodyButton,
@@ -47,36 +47,36 @@ const TableBodyForm = ({
   };
 
   return (
-    <Tbody>
+    <Tbody key={"cooperationInquiry-uuid"}>
       {inquiryList.map((item, index) => {
         return (
-          <>
-            {/*<tr key={index}>*/}
-            <BodyContent rowSpan={2}>
-              <CheckBoxWrapper>
-                <InputCheckBox
-                  id={item.brdSeq.toString()}
-                  ref={inputCheckTypeRef}
-                  onClick={inputCheckOnClickHandler}
-                  onChange={(event) => {
-                    inputCheckOnChangeHandler(event);
-                  }}
-                  checked={!!inquiryCheckList.includes(item.brdSeq)}
-                />
-                <LabelCheckBox htmlFor={item.brdSeq.toString()} />
-              </CheckBoxWrapper>
-            </BodyContent>
-            <BodyContent colSpan={2}>{item.companyName}</BodyContent>
-            <BodyContent>{item.category}</BodyContent>
-            <BodyContent>
-              평일 {item.workingTime.split("-")[0]}:00 ~
-              {item.workingTime.split("-")[1]}:00
-            </BodyContent>
-            <BodyContent>{item.wiredNumber}</BodyContent>
-            <BodyContent rowSpan={2}>
-              <BodyButton>업체 등록</BodyButton>
-            </BodyContent>
-            {/*</tr>*/}
+          <Fragment key={item.brdSeq}>
+            <tr>
+              <BodyContent rowSpan={2}>
+                <CheckBoxWrapper>
+                  <InputCheckBox
+                    id={item.brdSeq.toString()}
+                    ref={inputCheckTypeRef}
+                    onClick={inputCheckOnClickHandler}
+                    onChange={(event) => {
+                      inputCheckOnChangeHandler(event);
+                    }}
+                    checked={!!inquiryCheckList.includes(item.brdSeq)}
+                  />
+                  <LabelCheckBox htmlFor={item.brdSeq.toString()} />
+                </CheckBoxWrapper>
+              </BodyContent>
+              <BodyContent colSpan={2}>{item.companyName}</BodyContent>
+              <BodyContent>{item.category}</BodyContent>
+              <BodyContent>
+                평일 {item.workingTime.split("-")[0]}:00 ~
+                {item.workingTime.split("-")[1]}:00
+              </BodyContent>
+              <BodyContent>{item.wiredNumber}</BodyContent>
+              <BodyContent rowSpan={2}>
+                <BodyButton>업체 등록</BodyButton>
+              </BodyContent>
+            </tr>
             <tr>
               <BodyContent>{item.representative}</BodyContent>
               <BodyContent>{item.address}</BodyContent>
@@ -84,7 +84,7 @@ const TableBodyForm = ({
               <BodyContent>{item.website}</BodyContent>
               <BodyContent>{item.phoneNumber}</BodyContent>
             </tr>
-          </>
+          </Fragment>
         );
       })}
     </Tbody>

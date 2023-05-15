@@ -123,9 +123,9 @@ const CooperationSlice = createSlice({
     },
     // 문의 전체 체크
     setCooperationInquiryListAllChecked: (state, action) => {
-      if (action.payload.inquiryAllChecked) {
+      if (action.payload.allChecked) {
         const checked: number[] = [];
-        state.list.forEach((list) => {
+        state.inquiryList.forEach((list) => {
           // if (!list.pdtApper) {
           checked.push(list.brdSeq);
           // }
