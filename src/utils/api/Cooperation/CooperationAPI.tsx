@@ -37,12 +37,15 @@ export const getCooperationInquiryListHandler = async (
   page: number
 ) => {
   try {
-    const result = await ClientAxios.get(`partnership/inquiry`, {
+    return await ClientAxios.get(`partnerships/inquiry`, {
       params: {
         filter: filter,
         keyword: keyword,
         page: page,
       },
     });
-  } catch (error) {}
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response;
+  }
 };

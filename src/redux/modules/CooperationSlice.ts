@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { InitCooperationStateType } from "types/CooperationType";
 import {
+  getCooperationInquiryListHandler,
   getCooperationListHandler,
   getDetailCooperationItemHandler,
 } from "../../utils/api/Cooperation/CooperationAPI";
@@ -12,6 +13,7 @@ const initState = {
   filter: "",
   keyword: "",
   list: [],
+  inquiryList: [],
   allChecked: false,
   checkList: [],
   isChecked: false,
@@ -23,12 +25,28 @@ interface CooperationListDataType {
   keyword: string;
   page: number;
 }
-// 매물 리스트 조회하기
+// 제휴업체 리스트 조회하기
 export const getCooperationList = createAsyncThunk(
   "GET/getCooperationtList",
   async (params: CooperationListDataType, thunkApi) => {
     try {
       const response = await getCooperationListHandler(
+        params.filter,
+        params.keyword,
+        params.page
+      );
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+// 제휴업체 문의 리스트 조회하기
+export const getCooperationInquiryList = createAsyncThunk(
+  "GET/getCooperationtInquiryList",
+  async (params: CooperationListDataType, thunkApi) => {
+    try {
+      const response = await getCooperationInquiryListHandler(
         params.filter,
         params.keyword,
         params.page
@@ -122,6 +140,7 @@ const CooperationSlice = createSlice({
       .addCase(getCooperationList.rejected, (state, action) => {
         state.isLoading = true;
       })
+
       // 매물 리스트 상세 조회
       .addCase(getCooperationDetail.pending, (state, action) => {
         state.isLoading = true;
@@ -133,6 +152,25 @@ const CooperationSlice = createSlice({
         }
       })
       .addCase(getCooperationDetail.rejected, (state, action) => {
+        state.isLoading = true;
+      })
+
+      // 제휴업체 문의 리스트 조회
+      .addCase(getCooperationInquiryList.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getCooperationInquiryList.fulfilled, (state, action) => {
+        if (action.payload?.status === 200) {
+          state.isLoading = false;
+          state.totalPages = action.payload.data.totalPages;
+          state.totalElements = action.payload.data.totalElements;
+          // state.list = [];
+          state.inquiryList = action.payload.data.contents;
+        } else {
+          return state;
+        }
+      })
+      .addCase(getCooperationInquiryList.rejected, (state, action) => {
         state.isLoading = true;
       });
   },

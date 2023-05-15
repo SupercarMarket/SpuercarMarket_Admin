@@ -74,9 +74,27 @@ export interface InitCooperationStateType {
   keyword?: string;
   allChecked: boolean;
   list: CooperationListType[];
+  inquiryList: CooperationInquiryListType[];
   detailItem?: CooperationDetailType;
   checkList: number[];
   isChecked: boolean;
   currentPage: number;
   // 상세 조회
+}
+export interface CooperationInquiryListType {
+  brdSeq: number;
+  representative: string;
+  userName: string;
+  address: string;
+  category: string;
+  treatedItem: string;
+  workingTime: string;
+  website: string;
+  wiredNumber: string;
+  phoneNumber: string;
+  createdDate: string;
+  companyName: string;
+  isAppear: boolean;
+  contents: string;
+  accepted: boolean;
 }
