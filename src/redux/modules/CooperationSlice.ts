@@ -16,6 +16,8 @@ const initState = {
   inquiryList: [],
   allChecked: false,
   checkList: [],
+  inquiryCheckList: [],
+  inquiryAllChecked: false,
   isChecked: false,
   currentPage: 1,
 } as InitCooperationStateType;
@@ -117,6 +119,36 @@ const CooperationSlice = createSlice({
           (item) => item !== action.payload.brdSeq
         );
         state.allChecked = false;
+      }
+    },
+    // 문의 전체 체크
+    setCooperationInquiryListAllChecked: (state, action) => {
+      if (action.payload.inquiryAllChecked) {
+        const checked: number[] = [];
+        state.list.forEach((list) => {
+          // if (!list.pdtApper) {
+          checked.push(list.brdSeq);
+          // }
+        });
+        state.inquiryCheckList = checked;
+      } else {
+        state.inquiryCheckList = [];
+      }
+      state.inquiryAllChecked = !state.inquiryAllChecked;
+    },
+    // 문의 각각 체크
+    setCooperationInquiryListEachChecked: (state, action) => {
+      if (action.payload.isChecked) {
+        state.inquiryCheckList = [
+          ...state.inquiryCheckList,
+          action.payload.brdSeq,
+        ];
+        state.inquiryAllChecked = true;
+      } else {
+        state.inquiryCheckList = state.inquiryCheckList.filter(
+          (item) => item !== action.payload.brdSeq
+        );
+        state.inquiryAllChecked = false;
       }
     },
   },

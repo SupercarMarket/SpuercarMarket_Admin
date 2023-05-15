@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Tbody,
   BodyButton,
@@ -8,16 +8,44 @@ import {
   LabelCheckBox,
 } from "./TableBodyForm.styled";
 import { CooperationPropsType } from "../../../../../../types/CooperationType";
-import { useAppSelector } from "../../../../../../store/rootReducer";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../../store/rootReducer";
+import { CooperationAction } from "../../../../../../redux/modules/CooperationSlice";
+import { useNavigate } from "react-router";
 
 const TableBodyForm = ({
   offset,
   postsPerPage,
   totalContentsCount,
 }: CooperationPropsType) => {
-  const { inquiryList, checkList } = useAppSelector(
+  const inputCheckTypeRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { inquiryList, inquiryCheckList } = useAppSelector(
     (state) => state.CooperationSlice
   );
+  // 항목 체크 박스 셋업
+  const userCheckBoxClickHandler = (brdSeq: number, isChecked: boolean) => {
+    dispatch(
+      CooperationAction.setCooperationInquiryListEachChecked({
+        brdSeq,
+        isChecked,
+      })
+    );
+  };
+
+  const inputCheckOnClickHandler = () => {
+    console.log(inputCheckTypeRef.current?.checked);
+  };
+
+  const inputCheckOnChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    userCheckBoxClickHandler(parseInt(event.target.id), event.target.checked);
+  };
+
   return (
     <Tbody>
       {inquiryList.map((item, index) => {
@@ -26,8 +54,16 @@ const TableBodyForm = ({
             {/*<tr key={index}>*/}
             <BodyContent rowSpan={2}>
               <CheckBoxWrapper>
-                <InputCheckBox id="checkbox_body" />
-                <LabelCheckBox htmlFor="checkbox_body" />
+                <InputCheckBox
+                  id={item.brdSeq.toString()}
+                  ref={inputCheckTypeRef}
+                  onClick={inputCheckOnClickHandler}
+                  onChange={(event) => {
+                    inputCheckOnChangeHandler(event);
+                  }}
+                  checked={!!inquiryCheckList.includes(item.brdSeq)}
+                />
+                <LabelCheckBox htmlFor={item.brdSeq.toString()} />
               </CheckBoxWrapper>
             </BodyContent>
             <BodyContent colSpan={2}>{item.companyName}</BodyContent>

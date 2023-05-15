@@ -77,6 +77,8 @@ export interface InitCooperationStateType {
   inquiryList: CooperationInquiryListType[];
   detailItem?: CooperationDetailType;
   checkList: number[];
+  inquiryCheckList: number[];
+  inquiryAllChecked: boolean;
   isChecked: boolean;
   currentPage: number;
   // 상세 조회
