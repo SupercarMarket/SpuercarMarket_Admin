@@ -1,31 +1,25 @@
 import React, { useRef } from "react";
 import {
-  MarketTableBody,
-  MarketTableBodyRowSpan,
+  DisableMarketInputCheckBox,
+  DisableMarketTableBodyButton,
   MarketCheckBoxWrapper,
   MarketInputCheckBox,
   MarketLabelCheckBox,
+  MarketTableBody,
+  MarketTableBodyButton,
   MarketTableBodyClamp,
   MarketTableBodyNoSpan,
-  MarketTableBodyButton,
-  DisableMarketTableBodyButton,
-  DisableMarketInputCheckBox,
+  MarketTableBodyRowSpan,
 } from "./ForSaleTableBodyForm.styled";
 
-import {
-  ForSaleListPropsType,
-  CategoryMap,
-} from "../../../../../../types/ForSaleList";
+import { ForSaleListPropsType } from "../../../../../../types/ForSaleList";
 import { MarketAction } from "../../../../../../redux/modules/MarketSlice";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../../../store/rootReducer";
 import { useNavigate } from "react-router";
-import { setAdvertisementComplete } from "../../../../../../redux/modules/AdvertisementSlice";
 import ClientAxios from "../../../../../../utils/api/AxiosAPI/ClientAxios";
-import { AdminLogout } from "../../../../../../utils/api/Login/LoginAPI";
-import { AxiosError } from "axios/index";
 
 const ForSaleTableBodyForm = ({
   offset,

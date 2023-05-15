@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { InitCooperationStateType } from "types/CooperationType";
-import { getCooperationListHandler } from "../../utils/api/Cooperation/CooperationAPI";
+import {
+  getCooperationListHandler,
+  getDetailCooperationItemHandler,
+} from "../../utils/api/Cooperation/CooperationAPI";
 
 const initState = {
   isLoading: false,
@@ -37,22 +40,23 @@ export const getCooperationList = createAsyncThunk(
   }
 );
 
-interface getCooperationListDetailType {
+interface getCooperationDetailType {
   brdSeq: string;
 }
 
-// export const getMarketListDetail = createAsyncThunk(
-//   "GET/getMarketListDetail",
-//   async (params: getMarketListDetailType, thunkApi) => {
-//     try {
-//       const response = await getDetailMarketItemHandler(params.brdSeq);
-//       console.log(response);
-//       return response;
-//     } catch (error) {
-//       return thunkApi.rejectWithValue(error);
-//     }
-//   }
-// );
+export const getCooperationDetail = createAsyncThunk(
+  "GET/getCooperationDetail",
+  async (params: getCooperationDetailType, thunkApi) => {
+    try {
+      console.log(params.brdSeq);
+      const response = await getDetailCooperationItemHandler(params.brdSeq);
+      console.log(response);
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
 
 const CooperationSlice = createSlice({
   name: "CooperationSlice",
@@ -117,20 +121,20 @@ const CooperationSlice = createSlice({
       })
       .addCase(getCooperationList.rejected, (state, action) => {
         state.isLoading = true;
+      })
+      // 매물 리스트 상세 조회
+      .addCase(getCooperationDetail.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getCooperationDetail.fulfilled, (state, action) => {
+        if (action.payload?.status === 200) {
+          state.isLoading = false;
+          state.detailItem = { ...state.detailItem, ...action.payload.data };
+        }
+      })
+      .addCase(getCooperationDetail.rejected, (state, action) => {
+        state.isLoading = true;
       });
-    // 매물 리스트 상세 조회
-    //   .addCase(getMarketListDetail.pending, (state, action) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(getMarketListDetail.fulfilled, (state, action) => {
-    //     if (action.payload?.status === 200) {
-    //       state.isLoading = false;
-    //       state.detailItem = { ...state.detailItem, ...action.payload.data };
-    //     }
-    //   })
-    //   .addCase(getMarketListDetail.rejected, (state, action) => {
-    //     state.isLoading = true;
-    //   });
   },
 });
 

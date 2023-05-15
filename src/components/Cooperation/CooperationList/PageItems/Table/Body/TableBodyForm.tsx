@@ -46,18 +46,32 @@ const TableBodyForm = ({}: CooperationPropsType) => {
   };
 
   //숨기기 / 숨기기 취소
-  const hidePartnershipHandler = async (id: number) => {
-    await ClientAxios.post(`/partnerships/hide/${id}`)
-      .then((response) => {
-        if (response.status === 200) {
-          alert("[완료]");
-          // eslint-disable-next-line no-restricted-globals
-          location.reload();
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+  const hidePartnershipHandler = async (id: number, isAppear: boolean) => {
+    if (isAppear) {
+      await ClientAxios.post(`/partnerships/hide/${id}`)
+        .then((response) => {
+          if (response.status === 200) {
+            alert("[완료]");
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    } else {
+      await ClientAxios.post(`/partnerships/unHide/${id}`)
+        .then((response) => {
+          if (response.status === 200) {
+            alert("[완료]");
+            // eslint-disable-next-line no-restricted-globals
+            location.reload();
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
   };
 
   return (
@@ -93,7 +107,10 @@ const TableBodyForm = ({}: CooperationPropsType) => {
               </BodyContent>
               <BodyContent colSpan={2}>{item.companyName}</BodyContent>
               <BodyContent>{TypeOfBusiness[item.category]}</BodyContent>
-              <BodyContent>{item.workingTime}</BodyContent>
+              <BodyContent>
+                평일 {item.workingTime.split("-")[0]}:00 ~{" "}
+                {item.workingTime.split("-")[1]}:00
+              </BodyContent>
               <BodyContent>{item.wiredNumber}</BodyContent>
               <BodyContent
                 rowSpan={2}
@@ -101,7 +118,11 @@ const TableBodyForm = ({}: CooperationPropsType) => {
                   event.stopPropagation();
                 }}
               >
-                <BodyButton onClick={() => hidePartnershipHandler(item.brdSeq)}>
+                <BodyButton
+                  onClick={() =>
+                    hidePartnershipHandler(item.brdSeq, item.isAppear)
+                  }
+                >
                   {item.isAppear ? "숨기기" : "숨기기 취소"}
                 </BodyButton>
               </BodyContent>
