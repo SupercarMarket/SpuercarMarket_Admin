@@ -5,50 +5,59 @@ import BlackCheckBox from "../../../../../../assets/black_checkbox.svg";
 export const Tbody = styled.tbody``;
 
 export const BodyContent = styled.td`
-    height: 40px;
+  height: 40px;
 
-    text-align:center;
-    vertical-align:middle;
+  text-align: center;
+  vertical-align: middle;
 
-    border : 1px solid ${({theme}) => theme.colors.greyScale_3};
+  border: 1px solid ${({ theme }) => theme.colors.greyScale_3};
 `;
 
-export const BodyButton = styled( Button )``;
+export const BodyButton = styled(Button)``;
+
+export const DisableBodyButton = styled(Button)`
+  background-color: ${({ theme }) => theme.colors.greyScale_3};
+  color: ${({ theme }) => theme.colors.greyScale_5};
+
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid ${({ theme }) => theme.colors.greyScale_1};
+`;
 
 export const TableBodyClamp = styled.div`
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* ellipsis line */
-    -webkit-box-orient: vertical;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* ellipsis line */
+  -webkit-box-orient: vertical;
 `;
 
 export const CheckBoxWrapper = styled.div`
   /* inline-block 사이에 공백이 생기게 되는데, parent 태그에 font-size: 0를 적용하면 해결 */
   /* &+label의 display를 block으로 바꾸면 font-size 주석처리 해도 됨 */
-  font-size:0;
+  font-size: 0;
   /* inline-block 끼리 높이가 안맞을 때 상위 공백이 생기게 되는데 vertical-align: top을 적용하면 해결 */
   /* vertical-align: top; */
 `;
 
-export const InputCheckBox = styled.input.attrs({ type : "checkbox" } )`
+export const InputCheckBox = styled.input.attrs({ type: "checkbox" })`
   display: none;
   /* + 연산 : 바로 옆 태그를 참조 */
-  /* 체크 된 상태 CSS */ 
-  &+label{
+  /* 체크 된 상태 CSS */
+  & + label {
     cursor: pointer;
     position: relative;
 
-    display:inline-block;
-    width:18px;
-    height:18px;
-    border:2px solid #1E1E20;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #1e1e20;
     border-radius: 4px;
     vertical-align: middle;
   }
-  
-  &:checked+label{
+
+  &:checked + label {
     width: 18px;
-    height:18px;
+    height: 18px;
     background-image: url(${BlackCheckBox});
     background-repeat: no-repeat;
     background-position: center;

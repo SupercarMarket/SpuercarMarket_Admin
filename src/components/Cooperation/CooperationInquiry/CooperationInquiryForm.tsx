@@ -6,11 +6,11 @@ import PaginationForm from "../../Common/Pagination/PaginationForm";
 import {
   CooperationAction,
   getCooperationInquiryList,
-  getCooperationList,
 } from "../../../redux/modules/CooperationSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/rootReducer";
 
 const CooperationInquiryForm = () => {
+  const [init, setInit] = useState<boolean>(false);
   const paginationCount = 10;
   // 페이지당 몇개 그려줄지
   const postsPerPage = 20;
@@ -40,11 +40,11 @@ const CooperationInquiryForm = () => {
     }
 
     setIsPage(() => currentPage);
-  }, [isPage, currentPage, dispatch]);
+  }, [isPage, currentPage, dispatch, init]);
 
   return (
     <Wrapper>
-      <TopBannerForm />
+      <TopBannerForm setInit={setInit} />
       <CooperationInquiryMainTableForm
         offset={offset}
         postsPerPage={postsPerPage}

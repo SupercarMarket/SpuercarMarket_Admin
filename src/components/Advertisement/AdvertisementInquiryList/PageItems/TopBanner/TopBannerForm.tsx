@@ -21,11 +21,8 @@ const TopBannerForm = () => {
   let Likeyword = "";
   const SearchBarInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const { inquiryCheckList } = useAppSelector(
-    (state) => state.AdvertisementSlice
-  );
 
-  const { totalElements, keyword } = useAppSelector(
+  const { inquiryCheckList, totalElements, keyword } = useAppSelector(
     (state) => state.AdvertisementSlice
   );
 
@@ -45,7 +42,6 @@ const TopBannerForm = () => {
       alert("검색어를 입력하세요");
       return;
     }
-    console.log("enter");
     dispatch(
       getAdvertisementInquiryList({
         keyword: Likeyword as string,

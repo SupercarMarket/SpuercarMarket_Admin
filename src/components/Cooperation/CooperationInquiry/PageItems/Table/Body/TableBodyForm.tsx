@@ -1,19 +1,23 @@
 import React, { Fragment, useRef } from "react";
 import {
-  Tbody,
-  BodyButton,
   BodyContent,
   CheckBoxWrapper,
+  DisableBodyButton,
   InputCheckBox,
   LabelCheckBox,
+  Tbody,
 } from "./TableBodyForm.styled";
 import { CooperationPropsType } from "../../../../../../types/CooperationType";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../../../store/rootReducer";
-import { CooperationAction } from "../../../../../../redux/modules/CooperationSlice";
+import {
+  CooperationAction,
+  setPartnershipProgress,
+} from "../../../../../../redux/modules/CooperationSlice";
 import { useNavigate } from "react-router";
+import { BodyButton } from "../../../../CooperationList/PageItems/Table/Body/TableBodyForm.styled";
 
 const TableBodyForm = ({
   offset,
@@ -36,9 +40,7 @@ const TableBodyForm = ({
     );
   };
 
-  const inputCheckOnClickHandler = () => {
-    console.log(inputCheckTypeRef.current?.checked);
-  };
+  const inputCheckOnClickHandler = () => {};
 
   const inputCheckOnChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -46,13 +48,32 @@ const TableBodyForm = ({
     userCheckBoxClickHandler(parseInt(event.target.id), event.target.checked);
   };
 
+  // 제휴업체 문의 디테일로 넘어가기
+  const cooperationInquiryDetailOnClickHandler = (brdSeq: number) => {
+    navigate(`/cooperationinquirylist/${brdSeq}`);
+  };
+
+  const progressOnClickHandler = (brdSeq: string) => {
+    dispatch(setPartnershipProgress({ brdSeq: brdSeq as string }));
+  };
+
   return (
     <Tbody key={"cooperationInquiry-uuid"}>
       {inquiryList.map((item, index) => {
         return (
           <Fragment key={item.brdSeq}>
-            <tr>
-              <BodyContent rowSpan={2}>
+            <tr
+              onClick={() =>
+                cooperationInquiryDetailOnClickHandler(item.brdSeq)
+              }
+              style={{ cursor: "pointer" }}
+            >
+              <BodyContent
+                rowSpan={2}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
                 <CheckBoxWrapper>
                   <InputCheckBox
                     id={item.brdSeq.toString()}
@@ -73,11 +94,41 @@ const TableBodyForm = ({
                 {item.workingTime.split("-")[1]}:00
               </BodyContent>
               <BodyContent>{item.wiredNumber}</BodyContent>
-              <BodyContent rowSpan={2}>
-                <BodyButton>업체 등록</BodyButton>
-              </BodyContent>
+              {item.accepted === "WAITING" ? (
+                <BodyContent
+                  rowSpan={2}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                  }}
+                >
+                  <BodyButton
+                    onClick={() =>
+                      progressOnClickHandler(item.brdSeq.toString())
+                    }
+                  >
+                    업체 등록
+                  </BodyButton>
+                </BodyContent>
+              ) : (
+                <BodyContent
+                  rowSpan={2}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                  }}
+                  style={{ cursor: "auto" }}
+                >
+                  <DisableBodyButton style={{ cursor: "auto" }}>
+                    {item.accepted === "ACCEPTED" ? "등록된 업체" : "반려"}
+                  </DisableBodyButton>
+                </BodyContent>
+              )}
             </tr>
-            <tr>
+            <tr
+              onClick={() =>
+                cooperationInquiryDetailOnClickHandler(item.brdSeq)
+              }
+              style={{ cursor: "pointer" }}
+            >
               <BodyContent>{item.representative}</BodyContent>
               <BodyContent>{item.address}</BodyContent>
               <BodyContent>{item.treatedItem}</BodyContent>

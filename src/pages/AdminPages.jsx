@@ -81,7 +81,7 @@ const AdminPages = () => {
           element={<CooperationInquiryForm />}
         />
         <Route
-          path="/cooperationinquirylist/:cooperationlistId"
+          path="/cooperationinquirylist/:brdSeq"
           element={<CooperationInquiryDetailForm />}
         />
         {/* 광고 관리*/}

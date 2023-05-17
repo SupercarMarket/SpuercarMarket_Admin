@@ -1,9 +1,11 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { InitCooperationStateType } from "types/CooperationType";
 import {
   getCooperationInquiryListHandler,
   getCooperationListHandler,
+  getDetailCooperationInquiryItemHandler,
   getDetailCooperationItemHandler,
+  setPartnershipInquiryProgressHandler,
 } from "../../utils/api/Cooperation/CooperationAPI";
 
 const initState = {
@@ -32,12 +34,11 @@ export const getCooperationList = createAsyncThunk(
   "GET/getCooperationtList",
   async (params: CooperationListDataType, thunkApi) => {
     try {
-      const response = await getCooperationListHandler(
+      return await getCooperationListHandler(
         params.filter,
         params.keyword,
         params.page
       );
-      return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -48,12 +49,11 @@ export const getCooperationInquiryList = createAsyncThunk(
   "GET/getCooperationtInquiryList",
   async (params: CooperationListDataType, thunkApi) => {
     try {
-      const response = await getCooperationInquiryListHandler(
+      return await getCooperationInquiryListHandler(
         params.filter,
         params.keyword,
         params.page
       );
-      return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -68,9 +68,35 @@ export const getCooperationDetail = createAsyncThunk(
   "GET/getCooperationDetail",
   async (params: getCooperationDetailType, thunkApi) => {
     try {
-      console.log(params.brdSeq);
-      const response = await getDetailCooperationItemHandler(params.brdSeq);
-      console.log(response);
+      return await getDetailCooperationItemHandler(params.brdSeq);
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const getCooperationInquiryDetail = createAsyncThunk(
+  "GET/getCooperationInquiryDetail",
+  async (params: getCooperationDetailType, thunkApi) => {
+    try {
+      return await getDetailCooperationInquiryItemHandler(params.brdSeq);
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+// 제휴업체 문의 완료처리
+export const setPartnershipProgress = createAsyncThunk(
+  "POST/setPartnershipInquiryConfirm",
+  async (params: getCooperationDetailType, thunkApi) => {
+    try {
+      const response = await setPartnershipInquiryProgressHandler(
+        params.brdSeq
+      );
+      alert("처리되었습니다");
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
       return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
@@ -88,6 +114,8 @@ const CooperationSlice = createSlice({
     },
     // 필터 reducer
     setCooperationListFilter: (state, action) => {
+      console.log("filter");
+      console.log(action.payload.filter);
       state.filter = action.payload.filter;
     },
     // keyword reducer
@@ -203,6 +231,23 @@ const CooperationSlice = createSlice({
         }
       })
       .addCase(getCooperationInquiryList.rejected, (state, action) => {
+        state.isLoading = true;
+      })
+      // 매물 리스트 상세 조회
+      .addCase(getCooperationInquiryDetail.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getCooperationInquiryDetail.fulfilled, (state, action) => {
+        if (action.payload?.status === 200) {
+          state.isLoading = false;
+
+          state.detailItem = {
+            ...state.detailItem,
+            ...action.payload.data,
+          };
+        }
+      })
+      .addCase(getCooperationInquiryDetail.rejected, (state, action) => {
         state.isLoading = true;
       });
   },

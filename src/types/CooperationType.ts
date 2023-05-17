@@ -46,6 +46,7 @@ export interface CooperationDetailType {
   treatedItem: string;
   workingTime: string;
   website: string;
+  accepted?: string;
   wiredNumber: string;
   phoneNumber: string;
   userName: string;
@@ -76,6 +77,7 @@ export interface InitCooperationStateType {
   list: CooperationListType[];
   inquiryList: CooperationInquiryListType[];
   detailItem?: CooperationDetailType;
+  inquiryDetailItem?: CooperationDetailType;
   checkList: number[];
   inquiryCheckList: number[];
   inquiryAllChecked: boolean;
@@ -98,5 +100,5 @@ export interface CooperationInquiryListType {
   companyName: string;
   isAppear: boolean;
   contents: string;
-  accepted: boolean;
+  accepted: string;
 }
