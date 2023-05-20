@@ -12,7 +12,10 @@ import CompanyIntroForm from "../Detail/CompanyIntro/CompanyIntroForm";
 import PhotoRegistarationTableForm from "../Detail/PhotoRegistrationTable/PhotoRegistarationTableForm";
 import DownLoadFileForm from "../Detail/DownLoadFile/DownLoadFileForm";
 import ModalForm from "../Modal/ModalForm";
-import { getCooperationInquiryDetail } from "../../../redux/modules/CooperationSlice";
+import {
+  getCooperationInquiryDetail,
+  setPartnershipProgress,
+} from "../../../redux/modules/CooperationSlice";
 import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../store/rootReducer";
 
@@ -23,6 +26,9 @@ const CooperationInquiryDetailForm = () => {
   const dispatch = useAppDispatch();
 
   const { detailItem } = useAppSelector((state) => state.CooperationSlice);
+  const progressOnClickHandler = (brdSeq: string) => {
+    dispatch(setPartnershipProgress({ brdSeq: brdSeq as string }));
+  };
 
   useEffect(() => {
     dispatch(getCooperationInquiryDetail({ brdSeq: brdSeq as string }));
@@ -37,7 +43,13 @@ const CooperationInquiryDetailForm = () => {
       <DownLoadFileForm />
       {detailItem?.accepted === "WAITING" ? (
         <HiddenButtonWrapper>
-          <HiddenButton>업체 등록</HiddenButton>
+          <HiddenButton
+            onClick={() =>
+              progressOnClickHandler(detailItem?.brdSeq.toString())
+            }
+          >
+            업체 등록
+          </HiddenButton>
           <HiddenButton onClick={() => setIsOpenModal(!isOpenModal)}>
             반려
           </HiddenButton>
