@@ -10,7 +10,7 @@ const CommunityMainTableForm = ( { offset, postsPerPage, totalContentsCount } : 
   return (
     <CommunityMainTableWrapper>
       <CommunityTable>
-        <CommunityMainTableHeaderForm />
+        <CommunityMainTableHeaderForm/>
         <CommunityMainTableBodyForm
           offset={offset}
           postsPerPage={postsPerPage}
