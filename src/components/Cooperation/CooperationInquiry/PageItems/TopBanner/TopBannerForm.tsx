@@ -18,6 +18,7 @@ import {
   getCooperationInquiryList,
 } from "../../../../../redux/modules/CooperationSlice";
 import { CooperationListDropDownMap } from "../../../../../types/DropDownType";
+import ClientAxios from "../../../../../utils/api/AxiosAPI/ClientAxios";
 
 interface Props {
   setInit: (init: boolean) => void;
@@ -82,6 +83,20 @@ const TopBannerForm = ({ setInit }: Props) => {
       SearchBarInputClickHandler();
     }
   };
+  //숨기기 / 숨기기 취소
+  const ConfirmPartnershipHandler = async () => {
+    await ClientAxios.post(`/partnerships/accept`, inquiryCheckList)
+      .then((response) => {
+        if (response.status === 200) {
+          alert("[완료]");
+          // eslint-disable-next-line no-restricted-globals
+          location.reload();
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
   return (
     <TopWrapper>
@@ -98,7 +113,9 @@ const TopBannerForm = ({ setInit }: Props) => {
         />
       </TopLeftWrapper>
       <TopRightWrapper>
-        <TopHideButton>선택 항목 업체 등록</TopHideButton>
+        <TopHideButton onClick={ConfirmPartnershipHandler}>
+          선택 항목 업체 등록
+        </TopHideButton>
         <TotalTopButton>{`문의 업체 수 ${totalElements}개`}</TotalTopButton>
       </TopRightWrapper>
     </TopWrapper>

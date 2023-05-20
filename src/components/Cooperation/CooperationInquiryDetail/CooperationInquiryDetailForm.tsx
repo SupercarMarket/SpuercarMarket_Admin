@@ -13,22 +13,20 @@ import PhotoRegistarationTableForm from "../Detail/PhotoRegistrationTable/PhotoR
 import DownLoadFileForm from "../Detail/DownLoadFile/DownLoadFileForm";
 import ModalForm from "../Modal/ModalForm";
 import { getCooperationInquiryDetail } from "../../../redux/modules/CooperationSlice";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../store/rootReducer";
 
 const CooperationInquiryDetailForm = () => {
   const { brdSeq } = useParams();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [refresh, setRefresh] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  const { isLoading, detailItem } = useAppSelector(
-    (state) => state.CooperationSlice
-  );
+  const { detailItem } = useAppSelector((state) => state.CooperationSlice);
 
   useEffect(() => {
     dispatch(getCooperationInquiryDetail({ brdSeq: brdSeq as string }));
-  }, [brdSeq, dispatch]);
+  }, [brdSeq, dispatch, refresh]);
   return (
     <Wrapper>
       <PageTitle title="제휴업체 등록 문의 정보" />
@@ -57,6 +55,7 @@ const CooperationInquiryDetailForm = () => {
           <ModalForm
             setIsOpenModal={setIsOpenModal}
             isOpenModal={isOpenModal}
+            setRefresh={setRefresh}
           />
         )}
       </>

@@ -15,13 +15,17 @@ import { TextArea } from "../../Market/VehicleRegistrationInquiryDetail/VehicleR
 interface ModalPropsType {
   isOpenModal: boolean;
   setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ModalForm = ({ isOpenModal, setIsOpenModal }: ModalPropsType) => {
+const ModalForm = ({
+  isOpenModal,
+  setIsOpenModal,
+  setRefresh,
+}: ModalPropsType) => {
   const { brdSeq } = useParams();
-  const [refresh, setRefresh] = useState<boolean>(false);
+
   const [rejectReasonText, setRejectReasonText] = useState<string>("");
-  const dispatch = useAppDispatch();
 
   const textChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setRejectReasonText(event.currentTarget.value);
@@ -38,19 +42,24 @@ const ModalForm = ({ isOpenModal, setIsOpenModal }: ModalPropsType) => {
       document.body.style.cssText = "";
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
-  }, [refresh]);
+  }, []);
 
   const rejectHandler = async () => {
+    // const partnershipIdList = [brdSeq];
+
     const rejectProductDto = {
-      brdSeq: brdSeq,
-      accept: false,
+      // partnershipIdList: partnershipIdList,
       comment: rejectReasonText,
     };
-    await ClientAxios.post(`/partnerships/reject`, rejectProductDto, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    await ClientAxios.post(
+      `/partnerships/${brdSeq}/rejected`,
+      rejectProductDto,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => {
         if (response.status === 200) {
           alert("[제휴업체 문의 반려 완료]");

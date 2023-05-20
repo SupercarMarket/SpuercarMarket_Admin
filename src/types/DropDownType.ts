@@ -85,12 +85,7 @@ export const DropDownItemMap: DropDownMapItemsType = {
     { name: "내 차 자랑" },
     { name: "차량 정보" },
   ],
-  cooperation_list: [
-    { name: "전체" },
-    { name: "업체명" },
-    { name: "업종" },
-    { name: "주소" },
-  ],
+  cooperation_list: [{ name: "전체" }, { name: "업체명" }, { name: "주소" }],
   advertisement_position: [
     { name: "홈" },
     { name: "매장" },
@@ -261,14 +256,12 @@ export const BannerListDropDownMap: DropDownMapType = {
 export const CooperationListDropDownMap: DropDownMapType = {
   전체: "ALL",
   업체명: "companyName",
-  업종: "category",
   주소: "address",
 };
 
 export const CooperationListSwitchDropDownMap: DropDownMapType = {
   ALL: "전체",
   companyName: "업체명",
-  category: "업종",
   address: "주소",
 };
 
