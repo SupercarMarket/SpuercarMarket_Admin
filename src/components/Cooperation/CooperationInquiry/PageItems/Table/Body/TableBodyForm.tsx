@@ -18,12 +18,9 @@ import {
 } from "../../../../../../redux/modules/CooperationSlice";
 import { useNavigate } from "react-router";
 import { BodyButton } from "../../../../CooperationList/PageItems/Table/Body/TableBodyForm.styled";
+import { CooperationCategoryDropDownMap } from "../../../../../../types/DropDownType";
 
-const TableBodyForm = ({
-  offset,
-  postsPerPage,
-  totalContentsCount,
-}: CooperationPropsType) => {
+const TableBodyForm = ({}: CooperationPropsType) => {
   const inputCheckTypeRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -88,7 +85,9 @@ const TableBodyForm = ({
                 </CheckBoxWrapper>
               </BodyContent>
               <BodyContent colSpan={2}>{item.companyName}</BodyContent>
-              <BodyContent>{item.category}</BodyContent>
+              <BodyContent>
+                {CooperationCategoryDropDownMap[item.category] as string}
+              </BodyContent>
               <BodyContent>
                 평일 {item.workingTime.split("-")[0]}:00 ~
                 {item.workingTime.split("-")[1]}:00

@@ -25,7 +25,7 @@ export const TypeOfBusiness: CategoryMapType = {
 
 export interface CooperationListType {
   brdSeq: number;
-  userName: string;
+  representative: string;
   address: string;
   category: string;
   treatedItem: string;

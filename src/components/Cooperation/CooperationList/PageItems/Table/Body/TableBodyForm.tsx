@@ -131,7 +131,7 @@ const TableBodyForm = ({}: CooperationPropsType) => {
               onClick={() => cooperationDetailOnClickHandler(item.brdSeq)}
               style={{ cursor: "pointer" }}
             >
-              <BodyContent>{item.userName}</BodyContent>
+              <BodyContent>{item.representative}</BodyContent>
               <BodyContent>{item.address}</BodyContent>
               <BodyContent>{item.treatedItem}</BodyContent>
               <BodyContent style={{ cursor: "pointer" }}>

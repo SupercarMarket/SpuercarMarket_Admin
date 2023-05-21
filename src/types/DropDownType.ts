@@ -259,6 +259,14 @@ export const CooperationListDropDownMap: DropDownMapType = {
   주소: "address",
 };
 
+export const CooperationCategoryDropDownMap: DropDownMapType = {
+  DEALER_SHOP: "자동차 매장",
+  CAR_CENTER: "공업사",
+  DETAILING: "디테일링",
+  PAINTING: "도색",
+  ETC: "기타",
+};
+
 export const CooperationListSwitchDropDownMap: DropDownMapType = {
   ALL: "전체",
   companyName: "업체명",
@@ -338,9 +346,9 @@ export const CommunityCategoryDropDownMap: DropDownMapType = {
 export const CommunityFilterDropDownMap: DropDownMapType = {
   전체: "all",
   제목: "title",
-  "작성자 닉네임" : "nickname",
+  "작성자 닉네임": "nickname",
   "작성자 회원번호": "userSeq",
-  "작성자 이름" : "userName",
+  "작성자 이름": "userName",
   "작성자 아이디": "userId",
-  "등록 일자" : "createdDate",
+  "등록 일자": "createdDate",
 };
