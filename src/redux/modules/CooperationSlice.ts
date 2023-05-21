@@ -1,6 +1,12 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { InitCooperationStateType } from "types/CooperationType";
-import { getCooperationListHandler } from "../../utils/api/Cooperation/CooperationAPI";
+import {
+  getCooperationInquiryListHandler,
+  getCooperationListHandler,
+  getDetailCooperationInquiryItemHandler,
+  getDetailCooperationItemHandler,
+  setPartnershipInquiryProgressHandler,
+} from "../../utils/api/Cooperation/CooperationAPI";
 
 const initState = {
   isLoading: false,
@@ -9,8 +15,11 @@ const initState = {
   filter: "",
   keyword: "",
   list: [],
+  inquiryList: [],
   allChecked: false,
   checkList: [],
+  inquiryCheckList: [],
+  inquiryAllChecked: false,
   isChecked: false,
   currentPage: 1,
 } as InitCooperationStateType;
@@ -20,39 +29,80 @@ interface CooperationListDataType {
   keyword: string;
   page: number;
 }
-// 매물 리스트 조회하기
+// 제휴업체 리스트 조회하기
 export const getCooperationList = createAsyncThunk(
   "GET/getCooperationtList",
   async (params: CooperationListDataType, thunkApi) => {
     try {
-      const response = await getCooperationListHandler(
+      return await getCooperationListHandler(
         params.filter,
         params.keyword,
         params.page
       );
-      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+// 제휴업체 문의 리스트 조회하기
+export const getCooperationInquiryList = createAsyncThunk(
+  "GET/getCooperationtInquiryList",
+  async (params: CooperationListDataType, thunkApi) => {
+    try {
+      return await getCooperationInquiryListHandler(
+        params.filter,
+        params.keyword,
+        params.page
+      );
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
   }
 );
 
-interface getCooperationListDetailType {
+interface getCooperationDetailType {
   brdSeq: string;
 }
 
-// export const getMarketListDetail = createAsyncThunk(
-//   "GET/getMarketListDetail",
-//   async (params: getMarketListDetailType, thunkApi) => {
-//     try {
-//       const response = await getDetailMarketItemHandler(params.brdSeq);
-//       console.log(response);
-//       return response;
-//     } catch (error) {
-//       return thunkApi.rejectWithValue(error);
-//     }
-//   }
-// );
+export const getCooperationDetail = createAsyncThunk(
+  "GET/getCooperationDetail",
+  async (params: getCooperationDetailType, thunkApi) => {
+    try {
+      return await getDetailCooperationItemHandler(params.brdSeq);
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const getCooperationInquiryDetail = createAsyncThunk(
+  "GET/getCooperationInquiryDetail",
+  async (params: getCooperationDetailType, thunkApi) => {
+    try {
+      return await getDetailCooperationInquiryItemHandler(params.brdSeq);
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+// 제휴업체 문의 완료처리
+export const setPartnershipProgress = createAsyncThunk(
+  "POST/setPartnershipInquiryConfirm",
+  async (params: getCooperationDetailType, thunkApi) => {
+    try {
+      const response = await setPartnershipInquiryProgressHandler(
+        params.brdSeq
+      );
+      alert("처리되었습니다");
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
 
 const CooperationSlice = createSlice({
   name: "CooperationSlice",
@@ -64,6 +114,8 @@ const CooperationSlice = createSlice({
     },
     // 필터 reducer
     setCooperationListFilter: (state, action) => {
+      console.log("filter");
+      console.log(action.payload.filter);
       state.filter = action.payload.filter;
     },
     // keyword reducer
@@ -72,36 +124,60 @@ const CooperationSlice = createSlice({
     },
     // 전체 체크
     setCooperationListAllChecked: (state, action) => {
-      // if (action.payload.allChecked) {
-      //   const checked: number[] = [];
-      //   state.list.forEach((list) => {
-      //     console.log(list);
-      //     if (!list.pdtApper) {
-      //       checked.push(list.brdSeq);
-      //     }
-      //   });
-      //   state.checkList = checked;
-      //   console.log(state.checkList);
-      // } else {
-      //   state.checkList = [];
-      // }
-      // state.allChecked = !state.allChecked;
-      // console.log(state.allChecked);
+      if (action.payload.allChecked) {
+        const checked: number[] = [];
+        state.list.forEach((list) => {
+          // if (!list.pdtApper) {
+          checked.push(list.brdSeq);
+          // }
+        });
+        state.checkList = checked;
+      } else {
+        state.checkList = [];
+      }
+      state.allChecked = !state.allChecked;
     },
     // 각각 체크
     setCooperationListEachChecked: (state, action) => {
-      // if (action.payload.isChecked) {
-      //   state.checkList = [...state.checkList, action.payload.brdSeq];
-      //   // const length = state.list.filter((list) => !list.pdtApper).length;
-      //   if (length === state.checkList.length) {
-      //     state.allChecked = true;
-      //   }
-      // } else {
-      //   state.checkList = state.checkList.filter(
-      //     (item) => item !== action.payload.brdSeq
-      //   );
-      //   state.allChecked = false;
-      // }
+      if (action.payload.isChecked) {
+        state.checkList = [...state.checkList, action.payload.brdSeq];
+        state.allChecked = true;
+      } else {
+        state.checkList = state.checkList.filter(
+          (item) => item !== action.payload.brdSeq
+        );
+        state.allChecked = false;
+      }
+    },
+    // 문의 전체 체크
+    setCooperationInquiryListAllChecked: (state, action) => {
+      if (action.payload.allChecked) {
+        const checked: number[] = [];
+        state.inquiryList.forEach((list) => {
+          // if (!list.pdtApper) {
+          checked.push(list.brdSeq);
+          // }
+        });
+        state.inquiryCheckList = checked;
+      } else {
+        state.inquiryCheckList = [];
+      }
+      state.inquiryAllChecked = !state.inquiryAllChecked;
+    },
+    // 문의 각각 체크
+    setCooperationInquiryListEachChecked: (state, action) => {
+      if (action.payload.isChecked) {
+        state.inquiryCheckList = [
+          ...state.inquiryCheckList,
+          action.payload.brdSeq,
+        ];
+        state.inquiryAllChecked = true;
+      } else {
+        state.inquiryCheckList = state.inquiryCheckList.filter(
+          (item) => item !== action.payload.brdSeq
+        );
+        state.inquiryAllChecked = false;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -123,20 +199,57 @@ const CooperationSlice = createSlice({
       })
       .addCase(getCooperationList.rejected, (state, action) => {
         state.isLoading = true;
+      })
+
+      // 매물 리스트 상세 조회
+      .addCase(getCooperationDetail.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getCooperationDetail.fulfilled, (state, action) => {
+        if (action.payload?.status === 200) {
+          state.isLoading = false;
+          state.detailItem = { ...state.detailItem, ...action.payload.data };
+        }
+      })
+      .addCase(getCooperationDetail.rejected, (state, action) => {
+        state.isLoading = true;
+      })
+
+      // 제휴업체 문의 리스트 조회
+      .addCase(getCooperationInquiryList.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getCooperationInquiryList.fulfilled, (state, action) => {
+        if (action.payload?.status === 200) {
+          state.isLoading = false;
+          state.totalPages = action.payload.data.totalPages;
+          state.totalElements = action.payload.data.totalElements;
+          // state.list = [];
+          state.inquiryList = action.payload.data.contents;
+        } else {
+          return state;
+        }
+      })
+      .addCase(getCooperationInquiryList.rejected, (state, action) => {
+        state.isLoading = true;
+      })
+      // 매물 리스트 상세 조회
+      .addCase(getCooperationInquiryDetail.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getCooperationInquiryDetail.fulfilled, (state, action) => {
+        if (action.payload?.status === 200) {
+          state.isLoading = false;
+
+          state.detailItem = {
+            ...state.detailItem,
+            ...action.payload.data,
+          };
+        }
+      })
+      .addCase(getCooperationInquiryDetail.rejected, (state, action) => {
+        state.isLoading = true;
       });
-    // 매물 리스트 상세 조회
-    //   .addCase(getMarketListDetail.pending, (state, action) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(getMarketListDetail.fulfilled, (state, action) => {
-    //     if (action.payload?.status === 200) {
-    //       state.isLoading = false;
-    //       state.detailItem = { ...state.detailItem, ...action.payload.data };
-    //     }
-    //   })
-    //   .addCase(getMarketListDetail.rejected, (state, action) => {
-    //     state.isLoading = true;
-    //   });
   },
 });
 

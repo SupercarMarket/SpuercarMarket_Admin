@@ -11,6 +11,7 @@ export interface InitAdvertisementStateType {
   totalElements: number;
   totalPages: number;
   filter?: string;
+  status?: string;
   page?: string;
   year?: number;
   month?: number;

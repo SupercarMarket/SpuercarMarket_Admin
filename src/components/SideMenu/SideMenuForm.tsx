@@ -151,7 +151,7 @@ const SubMenuItems: SubMenuItemTypes = {
       key: "inquriy",
       name: "광고 문의",
       isClicked: false,
-      path: "회원정보 리스트",
+      path: "/advertisementlist/inquiry",
     },
     {
       key: "inquriy",

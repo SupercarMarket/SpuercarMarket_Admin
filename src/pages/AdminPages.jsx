@@ -73,7 +73,7 @@ const AdminPages = () => {
         {/* 제휴 업체 */}
         <Route path="/cooperationlist" element={<CooperationListForm />} />
         <Route
-          path="/cooperationlist/:cooperationlistId"
+          path="/cooperationlist/:brdSeq"
           element={<CooperationListDetailForm />}
         />
         <Route
@@ -81,7 +81,7 @@ const AdminPages = () => {
           element={<CooperationInquiryForm />}
         />
         <Route
-          path="/cooperationinquirylist/:cooperationlistId"
+          path="/cooperationinquirylist/:brdSeq"
           element={<CooperationInquiryDetailForm />}
         />
         {/* 광고 관리*/}

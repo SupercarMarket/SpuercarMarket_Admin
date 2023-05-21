@@ -60,6 +60,7 @@ const initState = {
       commentCount: 0,
       regAdmin: "",
       regAdminEmail: "",
+      comment: "",
     },
   },
 } as InitMarketStateType;

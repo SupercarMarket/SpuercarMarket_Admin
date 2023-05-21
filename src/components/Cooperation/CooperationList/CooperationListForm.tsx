@@ -11,7 +11,6 @@ import PaginationForm from "../../Common/Pagination/PaginationForm";
 import { Wrapper } from "./CooperationListForm.styled";
 
 const CooperationListForm = () => {
-  const paginationCount = 10;
   // 페이지당 몇개 그려줄지
   const postsPerPage = 20;
   // 총 길이
@@ -21,7 +20,7 @@ const CooperationListForm = () => {
   const [isPage, setIsPage] = useState<number>(startPage);
   const offset = (isPage - 1) * postsPerPage;
 
-  const { isLoading, filter, keyword, currentPage, totalElements } =
+  const { isLoading, filter, keyword, currentPage, totalPages } =
     useAppSelector((state) => state.CooperationSlice);
   const dispatch = useAppDispatch();
 
@@ -53,7 +52,7 @@ const CooperationListForm = () => {
             totalContentsCount={totalContentsCount}
           />
           <PaginationForm
-            paginationCount={paginationCount}
+            paginationCount={totalPages}
             postsPerPage={postsPerPage}
             totalContentsCount={totalContentsCount}
             isPage={isPage}

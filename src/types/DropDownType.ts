@@ -2,7 +2,7 @@ import React from "react";
 
 export interface DropDownPropsType {
   category: string;
-  // onclick event propps
+  // onclick event props
   LiOnClick: React.MouseEventHandler<HTMLLIElement>;
   titleRef: React.RefObject<HTMLSpanElement>;
 }
@@ -85,12 +85,7 @@ export const DropDownItemMap: DropDownMapItemsType = {
     { name: "내 차 자랑" },
     { name: "차량 정보" },
   ],
-  cooperation_list: [
-    { name: "전체" },
-    { name: "업체명" },
-    { name: "업종" },
-    { name: "주소" },
-  ],
+  cooperation_list: [{ name: "전체" }, { name: "업체명" }, { name: "주소" }],
   advertisement_position: [
     { name: "홈" },
     { name: "매장" },
@@ -123,6 +118,7 @@ export const DropDownItemMap: DropDownMapItemsType = {
     { name: "10" },
   ],
   advertisement_page_list: [
+    { name: "전체" },
     { name: "메인" },
     { name: "매장" },
     { name: "매거진" },
@@ -131,6 +127,11 @@ export const DropDownItemMap: DropDownMapItemsType = {
     { name: "문의" },
     { name: "통합검색" },
     { name: "LIVE" },
+  ],
+  advertisement_page_state_list: [
+    { name: "전체" },
+    { name: "종료" },
+    { name: "진행 중" },
   ],
 
   month_list: [
@@ -255,14 +256,12 @@ export const BannerListDropDownMap: DropDownMapType = {
 export const CooperationListDropDownMap: DropDownMapType = {
   전체: "ALL",
   업체명: "companyName",
-  업종: "category",
   주소: "address",
 };
 
 export const CooperationListSwitchDropDownMap: DropDownMapType = {
   ALL: "전체",
   companyName: "업체명",
-  category: "업종",
   address: "주소",
 };
 
@@ -280,6 +279,7 @@ export const BannerOrderList: DropDownMapType = {
 };
 
 export const AdvertisementSetPageSwitchDropDownMap: DropDownMapType = {
+  전체: "",
   메인: "SM001",
   매장: "SM002",
   매거진: "SM003",
@@ -288,6 +288,11 @@ export const AdvertisementSetPageSwitchDropDownMap: DropDownMapType = {
   문의: "SM006",
   통합검색: "SM007",
   LIVE: "SM008",
+};
+export const AdvertisementSetStateSwitchDropDownMap: DropDownMapType = {
+  전체: "",
+  "진행 중": "ing",
+  종료: "end",
 };
 
 export const AdvertisementSetMonthSwitchDropDownMap: DropDownMapType = {
@@ -320,4 +325,22 @@ export const AdvertisementDefaultPositionSwitchDropDownMap: DropDownMapType = {
   L: "좌측",
   R: "우측",
   M: "중앙",
+};
+
+export const CommunityCategoryDropDownMap: DropDownMapType = {
+  전체: "all",
+  제보: "report",
+  "포토 갤러리": "gallery",
+  "내 차 자랑": "boast",
+  "차량 정보": "information",
+};
+
+export const CommunityFilterDropDownMap: DropDownMapType = {
+  전체: "all",
+  제목: "title",
+  "작성자 닉네임" : "nickname",
+  "작성자 회원번호": "userSeq",
+  "작성자 이름" : "userName",
+  "작성자 아이디": "userId",
+  "등록 일자" : "createdDate",
 };

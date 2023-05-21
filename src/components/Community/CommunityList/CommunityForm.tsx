@@ -11,7 +11,6 @@ import CommunityMainTableForm from "./PageItems/Table/CommunityMainTableForm";
 import PaginationForm from "../../Common/Pagination/PaginationForm";
 
 const CommunityForm = () => {
-  const paginationCount = 10;
   // 페이지당 몇개 그려줄지
   const postsPerPage = 20;
   // 총 길이
@@ -20,7 +19,7 @@ const CommunityForm = () => {
   const startPage = 1;
   const [isPage, setIsPage] = useState<number>(startPage);
   const offset = (isPage - 1) * postsPerPage;
-  const { isLoading, filter, keyword, currentPage, totalElements } =
+  const { isLoading, searchType, keyword, currentPage, category, totalPages } =
     useAppSelector((state) => state.CommunitySlice);
   const dispatch = useAppDispatch();
 
@@ -31,14 +30,15 @@ const CommunityForm = () => {
     if (isPage === currentPage) {
       dispatch(
         getCommunityList({
-          filter: filter as string,
+          category: category as string,
+          searchType: searchType as string,
           keyword: keyword as string,
-          page: isPage,
+          page: currentPage as number,
         })
       );
     }
     setIsPage(() => currentPage);
-  }, [isPage, currentPage, dispatch]);
+  }, [isPage, currentPage, dispatch, category]);
 
   return (
     <Wrapper>
@@ -51,7 +51,7 @@ const CommunityForm = () => {
             totalContentsCount={totalContentsCount}
           />
           <PaginationForm
-            paginationCount={paginationCount}
+            paginationCount={totalPages}
             postsPerPage={postsPerPage}
             totalContentsCount={totalContentsCount}
             isPage={isPage}

@@ -11,7 +11,6 @@ import PaginationForm from "../../Common/Pagination/PaginationForm";
 import { Wrapper } from "./AdvertisementListForm.styled";
 
 const AdvertisementListForm = () => {
-  const paginationCount = 10;
   // 페이지당 몇개 그려줄지
   const postsPerPage = 20;
   // 총 길이
@@ -21,9 +20,15 @@ const AdvertisementListForm = () => {
   const [isPage, setIsPage] = useState<number>(startPage);
   const offset = (isPage - 1) * postsPerPage;
 
-  const { isLoading, filter, keyword, currentPage, updated } = useAppSelector(
-    (state) => state.AdvertisementSlice
-  );
+  const {
+    isLoading,
+    filter,
+    keyword,
+    currentPage,
+    updated,
+    status,
+    totalPages,
+  } = useAppSelector((state) => state.AdvertisementSlice);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -35,13 +40,14 @@ const AdvertisementListForm = () => {
         getAdvertisementList({
           filter: filter as string,
           keyword: keyword as string,
+          status: status as string,
           page: isPage,
         })
       );
     }
 
     setIsPage(() => currentPage);
-  }, [isPage, currentPage, dispatch, updated]);
+  }, [isPage, currentPage, dispatch, updated, filter, status]);
 
   return (
     <Wrapper>
@@ -54,7 +60,7 @@ const AdvertisementListForm = () => {
             totalContentsCount={totalContentsCount}
           />
           <PaginationForm
-            paginationCount={paginationCount}
+            paginationCount={totalPages}
             postsPerPage={postsPerPage}
             totalContentsCount={totalContentsCount}
             isPage={isPage}

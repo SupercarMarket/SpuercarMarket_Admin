@@ -24,7 +24,7 @@ export const getCooperationListHandler = async (
 // 제휴업체 리스트 상세 조회
 export const getDetailCooperationItemHandler = async (brdSeq: string) => {
   try {
-    return await ClientAxios.get(`partnership/${brdSeq}`);
+    return await ClientAxios.get(`partnerships/${brdSeq}`);
   } catch (error) {
     const { response } = error as unknown as AxiosError;
     return response;
@@ -37,12 +37,37 @@ export const getCooperationInquiryListHandler = async (
   page: number
 ) => {
   try {
-    const result = await ClientAxios.get(`partnership/inquiry`, {
+    return await ClientAxios.get(`partnerships/inquiry`, {
       params: {
         filter: filter,
         keyword: keyword,
         page: page,
       },
     });
-  } catch (error) {}
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response;
+  }
+};
+
+// 제휴업체 문의 상세 조회
+export const getDetailCooperationInquiryItemHandler = async (
+  brdSeq: string
+) => {
+  try {
+    return await ClientAxios.get(`partnerships/${brdSeq}/inquiry`);
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response;
+  }
+};
+
+// 제휴업체 문의 승인
+export const setPartnershipInquiryProgressHandler = async (brdSeq: string) => {
+  try {
+    return await ClientAxios.post(`partnerships/${brdSeq}/accepted`);
+  } catch (error) {
+    const { response } = error as unknown as AxiosError;
+    return response;
+  }
 };

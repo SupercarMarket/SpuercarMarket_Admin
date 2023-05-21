@@ -5,6 +5,7 @@ import { setCookie, getCookie } from "../CustomCookies/CustomCookies";
 import { LoginType } from "../../../types/LoginType";
 
 const URL = process.env.REACT_APP_ADMIN_SERVER_URL;
+// const URL = "http://localhost:8081/super-admin/v1/";
 
 const AmdinLoginHanlder = async (email: string, password: string) => {
   try {

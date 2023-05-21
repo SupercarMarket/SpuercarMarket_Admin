@@ -55,6 +55,53 @@ const initState = {
       commentCount: 0,
       regAdmin: "",
       regAdminEmail: "",
+      comment: "",
+    },
+  },
+  inquiryDetailItem: {
+    carNumber: "",
+    category: "",
+    carName: "",
+    brand: "",
+    model: "",
+    regDate: "",
+    year: "",
+    fuel: "",
+    cc: "",
+    mileage: 0,
+    color: "",
+    accident: false,
+    price: "",
+    sellType: 0,
+    transmissionType: "",
+    appear: false,
+    description: "",
+    introduction: "",
+    imgSrc: [],
+    attSrc: [],
+    accept: "",
+    dealerInfo: {
+      dlrSeq: 0,
+      comName: "",
+      comPhone: "",
+      comAddress: "",
+      guildName: "",
+      dlrNum: "",
+      dlrEmployeeCardFront: "",
+      dlrEmployeeCardBack: "",
+      dlrProfileImage: "",
+      userId: "",
+      userName: "",
+      userNickName: "",
+      userEmail: "",
+      userPhone: "",
+      userRating: "",
+      createdDate: "",
+      postCount: 0,
+      commentCount: 0,
+      regAdmin: "",
+      regAdminEmail: "",
+      comment: "",
     },
   },
 } as ForSaleInitType;
@@ -88,6 +135,21 @@ interface getDetailParamsType {
 }
 export const getForSaleDetailItem = createAsyncThunk(
   "GET/getForSaleDetailItem",
+  async (params: getDetailParamsType, thunkApi) => {
+    try {
+      const response = await getDetailForSaleInquiryItemHandler(
+        params.category,
+        params.brdSeq
+      );
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const getForSaleInquiryDetailItem = createAsyncThunk(
+  "GET/getForSaleInquiryDetailItem",
   async (params: getDetailParamsType, thunkApi) => {
     try {
       const response = await getDetailForSaleInquiryItemHandler(
@@ -177,6 +239,29 @@ const ForSaleListSlice = createSlice({
         }
       })
       .addCase(getForSaleDetailItem.rejected, (state, action) => {
+        state.isLoading = true;
+      })
+      // 판매차량 등록 문의 상세 조회
+      .addCase(getForSaleInquiryDetailItem.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getForSaleInquiryDetailItem.fulfilled, (state, action) => {
+        if (action.payload?.status === 200) {
+          state.isLoading = false;
+          // state.detailItem = {
+          //   ...state.detailItem,
+          //   ...action.payload.data,
+          // };
+          console.log(action);
+          state.inquiryDetailItem =
+            // ...state.inquiryDetailItem,
+            action.payload.data;
+          console.log(state.inquiryDetailItem);
+        } else {
+          return state;
+        }
+      })
+      .addCase(getForSaleInquiryDetailItem.rejected, (state, action) => {
         state.isLoading = true;
       })
       // 판매차량 등록 승인

@@ -26,7 +26,7 @@ const TopBannerForm = () => {
   const SearchBarInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
 
-  const { totalElements, filter, keyword } = useAppSelector(
+  const { totalElements, filter, keyword, status } = useAppSelector(
     (state) => state.AdvertisementSlice
   );
 
@@ -51,6 +51,7 @@ const TopBannerForm = () => {
       getAdvertisementList({
         filter: filter as string,
         keyword: Likeyword as string,
+        status: status as string,
         page: 1,
       })
     );

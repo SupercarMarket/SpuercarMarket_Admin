@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { type } from "@testing-library/user-event/dist/type";
 
 export const ModalOuter = styled.div`
   top: 0;
@@ -106,4 +107,44 @@ export const ModalButton = styled.button<{ title: string }>`
       title === "cancel" ? theme.colors.greyScale_4 : theme.colors.greyScale_1};
   border-radius: 4px;
   padding: 10px 20px;
+`;
+
+export const AppStyle = styled.div<{ title: string }>`
+  label {
+    display: none;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+  input[type="file"] {
+    //position: absolute;
+    //padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    display: none;
+    vertical-align: middle;
+    cursor: pointer;
+    width: 120px;
+    height: 44px;
+    font-weight: ${({ theme }) => theme.fontWeight.normal};
+    font-size: ${({ theme }) => theme.fontSize.body_16};
+    line-height: 150%;
+    color: ${({ title }) =>
+      title === "cancel"
+        ? ({ theme }) => theme.colors.greyScale_6
+        : ({ theme }) => theme.colors.greyScale_1};
+    background-color: ${({ theme, title }) =>
+      title === "cancel" ? theme.colors.greyScale_1 : theme.colors.primary};
+
+    border: 1px solid
+      ${({ theme, title }) =>
+        title === "cancel"
+          ? theme.colors.greyScale_4
+          : theme.colors.greyScale_1};
+    border-radius: 4px;
+    padding: 10px 20px;
+  }
 `;

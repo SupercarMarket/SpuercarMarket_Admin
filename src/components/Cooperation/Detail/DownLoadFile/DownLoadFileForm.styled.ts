@@ -2,46 +2,46 @@ import styled from "styled-components";
 import { Button } from "../../../Common/Button/ButtonForm.styled";
 
 export const DownLaodFileWrapper = styled.div`
-    width: 100%;
-    height : 188px;
-    display: flex;
+  width: 100%;
+  height: 188px;
+  display: flex;
 `;
 
 export const DownLaodFileTitle = styled.div`
-    width: 120px;
-    height: 100%;
+  width: 178px;
+  height: 100%;
 
-    padding: 0px 16px;
-    
-    display: flex;
-    align-items: center;
+  padding: 0px 16px;
 
-    background-color: ${({theme}) => theme.colors.greyScale_2};
+  display: flex;
+  align-items: center;
 
-    font-weight: ${({theme}) => theme.fontWeight.normal};
-    font-size:${({theme}) => theme.fontSize.body_14};
-    line-height: 150%;
-    color: ${({theme}) => theme.colors.greyScale_6};
+  background-color: ${({ theme }) => theme.colors.greyScale_2};
 
-    border-bottom : 1px solid ${({theme}) => theme.colors.greyScale_3};
+  font-weight: ${({ theme }) => theme.fontWeight.normal};
+  font-size: ${({ theme }) => theme.fontSize.body_14};
+  line-height: 150%;
+  color: ${({ theme }) => theme.colors.greyScale_6};
+
+  border-bottom: 1px solid ${({ theme }) => theme.colors.greyScale_3};
 `;
 
 export const DownLaodFileContentWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    /* width: 1480px; */
-    /* width : 100%;/ */
-    height: 100%;
-    padding : 16px;
-    border-bottom : 1px solid ${({theme}) => theme.colors.greyScale_3};
+  display: flex;
+  flex-direction: column;
+  ///* width: 1480px; */
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.greyScale_3};
 
-    gap: 12px;
+  gap: 12px;
 `;
 
 export const DownLaodFileInputButtonWrapper = styled.div`
-    display: flex;
-    gap : 8px;
-    height : 44px;
+  display: flex;
+  gap: 8px;
+  height: 44px;
 `;
 
 // export const DownLaodFileInput = styled.input.attrs({ placeholder : "파일명.png" })`
@@ -59,33 +59,32 @@ export const DownLaodFileInputButtonWrapper = styled.div`
 //     }
 // `;
 
-
 export const DownLaodFileInput = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 
-    width: 1340px;
-    padding : 16px;
+  width: 1340px;
+  padding: 16px;
 
-    font-weight: ${({theme}) => theme.fontWeight.normal};
-    font-size:${({theme}) => theme.fontSize.body_14};
-    line-height: 150%;
-    color : ${({theme}) => theme.colors.greyScale_5};
+  font-weight: ${({ theme }) => theme.fontWeight.normal};
+  font-size: ${({ theme }) => theme.fontSize.body_14};
+  line-height: 150%;
+  color: ${({ theme }) => theme.colors.greyScale_5};
 
-    border: 1px solid ${({theme}) => theme.colors.greyScale_4};
-    border-radius: 4px;
+  border: 1px solid ${({ theme }) => theme.colors.greyScale_4};
+  border-radius: 4px;
 
-    vertical-align: center;
+  vertical-align: center;
 
-    /* ::placeholder{
-        font-weight: ${({theme}) => theme.fontWeight.normal};
-        font-size:${({theme}) => theme.fontSize.body_14};
+  /* ::placeholder{
+        font-weight: ${({ theme }) => theme.fontWeight.normal};
+        font-size:${({ theme }) => theme.fontSize.body_14};
         line-height: 150%;
-        color : ${({theme}) => theme.colors.greyScale_5};
+        color : ${({ theme }) => theme.colors.greyScale_5};
     } */
 `;
 
-export const DownLaodButton = styled( Button )`
-    font-size: 16px;
+export const DownLaodButton = styled(Button)`
+  font-size: 16px;
 `;

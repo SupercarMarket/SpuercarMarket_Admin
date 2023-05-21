@@ -45,6 +45,7 @@ interface AdvertisementListDataType {
   filter: string;
   keyword: string;
   page: number;
+  status: string;
 }
 
 interface AdvertisementInquiryListDataType {
@@ -64,7 +65,8 @@ export const getAdvertisementList = createAsyncThunk(
       return await getAdvertisementListHandler(
         params.filter,
         params.keyword,
-        params.page
+        params.page,
+        params.status
       );
     } catch (error) {
       return thunkApi.rejectWithValue(error);
@@ -121,11 +123,6 @@ export const getAdvertisementInquiryDetail = createAsyncThunk(
 interface setAdvertisementInquiryType {
   checkList: number[];
 }
-interface setAdvertisementInquiryRejectType {
-  seq: number;
-  contents: string;
-}
-
 // 광고 문의 완료처리
 export const setAdvertisementProgress = createAsyncThunk(
   "POST/setAdvertisementInquiry",
@@ -221,7 +218,14 @@ const AdvertisementSlice = createSlice({
         state.inquiryAllChecked = false;
       }
     },
-
+    //광고 위치 필터 조회
+    setFilter(state, action) {
+      state.filter = action.payload.filter;
+    },
+    //광고 상태 필터 조회
+    setState(state, action) {
+      state.status = action.payload.status;
+    },
     setAdvertisementShowImage(state, action) {
       state.showImage = action.payload.showImage;
     },

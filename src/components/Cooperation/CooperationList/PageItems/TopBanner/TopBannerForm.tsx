@@ -20,6 +20,7 @@ import {
 
 import SearchBarForm from "../../../../Common/SearchBar/SearchBarForm";
 import DropDownForm from "../../../../Common/DropDown/DropDownForm";
+import ClientAxios from "../../../../../utils/api/AxiosAPI/ClientAxios";
 
 const TopBannerForm = () => {
   let Lifilter = "";
@@ -28,7 +29,7 @@ const TopBannerForm = () => {
   const SearchBarInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
 
-  const { totalElements, filter, keyword } = useAppSelector(
+  const { totalElements, filter, keyword, checkList } = useAppSelector(
     (state) => state.CooperationSlice
   );
 
@@ -79,18 +80,19 @@ const TopBannerForm = () => {
     }
   };
 
-  const hideClickHandler = () => {
-    if (window.confirm("숨기기를 실행하시겠습니까?")) {
-      alert("숨김 처리 되었습니다.");
-    } else {
-    }
-  };
-
-  const deleteClickHandler = () => {
-    if (window.confirm("삭제하시겠습니까?")) {
-      alert("삭제 되었습니다.");
-    } else {
-    }
+  //숨기기 / 숨기기 취소
+  const hidePartnershipHandler = async () => {
+    await ClientAxios.post(`/partnerships/hide`, checkList)
+      .then((response) => {
+        if (response.status === 200) {
+          alert("[완료]");
+          // eslint-disable-next-line no-restricted-globals
+          location.reload();
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   return (
@@ -108,7 +110,9 @@ const TopBannerForm = () => {
         />
       </TopLeftWrapper>
       <TopRightWrapper>
-        <TopHideButton>선택 항목 숨기기</TopHideButton>
+        <TopHideButton onClick={hidePartnershipHandler}>
+          선택 항목 숨기기
+        </TopHideButton>
         <TotalTopButton>{`총 업체 수 ${String(
           totalElements.toString()
         ).padStart(3, "0")}개`}</TotalTopButton>
