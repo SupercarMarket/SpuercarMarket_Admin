@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   DownLaodFileWrapper,
   DownLaodFileTitle,
@@ -8,12 +8,14 @@ import {
   DownLaodButton,
 } from "./DownLoadFileForm.styled";
 
-import { useAppSelector } from '../../../../../store/rootReducer';
+import { useAppSelector } from "../../../../../store/rootReducer";
 
 const DownLaodFileForm = () => {
-  const { detailItem } = useAppSelector( state => state.ForSaleListSlice );
-  
-  const downloadFileFromURL = ( fileName : string, url : string ) => {
+  const { inquiryDetailItem } = useAppSelector(
+    (state) => state.ForSaleListSlice
+  );
+
+  const downloadFileFromURL = (fileName: string, url: string) => {
     fetch(url, { method: "GET" })
       .then((res) => {
         // console.log( res );
@@ -42,18 +44,25 @@ const DownLaodFileForm = () => {
       <DownLaodFileWrapper>
         <DownLaodFileTitle>첨부 파일</DownLaodFileTitle>
         <DownLaodFileContentWrapper>
-          { detailItem?.attSrc.map( item => {
+          {inquiryDetailItem?.attSrc.map((item) => {
             return (
-              <DownLaodFileInputButtonWrapper key={ item.originName }>
+              <DownLaodFileInputButtonWrapper key={item.originName}>
                 <DownLaodFileInput>{item.originName}</DownLaodFileInput>
-                <DownLaodButton style={{ width:"105px"}} onClick={ () => downloadFileFromURL( item.originName, item.attAttachmentUrl )}>다운로드</DownLaodButton>
-              </DownLaodFileInputButtonWrapper>    
-            )
+                <DownLaodButton
+                  style={{ width: "105px" }}
+                  onClick={() =>
+                    downloadFileFromURL(item.originName, item.attAttachmentUrl)
+                  }
+                >
+                  다운로드
+                </DownLaodButton>
+              </DownLaodFileInputButtonWrapper>
+            );
           })}
         </DownLaodFileContentWrapper>
       </DownLaodFileWrapper>
     </>
   );
-}
+};
 
 export default DownLaodFileForm;

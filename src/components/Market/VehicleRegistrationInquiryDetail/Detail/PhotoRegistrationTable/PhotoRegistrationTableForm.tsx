@@ -25,8 +25,8 @@ const PhotoRegistrationTableForm = () => {
           {inquiryDetailItem?.imgSrc.map((item, index) => {
             return (
               <PhotoUploadWrapper key={index}>
-                <PhotoImage src={item} />
-                <PhotoName>파일명.jpg</PhotoName>
+                <PhotoImage src={item.attAttachmentUrl} />
+                <PhotoName>{item.originName}</PhotoName>
               </PhotoUploadWrapper>
             );
           })}

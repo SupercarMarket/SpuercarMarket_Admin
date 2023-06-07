@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   PhotoRegistrationWrapper,
   PhotoRegistrationTitle,
@@ -8,26 +8,25 @@ import {
   PhotoName,
 } from "./PhotoRegistrationTable.styled";
 
-import { useAppSelector } from '../../../../../store/rootReducer';
+import { useAppSelector } from "../../../../../store/rootReducer";
 
 const PhotoRegistrationTableForm = () => {
-  const { detailItem } = useAppSelector( state => state.MarketSlice );
-  console.log( detailItem?.imgSrc.length )
+  const { detailItem } = useAppSelector((state) => state.MarketSlice);
   return (
     <>
-    <PhotoRegistrationWrapper>
+      <PhotoRegistrationWrapper>
         <PhotoRegistrationTitle>
           <span>사진 등록</span>
           <span>(최대 20장)</span>
         </PhotoRegistrationTitle>
         <PhotoRegistrationContentWrapper>
-          { detailItem?.imgSrc.map( ( item, index ) => {
+          {detailItem?.imgSrc.map((item, index) => {
             return (
               <PhotoUploadWrapper key={index}>
-                <PhotoImage src={item}/>
-                <PhotoName>파일명.jpg</PhotoName>
+                <PhotoImage src={item.attAttachmentUrl} />
+                <PhotoName>{item.originName}</PhotoName>
               </PhotoUploadWrapper>
-            )
+            );
           })}
           {/* { Array.from({length:20}, (v, i ) => {
             return (
@@ -39,7 +38,7 @@ const PhotoRegistrationTableForm = () => {
         </PhotoRegistrationContentWrapper>
       </PhotoRegistrationWrapper>
     </>
-  )
-}
+  );
+};
 
-export default PhotoRegistrationTableForm
+export default PhotoRegistrationTableForm;

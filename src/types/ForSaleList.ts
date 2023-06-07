@@ -57,7 +57,7 @@ interface MarketItemDetailType {
   appear: boolean;
   description: string;
   introduction: string;
-  imgSrc: string[];
+  imgSrc: AttchType;
   attSrc: AttchType;
   dealerInfo: MarketItemUserInfo;
 }
@@ -84,7 +84,7 @@ interface MarketInquiryItemDetailType {
   appear: boolean;
   description: string;
   introduction: string;
-  imgSrc: string[];
+  imgSrc: AttchType;
   attSrc: AttchType;
   accept: string;
   dealerInfo: MarketItemUserInfo;
