@@ -343,6 +343,13 @@ export const CommunityCategoryDropDownMap: DropDownMapType = {
   "차량 정보": "information",
 };
 
+export const CategoryCommunityDropDownMap: DropDownMapType = {
+  report: "제보",
+  gallery: "포토 갤러리",
+  boast: "내 차 자랑",
+  information: "차량 정보",
+};
+
 export const CommunityFilterDropDownMap: DropDownMapType = {
   전체: "all",
   제목: "title",

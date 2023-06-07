@@ -7,8 +7,6 @@ import {
   TableContent,
   TableHeader,
 } from "../../../ForSaleListDetail/ForSaleListDetailForm.styled";
-
-import { CategoryMap } from "../../../../../types/ForSaleList";
 import { useAppSelector } from "../../../../../store/rootReducer";
 
 const MainInfoTableForm = () => {
@@ -29,9 +27,7 @@ const MainInfoTableForm = () => {
               </TableContent>
               {/* 차종 */}
               <TableHeader>차종</TableHeader>
-              <TableContent>
-                {CategoryMap[inquiryDetailItem?.category as string]}
-              </TableContent>
+              <TableContent>{inquiryDetailItem?.category}</TableContent>
               {/* 차량명 */}
               <TableHeader>차량명</TableHeader>
               <TableContent>{inquiryDetailItem?.carName}</TableContent>

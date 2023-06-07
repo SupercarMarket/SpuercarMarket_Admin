@@ -1,14 +1,9 @@
 import React from "react";
 import {
-  MainForSaleInfoTableWrapper,
   MainForSaleInfoTable,
+  MainForSaleInfoTableWrapper,
 } from "./MainInfoTableForm.styled";
-import {
-  TableHeader,
-  TableContent,
-} from "../../../ForSaleListDetail/ForSaleListDetailForm.styled";
-
-import { CategoryMap } from "../../../../../types/ForSaleList";
+import { TableContent, TableHeader } from "../../ForSaleListDetailForm.styled";
 import { useAppSelector } from "../../../../../store/rootReducer";
 
 const MainInfoTableForm = () => {
@@ -25,9 +20,7 @@ const MainInfoTableForm = () => {
               <TableContent>{detailItem?.carNumber}</TableContent>
               {/* 차종 */}
               <TableHeader>차종</TableHeader>
-              <TableContent>
-                {CategoryMap[detailItem?.category as string]}
-              </TableContent>
+              <TableContent>{detailItem?.category}</TableContent>
               {/* 차량명 */}
               <TableHeader>차량명</TableHeader>
               <TableContent>{detailItem?.carName}</TableContent>
