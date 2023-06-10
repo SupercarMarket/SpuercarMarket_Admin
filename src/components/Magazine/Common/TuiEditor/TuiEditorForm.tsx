@@ -21,11 +21,12 @@ function TuiEditorForm({ contents = "", editorRef, uploadedImage, setUploadedIma
 
     const onUploadImage = async (blob: Blob, callback: HookCallback) => {
         uploadImage(blob)
-            .then(() => {
-                const url = makeUploadImageURL(blob);
+            .then((url) => {
+              if(url){
                 const filename = url.split("/")[-1];
                 setUploadedImage([...uploadedImage, filename]);
                 callback(url);
+              }
                 return false;
             })
             .catch((error) => {

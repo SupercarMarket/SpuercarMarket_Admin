@@ -19,10 +19,12 @@ function ThumbnailBoxForm({ thumbnailImage, setThumbnailImage, setUploadedImage 
         }
         const fileToUpload = event.target.files[0];
         uploadImage(fileToUpload as Blob)
-            .then(() => {
-                const url = makeUploadImageURL(fileToUpload);
-                setThumbnailImage(url);
-                setUploadedImage((prevState: any) => [...prevState, url.split("/")[-1]]);
+            .then((url) => {
+                // const url = makeUploadImageURL(fileToUpload);
+                if(url){
+                    setThumbnailImage(url);
+                    setUploadedImage((prevState: any) => [...prevState, url.split("/")[-1]]);
+                }
             })
             .catch((error) => {
                 console.log(error);

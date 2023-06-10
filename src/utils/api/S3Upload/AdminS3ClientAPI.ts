@@ -36,17 +36,19 @@ export const dateFormatChange = () => {
 
 // 이미지 업로드
 export const uploadImage = async (blob: Blob) => {
+    const file = convertToFile(blob);
     const params = {
         // bucket 이름
         Bucket: AWS_Configuration.bucketName,
         // 업로드 파일이름
-        Key: convertToFile(blob).name,
+        Key: file.name,
         // 파일 스트림
-        Body: convertToFile( blob ),
+        Body: file,
     };
 
     try {
         await AdminS3Client.send(new PutObjectCommand(params));
+        return ImgURL + file.name;
     } catch (err) {
         alert('다시 시도해주세요');
     }
