@@ -98,11 +98,12 @@ const VehicleMainTableBodyForm = ({
                   rowSpan={2}
                   onClick={() => ForSaleDetailOnClickHandler(item.brdSeq)}
                 >
-                  {String(item.pdtPrice).replace(
-                    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-                    ","
-                  )}
-                  만
+                  {item.pdtPrice === 1
+                    ? "판매 완료"
+                    : String(item.pdtPrice).replace(
+                        /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                        ","
+                      ) + "만"}
                 </VehicleSaleTableContent>
                 <VehicleSaleTableBtnContent rowSpan={2}>
                   <VehicleSaleButton
