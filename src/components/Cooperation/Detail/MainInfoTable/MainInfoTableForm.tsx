@@ -32,8 +32,8 @@ const MainInfoTableForm = () => {
             {/* 업무 시간 */}
             <TableHeader>업무 시간</TableHeader>
             <TableContent>
-              평일 {detailItem?.workingTime.split("-")[0]}:00 ~{" "}
-              {detailItem?.workingTime.split("-")[1]}:00{" "}
+              {detailItem?.workingTime}
+              {/*{detailItem?.workingTime.split("-")[1]}:00{" "}*/}
             </TableContent>
             {/* 업종 */}
             <TableHeader>업종</TableHeader>
