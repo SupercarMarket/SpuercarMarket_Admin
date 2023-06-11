@@ -50,8 +50,8 @@ interface MarketItemDetailType {
   color: string;
   accident: boolean;
   // 두개 바뀐듯
-  price: string;
-  sellType: number;
+  price: number;
+  sellType: string;
   //
   transmissionType: string;
   appear: boolean;
@@ -77,8 +77,8 @@ interface MarketInquiryItemDetailType {
   color: string;
   accident: boolean;
   // 두개 바뀐듯
-  price: string;
-  sellType: number;
+  price: number;
+  sellType: string;
   //
   transmissionType: string;
   appear: boolean;

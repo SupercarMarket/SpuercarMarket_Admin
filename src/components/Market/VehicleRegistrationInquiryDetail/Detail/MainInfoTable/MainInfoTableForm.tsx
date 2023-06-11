@@ -88,10 +88,12 @@ const MainInfoTableForm = () => {
               {/* 판매가격 */}
               <TableHeader>판매가격</TableHeader>
               <TableContent>
-                {inquiryDetailItem?.price.replace(
-                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-                  ","
-                )}
+                {inquiryDetailItem?.price === 1
+                  ? "판매 완료"
+                  : String(inquiryDetailItem?.price).replace(
+                      /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                      ","
+                    ) + "만"}
               </TableContent>
             </tr>
           </tbody>
