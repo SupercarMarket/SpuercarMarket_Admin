@@ -108,8 +108,8 @@ const TableBodyForm = ({}: CooperationPropsType) => {
               <BodyContent colSpan={2}>{item.companyName}</BodyContent>
               <BodyContent>{TypeOfBusiness[item.category]}</BodyContent>
               <BodyContent>
-                평일 {item.workingTime.split("-")[0]}:00 ~{" "}
-                {item.workingTime.split("-")[1]}:00
+                {item.workingTime}
+                {/*{item.workingTime.split("-")[1]}:00*/}
               </BodyContent>
               <BodyContent>{item.wiredNumber}</BodyContent>
               <BodyContent
