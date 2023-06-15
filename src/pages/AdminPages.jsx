@@ -34,6 +34,7 @@ import AdvertisementInquiryListForm from "../components/Advertisement/Advertisem
 import AdvertisementInquiryDetailForm from "../components/Advertisement/AdvertisementInquiryDetail/AdvertisementInquiryDetailForm";
 import AdvertisementEditForm from "../components/Advertisement/AdvertisementEdit/AdvertisementEditForm";
 import AdvertisementModifyForm from "../components/Advertisement/AdvertisementModify/AdvertisementModifyForm";
+import MagazineInquiryListForm from "../components/Magazine/MagazineInquiryList/MagazineInquiryListForm";
 const AdminPages = () => {
   return (
     <Routes>
@@ -51,6 +52,7 @@ const AdminPages = () => {
         <Route path="/magazinelist" element={<MagazineListForm />} />
         <Route path="/magazinelist/:brdSeq" element={<MagazineDetailForm />} />
         <Route path="/magazinetmp" element={<MagazineTmpListForm />} />
+        <Route path="/magazine/inquiry" element={<MagazineInquiryListForm />} />
         <Route path="/magazinetmp/editor" element={<MagazineTmpEditForm />} />
         {/* 매장 관리 */}
         <Route path="/salelist" element={<ForSaleListForm />} />

@@ -11,6 +11,7 @@ import MagazineTmpSlice from "redux/modules/MagazineTmpSlice";
 import CooperationSlice from "redux/modules/CooperationSlice";
 import CommunitySlice from "redux/modules/CommunitySlice";
 import AdvertisementSlice from "../redux/modules/AdvertisementSlice";
+import MagazineInquirySlice from "../redux/modules/MagazineInquirySlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     AdminSlice: AdminSlice,
     MagazineListSlice: MagazineListSlice,
     MagazineTmpSlice: MagazineTmpSlice,
+    MagazineInquirySlice: MagazineInquirySlice,
     CooperationSlice: CooperationSlice,
     CommunitySlice: CommunitySlice,
     AdvertisementSlice: AdvertisementSlice,

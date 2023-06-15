@@ -85,6 +85,12 @@ const SubMenuItems: SubMenuItemTypes = {
       isClicked: false,
       path: "/magazinetmp",
     },
+    {
+      key: "magazine",
+      name: "매거진 상담신청 현황",
+      isClicked: false,
+      path: "/magazine/inquiry",
+    },
   ],
   community: [
     {
