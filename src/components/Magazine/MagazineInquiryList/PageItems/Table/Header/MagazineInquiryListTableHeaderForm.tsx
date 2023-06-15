@@ -39,16 +39,19 @@ const MagazineInquiryListTableHeaderForm = () => {
         <MagazineListTableHeaderRowSpan>
           상담 매거진 제목
         </MagazineListTableHeaderRowSpan>
-        <MagazineListTableHeaderRowSpan style={{ width: "15%" }}>
+        <MagazineListTableHeaderRowSpan style={{ width: "11%" }}>
           상담 신청 유저 이름
         </MagazineListTableHeaderRowSpan>
-        <MagazineListTableHeaderRowSpan style={{ width: "15%" }}>
+        <MagazineListTableHeaderRowSpan style={{ width: "11%" }}>
           상담 신청 유저 ID
         </MagazineListTableHeaderRowSpan>
-        <MagazineListTableHeaderRowSpan style={{ width: "15%" }}>
+        <MagazineListTableHeaderRowSpan style={{ width: "11%" }}>
           상담 신청 유저 전화 번호
         </MagazineListTableHeaderRowSpan>
-        <MagazineListTableHeaderRowSpan style={{ width: "15%" }}>
+        <MagazineListTableHeaderRowSpan style={{ width: "11%" }}>
+          상담 신청일
+        </MagazineListTableHeaderRowSpan>
+        <MagazineListTableHeaderRowSpan style={{ width: "11%" }}>
           상담 상태
         </MagazineListTableHeaderRowSpan>
       </tr>

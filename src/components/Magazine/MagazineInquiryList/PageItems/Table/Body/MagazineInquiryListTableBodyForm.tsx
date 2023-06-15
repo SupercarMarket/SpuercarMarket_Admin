@@ -75,6 +75,9 @@ const MagazineInquiryListTableBodyForm = () => {
                 {magazine.userPhone}
               </MagazineListTableBodyRowSpan>
               <MagazineListTableBodyRowSpan>
+                {magazine.createDate}
+              </MagazineListTableBodyRowSpan>
+              <MagazineListTableBodyRowSpan>
                 {magazine.status}
               </MagazineListTableBodyRowSpan>
             </tr>

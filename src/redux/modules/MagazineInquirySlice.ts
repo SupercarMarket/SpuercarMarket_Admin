@@ -19,6 +19,7 @@ const initState = {
     userName: "",
     userPhone: "",
     status: "",
+    createDate: "",
   },
 } as InitMagazineInquiryStateType;
 

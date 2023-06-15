@@ -6,6 +6,7 @@ export interface MagazineInquiryListType {
   userName: string;
   userPhone: string;
   status: string;
+  createDate: string;
 }
 
 // 매거진 상세 리스트 type
@@ -16,6 +17,7 @@ interface MagazineDetailType {
   userName: string;
   userPhone: string;
   status: string;
+  createDate: string;
 }
 
 // reducer initial type
