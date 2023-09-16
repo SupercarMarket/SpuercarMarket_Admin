@@ -1,0 +1,61 @@
+import React from "react";
+import {
+  CheckBoxWrapper,
+  InputCheckBox,
+  LabelCheckBox,
+  TableHeader,
+  Thead,
+} from "./TableHeaderForm.styled";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../../../store/rootReducer";
+import { CooperationAction } from "../../../../../../redux/modules/CooperationSlice";
+
+const TableHeaderForm = () => {
+  const { allChecked } = useAppSelector((state) => state.CooperationSlice);
+  const dispatch = useAppDispatch();
+  const allCheckBoxClickHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    dispatch(
+      CooperationAction.setCooperationListAllChecked({
+        allChecked: event.target.checked,
+      })
+    );
+  };
+
+  return (
+    <Thead>
+      <tr>
+        <TableHeader rowSpan={2} style={{ width: "80px", height: "80px" }}>
+          <CheckBoxWrapper>
+            <InputCheckBox
+              id="checkbox_header"
+              onChange={(event) => allCheckBoxClickHandler(event)}
+              checked={allChecked}
+            />
+            <LabelCheckBox htmlFor="checkbox_header" />
+          </CheckBoxWrapper>
+        </TableHeader>
+        <TableHeader rowSpan={2}>번호</TableHeader>
+        <TableHeader colSpan={2} style={{ width: "560px" }}>
+          업체명
+        </TableHeader>
+        <TableHeader>업종</TableHeader>
+        <TableHeader>업무 시간</TableHeader>
+        <TableHeader>전화번호</TableHeader>
+        <TableHeader rowSpan={2}>숨기기</TableHeader>
+      </tr>
+      <tr>
+        <TableHeader>대표자</TableHeader>
+        <TableHeader>주소</TableHeader>
+        <TableHeader>취급 품목</TableHeader>
+        <TableHeader>홈페이지</TableHeader>
+        <TableHeader>휴대폰 번호</TableHeader>
+      </tr>
+    </Thead>
+  );
+};
+
+export default TableHeaderForm;

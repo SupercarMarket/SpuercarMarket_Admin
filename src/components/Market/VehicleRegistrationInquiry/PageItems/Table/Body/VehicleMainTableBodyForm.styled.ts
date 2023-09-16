@@ -4,12 +4,34 @@ import { Button } from "../../../../../Common/Button/ButtonForm.styled";
 export const VehicleSaleTbody = styled.tbody``;
 
 export const VehicleSaleTableContent = styled.td`
-    height: 40px;
+  height: 40px;
 
-    text-align:center;
-    vertical-align:middle;
-    
-    border : 1px solid ${({theme}) => theme.colors.greyScale_3};
+  text-align: center;
+  vertical-align: middle;
+
+  cursor: pointer;
+
+  border: 1px solid ${({ theme }) => theme.colors.greyScale_3};
 `;
 
-export const VehicleSaleButton = styled( Button )``;
+export const VehicleSaleTableBtnContent = styled.td`
+  height: 40px;
+
+  text-align: center;
+  vertical-align: middle;
+
+  border: 1px solid ${({ theme }) => theme.colors.greyScale_3};
+`;
+
+export const VehicleSaleButton = styled(Button)<{ isAccepted: string }>`
+  color: ${({ isAccepted }) =>
+    isAccepted === "R"
+      ? ({ theme }) => theme.colors.greyScale_6
+      : ({ theme }) => theme.colors.greyScale_5};
+  background-color: ${({ isAccepted }) =>
+    isAccepted === "R"
+      ? ({ theme }) => theme.colors.greyScale_1
+      : ({ theme }) => theme.colors.greyScale_3};
+
+  pointer-events: ${({ isAccepted }) => (isAccepted === "R" ? "auto" : "none")};
+`;

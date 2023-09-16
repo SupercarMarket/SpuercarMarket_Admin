@@ -1,25 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   SearchBarWrapper,
   SearchBarInput,
   SearchBarIcon,
 } from "./SearchBarForm.styled";
+import { SearchBarProps } from "../../../types/SearchBarType";
 
-const SearchBarForm = () => {
-  const [isFocus, setIsFocus] = useState<boolean>(false);
-
-  const inputOnchangeHandler = ( event : React.ChangeEvent<HTMLInputElement> ) => {
-    if( event.target.value ){
-        setIsFocus( true );
-    }else{
-        setIsFocus( false );
-    }
-  }
+const SearchBarForm = ( { SearchBarInputRef, SearchBarOnClick, SearchBarInputOnKeyDown } : SearchBarProps ) => {
+  
 
   return (
     <SearchBarWrapper>
-      <SearchBarInput onChange={ event => inputOnchangeHandler( event )} />
-      <SearchBarIcon isFocus={ isFocus } />
+      <SearchBarInput ref={SearchBarInputRef} onKeyDown={ event => {SearchBarInputOnKeyDown( event )} }/>
+      <SearchBarIcon onClick={SearchBarOnClick} />
     </SearchBarWrapper>
   );
 };

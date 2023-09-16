@@ -15,6 +15,7 @@ export const ContentWrapperAttrs = styled.div`
 `;
 
 export const TableAttrs = styled.table`
+    width: 100%;
     font-size: ${({theme}) => theme.fontSize.header_14};
     font-weight: ${({theme}) => theme.fontWeight.normal};
     line-height: 150%;
@@ -34,6 +35,13 @@ export const TableHeader = styled( TableTdAttrs )`
 
 export const TableContent = styled( TableTdAttrs )`
     width: 280px;
+`;
+
+export const TableContentClamp = styled.div`
+    overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* ellipsis line */
+	-webkit-box-orient: vertical;
 `;
 
 export const HiddenButtonWrapper = styled.div`

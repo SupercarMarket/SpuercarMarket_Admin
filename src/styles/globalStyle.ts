@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
   
   html, body  {
     width: 100%;
+    min-width : 1800px;
     * {
       box-sizing : border-box;
       font-family: 'Pretendard';
@@ -81,7 +82,28 @@ const GlobalStyle = createGlobalStyle`
   th{
     background-color: ${({theme}) => theme.colors.greyScale_2};
   } */
-`;
 
+
+  .toastui-editor-contents p{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .toastui-editor-contents img{
+    border-radius: 1%;
+    overflow: hidden;
+  }
+  
+`;
+export enum BrandColor {
+  WHITE = "#FFF",
+  PURPLE = "#CDC3DE",
+  DARK_PURPLE_FADED = "#7B6798",
+  DARK_PURPLE = "#503374",
+  YELLOW = "#FFBF44",
+};
 
 export default GlobalStyle;

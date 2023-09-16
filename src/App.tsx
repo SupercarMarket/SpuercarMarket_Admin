@@ -1,31 +1,15 @@
 import React from 'react';
-import LoginForm from './components/Login/LoginForm';
-import HeaderForm from './components/Header/HeaderForm';
-import SideMenuForm from './components/SideMenu/SideMenuForm';
-import VehicleRegistrationInquriyForm from './components/Market/VehicleRegistrationInquiry/VehicleRegistrationInquriyForm';
-import VehicleRegistrationInquiryDetailForm from './components/Market/VehicleRegistrationInquiryDetail/VehicleRegistrationInquiryDetailForm';
+// react-router-dom
+import { BrowserRouter } from "react-router-dom";
 
-const isLogin = true;
+import AdminPages from './pages/AdminPages';
 
 function App() {
   return (
     <>
-      {isLogin ? (
-        <>
-          <HeaderForm />
-          <div style={{ display: "flex", height:"100%" }}>
-            <SideMenuForm />
-            {/* <ForSaleListForm /> */}
-            {/* <ForSaleListDetailForm /> */}
-            <VehicleRegistrationInquriyForm />
-            {/* <VehicleRegistrationInquiryDetailForm /> */}
-          </div>
-        </>
-      ) : (
-        <>
-          <LoginForm />
-        </>
-      )}
+      <BrowserRouter>
+        <AdminPages />
+      </BrowserRouter>
     </>
   );
 }
