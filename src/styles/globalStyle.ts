@@ -82,6 +82,21 @@ const GlobalStyle = createGlobalStyle`
   th{
     background-color: ${({theme}) => theme.colors.greyScale_2};
   } */
+
+
+  .toastui-editor-contents p{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .toastui-editor-contents img{
+    border-radius: 1%;
+    overflow: hidden;
+  }
+  
 `;
 export enum BrandColor {
   WHITE = "#FFF",
