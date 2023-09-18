@@ -84,14 +84,22 @@ const GlobalStyle = createGlobalStyle`
   } */
 
 
-  .toastui-editor-contents *{
+  .toastui-editor-contents {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    //justify-content: center;
     align-items: center;
-    align-content: center;
+    //align-content: center;
   }
-
+  
+  //.toastui-viewer-contents p{
+  //  display: flex;
+  //  flex-direction: column;
+  //  justify-content: center;
+  //  align-items: center;
+  //  align-content: center;
+  //}
+  //
   .toastui-editor-contents img{
     border-radius: 1%;
     overflow: hidden;
