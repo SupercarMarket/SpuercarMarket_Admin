@@ -84,12 +84,10 @@ const GlobalStyle = createGlobalStyle`
   } */
 
 
-  .toastui-editor-contents {
+  .toastui-editor-contents * {
     display: flex;
     flex-direction: column;
-    //justify-content: center;
     align-items: center;
-    //align-content: center;
   }
   
   //.toastui-viewer-contents p{
