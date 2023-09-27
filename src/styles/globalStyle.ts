@@ -84,7 +84,13 @@ const GlobalStyle = createGlobalStyle`
   } */
 
 
-  .toastui-editor-contents * {
+  .toastui-editor-contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .toastui-editor-contents div {
     display: flex;
     flex-direction: column;
     align-items: center;
